@@ -32,7 +32,7 @@ const styles = StyleSheet.create({
     height: containerH,
     alignItems: 'center',
     flexDirection: 'row',
-    backgroundColor: '#fafafe',
+    backgroundColor: 'white',
     borderBottomWidth: 0.3,
     borderBottomColor: 'gray',
   },
