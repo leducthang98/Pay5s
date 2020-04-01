@@ -9,7 +9,8 @@ import RootNavigator from './src/navigators/rootNavigator';
 import {
   StyleSheet,
   View,
-  Dimensions
+  Dimensions,
+    StatusBar,
 } from 'react-native';
 const sagaMiddleware = createSagaMiddleware()
 const store = createStore(rootReducer, applyMiddleware(sagaMiddleware, logger))
@@ -18,6 +19,7 @@ const App = () => {
   return (
     <Provider store={store}>
       <View style={styles.container}>
+        <StatusBar backgroundColor={'transparent'} translucent={true} barStyle={'dark-content'}/>
         <RootNavigator />
       </View>
     </Provider>
@@ -27,14 +29,11 @@ const containerW = Dimensions.get('window').width;
 const containerH = Dimensions.get('window').height;
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: 'black',
     width: containerW,
     height: containerH,
     alignItems: 'center',
     flexDirection: 'row',
-    backgroundColor: 'white',
-    borderBottomWidth: 0.3,
-    borderBottomColor: 'gray',
+    backgroundColor: '#FAFAFA',
   },
 });
 export default App;
