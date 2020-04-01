@@ -5,7 +5,7 @@ import AccountScreen from '../containers/accountScreen';
 import NotiScreen from '../containers/notiScreen';
 import BillScreen from '../containers/billScreen';
 import Icon from 'react-native-vector-icons/FontAwesome5';
-import {scale, scaleVertical} from '../configs/scale';
+import {scale, scaleVertical} from '../configs/Scale';
 import {ACCOUNT, DEPOSIT, HOME, NOTIFICATION} from './RouteName';
 import {Dimensions} from 'react-native';
 
@@ -32,7 +32,6 @@ export default function BottomTabNavigator() {
                     }
                     return <Icon name={iconName} size={scale(14)} color={color} />;
                 },
-
             })}
             tabBarOptions={{
                 activeTintColor: '#ff0681',

@@ -8,7 +8,7 @@ import {
   Dimensions
 } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome5';
-import { scale } from '../configs/scale';
+import { scale } from '../configs/Scale';
 const checkWallet = () => console.log("checkWallet")
 const bell = () => console.log("bell")
 const rechargeMoney = () => console.log("rechargeMoney")
@@ -20,6 +20,21 @@ const internetViettel = () => console.log("internetViettel")
 const KPlus = () => console.log("KPlus")
 const Support = () => console.log("Support")
 class HomeScreen extends React.Component {
+  constructor(props) {
+    super(props);
+    this.mainService = [
+      {iconName: 'wallet', label: 'Nạp tiền', onPress:rechargeMoney()},
+      {iconName: 'hand-holding-usd', label: 'Chuyển tiề', onPress:transfersMoney()},
+      {iconName: 'file-alt', label: 'Lịch sử', onPress:history()},
+    ];
+  }
+  
+  _renderMainService = (iconName, label, onPress) => (
+    <TouchableOpacity style={{ flex: 1, alignItems: 'center', paddingTop: scale(7) }} onPress={onPress}>
+      <Icon style={{ flex: 1 }} name={iconName} size={scale(28)} color={"#F8b195"} />
+      <Text style={{ fontSize: scale(10), paddingBottom: scale(6) }}>{label}</Text>
+    </TouchableOpacity>
+  );
 
   render() {
     return (
@@ -50,24 +65,29 @@ class HomeScreen extends React.Component {
               <Icon style={{ flex: 1 }} name={'chevron-right'} size={scale(16)} color={"black"} />
             </TouchableOpacity>
             <View style={{ height: (containerH / 5.3) * 3 / 5, borderBottomLeftRadius: scale(7), borderBottomRightRadius: scale(7), flexDirection: 'row', }}>
-              <TouchableOpacity style={{ flex: 1, alignItems: 'center', paddingTop: scale(7) }}
-                                onPress={rechargeMoney}
-              >
-                <Icon style={{ flex: 1 }} name={'wallet'} size={scale(28)} color={"#F8b195"} />
-                <Text style={{ fontSize: scale(10), paddingBottom: scale(6) }}>Nạp tiền</Text>
-              </TouchableOpacity>
-              <TouchableOpacity style={{ flex: 1, alignItems: 'center', paddingTop: scale(7) }}
-                                onPress={transfersMoney}
-              >
-                <Icon style={{ flex: 1 }} name={'hand-holding-usd'} size={scale(28)} color={"#F8b195"} />
-                <Text style={{ fontSize: scale(10), paddingBottom: scale(6) }}>Chuyển tiền</Text>
-              </TouchableOpacity>
-              <TouchableOpacity style={{ flex: 1, alignItems: 'center', paddingTop: scale(7) }}
-                                onPress={history}
-              >
-                <Icon style={{ flex: 1 }} name={'file-alt'} size={scale(28)} color={"#F8b195"} />
-                <Text style={{ fontSize: scale(10), paddingBottom: scale(6) }}>Lịch sử</Text>
-              </TouchableOpacity>
+              {/*<TouchableOpacity style={{ flex: 1, alignItems: 'center', paddingTop: scale(7) }}*/}
+              {/*                  onPress={rechargeMoney}*/}
+              {/*>*/}
+              {/*  <Icon style={{ flex: 1 }} name={'wallet'} size={scale(28)} color={"#F8b195"} />*/}
+              {/*  <Text style={{ fontSize: scale(10), paddingBottom: scale(6) }}>Nạp tiền</Text>*/}
+              {/*</TouchableOpacity>*/}
+              {/*<TouchableOpacity style={{ flex: 1, alignItems: 'center', paddingTop: scale(7) }}*/}
+              {/*                  onPress={transfersMoney}*/}
+              {/*>*/}
+              {/*  <Icon style={{ flex: 1 }} name={'hand-holding-usd'} size={scale(28)} color={"#F8b195"} />*/}
+              {/*  <Text style={{ fontSize: scale(10), paddingBottom: scale(6) }}>Chuyển tiền</Text>*/}
+              {/*</TouchableOpacity>*/}
+              {/*<TouchableOpacity style={{ flex: 1, alignItems: 'center', paddingTop: scale(7) }}*/}
+              {/*                  onPress={history}*/}
+              {/*>*/}
+              {/*  <Icon style={{ flex: 1 }} name={'file-alt'} size={scale(28)} color={"#F8b195"} />*/}
+              {/*  <Text style={{ fontSize: scale(10), paddingBottom: scale(6) }}>Lịch sử</Text>*/}
+              {/*</TouchableOpacity>*/}
+              {
+                this.mainService.map((item, index)=>{
+                  return this._renderMainService(item.iconName, item.label, item.onPress)
+                })
+              }
             </View>
           </View>
           <View style={styles.service1}>

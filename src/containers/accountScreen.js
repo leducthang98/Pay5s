@@ -1,7 +1,7 @@
 import React from 'react';
 import { Text, View, Dimensions, StyleSheet, TouchableOpacity, Image } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome5';
-import { scale } from '../configs/scale'
+import { scale } from '../configs/Scale'
 class AccountScreen extends React.Component {
   render() {
     let money = 10000000;
