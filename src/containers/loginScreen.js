@@ -1,6 +1,7 @@
 import React from 'react';
 import { Text, View } from 'react-native';
-import {BOTTOM_TAB} from '../navigators/RouteName';
+import { BOTTOM_TAB } from '../navigators/RouteName';
+
 class LoginScreen extends React.Component {
   render() {
     return (

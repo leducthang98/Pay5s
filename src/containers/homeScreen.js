@@ -5,10 +5,14 @@ import {
   TouchableOpacity,
   Text,
   ScrollView,
-  Dimensions
+  Dimensions,
+  StatusBar,
+  Platform
 } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import { scale } from '../configs/Scale';
+import { shadow } from '../configs/CommonStyles';
+import { statusBarHeight } from '../configs/Layout';
 const checkWallet = () => console.log("checkWallet")
 const bell = () => console.log("bell")
 const rechargeMoney = () => console.log("rechargeMoney")
@@ -22,13 +26,16 @@ const Support = () => console.log("Support")
 class HomeScreen extends React.Component {
   constructor(props) {
     super(props);
+    this.state = {
+
+    }
     this.mainService = [
-      {iconName: 'wallet', label: 'Nạp tiền', onPress:rechargeMoney()},
-      {iconName: 'hand-holding-usd', label: 'Chuyển tiề', onPress:transfersMoney()},
-      {iconName: 'file-alt', label: 'Lịch sử', onPress:history()},
+      { iconName: 'wallet', label: 'Nạp tiền', onPress: rechargeMoney},
+      { iconName: 'hand-holding-usd', label: 'Chuyển tiền', onPress: transfersMoney},
+      { iconName: 'file-alt', label: 'Lịch sử', onPress: history},
     ];
   }
-  
+
   _renderMainService = (iconName, label, onPress) => (
     <TouchableOpacity style={{ flex: 1, alignItems: 'center', paddingTop: scale(7) }} onPress={onPress}>
       <Icon style={{ flex: 1 }} name={iconName} size={scale(28)} color={"#F8b195"} />
@@ -40,7 +47,7 @@ class HomeScreen extends React.Component {
     return (
       <ScrollView style={styles.container}>
         <View style={{ alignItems: 'center' }}>
-          <View style={styles.header}>
+          <View style={[styles.header]}>
             <View style={styles.insideHeader}>
               <View style={{ flex: 14, flexDirection: 'row' }}>
                 <Text style={{ color: 'white', fontSize: scale(14) }}> Xin chào</Text>
@@ -61,57 +68,40 @@ class HomeScreen extends React.Component {
             >
               <Text
                 style={{ flex: 6, paddingLeft: scale(7), fontSize: scale(15) }}>Số dư Pay5s</Text>
-              <Text style={{ flex: 3, fontSize: scale(15), fontWeight: 'bold' }}>10.000.000đ</Text>
+              <Text style={{ flex: 3, fontSize: scale(15), fontWeight: 'bold',textAlign:'center' }}>10.000.000đ</Text>
               <Icon style={{ flex: 1 }} name={'chevron-right'} size={scale(16)} color={"black"} />
             </TouchableOpacity>
             <View style={{ height: (containerH / 5.3) * 3 / 5, borderBottomLeftRadius: scale(7), borderBottomRightRadius: scale(7), flexDirection: 'row', }}>
-              {/*<TouchableOpacity style={{ flex: 1, alignItems: 'center', paddingTop: scale(7) }}*/}
-              {/*                  onPress={rechargeMoney}*/}
-              {/*>*/}
-              {/*  <Icon style={{ flex: 1 }} name={'wallet'} size={scale(28)} color={"#F8b195"} />*/}
-              {/*  <Text style={{ fontSize: scale(10), paddingBottom: scale(6) }}>Nạp tiền</Text>*/}
-              {/*</TouchableOpacity>*/}
-              {/*<TouchableOpacity style={{ flex: 1, alignItems: 'center', paddingTop: scale(7) }}*/}
-              {/*                  onPress={transfersMoney}*/}
-              {/*>*/}
-              {/*  <Icon style={{ flex: 1 }} name={'hand-holding-usd'} size={scale(28)} color={"#F8b195"} />*/}
-              {/*  <Text style={{ fontSize: scale(10), paddingBottom: scale(6) }}>Chuyển tiền</Text>*/}
-              {/*</TouchableOpacity>*/}
-              {/*<TouchableOpacity style={{ flex: 1, alignItems: 'center', paddingTop: scale(7) }}*/}
-              {/*                  onPress={history}*/}
-              {/*>*/}
-              {/*  <Icon style={{ flex: 1 }} name={'file-alt'} size={scale(28)} color={"#F8b195"} />*/}
-              {/*  <Text style={{ fontSize: scale(10), paddingBottom: scale(6) }}>Lịch sử</Text>*/}
-              {/*</TouchableOpacity>*/}
               {
-                this.mainService.map((item, index)=>{
+                this.mainService.map((item, index) => {
                   return this._renderMainService(item.iconName, item.label, item.onPress)
                 })
               }
             </View>
           </View>
+
           <View style={styles.service1}>
             <TouchableOpacity style={{ flex: 1, alignItems: 'center', paddingTop: scale(7) }}
-                              onPress={rechargePhone}
+              onPress={rechargePhone}
             >
               <Icon style={{ flex: 1 }} name={'mobile-alt'} size={scale(30)} color={"#EDE574"} />
               <Text style={{ fontSize: scale(12), paddingBottom: scale(16), textAlign: 'center' }}>Nạp tiền điện thoại</Text>
             </TouchableOpacity>
             <TouchableOpacity style={{ flex: 1, alignItems: 'center', paddingTop: scale(7) }}
-                              onPress={buyCardID}
+              onPress={buyCardID}
             >
               <Icon style={{ flex: 1 }} name={'receipt'} size={scale(30)} color={"#2d5e57"} />
               <Text style={{ fontSize: scale(12), paddingBottom: scale(30), textAlign: 'center' }}
               >Mua mã thẻ</Text>
             </TouchableOpacity>
             <TouchableOpacity style={{ flex: 1, alignItems: 'center', paddingTop: scale(7) }}
-                              onPress={internetViettel}
+              onPress={internetViettel}
             >
               <Icon style={{ flex: 1 }} name={'globe'} size={scale(30)} color={"#099FFF"} />
               <Text style={{ fontSize: scale(12), paddingBottom: scale(16), textAlign: 'center' }}>Internet    Viettel</Text>
             </TouchableOpacity>
             <TouchableOpacity style={{ flex: 1, alignItems: 'center', paddingTop: scale(7) }}
-                              onPress={KPlus}
+              onPress={KPlus}
             >
               <Icon style={{ flex: 1 }} name={'korvue'} size={scale(30)} color={"#00FF00"} />
               <Text style={{ fontSize: scale(12), paddingBottom: scale(16), textAlign: 'center' }}>Gia hạn              K+</Text>
@@ -119,7 +109,7 @@ class HomeScreen extends React.Component {
           </View>
           <View style={styles.service2}>
             <TouchableOpacity style={{ flex: 1, alignItems: 'center', paddingTop: scale(7) }}
-                              onPress={Support}
+              onPress={Support}
             >
               <Icon style={{ flex: 1 }} name={'headset'} size={scale(30)} color={"#099FFF"} />
               <Text style={{ fontSize: scale(12), paddingBottom: scale(30), textAlign: 'center' }}>Chat hỗ trợ</Text>
@@ -147,8 +137,8 @@ const styles = StyleSheet.create({
     height: containerH / 5,
     borderBottomLeftRadius: scale(27),
     borderBottomRightRadius: scale(27),
-    alignItems: 'center'
-
+    alignItems: 'center',
+    paddingTop: statusBarHeight / 1.5,
 
   },
   insideHeader: {
@@ -167,23 +157,34 @@ const styles = StyleSheet.create({
     borderRadius: scale(7),
     marginTop: '-16%',
     flexDirection: 'column',
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 1,
+    },
+    shadowOpacity: 0.20,
+    shadowRadius: 1.41,
+
+    elevation: 2,
   },
   service1: {
     width: containerW / 1.08,
     height: containerH / 5.6,
     flexDirection: 'row',
     marginTop: '2%',
-    borderRadius: scale(7),
-    backgroundColor: 'white'
+    borderTopLeftRadius: scale(7),
+    borderTopRightRadius: scale(7),
+    backgroundColor: 'white',
+
 
   },
   service2: {
     width: containerW / 1.08,
     height: containerH / 5.6,
     flexDirection: 'row',
-    marginTop: '2%',
     backgroundColor: 'white',
-    borderRadius: scale(7),
+    borderBottomLeftRadius: scale(7),
+    borderBottomRightRadius: scale(7),
   },
 
 });
