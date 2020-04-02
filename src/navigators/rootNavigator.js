@@ -17,10 +17,11 @@ const Stack = createStackNavigator();
 function RootNavigator() {
     return (
         <NavigationContainer>
-            <Stack.Navigator initialRouteName={WALLET} headerMode={'none'}>
+            <Stack.Navigator initialRouteName={BOTTOM_TAB} headerMode={'none'}>
                 <Stack.Screen name={LOGIN} component={LoginScreen} />
                 <Stack.Screen name={BOTTOM_TAB} component={BottomTabNavigator} />
-                <Stack.Screen name={WALLET} component={CheckWallet} />
+                <Stack.Screen name={WALLET} component={CheckWallet} 
+                />
                 <Stack.Screen name={RECHARGEMONEY} component={RechargeMoney} />
                 <Stack.Screen name={TRANSFERMONEY} component={TransferMoney} />
           

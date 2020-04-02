@@ -99,7 +99,7 @@ const styles = StyleSheet.create({
   header: {
     width: containerW,
     height: containerH / 13,
-    backgroundColor: '#ee2797',
+    backgroundColor: '#C71585',
     justifyContent: 'center',
     alignItems: 'center',
     paddingTop: statusBarHeight / 1.5,

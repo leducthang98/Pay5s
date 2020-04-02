@@ -139,7 +139,7 @@ const styles = StyleSheet.create({
     height: containerH,
   },
   header: {
-    backgroundColor: '#ee2797',
+    backgroundColor: '#C71585',
     width: containerW + scale(20),
     height: containerH / 5,
     borderBottomLeftRadius: scale(27),
@@ -149,7 +149,7 @@ const styles = StyleSheet.create({
 
   },
   insideHeader: {
-    backgroundColor: '#ee2797',
+    backgroundColor: '#C71585',
     width: containerW / 1.08,
     height: containerH / 10,
     flexDirection: 'row',
