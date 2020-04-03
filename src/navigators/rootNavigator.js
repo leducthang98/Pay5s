@@ -12,8 +12,8 @@ const Stack = createStackNavigator();
 
 function RootNavigator() {
     return (
-        <NavigationContainer>
-            <Stack.Navigator initialRouteName={BOTTOM_TAB} headerMode={'none'}>
+        <NavigationContainer >
+            <Stack.Navigator initialRouteName={BOTTOM_TAB} headerMode={'none'} >
                 <Stack.Screen name={LOGIN} component={LoginScreen} />
                 <Stack.Screen name={BOTTOM_TAB} component={BottomTabNavigator} />
                 <Stack.Screen name={WALLET} component={CheckWallet} />
@@ -25,3 +25,4 @@ function RootNavigator() {
     );
 }
 export default RootNavigator;
+a

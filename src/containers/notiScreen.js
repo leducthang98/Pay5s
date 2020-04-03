@@ -9,4 +9,4 @@ class NotiScreen extends React.Component {
     );
   }
 }
-export default NotiScreen;
+export default NotiScreen;a

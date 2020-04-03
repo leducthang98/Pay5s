@@ -9,4 +9,4 @@ class TransferMoney extends React.Component {
     );
   }
 }
-export default TransferMoney;
+export default TransferMoney;a

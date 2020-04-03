@@ -34,9 +34,9 @@ export default function AccountTabView() {
           <Text style={{ color: 'black', }}>
             {route.title}
           </Text>
-          <View style={{backgroundColor:'black',height:'100%'}}></View>
         </View>
       )}
+      
     />
   );
   return (
@@ -57,3 +57,4 @@ const styles = StyleSheet.create({
     backgroundColor: '#FFF'
   },
 });
+a

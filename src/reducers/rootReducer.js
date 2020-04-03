@@ -13,4 +13,4 @@ export default combineReducers({
     notiReducer: NotiReducer,
     accountReducer: AccountReducer,
     billReducer: BillReducer,
-})
+})a
