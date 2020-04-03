@@ -14,7 +14,7 @@ import Icon from 'react-native-vector-icons/FontAwesome5';
 import { scale } from '../configs/Scale';
 import { shadow } from '../configs/CommonStyles';
 import { statusBarHeight } from '../configs/Layout';
-import { WALLET, NOTIFICATION, RECHARGEMONEY, TRANSFERMONEY } from '../navigators/RouteName';
+import { WALLET, NOTIFICATION, RECHARGEMONEY, TRANSFERMONEY, RECHARGEPHONE } from '../navigators/RouteName';
 const transfersMoney = () => console.log("transfersMoney")
 const rechargePhone = () => console.log("rechargePhone")
 const buyCardID = () => console.log("buyCardID")
@@ -33,7 +33,7 @@ class HomeScreen extends React.Component {
       { iconName: 'file-alt', label: 'Lịch sử', onPress: () => this.checkWallet() },
     ];
     this.otherService = [
-      { iconName: 'mobile-alt', label: 'Nạp tiền điện thoại', onPress: rechargePhone, color: "#EDE574" },
+      { iconName: 'mobile-alt', label: 'Nạp tiền điện thoại', onPress: () => this.rechargePhone(), color: "#EDE574" },
       { iconName: 'receipt', label: 'Mua mã thẻ', onPress: buyCardID, color: "#2d5e57" },
       { iconName: 'globe', label: 'Internet Viettel', onPress: internetViettel, color: "#099FFF" },
       { iconName: 'korvue', label: 'Gia hạn K+', onPress: KPlus, color: "#00FF00" },
@@ -57,6 +57,9 @@ class HomeScreen extends React.Component {
   }
   transferMoney() {
     this.props.navigation.navigate(TRANSFERMONEY)
+  }
+  rechargePhone() {
+    this.props.navigation.navigate(RECHARGEPHONE)
   }
   _renderMainService = (iconName, label, onPress) => (
     <TouchableOpacity style={{ flex: 1, alignItems: 'center', paddingTop: scale(7) }} onPress={onPress}>

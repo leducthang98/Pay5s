@@ -7,3 +7,4 @@ export const ACCOUNT = 'Account';
 export const WALLET = 'Wallet';
 export const RECHARGEMONEY = 'Recharge';
 export const TRANSFERMONEY = 'Transfer';
+export const RECHARGEPHONE = 'RechargePhone';
