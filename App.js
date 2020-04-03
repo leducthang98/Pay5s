@@ -1,16 +1,16 @@
 import React from 'react';
-import rootReducer from './src/reducers/rootReducer';
-import rootSaga from './src/sagas/rootSaga';
+import rootReducer from './src/reducers/RootReducer';
+import rootSaga from './src/sagas/RootSaga';
 import { Provider } from 'react-redux';
 import logger from 'redux-logger';
 import { createStore, applyMiddleware } from 'redux';
 import createSagaMiddleware from 'redux-saga';
-import RootNavigator from './src/navigators/rootNavigator';
+import RootNavigator from './src/navigators/RootNavigator';
 import {
   StyleSheet,
   View,
   Dimensions,
-    StatusBar,
+  StatusBar,
 } from 'react-native';
 const sagaMiddleware = createSagaMiddleware()
 const store = createStore(rootReducer, applyMiddleware(sagaMiddleware, logger))
@@ -20,7 +20,7 @@ const App = () => {
     <Provider store={store}>
       <View style={styles.container}>
 
-        <StatusBar backgroundColor={'transparent'} translucent={true} barStyle={'dark-content'}/>
+        <StatusBar backgroundColor={'transparent'} translucent={true} barStyle={'dark-content'} />
         <RootNavigator />
       </View>
     </Provider>

@@ -1,9 +1,9 @@
 import * as React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import HomeScreen from '../containers/homeScreen';
-import AccountScreen from '../containers/accountScreen';
-import NotiScreen from '../containers/notiScreen';
-import BillScreen from '../containers/billScreen';
+import HomeScreen from '../containers/HomeScreen';
+import AccountScreen from '../containers/AccountScreen';
+import NotiScreen from '../containers/NotiScreen';
+import BillScreen from '../containers/BillScreen';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import { scale, scaleVertical } from '../configs/Scale';
 import { ACCOUNT, DEPOSIT, HOME, NOTIFICATION } from './RouteName';

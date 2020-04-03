@@ -1,8 +1,8 @@
 import { all } from 'redux-saga/effects';
-import { homeSaga } from './homeSaga';
-import { notiSaga } from './notiSaga';
-import { accountSaga } from './accountSaga';
-import { loginSaga } from './loginSaga';
+import { homeSaga } from './HomeSaga';
+import { notiSaga } from './NotiSaga';
+import { accountSaga } from './AccountSaga';
+import { loginSaga } from './LoginSaga';
 function* rootSaga() {
     yield all([
         
