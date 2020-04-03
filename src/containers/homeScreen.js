@@ -9,6 +9,7 @@ import {
 } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import { scale } from '../configs/Scale';
+import {shadow} from '../configs/CommonStyles';
 const checkWallet = () => console.log("checkWallet")
 const bell = () => console.log("bell")
 const rechargeMoney = () => console.log("rechargeMoney")
@@ -28,7 +29,7 @@ class HomeScreen extends React.Component {
       {iconName: 'file-alt', label: 'Lịch sử', onPress:history()},
     ];
   }
-  
+
   _renderMainService = (iconName, label, onPress) => (
     <TouchableOpacity style={{ flex: 1, alignItems: 'center', paddingTop: scale(7) }} onPress={onPress}>
       <Icon style={{ flex: 1 }} name={iconName} size={scale(28)} color={"#F8b195"} />
@@ -90,7 +91,7 @@ class HomeScreen extends React.Component {
               }
             </View>
           </View>
-          <View style={styles.service1}>
+          <View style={[styles.service1, shadow.sm]}>
             <TouchableOpacity style={{ flex: 1, alignItems: 'center', paddingTop: scale(7) }}
                               onPress={rechargePhone}
             >
