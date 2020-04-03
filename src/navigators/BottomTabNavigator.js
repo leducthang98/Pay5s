@@ -5,9 +5,9 @@ import AccountScreen from '../containers/accountScreen';
 import NotiScreen from '../containers/notiScreen';
 import BillScreen from '../containers/billScreen';
 import Icon from 'react-native-vector-icons/FontAwesome5';
-import {scale, scaleVertical} from '../configs/Scale';
-import {ACCOUNT, DEPOSIT, HOME, NOTIFICATION} from './RouteName';
-import {Dimensions} from 'react-native';
+import { scale, scaleVertical } from '../configs/Scale';
+import { ACCOUNT, DEPOSIT, HOME, NOTIFICATION } from './RouteName';
+import { Dimensions } from 'react-native';
 
 const Tab = createBottomTabNavigator();
 
@@ -36,12 +36,24 @@ export default function BottomTabNavigator() {
             tabBarOptions={{
                 activeTintColor: '#ff0681',
                 inactiveTintColor: 'gray',
+                style: {
+                    shadowColor: "#000",
+                    shadowOffset: {
+                        width: 0,
+                        height: 1,
+                    },
+                    shadowOpacity: 0.20,
+                    shadowRadius: 1.41,
+
+                    elevation: 15,
+
+                }
             }}
         >
-            <Tab.Screen name={HOME} component={HomeScreen} options={{tabBarLabel: 'Trang chủ'}}/>
-            <Tab.Screen name={NOTIFICATION} component={NotiScreen} options={{tabBarLabel: 'Thông báo'}}/>
-            <Tab.Screen name={DEPOSIT} component={BillScreen} options={{tabBarLabel: 'Nạp tiền'}}/>
-            <Tab.Screen name={ACCOUNT} component={AccountScreen} options={{tabBarLabel: 'Tài khoản'}}/>
+            <Tab.Screen name={HOME} component={HomeScreen} options={{ tabBarLabel: 'Trang chủ' }} />
+            <Tab.Screen name={NOTIFICATION} component={NotiScreen} options={{ tabBarLabel: 'Thông báo' }} />
+            <Tab.Screen name={DEPOSIT} component={BillScreen} options={{ tabBarLabel: 'Nạp tiền' }} />
+            <Tab.Screen name={ACCOUNT} component={AccountScreen} options={{ tabBarLabel: 'Tài khoản' }} />
         </Tab.Navigator>
     );
 }

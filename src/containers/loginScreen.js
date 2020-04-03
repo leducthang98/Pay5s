@@ -1,10 +1,11 @@
 import React from 'react';
 import { Text, View } from 'react-native';
-import {BOTTOM_TAB} from '../navigators/RouteName';
+import { BOTTOM_TAB } from '../navigators/RouteName';
+
 class LoginScreen extends React.Component {
   render() {
     return (
-      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center',backgroundColor:'red' }}>
+      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', }}>
         <Text onPress={()=>{this.props.navigation.navigate(BOTTOM_TAB)}}>Login Page</Text>
       </View>
     );

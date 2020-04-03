@@ -28,6 +28,7 @@ const bar_height = Platform.select({
     default: 0,
 });
 
+
 let height =
     Platform.OS === 'android' && Platform.Version > 26
         ? screenHeight - bar_height
