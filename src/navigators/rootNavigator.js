@@ -9,7 +9,7 @@ import {
     Dimensions
 } from 'react-native';
 import { BOTTOM_TAB, LOGIN, WALLET, RECHARGEMONEY, TRANSFERMONEY, RECHARGEPHONE } from './RouteName';
-import CheckWallet from '../containers/checkWallet';
+import CheckWallet from '../containers/CheckWallet';
 import RechargeMoney from '../containers/rechargeMoney';
 import TransferMoney from '../containers/transferMoney';
 import RechargePhone from '../containers/rechargePhone';
