@@ -10,4 +10,3 @@ class CheckWalletHistory extends React.Component {
   }
 }
 export default CheckWalletHistory;
-a

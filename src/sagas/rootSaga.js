@@ -8,4 +8,4 @@ function* rootSaga() {
         
     ]);
 }
-export default rootSaga;a
+export default rootSaga;

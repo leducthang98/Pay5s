@@ -139,4 +139,3 @@ const styles = StyleSheet.create({
   },
 })
 export default AccountScreen;
-a

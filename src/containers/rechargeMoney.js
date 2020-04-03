@@ -9,4 +9,4 @@ class RechargeMoney extends React.Component {
     );
   }
 }
-export default RechargeMoney;a
+export default RechargeMoney;

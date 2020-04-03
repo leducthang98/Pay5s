@@ -10,4 +10,3 @@ class BillScreen extends React.Component {
   }
 }
 export default BillScreen;
-a

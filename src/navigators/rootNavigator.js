@@ -25,4 +25,3 @@ function RootNavigator() {
     );
 }
 export default RootNavigator;
-a

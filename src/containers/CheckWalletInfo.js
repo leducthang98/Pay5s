@@ -10,4 +10,3 @@ class CheckWalletInfo extends React.Component {
   }
 }
 export default CheckWalletInfo;
-a
