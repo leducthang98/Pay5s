@@ -5,8 +5,8 @@ import {
 } from 'react-native';
 
 import {TabView, SceneMap} from 'react-native-tab-view';
-import CheckWalletHistory from './CheckWalletHistory';
-import CheckWalletInfo from './CheckWalletInfo';
+import CheckWalletHistory from '../CheckWalletHistory';
+import CheckWalletInfo from '../CheckWalletInfo';
 
 const initialLayout = {width: Dimensions.get('window').width};
 const {width, height} = Dimensions.get('window');
@@ -29,6 +29,7 @@ export default function AccountTabView() {
       renderScene={renderScene}
       onIndexChange={setIndex}
       initialLayout={initialLayout}
+      contentContainerStyle={styles.tabContainer}
     />
   );
 };

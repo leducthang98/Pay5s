@@ -1,11 +1,11 @@
 import React from 'react';
-import rootReducer from './src/reducers/rootReducer';
-import rootSaga from './src/sagas/rootSaga';
+import rootReducer from './src/reducers/RootReducer';
+import rootSaga from './src/sagas/RootSaga';
 import { Provider } from 'react-redux';
 import logger from 'redux-logger';
 import { createStore, applyMiddleware } from 'redux';
 import createSagaMiddleware from 'redux-saga';
-import RootNavigator from './src/navigators/rootNavigator';
+import RootNavigator from './src/navigators/RootNavigator';
 import {
   StyleSheet,
   View,

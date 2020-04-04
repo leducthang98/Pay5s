@@ -1,13 +1,72 @@
 import React from 'react';
 import { Text, View, Dimensions, StyleSheet, TouchableOpacity, Image } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome5';
-import { scale } from '../configs/Scale'
-import { statusBarHeight } from '../configs/Layout';
-import { WALLET } from '../navigators/RouteName';
+import {scale, scaleModerate} from '../../configs/Scale';
+import { statusBarHeight } from '../../configs/Layout';
+import { WALLET } from '../../navigators/RouteName';
+
 class AccountScreen extends React.Component {
+  constructor(props) {
+    super(props);
+    this.itemList = [
+      {
+        iconLeftName: 'comment-dots',
+        title: 'Mã giới thiệu: ',
+        subTitle: 'Giới thiệu bạn tham gia Pay5s - App và nhận thưởng',
+        onPress: this.intro
+      },
+      {
+        iconLeftName: 'comment-dots',
+        title: 'Fanpage Pay5s',
+        subTitle: 'Facebook Fanpage chăm sóc khách hàng',
+        onPress: this.goToFanPage
+      },
+      {
+        iconLeftName: 'comment-dots',
+        title: 'Về Pay5s - Điều khoản sử dụng',
+        subTitle: 'Điều khoản sử dụng',
+        onPress: this.showTermsAndAgreement
+      },
+      {
+        iconLeftName: 'comment-dots',
+        title: 'Thông tin ứng dụng',
+        subTitle: 'Sản phẩm của Pay5s - Phiên bản hiện tại: 1.0.2',
+        onPress: this.showApplicationInfo,
+      },
+    ]
+  }
+
   checkWallet() {
     this.props.navigation.navigate(WALLET)
   }
+
+  intro = () => {
+    console.log('gioi thieu tham gia Pay5s')
+  };
+  goToFanPage = () => {
+    console.log('Facebook Fanpage')
+  };
+  showTermsAndAgreement = () => {
+    console.log('Dieu khoan su dung')
+  };
+  showApplicationInfo = () => {
+    console.log('Thong tin ung dung')
+  };
+
+  _renderRow = (iconLeftName, title, subTitle, iconRightName, onPress) => (
+    <TouchableOpacity
+      onPress={onPress}
+      style={{ flex: 1, flexDirection: 'row', borderTopColor: '#ffe6ea', borderTopWidth: 0.4, alignItems: 'center', justifyContent: 'center' }}>
+      <Icon style={{ flex: 1, paddingLeft: scaleModerate(9), paddingTop: '1%' }} name={iconLeftName} size={scale(28)} color={"purple"} />
+      <View style={{ flex: 8, paddingLeft: '2%' }}>
+        <Text>{title}</Text>
+        <Text style={{ fontSize: scale(12), color: 'gray' }} >{subTitle}</Text>
+      </View>
+      <Icon style={{ flex: 0.5 }} name={iconRightName || 'chevron-right'} size={scale(16)} color={"gray"} />
+
+    </TouchableOpacity>
+  );
+
   render() {
     return (
       <View style={styles.container}>
@@ -67,7 +126,7 @@ class AccountScreen extends React.Component {
 
           </TouchableOpacity>
           <TouchableOpacity style={{ flex: 1, flexDirection: 'row', borderTopColor: '#ffe6ea', borderTopWidth: 0.4, alignItems: 'center', justifyContent: 'center' }}>
-            <Icon style={{ flex: 1, paddingLeft: scale(3), paddingLeft: '2.7%', paddingTop: '1%' }} name={'handshake'} size={scale(28)} color={"purple"} />
+            <Icon style={{ flex: 1, paddingLeft: scaleModerate(9), paddingTop: '1%' }} name={'handshake'} size={scale(28)} color={"purple"} />
             <View style={{ flex: 8, paddingLeft: '2%' }}>
               <Text>Về Pay5s - Điều khoản sử dụng</Text>
               <Text style={{ fontSize: scale(12), color: 'gray' }} >Điều khoản sử dụng</Text>

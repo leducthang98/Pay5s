@@ -9,8 +9,8 @@ import {
     StyleSheet,
     Dimensions
 } from "react-native";
-import { scale } from '../configs/Scale'
-import { statusBarHeight } from '../configs/Layout';
+import { scale } from '../../configs/Scale'
+import { statusBarHeight } from '../../configs/Layout';
 import AccountTabView from './AccountTabView';
 const { width } = Dimensions.get("window");
 const containerW = Dimensions.get('window').width;
