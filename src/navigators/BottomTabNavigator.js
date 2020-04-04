@@ -1,9 +1,12 @@
 import * as React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+
 import HomeScreen from '../screens/HomeScreen';
 import AccountScreen from '../screens/account/AccountScreen';
 import NotiScreen from '../screens/NotiScreen';
 import BillScreen from '../screens/BillScreen';
+
+
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import { scale, scaleVertical } from '../configs/Scale';
 import { ACCOUNT, DEPOSIT, HOME, NOTIFICATION } from './RouteName';

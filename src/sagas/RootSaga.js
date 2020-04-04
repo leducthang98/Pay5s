@@ -5,7 +5,6 @@ import { accountSaga } from './AccountSaga';
 import { loginSaga } from './LoginSaga';
 function* rootSaga() {
     yield all([
-
     ]);
 }
 export default rootSaga;

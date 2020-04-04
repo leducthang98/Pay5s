@@ -10,7 +10,7 @@ import {
   StyleSheet,
   View,
   Dimensions,
-    StatusBar,
+  StatusBar,
 } from 'react-native';
 const sagaMiddleware = createSagaMiddleware()
 const store = createStore(rootReducer, applyMiddleware(sagaMiddleware, logger))
@@ -20,7 +20,7 @@ const App = () => {
     <Provider store={store}>
       <View style={styles.container}>
 
-        <StatusBar backgroundColor={'transparent'} translucent={true} barStyle={'dark-content'}/>
+        <StatusBar backgroundColor={'transparent'} translucent={true} barStyle={'dark-content'} />
         <RootNavigator />
       </View>
     </Provider>
