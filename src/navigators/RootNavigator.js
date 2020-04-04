@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-import LoginScreen from '../containers/LoginScreen';
+import LoginScreen from '../screens/LoginScreen';
 import BottomTabNavigator from './BottomTabNavigator';
 import {
     StyleSheet,
@@ -9,10 +9,10 @@ import {
     Dimensions
 } from 'react-native';
 import { BOTTOM_TAB, LOGIN, WALLET, RECHARGEMONEY, TRANSFERMONEY, RECHARGEPHONE } from './RouteName';
-import CheckWallet from '../containers/account/CheckWallet';
-import RechargeMoney from '../containers/RechargeMoney';
-import TransferMoney from '../containers/TransferMoney';
-import RechargePhone from '../containers/RechargePhone';
+import CheckWallet from '../screens/check_wallet/CheckWallet';
+import RechargeMoney from '../screens/RechargeMoney';
+import TransferMoney from '../screens/TransferMoney';
+import RechargePhone from '../screens/RechargePhone';
 const Stack = createStackNavigator();
 
 function RootNavigator() {
