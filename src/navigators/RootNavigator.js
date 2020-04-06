@@ -8,7 +8,7 @@ import { BOTTOM_TAB, LOGIN, WALLET, RECHARGEMONEY, TRANSFERMONEY, RECHARGEPHONE 
 import CheckWallet from '../screens/check_wallet/CheckWallet';
 import RechargeMoney from '../screens/RechargeMoney';
 import TransferMoney from '../screens/TransferMoney';
-import RechargePhone from '../screens/RechargePhone';
+import RechargePhone from '../screens/recharge_phone/RechargePhone';
 
 const Stack = createStackNavigator();
 

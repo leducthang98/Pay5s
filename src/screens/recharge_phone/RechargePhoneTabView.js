@@ -6,23 +6,26 @@ import {
   Text
 } from 'react-native';
 import { TabView, SceneMap, TabBar } from 'react-native-tab-view';
-import CheckWalletHistory from '../check_wallet/CheckWalletHistory';
-import CheckWalletInfo from '../check_wallet/CheckWalletInfo';
-import { scale } from '../../configs/Scale';
 
+import RechargePrepaidAccount from './RechargePrepaidAccount';
+import RechargePostpaidAccount from './RechargePostpaidAccount';
+import TransferPrepaidAccount from './TransferPrepaidAccount';
+import { scale } from '../../configs/Scale';
 const initialLayout = { width: Dimensions.get('window').width };
 const { width, height } = Dimensions.get('window');
 
-export default function AccountTabView() {
+export default function RechargePhoneTabView() {
   const [index, setIndex] = React.useState(0);
   const [routes] = React.useState([
-    { key: 'history', title: 'Lịch sử' },
-    { key: 'info', title: 'Thông tin' },
+    { key: 'TransferPrepaidAccount', title: 'Bắn TK trả trước' },
+    { key: 'RechargePostpaidAccount', title: 'Nạp thẻ trả sau' },
+    { key: 'RechargePrepaidAccount', title: 'Nạp thẻ trả trước' },
   ]);
 
   const renderScene = SceneMap({
-    history: CheckWalletHistory,
-    info: CheckWalletInfo,
+    RechargePostpaidAccount: RechargePostpaidAccount,
+    RechargePrepaidAccount: RechargePrepaidAccount,
+    TransferPrepaidAccount: TransferPrepaidAccount,
   });
   const renderTabBar = props => (
     <TabBar
@@ -31,7 +34,7 @@ export default function AccountTabView() {
       style={{ backgroundColor: 'white', height: scale(45), borderTopColor: 'gray', borderTopWidth: scale(0.3), }}
       renderLabel={({ route, focused, color }) => (
         <View style={{flexDirection:'row'}} >
-          <Text style={{ color: 'black', }}>
+          <Text style={{ color: 'black',fontSize:scale(12) }}>
             {route.title}
           </Text>
         </View>
