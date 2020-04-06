@@ -1,12 +1,13 @@
 import React from 'react';
-import {Text, View, Dimensions, StyleSheet, TouchableOpacity, Image, SectionList} from 'react-native';
+import { Text, View, Dimensions, StyleSheet, TouchableOpacity, Image, SectionList } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome5';
-import {scale, scaleModerate, scaleVertical} from '../../configs/Scale';
-import {statusBarHeight} from '../../configs/Layout';
-import {WALLET} from '../../navigators/RouteName';
+import { scale, scaleModerate, scaleVertical } from '../../configs/Scale';
+import { statusBarHeight } from '../../configs/Layout';
+import { WALLET } from '../../navigators/RouteName';
 import ItemAccount from '../../components/account/ItemAccount';
 import * as COLOR from '../../configs/Colors';
 import Header from '../../components/common/Header';
+import { connect } from 'react-redux'
 
 
 class AccountScreen extends React.Component {
@@ -85,25 +86,25 @@ class AccountScreen extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-        <Header title={'Tài khoản'}/>
+        <Header title={'Tài khoản'} />
         <View style={styles.body1}>
-          <TouchableOpacity style={{flex: 2.5, marginLeft: 4,}}>
-            <Image style={{height: '100%', borderRadius: 40}}
-                   source={{uri: 'https://scontent-sin6-1.xx.fbcdn.net/v/t1.0-9/p960x960/71949763_2522897797942478_4149955310162804736_o.jpg?_nc_cat=106&_nc_sid=85a577&_nc_ohc=zag8Z2YXtdMAX9BGZT4&_nc_ht=scontent-sin6-1.xx&_nc_tp=6&oh=081596cb6c9afc68b5bb83a069d5aa1a&oe=5EA9804A'}}
+          <TouchableOpacity style={{ flex: 2.5, marginLeft: 4, }}>
+            <Image style={{ height: '100%', borderRadius: 40 }}
+              source={{ uri: 'https://scontent-sin6-1.xx.fbcdn.net/v/t1.0-9/p960x960/71949763_2522897797942478_4149955310162804736_o.jpg?_nc_cat=106&_nc_sid=85a577&_nc_ohc=zag8Z2YXtdMAX9BGZT4&_nc_ht=scontent-sin6-1.xx&_nc_tp=6&oh=081596cb6c9afc68b5bb83a069d5aa1a&oe=5EA9804A' }}
             />
           </TouchableOpacity>
           <TouchableOpacity style={styles.infoArea}>
-            <View style={{flex: 8, justifyContent: 'flex-start', flexDirection: 'column'}}>
-              <Text style={{fontSize: scale(18)}}>Le Duc Thang</Text>
-              <Text style={{fontSize: scale(12), color: 'gray'}}>0394827798</Text>
+            <View style={{ flex: 8, justifyContent: 'flex-start', flexDirection: 'column' }}>
+              <Text style={{ fontSize: scale(18) }}>{this.props.accountInfo.name}</Text>
+              <Text style={{ fontSize: scale(12), color: 'gray' }}>0394827798</Text>
             </View>
-            <Icon style={{flex: 0.6}} name={'chevron-right'} size={scale(16)} color={'gray'}/>
+            <Icon style={{ flex: 0.6 }} name={'chevron-right'} size={scale(16)} color={'gray'} />
           </TouchableOpacity>
         </View>
         <SectionList
           keyExtractor={(item, index) => item + index}
           sections={this.itemList}
-          renderItem={({item}) =>
+          renderItem={({ item }) =>
             <ItemAccount
               {...this.props}
               iconLeftName={item.iconLeftName}
@@ -116,8 +117,8 @@ class AccountScreen extends React.Component {
               iconLeftColor={item.iconLeftColor}
             />
           }
-          renderSectionHeader={({section: {section}}) => (
-            <View style={{width: containerW, height: scaleVertical(8)}}/>
+          renderSectionHeader={({ section: { section } }) => (
+            <View style={{ width: containerW, height: scaleVertical(8) }} />
           )}
         />
       </View>
@@ -164,4 +165,16 @@ const styles = StyleSheet.create({
     marginLeft: scale(10),
   },
 });
-export default AccountScreen;
+
+const mapStateToProps = (store) => {
+  return {
+    accountInfo: store.homeReducer.accountInfo
+  }
+}
+const mapDispatchToProps = (dispatch) => {
+  return {
+
+
+  }
+}
+export default connect(mapStateToProps, mapDispatchToProps)(AccountScreen);

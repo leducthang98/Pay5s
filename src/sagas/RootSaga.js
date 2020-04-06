@@ -5,6 +5,7 @@ import { accountSaga } from './AccountSaga';
 import { loginSaga } from './LoginSaga';
 function* rootSaga() {
     yield all([
+        ...homeSaga
     ]);
 }
 export default rootSaga;

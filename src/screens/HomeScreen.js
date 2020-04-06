@@ -10,17 +10,20 @@ import {
   FlatList,
   Platform
 } from 'react-native';
+import { connect } from 'react-redux';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import { scale } from '../configs/Scale';
 import { shadow } from '../configs/CommonStyles';
 import { statusBarHeight } from '../configs/Layout';
 import { WALLET, NOTIFICATION, RECHARGEMONEY, TRANSFERMONEY, RECHARGEPHONE } from '../navigators/RouteName';
+import { getAccountInfo } from '../actions/ActionHomeScreen';
 const transfersMoney = () => console.log("transfersMoney")
 const rechargePhone = () => console.log("rechargePhone")
 const buyCardID = () => console.log("buyCardID")
 const internetViettel = () => console.log("internetViettel")
 const KPlus = () => console.log("KPlus")
 const Support = () => console.log("Support")
+
 class HomeScreen extends React.Component {
   constructor(props) {
     super(props);
@@ -46,6 +49,9 @@ class HomeScreen extends React.Component {
     ];
 
   }
+  componentDidMount() {
+    this.props.getAccountInfo();
+  }
   checkWallet() {
     this.props.navigation.navigate(WALLET)
   }
@@ -54,6 +60,7 @@ class HomeScreen extends React.Component {
   }
   rechargeMoney() {
     this.props.navigation.navigate(RECHARGEMONEY)
+   
   }
   transferMoney() {
     this.props.navigation.navigate(TRANSFERMONEY)
@@ -69,7 +76,7 @@ class HomeScreen extends React.Component {
   );
   _renderOtherServices = (iconName, label, onPress, color) => (
     <TouchableOpacity style={{ flex: 1, alignItems: 'center', paddingTop: scale(12) }}
-                      onPress={onPress}
+      onPress={onPress}
     >
       <Icon name={iconName} size={scale(30)} color={color} />
       <Text style={{ fontSize: scale(11), paddingTop: scale(9), textAlign: 'center' }}>{label}</Text>
@@ -78,14 +85,24 @@ class HomeScreen extends React.Component {
 
 
   render() {
+    let data = {
+      name: "user",
+      balance: 0
+    }
+    if (this.props.accountInfo) {
+      data = {
+        name: this.props.accountInfo.name,
+        balance: this.props.accountInfo.balance
+      }
+    }
     return (
       <ScrollView style={styles.container}>
         <View style={{ alignItems: 'center' }}>
           <View style={[styles.header]}>
             <View style={styles.insideHeader}>
               <View style={{ flex: 14, flexDirection: 'row' }}>
-                <Text style={{ color: 'white', fontSize: scale(14) }}> Xin chào</Text>
-                <Text style={{ color: 'white', fontSize: scale(14), fontWeight: 'bold' }}>, Le Duc Thang</Text>
+                <Text style={{ color: 'white', fontSize: scale(14) }}> Xin chào </Text>
+                <Text style={{ color: 'white', fontSize: scale(14), fontWeight: 'bold' }}>{ data.name}</Text>
               </View>
               <TouchableOpacity
                 onPress={() => this.notification()}
@@ -102,7 +119,7 @@ class HomeScreen extends React.Component {
             >
               <Text
                 style={{ flex: 6, paddingLeft: scale(7), fontSize: scale(15) }}>Số dư Pay5s</Text>
-              <Text style={{ flex: 3, fontSize: scale(15), fontWeight: 'bold', textAlign: 'center' }}>10.000.000đ</Text>
+              <Text style={{ flex: 3, fontSize: scale(15), fontWeight: 'bold', textAlign: 'center' }}>{data.balance}đ</Text>
               <Icon style={{ flex: 1 }} name={'chevron-right'} size={scale(16)} color={"black"} />
             </TouchableOpacity>
             <View style={{ height: (containerH / 5.3) * 3 / 5, borderBottomLeftRadius: scale(7), borderBottomRightRadius: scale(7), flexDirection: 'row', }}>
@@ -196,4 +213,18 @@ const styles = StyleSheet.create({
   },
 
 });
-export default HomeScreen;
+
+const mapStateToProps = (store) => {
+  return {
+    accountInfo: store.homeReducer.accountInfo
+  }
+}
+const mapDispatchToProps = (dispatch) => {
+  return {
+    getAccountInfo: () => {
+      dispatch(getAccountInfo())
+    },
+
+  }
+}
+export default connect(mapStateToProps, mapDispatchToProps)(HomeScreen);
