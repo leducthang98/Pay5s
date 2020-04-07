@@ -54,8 +54,8 @@ export default function BottomTabNavigator() {
             }}
         >
             <Tab.Screen name={HOME} component={HomeScreen} options={{ tabBarLabel: 'Trang chủ' }} />
-            <Tab.Screen name={NOTIFICATION} component={NotiScreen} options={{ tabBarLabel: 'Thông báo' }} />
-            <Tab.Screen name={DEPOSIT} component={BillScreen} options={{ tabBarLabel: 'Nạp tiền' }} />
+            <Tab.Screen name={NOTIFICATION} component={NotiScreen} options={{ tabBarLabel: 'Tin tức' }} />
+            <Tab.Screen name={DEPOSIT} component={BillScreen} options={{ tabBarLabel: 'Đơn hàng' }} />
             <Tab.Screen name={ACCOUNT} component={AccountScreen} options={{ tabBarLabel: 'Tài khoản' }} />
         </Tab.Navigator>
     );

@@ -1,6 +1,6 @@
 import { PHONE_SERVICE_LIST } from "../api/EndPoint";
 
-export default function getRechargePhoneServiceAPI() {
+export default function GetRechargePhoneServiceAPI() {
   return new Promise((resolve, reject) => {
 
     const url = PHONE_SERVICE_LIST

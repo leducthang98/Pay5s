@@ -2,10 +2,11 @@ export const BASE_URL = 'https://client.pay5s.com';
 
 //bill
 export const BILL_CREATE = BASE_URL + '/bill/';
-export const BILL_GET = BASE_URL + '/bill/get';
+export const BILL_GET = BASE_URL + '/bill/list';
 export const BILL_STOP = BASE_URL + '/bill/stop';
 //account
 
 //main service
 export const PHONE_SERVICE_LIST = BASE_URL + '/service/list'
+
 
