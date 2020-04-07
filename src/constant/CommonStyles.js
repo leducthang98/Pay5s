@@ -1,5 +1,5 @@
 import {scaleModerate} from './Scale';
-import * as COLOR from '../configs/Colors';
+import * as COLOR from './/Colors';
 
 export const shadow = {
   lg: {

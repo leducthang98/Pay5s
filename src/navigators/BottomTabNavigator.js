@@ -8,7 +8,7 @@ import BillScreen from '../screens/BillScreen';
 
 
 import Icon from 'react-native-vector-icons/FontAwesome5';
-import { scale, scaleVertical } from '../configs/Scale';
+import { scale, scaleVertical } from '../constant/Scale';
 import { ACCOUNT, DEPOSIT, HOME, NOTIFICATION } from './RouteName';
 import { Dimensions } from 'react-native';
 

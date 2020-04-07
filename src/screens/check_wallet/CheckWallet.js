@@ -9,8 +9,8 @@ import {
   StyleSheet,
   Dimensions,
 } from 'react-native';
-import { scale } from '../../configs/Scale';
-import { statusBarHeight } from '../../configs/Layout';
+import { scale } from '../../constant/Scale';
+import { statusBarHeight } from '../../constant/Layout';
 import AccountTabView from '../account/AccountTabView';
 import Header from '../../components/common/Header';
 import Icon from 'react-native-vector-icons/FontAwesome5';

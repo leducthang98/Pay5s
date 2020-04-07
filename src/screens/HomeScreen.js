@@ -12,9 +12,9 @@ import {
 } from 'react-native';
 import { connect } from 'react-redux';
 import Icon from 'react-native-vector-icons/FontAwesome5';
-import { scale } from '../configs/Scale';
-import { shadow } from '../configs/CommonStyles';
-import { statusBarHeight } from '../configs/Layout';
+import { scale } from '../constant/Scale';
+import { shadow } from '../constant/CommonStyles';
+import { statusBarHeight } from '../constant/Layout';
 import { WALLET, NOTIFICATION, RECHARGEMONEY, TRANSFERMONEY, RECHARGEPHONE } from '../navigators/RouteName';
 import { getAccountInfo } from '../actions/ActionHomeScreen';
 const transfersMoney = () => console.log("transfersMoney")
@@ -60,7 +60,7 @@ class HomeScreen extends React.Component {
   }
   rechargeMoney() {
     this.props.navigation.navigate(RECHARGEMONEY)
-   
+
   }
   transferMoney() {
     this.props.navigation.navigate(TRANSFERMONEY)

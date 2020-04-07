@@ -8,7 +8,7 @@ import {
 import { TabView, SceneMap, TabBar } from 'react-native-tab-view';
 import CheckWalletHistory from '../check_wallet/CheckWalletHistory';
 import CheckWalletInfo from '../check_wallet/CheckWalletInfo';
-import { scale } from '../../configs/Scale';
+import { scale } from '../../constant/Scale';
 
 const initialLayout = { width: Dimensions.get('window').width };
 const { width, height } = Dimensions.get('window');
@@ -36,7 +36,7 @@ export default function AccountTabView() {
           </Text>
         </View>
       )}
-      
+
     />
   );
   return (

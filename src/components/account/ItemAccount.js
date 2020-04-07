@@ -7,9 +7,9 @@ import {
   StyleSheet,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome5';
-import {scale, scaleModerate, scaleVertical} from '../../configs/Scale';
-import {texts} from '../../configs/CommonStyles';
-import * as COLOR from '../../configs/Colors';
+import {scale, scaleModerate, scaleVertical} from '../../constant/Scale';
+import {texts} from '../../constant/CommonStyles';
+import * as COLOR from '../../constant/Colors';
 
 const {width, height} = Dimensions.get('window');
 

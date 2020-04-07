@@ -6,11 +6,11 @@ import {
   Dimensions,
   TouchableOpacity,
 } from 'react-native';
-import {statusBarHeight} from '../../configs/Layout';
-import * as COLOR from '../../configs/Colors';
+import {statusBarHeight} from '../../constant/Layout';
+import * as COLOR from '../../constant/Colors';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import {scaleModerate} from '../../configs/Scale';
-import {texts} from '../../configs/CommonStyles';
+import {scaleModerate} from '../../constant/Scale';
+import {texts} from '../../constant/CommonStyles';
 import {CommonActions} from '@react-navigation/native';
 
 

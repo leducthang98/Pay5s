@@ -1,11 +1,11 @@
 import React from 'react';
 import { Text, View, Dimensions, StyleSheet, TouchableOpacity, Image, SectionList } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome5';
-import { scale, scaleModerate, scaleVertical } from '../../configs/Scale';
-import { statusBarHeight } from '../../configs/Layout';
+import { scale, scaleModerate, scaleVertical } from '../../constant/Scale';
+import { statusBarHeight } from '../../constant/Layout';
 import { WALLET } from '../../navigators/RouteName';
 import ItemAccount from '../../components/account/ItemAccount';
-import * as COLOR from '../../configs/Colors';
+import * as COLOR from '../../constant/Colors';
 import Header from '../../components/common/Header';
 import { connect } from 'react-redux'
 

@@ -10,7 +10,7 @@ import { TabView, SceneMap, TabBar } from 'react-native-tab-view';
 import RechargePrepaidAccount from './RechargePrepaidAccount';
 import RechargePostpaidAccount from './RechargePostpaidAccount';
 import TransferPrepaidAccount from './TransferPrepaidAccount';
-import { scale } from '../../configs/Scale';
+import { scale } from '../../constant/Scale';
 const initialLayout = { width: Dimensions.get('window').width };
 const { width, height } = Dimensions.get('window');
 
@@ -39,7 +39,7 @@ export default function RechargePhoneTabView() {
           </Text>
         </View>
       )}
-      
+
     />
   );
   return (
