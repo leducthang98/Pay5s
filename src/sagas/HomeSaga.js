@@ -22,7 +22,6 @@ function* getRechargePhoneService(action) {
     try {
         let servicePayback = yield getRechargePhoneServiceAPI();
         phoneServiceData = servicePayback.data;
-        console.log("saga:" + JSON.stringify(phoneServiceData.services))
         yield put({
             type: 'GET_RECHARGE_PHONE_SERVICE_SUCCESS',
             payload: { phoneServiceData }

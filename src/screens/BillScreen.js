@@ -21,7 +21,7 @@ class BillScreen extends React.Component {
   componentDidMount() {
     this.props.getBill();
   }
-  _renderBill = (service, mobile, amount, modified) => (
+  _renderBill = (service, mobile, amount, modified, telco) => (
     <View style={styles.component} >
       <View style={{ width: '92%', height: containerH / 9, borderWidth: scale(0.3), borderRadius: scale(7), borderColor: 'gray', justifyContent: 'center', alignItems: 'center' }}>
         <View style={{ flexDirection: 'row', width: containerW - scale(35), height: containerH / 11 }}>
@@ -35,7 +35,7 @@ class BillScreen extends React.Component {
           <View style={{ flex: 0.05, }}></View>
           <View style={{ flex: 2.2, flexDirection: 'column' }}>
             <View style={{ flex: 0.05, }}></View>
-            <Text style={{ fontSize: scale(12), fontWeight: 'bold' }}>{service} </Text>
+  <Text style={{ fontSize: scale(12), fontWeight: 'bold' }}>{service} {telco}</Text>
             <Text style={{ fontSize: scale(12), fontWeight: 'bold', color: '#C71585' }}>{mobile}-{amount}</Text>
             <Text style={{ fontSize: scale(10), color: 'gray' }}>{modified}</Text>
           </View>
@@ -59,12 +59,24 @@ class BillScreen extends React.Component {
             {
               billData.map((item, index) => {
                 let service
+                let telco
                 if (item.service == 'TT') {
-                  service = 'Bắn TK trả trước Viettel'
+                  service = 'Bắn TK trả trước'
+                }
+                switch (item.telco) {
+                  case 'VTT':
+                    telco = 'Viettel'
+                    break;
+                  case 'VINA':
+                    telco = 'Vinaphone'
+                    break;
+                  case 'VMS':
+                    telco = 'Mobiphone'
+                    break;
                 }
                 let mobile = '0' + item.mobile
                 let amount = parseInt(item.amount) / 1000 + '.000đ'
-                return this._renderBill(service, mobile, amount, item.modified)
+                return this._renderBill(service, mobile, amount, item.modified, telco)
               })
             }
           </ScrollView>

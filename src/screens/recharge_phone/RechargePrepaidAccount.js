@@ -4,11 +4,11 @@ import { connect } from 'react-redux';
 class RechargePrepaidAccount extends React.Component {
   render() {
     if (this.props.rechargePhoneService) {
-      let dataPrePaid = this.props.rechargePhoneService.services[0];
+      let dataPrePaid = this.props.rechargePhoneService[0];
       if (dataPrePaid.allowTopup == true && dataPrePaid.allowAddBill == true) {
         return (
           <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-            <Text>{dataPrePaid.name}</Text>
+            <Text>{dataPrePaid.note}</Text>
           </View>
         )
       } else {
