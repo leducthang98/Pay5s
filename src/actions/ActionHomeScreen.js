@@ -12,3 +12,10 @@ export function getRechargePhoneService(payload) {
     })
     
 }
+export function getCommonConfig(payload) {
+    return ({
+        type: "GET_COMMON_CONFIG",
+        payload
+    })
+    
+}

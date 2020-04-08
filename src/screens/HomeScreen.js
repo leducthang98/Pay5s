@@ -16,7 +16,7 @@ import { scale } from '../constant/Scale';
 import { shadow } from '../constant/CommonStyles';
 import { statusBarHeight } from '../constant/Layout';
 import { WALLET, NOTIFICATION, RECHARGEMONEY, TRANSFERMONEY, RECHARGEPHONE } from '../navigators/RouteName';
-import { getAccountInfo } from '../actions/ActionHomeScreen';
+import { getAccountInfo, getCommonConfig } from '../actions/ActionHomeScreen';
 const transfersMoney = () => console.log("transfersMoney")
 const rechargePhone = () => console.log("rechargePhone")
 const buyCardID = () => console.log("buyCardID")
@@ -51,6 +51,7 @@ class HomeScreen extends React.Component {
   }
   componentDidMount() {
     this.props.getAccountInfo();
+    this.props.getCommonConfig();
   }
   checkWallet() {
     this.props.navigation.navigate(WALLET)
@@ -224,6 +225,10 @@ const mapDispatchToProps = (dispatch) => {
     getAccountInfo: () => {
       dispatch(getAccountInfo())
     },
+    getCommonConfig: () => {
+      dispatch(getCommonConfig())
+    },
+    
 
   }
 }
