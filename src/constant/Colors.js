@@ -11,4 +11,5 @@ module.exports = {
   PRIMARY_COLOR: '#C71585',
   BACKGROUND_COLOR: '#FAFAFA',
   WHITE: '#FFF',
+  SEPARATE_LINE: '#D3D3D3'
 };
