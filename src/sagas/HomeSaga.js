@@ -1,5 +1,6 @@
 import { put, takeEvery } from 'redux-saga/effects'
 import getAccountInfoAPI from '../fetchAPIs/getAccountInfoAPI'
+import getCommonConfigAPI from '../fetchAPIs/getCommonConfigAPI'
 import getRechargePhoneServiceAPI from '../fetchAPIs/getRechargePhoneServiceAPI'
 //account
 function* getAccountInfo(action) {
@@ -10,7 +11,8 @@ function* getAccountInfo(action) {
             type: 'GET_ACCOUNT_INFO_SUCCESS',
             payload: { accountData }
         })
-    } catch{
+    } catch(error){
+        console.log(error.message)
         yield put({
             type: 'GET_ACCOUNT_INFO_FAIL',
             payload: {}
@@ -33,10 +35,27 @@ function* getRechargePhoneService(action) {
         })
     }
 }
+//common configs
+function* getCommonConfig(action) {
+    try {
+        let commonConfigPayback = yield getCommonConfigAPI();
+        commonConfigData = commonConfigPayback.data;
+        yield put({
+            type: 'GET_COMMON_CONFIG_SUCCESS',
+            payload: { commonConfigData }
+        })
+    } catch{
+        yield put({
+            type: 'GET_COMMON_CONFIG_FAIL',
+            payload: {}
+        })
+    }
+}
 
 
 export const homeSaga = [
     takeEvery('GET_ACCOUNT_INFO', getAccountInfo),
-    takeEvery('GET_RECHARGE_PHONE_SERVICE', getRechargePhoneService)
+    takeEvery('GET_RECHARGE_PHONE_SERVICE', getRechargePhoneService),
+    takeEvery('GET_COMMON_CONFIG', getCommonConfig),
 ];
 

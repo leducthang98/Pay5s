@@ -8,7 +8,7 @@ import { scale } from '../../constant/Scale';
 class TransferPrepaidAccount extends React.Component {
   render() {
     if (this.props.rechargePhoneService) {
-      let dataTransferPerpaid = this.props.rechargePhoneService[2];
+       let dataTransferPerpaid = this.props.rechargePhoneService[2];
       if (dataTransferPerpaid.allowTopup == true && dataTransferPerpaid.allowAddBill == true) {
         return (
           <View style={{ flex: 1 }}>
