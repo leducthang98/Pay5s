@@ -2,6 +2,7 @@ import { put, takeEvery } from 'redux-saga/effects'
 import getAccountInfoAPI from '../fetchAPIs/getAccountInfoAPI'
 import getCommonConfigAPI from '../fetchAPIs/getCommonConfigAPI'
 import getRechargePhoneServiceAPI from '../fetchAPIs/getRechargePhoneServiceAPI'
+import getTransferAPI from '../fetchAPIs/getTransferAPI'
 //account
 function* getAccountInfo(action) {
     try {
@@ -51,11 +52,27 @@ function* getCommonConfig(action) {
         })
     }
 }
-
+//transfer
+function* getTransfer(action) {
+    try {
+        let transferPayback = yield getTransferAPI();
+        transferData = transferPayback.data;
+        yield put({
+            type: 'GET_TRANSFER_SUCCESS',
+            payload: { transferData }
+        })
+    } catch{
+        yield put({
+            type: 'GET_TRANSFER_FAIL',
+            payload: {}
+        })
+    }
+}
 
 export const homeSaga = [
     takeEvery('GET_ACCOUNT_INFO', getAccountInfo),
     takeEvery('GET_RECHARGE_PHONE_SERVICE', getRechargePhoneService),
     takeEvery('GET_COMMON_CONFIG', getCommonConfig),
+    takeEvery('GET_TRANSFER', getTransfer),
 ];
 

@@ -10,3 +10,6 @@ export const BILL_STOP = BASE_URL + '/bill/stop';
 export const PHONE_SERVICE_LIST = BASE_URL + '/service/list';
 //common config
 export const COMMON_CONFIG = BASE_URL + '/common_config';
+
+//transfer
+export const TRANSFER_GET = BASE_URL + '/transfer/list'

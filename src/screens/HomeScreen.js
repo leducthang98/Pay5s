@@ -42,7 +42,7 @@ class HomeScreen extends React.Component {
       { iconName: 'korvue', label: 'Gia hạn K+', onPress: KPlus, color: "#00FF00" },
     ];
     this.otherService2 = [
-      { iconName: 'headset', label: 'Chat hỗ trợ', onPress: Support, color: "#099FFF" },
+      { iconName: 'headset', label: 'Hỗ trợ', onPress: Support, color: "#099FFF" },
       {},
       {},
       {},
@@ -61,7 +61,6 @@ class HomeScreen extends React.Component {
   }
   rechargeMoney() {
     this.props.navigation.navigate(RECHARGEMONEY)
-
   }
   transferMoney() {
     this.props.navigation.navigate(TRANSFERMONEY)
@@ -120,7 +119,8 @@ class HomeScreen extends React.Component {
             >
               <Text
                 style={{ flex: 6, paddingLeft: scale(7), fontSize: scale(15) }}>Số dư Pay5s</Text>
-              <Text style={{ flex: 3, fontSize: scale(15), fontWeight: 'bold', textAlign: 'center' }}>{data.balance}đ</Text>
+              <Text style={{ flex: 3, fontSize: scale(15), fontWeight: 'bold', textAlign: 'right' }}>{data.balance}đ</Text>
+              <View style={{flex:0.2}}></View>
               <Icon style={{ flex: 1 }} name={'chevron-right'} size={scale(16)} color={"black"} />
             </TouchableOpacity>
             <View style={{ height: (containerH / 5.3) * 3 / 5, borderBottomLeftRadius: scale(7), borderBottomRightRadius: scale(7), flexDirection: 'row', }}>

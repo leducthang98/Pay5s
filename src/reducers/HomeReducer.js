@@ -2,6 +2,7 @@ const DEFAULT_STATE = {
     accountInfo: null,
     rechargePhoneService: null,
     commonConfigData: null,
+    transferData:null,
 }
 export default (state = DEFAULT_STATE, action) => {
     switch (action.type) {
@@ -37,6 +38,18 @@ export default (state = DEFAULT_STATE, action) => {
             }
         }
         case 'GET_COMMON_CONFIG_FAIL': {
+            return {
+
+
+            }
+        }
+        case 'GET_TRANSFER_SUCCESS': {
+            return {
+                ...state,
+                transferData: action.payload.transferData
+            }
+        }
+        case 'GET_TRANSFER_FAIL': {
             return {
 
 

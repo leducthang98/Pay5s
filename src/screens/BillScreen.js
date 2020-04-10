@@ -35,7 +35,7 @@ class BillScreen extends React.Component {
           <View style={{ flex: 0.05, }}></View>
           <View style={{ flex: 2.2, flexDirection: 'column' }}>
             <View style={{ flex: 0.05, }}></View>
-  <Text style={{ fontSize: scale(12), fontWeight: 'bold' }}>{service} {telco}</Text>
+            <Text style={{ fontSize: scale(12), fontWeight: 'bold' }}>{service} {telco}</Text>
             <Text style={{ fontSize: scale(12), fontWeight: 'bold', color: '#C71585' }}>{mobile}-{amount}</Text>
             <Text style={{ fontSize: scale(10), color: 'gray' }}>{modified}</Text>
           </View>
