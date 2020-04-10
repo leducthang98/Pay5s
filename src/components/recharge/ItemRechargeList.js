@@ -18,7 +18,7 @@ const {width, height} = Dimensions.get('window');
 export default class ItemRechargeList extends Component {
   constructor(props) {
     super(props);
-    this.paymentAmount = this.props.discount ? this.props.amount * (1 - this.props.discount / 100) : this.props.amount;
+    this.paymentAmount = this.props.discount ? this.props.amount * this.props.discount / 100 : this.props.amount;
   }
 
   render() {

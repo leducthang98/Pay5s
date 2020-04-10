@@ -2,16 +2,23 @@ import React from 'react';
 import { Text, View, FlatList } from 'react-native';
 import { connect } from 'react-redux';
 import ItemRechargeList from '../../components/recharge/ItemRechargeList';
+import ChooseServiceAndPhone from '../../components/recharge/ChooseServiceAndPhone';
+import {getString} from '../../res/values/String';
+
+const noteList = [
+  getString('TIME_FINISH_BELOW_1_MINUTE'),
+  getString('RECEIVE_20_PERCENT_PROMOTION')
+]
 class RechargePostpaidAccount extends React.Component {
   render() {
     if (this.props.rechargePhoneService) {
       let dataPostPaid = this.props.rechargePhoneService[1];
-      console.log('data postpaid = ',dataPostPaid );
       const prepaidViettel = dataPostPaid.srvTelcos[0];
       const {amounts, discount} = prepaidViettel
       if (dataPostPaid.allowTopup && dataPostPaid.allowAddBill) {
         return (
           <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+            <ChooseServiceAndPhone note={noteList}/>
             <FlatList
               numColumns={3}
               data={amounts}
