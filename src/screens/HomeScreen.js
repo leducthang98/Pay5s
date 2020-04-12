@@ -17,8 +17,6 @@ import { shadow } from '../constant/CommonStyles';
 import { statusBarHeight } from '../constant/Layout';
 import { WALLET, NOTIFICATION, RECHARGEMONEY, TRANSFERMONEY, RECHARGEPHONE } from '../navigators/RouteName';
 import { getAccountInfo, getCommonConfig } from '../actions/ActionHomeScreen';
-const transfersMoney = () => console.log("transfersMoney")
-const rechargePhone = () => console.log("rechargePhone")
 const buyCardID = () => console.log("buyCardID")
 const internetViettel = () => console.log("internetViettel")
 const KPlus = () => console.log("KPlus")
