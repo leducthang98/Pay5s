@@ -17,6 +17,7 @@ import { connect } from 'react-redux';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import { getBill } from '../actions/ActionBillScreen';
 import { scale } from '../constant/Scale';
+import { formatMoney } from '../constant/MoneyFormat';
 class BillScreen extends React.Component {
   componentDidMount() {
     this.props.getBill();
@@ -35,7 +36,7 @@ class BillScreen extends React.Component {
           <View style={{ flex: 0.05, }}></View>
           <View style={{ flex: 2.2, flexDirection: 'column' }}>
             <View style={{ flex: 0.05, }}></View>
-  <Text style={{ fontSize: scale(12), fontWeight: 'bold' }}>{service} {telco}</Text>
+            <Text style={{ fontSize: scale(12), fontWeight: 'bold' }}>{service} {telco}</Text>
             <Text style={{ fontSize: scale(12), fontWeight: 'bold', color: '#C71585' }}>{mobile}-{amount}</Text>
             <Text style={{ fontSize: scale(10), color: 'gray' }}>{modified}</Text>
           </View>
@@ -75,7 +76,7 @@ class BillScreen extends React.Component {
                     break;
                 }
                 let mobile = '0' + item.mobile
-                let amount = parseInt(item.amount) / 1000 + '.000đ'
+                let amount = formatMoney(item.amount)+'đ'
                 return this._renderBill(service, mobile, amount, item.modified, telco)
               })
             }

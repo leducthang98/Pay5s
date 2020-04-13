@@ -28,7 +28,7 @@ export default function AccountTabView() {
     <TabBar
       {...props}
       indicatorStyle={{ backgroundColor: '#C71585', height: scale(3) }}
-      style={{ backgroundColor: 'white', height: scale(45), borderTopColor: 'gray', borderTopWidth: scale(0.3), }}
+      style={{ backgroundColor: 'white', height: scale(45), borderTopColor: 'gray', borderTopWidth: scale(0.4), }}
       renderLabel={({ route, focused, color }) => (
         <View style={{flexDirection:'row'}} >
           <Text style={{ color: 'black', }}>

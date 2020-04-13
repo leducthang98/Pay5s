@@ -27,7 +27,16 @@ const vn = {
   NOTIFICATION: 'Thông báo',
   NOT_SUPPORT: 'Không hỗ trợ'
 };
-
 export const getString = (code) => {
   return vn[code];
 };
+export const INFODATA = {
+  PARAGRAPH1A: '1. Số dư được dùng để mua các dịch vụ trên Pay5s như Nạp tài khoản điện thoại trả trước và trả sau, gia hạn K+, Internet Viettel, ...',
+  PARAGRAPH1B: 'Để có số dư, bạn có thể nạp qua các kênh Momo, chuyển khoản ngân hàng trong phần nạp tiền.',
+  PARAGRAPH2A: '2. Chương trình giới thiệu giúp bạn kiếm thêm tiền ngay trên Pay5s:',
+  PARAGRAPH2B: '- Khi giới thiệu bạn bè sử dụng dịch vụ trên Pay5s, bạn nhận được phần thưởng từ quá trình sử dụng dịch vụ của bạn bè.',
+  PARAGRAPH2C: '- Nhận thưởng 2% giá trị đơn của người được giới thiệu (F1).',
+  PARAGRAPH2D: 'Khi đơn hàng được hoàn thành, thưởng sẽ được ghi nhận ngay vào số dư tài khoản của bạn.',
+  PARAGRAPH3A: 'Cùng nhận thưởng với bạn bè ngay trên Pay5s nhé.',
+
+}

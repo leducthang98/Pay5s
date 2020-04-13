@@ -19,3 +19,10 @@ export function getCommonConfig(payload) {
     })
     
 }
+export function getTransfer(payload) {
+    return ({
+        type: "GET_TRANSFER",
+        payload
+    })
+    
+}
