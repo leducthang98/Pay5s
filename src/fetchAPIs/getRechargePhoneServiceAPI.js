@@ -10,9 +10,7 @@ export default function GetRechargePhoneServiceAPI() {
     })
       .then((response) => response.json())
       .then((res) => {
-
         resolve(res);
-        console.log(res)
       })
       .catch((error) => {
         reject(error);

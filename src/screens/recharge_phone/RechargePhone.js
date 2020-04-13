@@ -11,7 +11,7 @@ class RechargePhone extends React.Component {
     constructor(props) {
         super(props);
     }
-    componentDidMount() {
+    async componentDidMount() {
         this.props.getRechargePhoneService();
     }
     render() {

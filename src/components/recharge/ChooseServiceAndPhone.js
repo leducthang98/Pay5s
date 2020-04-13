@@ -40,6 +40,7 @@ export default class ChooseServiceAndPhone extends Component {
             <TextInput
               style={styles.phone}
               placeholder={getString('TYPE_PHONE_NUMBER')}
+              keyboardType={'phone-pad'}
             />
             <TouchableOpacity style={styles.contact}>
               <Icon name={'account-circle'} color={COLOR.CONTACTS} size={scaleModerate(30)}/>
@@ -53,13 +54,7 @@ export default class ChooseServiceAndPhone extends Component {
           </TouchableOpacity>
         </View>
         {
-          note &&
-            <FlatList
-              style={{marginTop: scaleVertical(15)}}
-              data={note}
-              keyExtractor={(item, index)=>index}
-              renderItem={({item,index})=><Text style={texts.l_normal}>*{item}</Text>}
-            />
+          note && <Text style={[texts.l_normal, {marginTop: scaleVertical(15)}]}>{note}</Text>
         }
       </View>
     );

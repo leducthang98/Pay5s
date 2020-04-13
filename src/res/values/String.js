@@ -15,7 +15,17 @@ const vn = {
   PROCESS_SPEED_6_HOUR: 'Tốc độ xử lý đơn hiện tại: trong 6 tiếng',
   PROCESS_SPEED: 'Tốc độ xử lý đơn: ',
   RECEIVE_20_PERCENT_PROMOTION: 'Nhận được 20% khuyến mại của nhà mạng nếu có',
+  AMOUNT_TO_DEPOSIT: 'Mệnh giá nạp',
 
+
+  //commons
+  CONNECTING: 'Đang kết nối',
+  FETCHING_DATA: 'Đang tải dữ liệu',
+  OK: 'Đồng ý',
+  CANCEL: 'Hủy bỏ',
+  CLOSE: 'Đóng',
+  NOTIFICATION: 'Thông báo',
+  NOT_SUPPORT: 'Không hỗ trợ'
 };
 
 export const getString = (code) => {

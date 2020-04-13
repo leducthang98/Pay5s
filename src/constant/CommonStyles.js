@@ -177,6 +177,7 @@ export const texts = {
     fontSize: scaleModerate(16),
     fontWeight: 'normal',
     color: COLOR.TEXT_LABEL,
+    textAlign:'left'
   },
 
   r_h4: {

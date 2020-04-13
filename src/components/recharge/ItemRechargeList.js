@@ -18,22 +18,26 @@ const {width, height} = Dimensions.get('window');
 export default class ItemRechargeList extends Component {
   constructor(props) {
     super(props);
-    this.paymentAmount = this.props.discount ? this.props.amount * this.props.discount / 100 : this.props.amount;
+    this.paymentAmount = this.props.discount ? this.props.data?.amount * this.props.discount / 100 : this.props.data?.amount;
   }
 
   render() {
-    const {amount, discount, selected} = this.props;
+    const {data, discount, selected} = this.props;
     return (
-      <View style={[!selected ? styles.container : styles.selectedContainer, shadow.ssm]}>
+      <TouchableOpacity
+        onPress={() => this.props.onPress()}
+        style={[!selected ? styles.container : styles.selectedContainer, shadow.ssm]}>
         <View style={styles.totalAmount}>
-          <Text style={[texts.h3, {fontWeight: 'bold'}]}>{formatMoney(amount)+'đ'}</Text>
+          <Text style={[texts.h4, {fontWeight: 'bold', color: selected ? COLOR.PRIMARY_COLOR : COLOR.TEXT_LABEL}]}>
+            {formatMoney(data?.amount || 10000) + 'đ'}
+          </Text>
         </View>
         <View style={styles.line}/>
         <View style={styles.discountAmount}>
           <Text style={texts.sm}>-{discount}%~</Text>
-          <Text style={[texts.sm, {color: COLOR.FACEBOOK}]}>{formatMoney(this.paymentAmount) + 'đ'}</Text>
+          <Text style={[texts.sm, {color: COLOR.FACEBOOK}]}>{formatMoney(this.paymentAmount) || '2000' + 'đ'}</Text>
         </View>
-      </View>
+      </TouchableOpacity>
     );
   }
 }
@@ -45,8 +49,8 @@ const styles = StyleSheet.create({
     borderRadius: scaleModerate(8),
     backgroundColor: COLOR.BACKGROUND_COLOR,
     alignItems: 'center',
-    marginHorizontal:scaleModerate(5),
-    marginVertical:scaleVertical(10),
+    marginHorizontal: scaleModerate(5),
+    marginVertical: scaleVertical(10),
   },
   selectedContainer: {
     width: width / 3.5,
@@ -56,8 +60,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     borderWidth: 0.7,
     borderColor: COLOR.PRIMARY_COLOR,
-    marginHorizontal:scaleModerate(5),
-    marginVertical:scaleVertical(10),
+    marginHorizontal: scaleModerate(5),
+    marginVertical: scaleVertical(10),
   },
   totalAmount: {
     flex: 4,
