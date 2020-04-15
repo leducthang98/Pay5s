@@ -1,4 +1,4 @@
-import { BASE_URL } from "../api/EndPoint";
+import { BASE_URL } from "../api/Api";
 
 export default function GetAccountInfoAPI() {
   return new Promise((resolve, reject) => {

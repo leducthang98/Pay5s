@@ -1,4 +1,4 @@
-import { COMMON_CONFIG } from "../api/EndPoint";
+import { COMMON_CONFIG } from "../api/Api";
 
 export default function GetCommonConfigAPI() {
   return new Promise((resolve, reject) => {

@@ -1,4 +1,4 @@
-import { PHONE_SERVICE_LIST } from "../api/EndPoint";
+import { PHONE_SERVICE_LIST } from "../api/Api";
 
 export default function GetRechargePhoneServiceAPI() {
   return new Promise((resolve, reject) => {

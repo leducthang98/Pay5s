@@ -1,4 +1,4 @@
-import { TRANSFER_GET } from "../api/EndPoint";
+import { TRANSFER_GET } from "../api/Api";
 
 export default function GetTransferAPI() {
   return new Promise((resolve, reject) => {
