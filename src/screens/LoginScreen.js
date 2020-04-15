@@ -43,6 +43,7 @@ class LoginScreen extends React.Component {
   async _loginSuccess(response) {
     const access_token = response.data.data.token;
     await AsyncStorage.setItem('access_token', access_token);
+    //thêm 1 đoạn dùng redux để lưu các giá trị của user ở đây nữa rồi navigate
     this.props.navigation.navigate(BOTTOM_TAB)
   }
 
