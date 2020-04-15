@@ -6,13 +6,14 @@ import getTransferAPI from '../fetchAPIs/getTransferAPI'
 //account
 function* getAccountInfo(action) {
     try {
-        let accountInfoPayback = yield getAccountInfoAPI();
+        console.log("token:" + action.payload)
+        let accountInfoPayback = yield getAccountInfoAPI(action.payload);
         let accountData = accountInfoPayback.data;
         yield put({
             type: 'GET_ACCOUNT_INFO_SUCCESS',
             payload: { accountData }
         })
-    } catch(error){
+    } catch (error) {
         console.log(error.message)
         yield put({
             type: 'GET_ACCOUNT_INFO_FAIL',

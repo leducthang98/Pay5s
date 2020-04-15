@@ -8,17 +8,42 @@ import ItemAccount from '../../components/account/ItemAccount';
 import * as COLOR from '../../constant/Colors';
 import Header from '../../components/common/Header';
 import { connect } from 'react-redux'
+import { formatMoney } from '../../constant/MoneyFormat';
 
 
 class AccountScreen extends React.Component {
   constructor(props) {
     super(props);
-    this.itemList = [{
+
+  };
+
+  checkWallet() {
+    this.props.navigation.navigate(WALLET);
+  }
+
+  intro = () => {
+    console.log('gioi thieu tham gia Pay5s');
+  };
+
+  goToFanPage = () => {
+    console.log('Facebook Fanpage');
+  };
+
+  showTermsAndAgreement = () => {
+    console.log('Dieu khoan su dung');
+  };
+
+  showApplicationInfo = () => {
+    console.log('Thong tin ung dung');
+  };
+
+  render() {
+    const itemList = [{
       section: 1,
       data: [{
         iconLeftName: 'coins',
         title: 'Số dư: ',
-        extraInfo: '10.000.000',
+        extraInfo: formatMoney(this.props.accountInfo.balance),
         onPress: () => this.checkWallet(),
         iconLeftColor: COLOR.GOLD,
         extraInfoColor: COLOR.PURPLE,
@@ -61,29 +86,6 @@ class AccountScreen extends React.Component {
         canPress: false,
       }],
     }];
-  };
-
-  checkWallet() {
-    this.props.navigation.navigate(WALLET);
-  }
-
-  intro = () => {
-    console.log('gioi thieu tham gia Pay5s');
-  };
-
-  goToFanPage = () => {
-    console.log('Facebook Fanpage');
-  };
-
-  showTermsAndAgreement = () => {
-    console.log('Dieu khoan su dung');
-  };
-
-  showApplicationInfo = () => {
-    console.log('Thong tin ung dung');
-  };
-
-  render() {
     return (
       <View style={styles.container}>
         <Header title={'Tài khoản'} />
@@ -95,15 +97,15 @@ class AccountScreen extends React.Component {
           </TouchableOpacity>
           <TouchableOpacity style={styles.infoArea}>
             <View style={{ flex: 8, justifyContent: 'flex-start', flexDirection: 'column' }}>
-              <Text style={{ fontSize: scale(18) }}>{this.props.accountInfo.name}</Text>
-              <Text style={{ fontSize: scale(12), color: 'gray' }}>0394827798</Text>
+              <Text style={{ fontSize: scale(18) }}>{this.props.accountInfo.fullname}</Text>
+              <Text style={{ fontSize: scale(12), color: 'gray' }}>{this.props.accountInfo.mobile}</Text>
             </View>
             <Icon style={{ flex: 0.6 }} name={'chevron-right'} size={scale(16)} color={'gray'} />
           </TouchableOpacity>
         </View>
         <SectionList
           keyExtractor={(item, index) => item + index}
-          sections={this.itemList}
+          sections={itemList}
           renderItem={({ item }) =>
             <ItemAccount
               {...this.props}

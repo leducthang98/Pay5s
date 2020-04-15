@@ -16,7 +16,10 @@ import { scale } from '../constant/Scale';
 import { shadow } from '../constant/CommonStyles';
 import { statusBarHeight } from '../constant/Layout';
 import { WALLET, NOTIFICATION, RECHARGEMONEY, TRANSFERMONEY, RECHARGEPHONE } from '../navigators/RouteName';
+import AsyncStorage from '@react-native-community/async-storage';
 import { getAccountInfo, getCommonConfig } from '../actions/ActionHomeScreen';
+import { formatMoney } from '../constant/MoneyFormat';
+import LoadingDialog from '../components/common/LoadingDialog';
 const buyCardID = () => console.log("buyCardID")
 const internetViettel = () => console.log("internetViettel")
 const KPlus = () => console.log("KPlus")
@@ -47,8 +50,9 @@ class HomeScreen extends React.Component {
     ];
 
   }
-  componentDidMount() {
-    this.props.getAccountInfo();
+  async componentDidMount() {
+    const token_user = await AsyncStorage.getItem('access_token')
+    this.props.getAccountInfo(token_user);
     this.props.getCommonConfig();
   }
   checkWallet() {
@@ -83,71 +87,68 @@ class HomeScreen extends React.Component {
 
 
   render() {
-    let data = {
-      name: "user",
-      balance: 0
-    }
     if (this.props.accountInfo) {
-      data = {
-        name: this.props.accountInfo.name,
-        balance: this.props.accountInfo.balance
-      }
-    }
-    return (
-      <ScrollView style={styles.container}>
-        <View style={{ alignItems: 'center' }}>
-          <View style={[styles.header]}>
-            <View style={styles.insideHeader}>
-              <View style={{ flex: 14, flexDirection: 'row' }}>
-                <Text style={{ color: 'white', fontSize: scale(14) }}> Xin chào </Text>
-                <Text style={{ color: 'white', fontSize: scale(14), fontWeight: 'bold' }}>{ data.name}</Text>
-              </View>
-              <TouchableOpacity
-                onPress={() => this.notification()}
-              >
-                <Icon style={{ flex: 1 }} name={'bell'} size={scale(23)} color={"white"} />
-              </TouchableOpacity>
+      return (
+        <ScrollView style={styles.container}>
+          <View style={{ alignItems: 'center' }}>
+            <View style={[styles.header]}>
+              <View style={styles.insideHeader}>
+                <View style={{ flex: 14, flexDirection: 'row' }}>
+                  <Text style={{ color: 'white', fontSize: scale(14) }}> Xin chào </Text>
+                  <Text style={{ color: 'white', fontSize: scale(14), fontWeight: 'bold' }}>0{this.props.accountInfo.mobile}</Text>
+                </View>
+                <TouchableOpacity
+                  onPress={() => this.notification()}
+                >
+                  <Icon style={{ flex: 1 }} name={'bell'} size={scale(23)} color={"white"} />
+                </TouchableOpacity>
 
+              </View>
             </View>
-          </View>
-          <View style={styles.account}>
-            <TouchableOpacity
-              onPress={() => this.checkWallet()}
-              style={{ height: (containerH / 5.3) * 2 / 5, borderTopLeftRadius: scale(7), borderTopRightRadius: scale(7), flexDirection: 'row', alignItems: "center", borderBottomColor: 'gray', borderBottomWidth: scale(0.5) }}
-            >
-              <Text
-                style={{ flex: 6, paddingLeft: scale(7), fontSize: scale(15) }}>Số dư Pay5s</Text>
-              <Text style={{ flex: 3, fontSize: scale(15), fontWeight: 'bold', textAlign: 'right' }}>{data.balance}đ</Text>
-              <View style={{flex:0.2}}></View>
-              <Icon style={{ flex: 1 }} name={'chevron-right'} size={scale(16)} color={"black"} />
-            </TouchableOpacity>
-            <View style={{ height: (containerH / 5.3) * 3 / 5, borderBottomLeftRadius: scale(7), borderBottomRightRadius: scale(7), flexDirection: 'row', }}>
+            <View style={styles.account}>
+              <TouchableOpacity
+                onPress={() => this.checkWallet()}
+                style={{ height: (containerH / 5.3) * 2 / 5, borderTopLeftRadius: scale(7), borderTopRightRadius: scale(7), flexDirection: 'row', alignItems: "center", borderBottomColor: 'gray', borderBottomWidth: scale(0.5) }}
+              >
+                <Text
+                  style={{ flex: 6, paddingLeft: scale(7), fontSize: scale(15) }}>Số dư Pay5s</Text>
+                <Text style={{ flex: 3, fontSize: scale(15), fontWeight: 'bold', textAlign: 'right' }}>{formatMoney(this.props.accountInfo.balance)}đ</Text>
+                <View style={{ flex: 0.2 }}></View>
+                <Icon style={{ flex: 1 }} name={'chevron-right'} size={scale(16)} color={"black"} />
+              </TouchableOpacity>
+              <View style={{ height: (containerH / 5.3) * 3 / 5, borderBottomLeftRadius: scale(7), borderBottomRightRadius: scale(7), flexDirection: 'row', }}>
+                {
+                  this.mainService.map((item, index) => {
+                    return this._renderMainService(item.iconName, item.label, item.onPress)
+                  })
+                }
+              </View>
+            </View>
+
+            <View style={styles.service1}>
               {
-                this.mainService.map((item, index) => {
-                  return this._renderMainService(item.iconName, item.label, item.onPress)
+                this.otherService.map((item, index) => {
+                  return this._renderOtherServices(item.iconName, item.label, item.onPress, item.color)
+                })
+              }
+            </View>
+            <View style={styles.service2}>
+              {
+                this.otherService2.map((item, index) => {
+                  return this._renderOtherServices(item.iconName, item.label, item.onPress, item.color)
                 })
               }
             </View>
           </View>
+        </ScrollView>
 
-          <View style={styles.service1}>
-            {
-              this.otherService.map((item, index) => {
-                return this._renderOtherServices(item.iconName, item.label, item.onPress, item.color)
-              })
-            }
-          </View>
-          <View style={styles.service2}>
-            {
-              this.otherService2.map((item, index) => {
-                return this._renderOtherServices(item.iconName, item.label, item.onPress, item.color)
-              })
-            }
-          </View>
-        </View>
-      </ScrollView>
-
-    );
+      );
+    }
+    else {
+      return (
+        <LoadingDialog></LoadingDialog>
+      )
+    }
   }
 }
 const containerW = Dimensions.get('window').width;
@@ -220,13 +221,13 @@ const mapStateToProps = (store) => {
 }
 const mapDispatchToProps = (dispatch) => {
   return {
-    getAccountInfo: () => {
-      dispatch(getAccountInfo())
+    getAccountInfo: (token_user) => {
+      dispatch(getAccountInfo(token_user))
     },
     getCommonConfig: () => {
       dispatch(getCommonConfig())
     },
-    
+
 
   }
 }

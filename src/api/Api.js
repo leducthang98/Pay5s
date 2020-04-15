@@ -17,3 +17,9 @@ export const TRANSFER_GET = BASE_URL + '/transfer/list';
 
 //auth
 export const LOGIN_URL = BASE_URL + '/account/login.html';
+// account
+export const ACCOUNT_GET = 'https://client.pay5s.com/account';
+//otp
+export const OTP_GET = 'https://client.pay5s.com/account/request_otp.html?mobile=';
+//regist
+export const REGIST_URL = BASE_URL + '/account/register.html';

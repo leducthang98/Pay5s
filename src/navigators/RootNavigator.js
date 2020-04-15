@@ -4,11 +4,13 @@ import { createStackNavigator } from '@react-navigation/stack';
 
 import LoginScreen from '../screens/LoginScreen';
 import BottomTabNavigator from './BottomTabNavigator';
-import { BOTTOM_TAB, LOGIN, WALLET, RECHARGEMONEY, TRANSFERMONEY, RECHARGEPHONE } from './RouteName';
+import { BOTTOM_TAB, LOGIN, WALLET, RECHARGEMONEY, TRANSFERMONEY, RECHARGEPHONE, REGISTER, OTP } from './RouteName';
 import CheckWallet from '../screens/check_wallet/CheckWallet';
 import RechargeMoney from '../screens/RechargeMoney';
 import TransferMoney from '../screens/TransferMoney';
 import RechargePhone from '../screens/recharge_phone/RechargePhone';
+import RegisterScreen from '../screens/RegisterScreen'
+import OTPScreen from '../screens/OTPScreen';
 
 const Stack = createStackNavigator();
 
@@ -22,6 +24,8 @@ function RootNavigator() {
                 <Stack.Screen name={RECHARGEMONEY} component={RechargeMoney} />
                 <Stack.Screen name={TRANSFERMONEY} component={TransferMoney} />
                 <Stack.Screen name={RECHARGEPHONE} component={RechargePhone} />
+                <Stack.Screen name={REGISTER} component={RegisterScreen} />
+                <Stack.Screen name={OTP} component={OTPScreen} />
             </Stack.Navigator>
         </NavigationContainer >
     );
