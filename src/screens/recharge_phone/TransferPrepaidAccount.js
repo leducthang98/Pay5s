@@ -33,8 +33,8 @@ class RechargePostpaidAccount extends React.Component {
       const {srvTelcos} = data;
       this.setState({srvTelcos});
       console.log('src Telcos = ',this.state.srvTelcos);
-      const viettel = srvTelcos[srvTelcos.indexOf({telco: "VTT"})].amounts;
-      console.log('viettel = ',viettel)
+      // const viettel = srvTelcos[0].amounts;
+      // console.log('viettel = ',viettel)
     }
   }
 
@@ -46,8 +46,10 @@ class RechargePostpaidAccount extends React.Component {
       this.setState({error: {message: 'UNKNOWN_ERROR'}});
     } else if (response && response.errorCode !== 200) {
       this.setState({error: response});
+      console.log('error = ', this.state.error)
     } else {
       const data = response.data[2];
+      console.log('response = ',response)
       if (data) {
         this.setState({data: data});
       }
@@ -90,12 +92,12 @@ class RechargePostpaidAccount extends React.Component {
             isLoading && <LoadingDialog/>
           }
           {
-            error && <MessageDialog
+            error!==null ? <MessageDialog
               message={error.message}
               close={() => {
                 this.setState({error: null});
               }}
-            />
+            /> : null
           }
         </View>
       );
