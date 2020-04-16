@@ -1,10 +1,10 @@
 import * as React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-
+import InitNotiScreen from '../screens/notification/InitNotiScreen';
 import LoginScreen from '../screens/LoginScreen';
 import BottomTabNavigator from './BottomTabNavigator';
-import { BOTTOM_TAB, LOGIN, WALLET, RECHARGEMONEY, TRANSFERMONEY, RECHARGEPHONE, REGISTER, OTP } from './RouteName';
+import { BOTTOM_TAB, LOGIN, WALLET, RECHARGEMONEY, TRANSFERMONEY, RECHARGEPHONE, REGISTER, OTP, INITNOTIFICATION } from './RouteName';
 import CheckWallet from '../screens/check_wallet/CheckWallet';
 import RechargeMoney from '../screens/RechargeMoney';
 import TransferMoney from '../screens/TransferMoney';
@@ -26,6 +26,7 @@ function RootNavigator() {
                 <Stack.Screen name={RECHARGEPHONE} component={RechargePhone} />
                 <Stack.Screen name={REGISTER} component={RegisterScreen} />
                 <Stack.Screen name={OTP} component={OTPScreen} />
+                <Stack.Screen name={INITNOTIFICATION} component={InitNotiScreen} />
             </Stack.Navigator>
         </NavigationContainer >
     );
