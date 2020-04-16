@@ -56,36 +56,47 @@ class BillScreen extends React.Component {
     let billData;
     if (this.props.billData) {
       billData = this.props.billData.rows
-      return (
-        <View>
-          <Header navigation={this.props.navigation} back={false} title={'Danh sách đơn hàng'} />
-          <ScrollView style={{ marginTop: scale(5) }}>
-            {
-              billData.map((item, index) => {
-                let service
-                let telco
-                if (item.service == 'TT') {
-                  service = 'Bắn TK trả trước'
-                }
-                switch (item.telco) {
-                  case 'VTT':
-                    telco = 'Viettel'
-                    break;
-                  case 'VINA':
-                    telco = 'Vinaphone'
-                    break;
-                  case 'VMS':
-                    telco = 'Mobiphone'
-                    break;
-                }
-                let mobile = '0' + item.mobile
-                let amount = formatMoney(item.amount) + 'đ'
-                return this._renderBill(service, mobile, amount, item.modified, telco)
-              })
-            }
-          </ScrollView>
-        </View>
-      );
+      if (this.props.billData.size != 0) {
+        return (
+          <View>
+            <Header navigation={this.props.navigation} back={false} title={'Danh sách đơn hàng'} />
+            <ScrollView style={{ marginTop: scale(5) }}>
+              {
+                billData.map((item, index) => {
+                  let service
+                  let telco
+                  if (item.service == 'TT') {
+                    service = 'Bắn TK trả trước'
+                  }
+                  switch (item.telco) {
+                    case 'VTT':
+                      telco = 'Viettel'
+                      break;
+                    case 'VINA':
+                      telco = 'Vinaphone'
+                      break;
+                    case 'VMS':
+                      telco = 'Mobiphone'
+                      break;
+                  }
+                  let mobile = '0' + item.mobile
+                  let amount = formatMoney(item.amount) + 'đ'
+                  return this._renderBill(service, mobile, amount, item.modified, telco)
+                })
+              }
+            </ScrollView>
+          </View>
+        );
+      } else if (this.props.billData.size == 0) {
+        return (
+          <View>
+            <Header navigation={this.props.navigation} back={false} title={'Danh sách đơn hàng'} />
+            <View style={{ width: '100%', height: '90%', justifyContent: 'center', alignItems: 'center' }}>
+              <Text style={{color:'gray'}} >Không có đơn hàng nào</Text>
+            </View>
+          </View>
+        )
+      }
     } else {
       return (
         <View style={styles.container}>

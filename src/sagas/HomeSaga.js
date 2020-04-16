@@ -3,6 +3,7 @@ import getAccountInfoAPI from '../fetchAPIs/getAccountInfoAPI'
 import getCommonConfigAPI from '../fetchAPIs/getCommonConfigAPI'
 import getRechargePhoneServiceAPI from '../fetchAPIs/getRechargePhoneServiceAPI'
 import getTransferAPI from '../fetchAPIs/getTransferAPI'
+import getNotificationAPI from '../fetchAPIs/getNotificationAPI'
 //account
 function* getAccountInfo(action) {
     try {
@@ -69,11 +70,28 @@ function* getTransfer(action) {
         })
     }
 }
+//notification
+function* getNotification(action) {
+    try {
+        let notiPayback = yield getNotificationAPI(action.payload);
+        notiData = notiPayback.data;
+        yield put({
+            type: 'GET_NOTIFICATION_SUCCESS',
+            payload: { notiData }
+        })
+    } catch{
+        yield put({
+            type: 'GET_NOTIFICATION_FAIL',
+            payload: {}
+        })
+    }
+}
 
 export const homeSaga = [
     takeEvery('GET_ACCOUNT_INFO', getAccountInfo),
     takeEvery('GET_RECHARGE_PHONE_SERVICE', getRechargePhoneService),
     takeEvery('GET_COMMON_CONFIG', getCommonConfig),
     takeEvery('GET_TRANSFER', getTransfer),
+    takeEvery('GET_NOTIFICATION', getNotification),
 ];
 

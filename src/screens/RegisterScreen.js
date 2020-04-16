@@ -30,7 +30,7 @@ class RegisterScreen extends React.Component {
                         <TextInput
                             onChangeText={(mobile) => this.setState({ mobile })}
                             placeholder="Số điện thoại*"
-                            keyboardType = "number-pad"
+                            keyboardType="number-pad"
                             style={styles.inputStyle} />
 
                         <TextInput
@@ -59,7 +59,9 @@ class RegisterScreen extends React.Component {
                                 <Text style={{ color: 'white', fontWeight: 'bold' }}>Đăng ký</Text>
                             </View>
                         </TouchableOpacity>
-                        <TouchableOpacity>
+                        <TouchableOpacity
+                            onPress={() => this.props.navigation.pop()}
+                        >
                             <Text style={{ color: PRIMARY_COLOR, fontWeight: 'bold', marginTop: scaleVertical(25), fontSize: scale(12) }}>Quay lại</Text>
                         </TouchableOpacity>
                     </View>

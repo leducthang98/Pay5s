@@ -62,71 +62,79 @@ class CheckWalletHistory extends React.Component {
   );
   render() {
     if (this.props.transferData) {
-      return (
-        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-          <ScrollView>
-            <View style={{ height: 10 }}></View>
-            <Modal isVisible={this.state.isModalVisible} onBackdropPress={() => this.hideModal()} swipeDirection="up" onSwipeComplete={() => this.hideModal()} animationIn="slideInDown">
-              <View style={{ width: "100%", height: "100%", backgroundColor: '#D3D3D3', borderRadius: scale(5) }}>
-                <View style={{ width: "100%", height: "7%", backgroundColor: PRIMARY_COLOR, justifyContent: 'center', alignItems: 'center' }}>
-                  <Text style={texts.white_bold}>Tích điểm</Text>
+      if (this.props.transferData.size != 0) {
+        return (
+          <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+            <ScrollView>
+              <View style={{ height: 10 }}></View>
+              <Modal isVisible={this.state.isModalVisible} onBackdropPress={() => this.hideModal()} swipeDirection="up" onSwipeComplete={() => this.hideModal()} animationIn="slideInDown">
+                <View style={{ width: "100%", height: "100%", backgroundColor: '#D3D3D3', borderRadius: scale(5) }}>
+                  <View style={{ width: "100%", height: "7%", backgroundColor: PRIMARY_COLOR, justifyContent: 'center', alignItems: 'center' }}>
+                    <Text style={texts.white_bold}>Tích điểm</Text>
+                  </View>
+                  <View style={{ backgroundColor: 'white', width: "100%", height: "8%", borderBottomColor: 'gray', borderBottomWidth: scale(0.4), justifyContent: 'center', alignItems: 'center', flexDirection: 'row' }}>
+                    <View style={{ flex: 1, justifyContent: 'center', height: "100%", paddingLeft: scale(13) }}>
+                      <Text style={{ fontSize: scale(12), color: 'gray' }}>Mã giao dịch</Text>
+                    </View>
+                    <View style={{ flex: 3, justifyContent: 'center', alignItems: 'flex-end', height: "100%", paddingRight: scale(10) }}>
+                      <Text style={{ fontSize: scale(12.5), textAlign: 'right' }}>{this.state.initTransfer.id}</Text>
+                    </View>
+                  </View>
+                  <View style={{ backgroundColor: 'white', width: "100%", height: "8%", justifyContent: 'center', alignItems: 'center', flexDirection: 'row' }}>
+                    <View style={{ flex: 1, justifyContent: 'center', height: "100%", paddingLeft: scale(13) }}>
+                      <Text style={{ fontSize: scale(12), color: 'gray' }}>Thời gian</Text>
+                    </View>
+                    <View style={{ flex: 3, justifyContent: 'center', alignItems: 'flex-end', height: "100%", paddingRight: scale(10) }}>
+                      <Text style={{ fontSize: scale(12.5), textAlign: 'right' }}>{this.state.initTransfer.time}</Text>
+                    </View>
+                  </View>
+                  <View style={{ backgroundColor: 'white', width: "100%", height: "14%", justifyContent: 'center', alignItems: 'center', flexDirection: 'row', marginTop: scale(10) }}>
+                    <View style={{ flex: 1, justifyContent: 'center', height: "100%", paddingLeft: scale(13) }}>
+                      <Text style={{ fontSize: scale(12), color: 'gray' }} >Nội dung</Text>
+                    </View>
+                    <View style={{ flex: 3, justifyContent: 'center', alignItems: 'flex-end', height: "100%", paddingRight: scale(10) }}>
+                      <Text style={{ fontSize: scale(12.5), textAlign: 'right' }} numberOfLines={5}>{this.state.initTransfer.note}</Text>
+                    </View>
+                  </View>
+                  <View style={{ backgroundColor: 'white', width: "100%", height: "8%", justifyContent: 'center', alignItems: 'center', flexDirection: 'row', marginTop: scale(10) }}>
+                    <View style={{ flex: 1, justifyContent: 'center', height: "100%", paddingLeft: scale(13) }}>
+                      <Text style={{ fontSize: scale(12), color: 'gray' }}>Thay đổi</Text>
+                    </View>
+                    <View style={{ flex: 3, justifyContent: 'center', alignItems: 'flex-end', height: "100%", paddingRight: scale(10) }}>
+                      <Text style={{ fontSize: scale(12.5), textAlign: 'right' }}>{this.state.initTransfer.amount}</Text>
+                    </View>
+                  </View>
                 </View>
-                <View style={{ backgroundColor: 'white', width: "100%", height: "8%", borderBottomColor: 'gray', borderBottomWidth: scale(0.4), justifyContent: 'center', alignItems: 'center', flexDirection: 'row' }}>
-                  <View style={{ flex: 1, justifyContent: 'center', height: "100%", paddingLeft: scale(13) }}>
-                    <Text style={{ fontSize: scale(12), color: 'gray' }}>Mã giao dịch</Text>
-                  </View>
-                  <View style={{ flex: 3, justifyContent: 'center', alignItems: 'flex-end', height: "100%", paddingRight: scale(10) }}>
-                    <Text style={{ fontSize: scale(12.5), textAlign: 'right' }}>{this.state.initTransfer.id}</Text>
-                  </View>
-                </View>
-                <View style={{ backgroundColor: 'white', width: "100%", height: "8%", justifyContent: 'center', alignItems: 'center', flexDirection: 'row' }}>
-                  <View style={{ flex: 1, justifyContent: 'center', height: "100%", paddingLeft: scale(13) }}>
-                    <Text style={{ fontSize: scale(12), color: 'gray' }}>Thời gian</Text>
-                  </View>
-                  <View style={{ flex: 3, justifyContent: 'center', alignItems: 'flex-end', height: "100%", paddingRight: scale(10) }}>
-                    <Text style={{ fontSize: scale(12.5), textAlign: 'right' }}>{this.state.initTransfer.time}</Text>
-                  </View>
-                </View>
-                <View style={{ backgroundColor: 'white', width: "100%", height: "14%", justifyContent: 'center', alignItems: 'center', flexDirection: 'row', marginTop: scale(10) }}>
-                  <View style={{ flex: 1, justifyContent: 'center', height: "100%", paddingLeft: scale(13) }}>
-                    <Text style={{ fontSize: scale(12), color: 'gray' }} >Nội dung</Text>
-                  </View>
-                  <View style={{ flex: 3, justifyContent: 'center', alignItems: 'flex-end', height: "100%", paddingRight: scale(10) }}>
-                    <Text style={{ fontSize: scale(12.5), textAlign: 'right' }} numberOfLines={5}>{this.state.initTransfer.note}</Text>
-                  </View>
-                </View>
-                <View style={{ backgroundColor: 'white', width: "100%", height: "8%", justifyContent: 'center', alignItems: 'center', flexDirection: 'row', marginTop: scale(10) }}>
-                  <View style={{ flex: 1, justifyContent: 'center', height: "100%", paddingLeft: scale(13) }}>
-                    <Text style={{ fontSize: scale(12), color: 'gray' }}>Thay đổi</Text>
-                  </View>
-                  <View style={{ flex: 3, justifyContent: 'center', alignItems: 'flex-end', height: "100%", paddingRight: scale(10) }}>
-                    <Text style={{ fontSize: scale(12.5), textAlign: 'right' }}>{this.state.initTransfer.amount}</Text>
-                  </View>
-                </View>
-              </View>
-            </Modal>
-            {
-              this.props.transferData.rows.map((item, index) => {
-                let amount = formatMoney(item.amount) + 'đ';
-                let originAmount = formatMoney(this.props.accountInfo.balance + item.amount) + 'đ';
-                let icon;
-                if (item.amount < 0) {
-                  icon = 'chevron-circle-left'
-                } else {
-                  icon = 'chevron-circle-right'
-                }
-                return this._renderTransfer(item.id, amount, item.note, item.type, item.time, originAmount, icon)
-              })
-            }
+              </Modal>
+              {
+                this.props.transferData.rows.map((item, index) => {
+                  let amount = formatMoney(item.amount) + 'đ';
+                  let originAmount = formatMoney(this.props.accountInfo.balance + item.amount) + 'đ';
+                  let icon;
+                  if (item.amount < 0) {
+                    icon = 'chevron-circle-left'
+                  } else {
+                    icon = 'chevron-circle-right'
+                  }
+                  return this._renderTransfer(item.id, amount, item.note, item.type, item.time, originAmount, icon)
+                })
+              }
 
-          </ScrollView>
-        </View>
-      );
+            </ScrollView>
+          </View>
+        );
+      } else if (this.props.transferData.size == 0) {
+        return (
+          <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+            <Text style={{color:'gray'}}>Không có giao dịch nào</Text>
+          </View>
+          );
+      }
     }
     else {
       return (
         <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-          <Text>Loading</Text>
+
         </View>
       );
     }

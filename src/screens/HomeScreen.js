@@ -6,20 +6,19 @@ import {
   Text,
   ScrollView,
   Dimensions,
-  StatusBar,
-  FlatList,
-  Platform
+  Image
 } from 'react-native';
 import { connect } from 'react-redux';
 import Icon from 'react-native-vector-icons/FontAwesome5';
-import { scale } from '../constant/Scale';
+import { scale, scaleVertical } from '../constant/Scale';
 import { shadow } from '../constant/CommonStyles';
 import { statusBarHeight } from '../constant/Layout';
 import { WALLET, NOTIFICATION, RECHARGEMONEY, TRANSFERMONEY, RECHARGEPHONE } from '../navigators/RouteName';
 import AsyncStorage from '@react-native-community/async-storage';
-import { getAccountInfo, getCommonConfig } from '../actions/ActionHomeScreen';
+import { getAccountInfo, getCommonConfig, getNotification } from '../actions/ActionHomeScreen';
 import { formatMoney } from '../constant/MoneyFormat';
-import LoadingDialog from '../components/common/LoadingDialog';
+import Loading from '../components/common/Loading';
+import { FACEBOOK } from '../constant/Colors';
 const buyCardID = () => console.log("buyCardID")
 const internetViettel = () => console.log("internetViettel")
 const KPlus = () => console.log("KPlus")
@@ -43,7 +42,7 @@ class HomeScreen extends React.Component {
       { iconName: 'korvue', label: 'Gia hạn K+', onPress: KPlus, color: "#00FF00" },
     ];
     this.otherService2 = [
-      { iconName: 'headset', label: 'Hỗ trợ', onPress: Support, color: "#099FFF" },
+      {},
       {},
       {},
       {},
@@ -54,6 +53,7 @@ class HomeScreen extends React.Component {
     const token_user = await AsyncStorage.getItem('access_token')
     this.props.getAccountInfo(token_user);
     this.props.getCommonConfig(token_user);
+    this.props.getNotification(token_user);
   }
   checkWallet() {
     this.props.navigation.navigate(WALLET)
@@ -84,10 +84,34 @@ class HomeScreen extends React.Component {
       <Text style={{ fontSize: scale(11), paddingTop: scale(9), textAlign: 'center' }}>{label}</Text>
     </TouchableOpacity>
   );
-
+  _renderNotification = (img_preview, headline) => (
+    <TouchableOpacity >
+      <View style={{ width: containerW / 1.7, height: scale(130) }}>
+        <View style={{ flex: 4, justifyContent: 'center', alignItems: 'center' }}>
+          <Image style={{ height: '75%', width: '80%' }}
+            source={{
+              uri:
+                (img_preview) ?
+                  'https://scontent-sin6-1.xx.fbcdn.net/v/t1.0-9/p960x960/71949763_2522897797942478_4149955310162804736_o.jpg?_nc_cat=106&_nc_sid=85a577&_nc_ohc=zag8Z2YXtdMAX9BGZT4&_nc_ht=scontent-sin6-1.xx&_nc_tp=6&oh=081596cb6c9afc68b5bb83a069d5aa1a&oe=5EA9804A'
+                  :
+                  'https://upload.wikimedia.org/wikipedia/commons/thumb/5/55/Huaraz-prairie.JPG/300px-Huaraz-prairie.JPG'
+            }}
+          />
+        </View>
+        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+          <View style={{width:'80%',height:'100%'}}>
+          <Text
+            numberOfLines={2}
+            style={{fontSize:scale(11),position:'absolute',fontWeight:'bold'}}
+          >{headline}</Text>
+          </View>
+        </View>
+      </View>
+    </TouchableOpacity>
+  );
 
   render() {
-    if (this.props.accountInfo) {
+    if (this.props.accountInfo && this.props.notiData) {
       return (
         <ScrollView style={styles.container}>
           <View style={{ alignItems: 'center' }}>
@@ -100,7 +124,7 @@ class HomeScreen extends React.Component {
                 <TouchableOpacity
                   onPress={() => this.notification()}
                 >
-                  <Icon style={{ flex: 1 }} name={'bell'} size={scale(23)} color={"white"} />
+                  <Icon style={{ flex: 1 }} name={'question-circle'} size={scale(23)} color={'white'} />
                 </TouchableOpacity>
 
               </View>
@@ -111,7 +135,7 @@ class HomeScreen extends React.Component {
                 style={{ height: (containerH / 5.3) * 2 / 5, borderTopLeftRadius: scale(7), borderTopRightRadius: scale(7), flexDirection: 'row', alignItems: "center", borderBottomColor: 'gray', borderBottomWidth: scale(0.5) }}
               >
                 <Text
-                  style={{ flex: 6, paddingLeft: scale(7), fontSize: scale(15) }}>Số dư Pay5s</Text>
+                  style={{ flex: 6, paddingLeft: scale(7), fontSize: scale(14) }}>Số dư</Text>
                 <Text style={{ flex: 3, fontSize: scale(15), fontWeight: 'bold', textAlign: 'right' }}>{formatMoney(this.props.accountInfo.balance)}đ</Text>
                 <View style={{ flex: 0.2 }}></View>
                 <Icon style={{ flex: 1 }} name={'chevron-right'} size={scale(16)} color={"black"} />
@@ -132,12 +156,40 @@ class HomeScreen extends React.Component {
                 })
               }
             </View>
-            <View style={styles.service2}>
+            {/* <View style={styles.service2}>
               {
                 this.otherService2.map((item, index) => {
                   return this._renderOtherServices(item.iconName, item.label, item.onPress, item.color)
                 })
               }
+            </View> */}
+            <View style={styles.notification}>
+              <View style={{ flexDirection: 'row', height: scale(30), paddingLeft: scale(10), paddingRight: scale(10) }}>
+                <View style={{ alignItems: 'flex-start', justifyContent: 'flex-end', flex: 1 }}>
+                  <Text style={{ fontSize: scale(14), fontWeight: '600' }}>Tin tức</Text>
+                </View>
+                <View style={{ alignItems: 'flex-end', justifyContent: 'flex-end', flex: 1 }}>
+                  <TouchableOpacity
+                    onPress={() => this.props.navigation.navigate(NOTIFICATION)}
+                  >
+                    <Text style={{ color: FACEBOOK, fontSize: scale(14), fontWeight: '600' }}>Xem tất cả</Text>
+                  </TouchableOpacity>
+                </View>
+              </View>
+              <View style={{ height: scale(230), backgroundColor: 'white' }}>
+                <ScrollView horizontal={true} style={{ paddingTop: scale(10) }}>
+                  {
+                    this.props.notiData.rows.map((item, index) => {
+                      if (index > 2) {
+                        return null;
+                      }
+                      let img_preview = item.img_preview;
+                      let headline = item.headline;
+                      return this._renderNotification(img_preview, headline)
+                    })
+                  }
+                </ScrollView>
+              </View>
             </View>
           </View>
         </ScrollView>
@@ -146,7 +198,7 @@ class HomeScreen extends React.Component {
     }
     else {
       return (
-        <LoadingDialog></LoadingDialog>
+        <Loading></Loading>
       )
     }
   }
@@ -154,6 +206,11 @@ class HomeScreen extends React.Component {
 const containerW = Dimensions.get('window').width;
 const containerH = Dimensions.get('window').height;
 const styles = StyleSheet.create({
+  notification: {
+    marginTop: scaleVertical(8),
+    width: containerW,
+    backgroundColor: 'white'
+  },
   container: {
     width: containerW,
     height: containerH,
@@ -193,30 +250,27 @@ const styles = StyleSheet.create({
     elevation: 3,
   },
   service1: {
-    width: containerW / 1.08,
-    height: containerH / 6.3,
+    width: containerW,
+    height: containerH / 6.5,
     flexDirection: 'row',
     marginTop: '3%',
-    borderTopLeftRadius: scale(7),
-    borderTopRightRadius: scale(7),
     backgroundColor: 'white',
 
 
   },
   service2: {
-    width: containerW / 1.08,
-    height: containerH / 6.3,
+    width: containerW,
+    height: containerH / 6.5,
     flexDirection: 'row',
     backgroundColor: 'white',
-    borderBottomLeftRadius: scale(7),
-    borderBottomRightRadius: scale(7),
   },
 
 });
 
 const mapStateToProps = (store) => {
   return {
-    accountInfo: store.homeReducer.accountInfo
+    accountInfo: store.homeReducer.accountInfo,
+    notiData: store.homeReducer.notiData
   }
 }
 const mapDispatchToProps = (dispatch) => {
@@ -227,6 +281,9 @@ const mapDispatchToProps = (dispatch) => {
     getCommonConfig: (token_user) => {
       dispatch(getCommonConfig(token_user))
     },
+    getNotification: (token_user) => {
+      dispatch(getNotification(token_user))
+    }
 
 
   }

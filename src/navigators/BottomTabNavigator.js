@@ -3,7 +3,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
 import HomeScreen from '../screens/HomeScreen';
 import AccountScreen from '../screens/account/AccountScreen';
-import NotiScreen from '../screens/NotiScreen';
+import NotiScreen from '../screens/notification/NotiScreen';
 import BillScreen from '../screens/BillScreen';
 
 
