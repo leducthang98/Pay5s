@@ -22,7 +22,6 @@ class RechargeMoney extends React.Component {
   render() {
 
     if (this.props.commonConfigData) {
-      console.log(this.props.commonConfigData.topup_channel)
       return (
         <View style={{ flex: 1 }}>
           <Header navigation={this.props.navigation} back={true} title={'Nạp số dư tài khoản'} />

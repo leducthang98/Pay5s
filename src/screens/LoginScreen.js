@@ -102,8 +102,9 @@ class LoginScreen extends React.Component {
 
           <TextInput
             onChangeText={(username) => this._processUsername(username)}
-            placeholder="Tên đăng nhập"
+            placeholder="Số điện thoại"
             textAlign='left'
+            keyboardType="number-pad"
             style={this.state.usernameError ? inputErrorStyleUser : inputStyleUser} />
           <TextInput
             onChangeText={(password) => this._processPassword(password)}

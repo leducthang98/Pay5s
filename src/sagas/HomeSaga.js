@@ -24,7 +24,7 @@ function* getAccountInfo(action) {
 //services
 function* getRechargePhoneService(action) {
     try {
-        let servicePayback = yield getRechargePhoneServiceAPI();
+        let servicePayback = yield getRechargePhoneServiceAPI(action.payload);
         phoneServiceData = servicePayback.data;
         yield put({
             type: 'GET_RECHARGE_PHONE_SERVICE_SUCCESS',
@@ -40,7 +40,7 @@ function* getRechargePhoneService(action) {
 //common configs
 function* getCommonConfig(action) {
     try {
-        let commonConfigPayback = yield getCommonConfigAPI();
+        let commonConfigPayback = yield getCommonConfigAPI(action.payload);
         commonConfigData = commonConfigPayback.data;
         yield put({
             type: 'GET_COMMON_CONFIG_SUCCESS',
@@ -56,7 +56,7 @@ function* getCommonConfig(action) {
 //transfer
 function* getTransfer(action) {
     try {
-        let transferPayback = yield getTransferAPI();
+        let transferPayback = yield getTransferAPI(action.payload);
         transferData = transferPayback.data;
         yield put({
             type: 'GET_TRANSFER_SUCCESS',

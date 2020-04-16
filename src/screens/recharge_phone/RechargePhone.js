@@ -6,16 +6,18 @@ import {
 import Header from '../../components/common/Header';
 import RechargePhoneTabView from './RechargePhoneTabView';
 import { connect } from 'react-redux';
+import AsyncStorage from '@react-native-community/async-storage';
 import { getRechargePhoneService } from '../../actions/ActionHomeScreen';
 class RechargePhone extends React.Component {
     constructor(props) {
         super(props);
     }
     async componentDidMount() {
-        this.props.getRechargePhoneService();
+        const token_user = await AsyncStorage.getItem('access_token')
+        this.props.getRechargePhoneService(token_user);
     }
     render() {
-       console.log(this.props.rechargePhoneService)
+        console.log(this.props.rechargePhoneService)
         return (
             <View style={{ flex: 1 }}>
                 <Header navigation={this.props.navigation} back={true} title={'Nạp tiền điện thoại'} />
@@ -33,8 +35,8 @@ const mapStateToProps = (store) => {
 }
 const mapDispatchToProps = (dispatch) => {
     return {
-        getRechargePhoneService: () => {
-            dispatch(getRechargePhoneService())
+        getRechargePhoneService: (token_user) => {
+            dispatch(getRechargePhoneService(token_user))
         },
 
     }

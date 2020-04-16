@@ -53,7 +53,7 @@ class HomeScreen extends React.Component {
   async componentDidMount() {
     const token_user = await AsyncStorage.getItem('access_token')
     this.props.getAccountInfo(token_user);
-    this.props.getCommonConfig();
+    this.props.getCommonConfig(token_user);
   }
   checkWallet() {
     this.props.navigation.navigate(WALLET)
@@ -224,8 +224,8 @@ const mapDispatchToProps = (dispatch) => {
     getAccountInfo: (token_user) => {
       dispatch(getAccountInfo(token_user))
     },
-    getCommonConfig: () => {
-      dispatch(getCommonConfig())
+    getCommonConfig: (token_user) => {
+      dispatch(getCommonConfig(token_user))
     },
 
 

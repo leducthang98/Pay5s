@@ -15,12 +15,15 @@ import {
 import Header from '../components/common/Header';
 import { connect } from 'react-redux';
 import Icon from 'react-native-vector-icons/FontAwesome5';
+import AsyncStorage from '@react-native-community/async-storage';
 import { getBill } from '../actions/ActionBillScreen';
 import { scale } from '../constant/Scale';
 import { formatMoney } from '../constant/MoneyFormat';
 class BillScreen extends React.Component {
-  componentDidMount() {
-    this.props.getBill();
+
+  async componentDidMount() {
+    const token_user = await AsyncStorage.getItem('access_token')
+    this.props.getBill(token_user);
   }
   _renderBill = (service, mobile, amount, modified, telco) => (
     <View style={styles.component} >
@@ -76,7 +79,7 @@ class BillScreen extends React.Component {
                     break;
                 }
                 let mobile = '0' + item.mobile
-                let amount = formatMoney(item.amount)+'đ'
+                let amount = formatMoney(item.amount) + 'đ'
                 return this._renderBill(service, mobile, amount, item.modified, telco)
               })
             }
@@ -139,8 +142,8 @@ const mapStateToProps = (store) => {
 }
 const mapDispatchToProps = (dispatch) => {
   return {
-    getBill: () => {
-      dispatch(getBill())
+    getBill: (token_user) => {
+      dispatch(getBill(token_user))
     },
 
   }

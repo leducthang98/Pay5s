@@ -43,7 +43,7 @@ class AccountScreen extends React.Component {
       data: [{
         iconLeftName: 'coins',
         title: 'Số dư: ',
-        extraInfo: formatMoney(this.props.accountInfo.balance),
+        extraInfo: 0,
         onPress: () => this.checkWallet(),
         iconLeftColor: COLOR.GOLD,
         extraInfoColor: COLOR.PURPLE,

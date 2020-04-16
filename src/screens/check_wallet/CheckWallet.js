@@ -18,6 +18,7 @@ import { connect } from 'react-redux';
 import Loading from '../../components/common/Loading';
 const { width } = Dimensions.get('window');
 const containerW = Dimensions.get('window').width;
+import AsyncStorage from '@react-native-community/async-storage';
 const containerH = Dimensions.get('window').height;
 import { WALLET, NOTIFICATION, RECHARGEMONEY, TRANSFERMONEY, RECHARGEPHONE } from '../../navigators/RouteName';
 import { getTransfer } from '../../actions/ActionHomeScreen';
@@ -25,8 +26,9 @@ class CheckWallet extends React.Component {
   constructor(props) {
     super(props);
   }
-  componentDidMount(){
-    this.props.getTransfer();
+  async componentDidMount() {
+    const token_user = await AsyncStorage.getItem('access_token')
+    this.props.getTransfer(token_user);
   }
   rechargeMoney() {
     this.props.navigation.navigate(RECHARGEMONEY)
@@ -99,8 +101,8 @@ const mapStateToProps = (store) => {
 }
 const mapDispatchToProps = (dispatch) => {
   return {
-    getTransfer: () => {
-      dispatch(getTransfer())
+    getTransfer: (token_user) => {
+      dispatch(getTransfer(token_user))
     },
 
   }
