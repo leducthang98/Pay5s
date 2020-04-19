@@ -16,5 +16,6 @@ module.exports = {
   CONTACTS: '#008e69',
   DISABLED_COLOR: '#d3d3d3',
   ENABLED_COLOR: '#ff8c00',
-
+  MODAL_BACKGROUND_DARK: '#00000099',
+  MODAL_BACKGROUND_LIGHT: 'rgba(74,74,74,0.6)',
 };

@@ -16,7 +16,8 @@ const vn = {
   PROCESS_SPEED: 'Tốc độ xử lý đơn: ',
   RECEIVE_20_PERCENT_PROMOTION: 'Nhận được 20% khuyến mại của nhà mạng nếu có',
   AMOUNT_TO_DEPOSIT: 'Mệnh giá nạp',
-
+  CHANGE_NETWORK: 'Thay đổi nhà mạng',
+  CHANGE_NETWORK_NOTE: 'Lưu ý: chỉ thay đổi nhà mạng khi bạn đã đăng ký chuyển mạng giữ số điện thoại',
 
   //commons
   CONNECTING: 'Đang kết nối',

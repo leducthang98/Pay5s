@@ -10,10 +10,11 @@ const _getHeaders = async () => {
 };
 
 export const callApi = async (method, url, input) => {
+  const headers = await _getHeaders();
   return new Promise((resolve, reject) => {
     fetch(url, {
       method: method,
-      headers: _getHeaders(),
+      headers: headers,
       data: input,
     })
       .then((response) => response.json())

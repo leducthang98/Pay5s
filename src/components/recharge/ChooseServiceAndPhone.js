@@ -46,7 +46,9 @@ export default class ChooseServiceAndPhone extends Component {
               <Icon name={'account-circle'} color={COLOR.CONTACTS} size={scaleModerate(30)}/>
             </TouchableOpacity>
           </View>
-          <TouchableOpacity style={styles.network}>
+          <TouchableOpacity
+            onPress={()=>this.props.openChooseNetwork()}
+            style={styles.network}>
             <Image
               style={{width: '100%', height: '100%'}}
               resizeMode={'contain'}

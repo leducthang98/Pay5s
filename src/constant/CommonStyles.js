@@ -222,12 +222,21 @@ export const texts = {
     fontSize: scaleModerate(14),
     fontWeight: 'normal',
     color: COLOR.TEXT_LABEL,
+    textAlign:'left'
   },
 
   l_bold: {
     fontSize: scaleModerate(14),
     fontWeight: 'bold',
     color: COLOR.TEXT_LABEL,
+    textAlign:'left'
+  },
+
+  bold: {
+    fontSize: scaleModerate(14),
+    fontWeight: 'bold',
+    color: COLOR.TEXT_LABEL,
+    textAlign:'center'
   },
 
   r_normal: {
@@ -247,6 +256,12 @@ export const texts = {
     fontSize: scaleModerate(14),
     color: COLOR.PLACEHOLDER_TEXT,
     textAlign: 'left',
+  },
+
+  placeholder: {
+    fontSize: scaleModerate(14),
+    color: COLOR.PLACEHOLDER_TEXT,
+    textAlign: 'center',
   },
 
   sm: {

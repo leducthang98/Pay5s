@@ -18,15 +18,25 @@ const {width, height} = Dimensions.get('window');
 export default class ItemRechargeList extends Component {
   constructor(props) {
     super(props);
-    this.paymentAmount = this.props.discount ? this.props.data?.amount * this.props.discount / 100 : this.props.data?.amount;
+    this.state = {
+      discountAmount: this.props.data?.amount
+    };
+  }
+
+  componentDidMount(){
+    const {discount} = this.props;
+    const {discountAmount} = this.state;
+    const newDiscountAmount = parseInt(discountAmount) * parseInt(discount)/ 100;
+    this.setState({discountAmount:newDiscountAmount})
   }
 
   render() {
     const {data, discount, selected} = this.props;
+    const {discountAmount} = this.state;
     return (
       <TouchableOpacity
         onPress={() => this.props.onPress()}
-        style={[!selected ? styles.container : styles.selectedContainer, shadow.ssm]}>
+        style={[!selected ? styles.container : styles.selectedContainer]}>
         <View style={styles.totalAmount}>
           <Text style={[texts.h4, {fontWeight: 'bold', color: selected ? COLOR.PRIMARY_COLOR : COLOR.TEXT_LABEL}]}>
             {formatMoney(data?.amount || 10000) + 'đ'}
@@ -34,8 +44,8 @@ export default class ItemRechargeList extends Component {
         </View>
         <View style={styles.line}/>
         <View style={styles.discountAmount}>
-          <Text style={texts.sm}>-{discount}%~</Text>
-          <Text style={[texts.sm, {color: COLOR.FACEBOOK}]}>{formatMoney(this.paymentAmount) || '2000' + 'đ'}</Text>
+          <Text style={texts.sm}>-{discount || 0}%~</Text>
+          <Text style={[texts.sm, {color: COLOR.FACEBOOK}]}>{formatMoney(discountAmount) || '2000' + 'đ'}</Text>
         </View>
       </TouchableOpacity>
     );
@@ -49,6 +59,8 @@ const styles = StyleSheet.create({
     borderRadius: scaleModerate(8),
     backgroundColor: COLOR.BACKGROUND_COLOR,
     alignItems: 'center',
+    borderWidth: 2,
+    borderColor: COLOR.DISABLED_COLOR,
     marginHorizontal: scaleModerate(5),
     marginVertical: scaleVertical(10),
   },
@@ -58,7 +70,7 @@ const styles = StyleSheet.create({
     borderRadius: scaleModerate(8),
     backgroundColor: COLOR.BACKGROUND_COLOR,
     alignItems: 'center',
-    borderWidth: 0.7,
+    borderWidth: 2,
     borderColor: COLOR.PRIMARY_COLOR,
     marginHorizontal: scaleModerate(5),
     marginVertical: scaleVertical(10),
@@ -76,6 +88,6 @@ const styles = StyleSheet.create({
   discountAmount: {
     flex: 1,
     flexDirection: 'row',
-
+    justifyContent: 'flex-start'
   },
 });
