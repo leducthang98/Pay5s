@@ -3,7 +3,7 @@ import { Text, View, Dimensions, StyleSheet, TouchableOpacity, Image, SectionLis
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import { scale, scaleModerate, scaleVertical } from '../../constant/Scale';
 import { statusBarHeight } from '../../constant/Layout';
-import { WALLET } from '../../navigators/RouteName';
+import { WALLET, ACCOUNTINFO } from '../../navigators/RouteName';
 import ItemAccount from '../../components/account/ItemAccount';
 import * as COLOR from '../../constant/Colors';
 import Header from '../../components/common/Header';
@@ -39,7 +39,7 @@ class AccountScreen extends React.Component {
   };
 
   render() {
-    if (this.props.accountInfo) {
+    if (this.props.accountInfo && this.props.commonConfigData) {
       const itemList = [{
         section: 1,
         data: [{
@@ -94,10 +94,12 @@ class AccountScreen extends React.Component {
           <View style={styles.body1}>
             <TouchableOpacity style={{ flex: 2.5, marginLeft: 4, }}>
               <Image style={{ height: '100%', borderRadius: 40 }}
-                source={{ uri: 'https://scontent-sin6-1.xx.fbcdn.net/v/t1.0-9/p960x960/71949763_2522897797942478_4149955310162804736_o.jpg?_nc_cat=106&_nc_sid=85a577&_nc_ohc=zag8Z2YXtdMAX9BGZT4&_nc_ht=scontent-sin6-1.xx&_nc_tp=6&oh=081596cb6c9afc68b5bb83a069d5aa1a&oe=5EA9804A' }}
+                source={{ uri: this.props.commonConfigData.banner.default }}
               />
             </TouchableOpacity>
-            <TouchableOpacity style={styles.infoArea}>
+            <TouchableOpacity style={styles.infoArea}
+              onPress={() => this.props.navigation.navigate(ACCOUNTINFO)}
+            >
               <View style={{ flex: 8, justifyContent: 'flex-start', flexDirection: 'column' }}>
                 <Text style={{ fontSize: scale(18) }}>Lê Đức Thắng</Text>
                 <Text style={{ fontSize: scale(12), color: 'gray' }}>0{this.props.accountInfo.mobile}</Text>
@@ -178,7 +180,9 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = (store) => {
   return {
-    accountInfo: store.homeReducer.accountInfo
+    accountInfo: store.homeReducer.accountInfo,
+    commonConfigData: store.homeReducer.commonConfigData
+
   }
 }
 const mapDispatchToProps = (dispatch) => {

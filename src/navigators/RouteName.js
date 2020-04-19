@@ -13,3 +13,4 @@ export const HISTORY = 'History';
 export const REGISTER = 'Register';
 export const OTP = 'Otp';
 export const INITNOTIFICATION = 'InitNotification';
+export const ACCOUNTINFO = 'AccountInfo';

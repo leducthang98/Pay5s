@@ -1,7 +1,6 @@
 import AsyncStorage from '@react-native-community/async-storage';
 import React from 'react';
 import axios from 'axios';
-
 const demoToken = 'ff0f2d93-006d-3aaa-94ec-05ee1a1ff2af';
 
 const _getHeaders = async () => {
@@ -85,4 +84,21 @@ export const callPostApiWithoutHeader = async (url, input) => {
 
 export const callPostApiWthRawBody = async (url, input) => {
   return await callApiWithRawBody('post', url, input);
+};
+export const callApiWithToken = async (method, url,token) => {
+  console.log('url:'+url)
+  return new Promise((resolve, reject) => {
+    fetch(url, {
+      method: method,
+      headers: { "token": token },
+    })
+      .then((response) => response.json())
+      .then((res) => {
+        resolve(res);
+        console.log(res);
+      })
+      .catch((error) => {
+        reject(error);
+      });
+  });
 };
