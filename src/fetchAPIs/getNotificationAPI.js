@@ -1,9 +1,9 @@
-import { TRANSFER_GET } from "../api/Api";
+import { NOTI_GET } from "../api/Api";
 
-export default function GetTransferAPI(token_user) {
+export default function GetNotificationAPI(token_user) {
   return new Promise((resolve, reject) => {
 
-    const url = TRANSFER_GET
+    const url = NOTI_GET
     fetch(url, {
       method: "GET",
       headers: {"token":token_user},

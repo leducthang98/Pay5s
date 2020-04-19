@@ -6,17 +6,19 @@ import {
   Text,
   ScrollView,
   Dimensions,
-  StatusBar,
-  FlatList,
-  Platform
+  Image
 } from 'react-native';
 import { connect } from 'react-redux';
 import Icon from 'react-native-vector-icons/FontAwesome5';
-import { scale } from '../constant/Scale';
+import { scale, scaleVertical } from '../constant/Scale';
 import { shadow } from '../constant/CommonStyles';
 import { statusBarHeight } from '../constant/Layout';
-import { WALLET, NOTIFICATION, RECHARGEMONEY, TRANSFERMONEY, RECHARGEPHONE } from '../navigators/RouteName';
-import { getAccountInfo, getCommonConfig } from '../actions/ActionHomeScreen';
+import { WALLET, NOTIFICATION, RECHARGEMONEY, TRANSFERMONEY, RECHARGEPHONE, INITNOTIFICATION } from '../navigators/RouteName';
+import AsyncStorage from '@react-native-community/async-storage';
+import { getAccountInfo, getCommonConfig, getNotification } from '../actions/ActionHomeScreen';
+import { formatMoney } from '../constant/MoneyFormat';
+import Loading from '../components/common/Loading';
+import { FACEBOOK } from '../constant/Colors';
 const buyCardID = () => console.log("buyCardID")
 const internetViettel = () => console.log("internetViettel")
 const KPlus = () => console.log("KPlus")
@@ -40,16 +42,18 @@ class HomeScreen extends React.Component {
       { iconName: 'korvue', label: 'Gia hạn K+', onPress: KPlus, color: "#00FF00" },
     ];
     this.otherService2 = [
-      { iconName: 'headset', label: 'Hỗ trợ', onPress: Support, color: "#099FFF" },
+      {},
       {},
       {},
       {},
     ];
 
   }
-  componentDidMount() {
-    this.props.getAccountInfo();
-    this.props.getCommonConfig();
+  async componentDidMount() {
+    const token_user = await AsyncStorage.getItem('access_token')
+    this.props.getAccountInfo(token_user);
+    this.props.getCommonConfig(token_user);
+    this.props.getNotification(token_user);
   }
   checkWallet() {
     this.props.navigation.navigate(WALLET)
@@ -80,79 +84,151 @@ class HomeScreen extends React.Component {
       <Text style={{ fontSize: scale(11), paddingTop: scale(9), textAlign: 'center' }}>{label}</Text>
     </TouchableOpacity>
   );
-
+  _renderNotification = (img_preview, img_avatar, headline, published_date, author, content, description) => (
+    <TouchableOpacity
+      style={{ height: scale(120) }}
+      onPress={() => this.props.navigation.navigate(INITNOTIFICATION, {
+        dataNotification: {
+          img_preview: img_preview,
+          headline: headline,
+          published_date: published_date,
+          author: author,
+          content: content,
+          description: description,
+          img_avatar: img_avatar
+        }
+      })}
+    >
+      <View style={{ width: containerW / 1.7, height: scale(110) }}>
+        <View style={{ flex: 4, justifyContent: 'center', alignItems: 'center' }}>
+          <Image style={{ height: '90%', width: '80%' }}
+            source={{
+              uri:
+                (img_avatar) ?
+                  'https://scontent-sin6-1.xx.fbcdn.net/v/t1.0-9/p960x960/71949763_2522897797942478_4149955310162804736_o.jpg?_nc_cat=106&_nc_sid=85a577&_nc_ohc=zag8Z2YXtdMAX9BGZT4&_nc_ht=scontent-sin6-1.xx&_nc_tp=6&oh=081596cb6c9afc68b5bb83a069d5aa1a&oe=5EA9804A'
+                  :
+                  'https://upload.wikimedia.org/wikipedia/commons/thumb/5/55/Huaraz-prairie.JPG/300px-Huaraz-prairie.JPG'
+            }}
+          />
+        </View>
+        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+          <View style={{ width: '80%', height: '100%' }}>
+            <Text
+              numberOfLines={2}
+              style={{ fontSize: scale(11), position: 'absolute', fontWeight: 'bold' }}
+            >{headline}</Text>
+          </View>
+        </View>
+      </View>
+    </TouchableOpacity>
+  );
 
   render() {
-    let data = {
-      name: "user",
-      balance: 0
-    }
-    if (this.props.accountInfo) {
-      data = {
-        name: this.props.accountInfo.name,
-        balance: this.props.accountInfo.balance
-      }
-    }
-    return (
-      <ScrollView style={styles.container}>
-        <View style={{ alignItems: 'center' }}>
-          <View style={[styles.header]}>
-            <View style={styles.insideHeader}>
-              <View style={{ flex: 14, flexDirection: 'row' }}>
-                <Text style={{ color: 'white', fontSize: scale(14) }}> Xin chào </Text>
-                <Text style={{ color: 'white', fontSize: scale(14), fontWeight: 'bold' }}>{ data.name}</Text>
-              </View>
-              <TouchableOpacity
-                onPress={() => this.notification()}
-              >
-                <Icon style={{ flex: 1 }} name={'bell'} size={scale(23)} color={"white"} />
-              </TouchableOpacity>
+    if (this.props.accountInfo && this.props.notiData) {
+      return (
+        <ScrollView style={styles.container}>
+          <View style={{ alignItems: 'center' }}>
+            <View style={[styles.header]}>
+              <View style={styles.insideHeader}>
+                <View style={{ flex: 14, flexDirection: 'row' }}>
+                  <Text style={{ color: 'white', fontSize: scale(14) }}> Xin chào </Text>
+                  <Text style={{ color: 'white', fontSize: scale(14), fontWeight: 'bold' }}>0{this.props.accountInfo.mobile}</Text>
+                </View>
+                <TouchableOpacity
+                  onPress={() => this.notification()}
+                >
+                  <Icon style={{ flex: 1 }} name={'question-circle'} size={scale(23)} color={'white'} />
+                </TouchableOpacity>
 
+              </View>
             </View>
-          </View>
-          <View style={styles.account}>
-            <TouchableOpacity
-              onPress={() => this.checkWallet()}
-              style={{ height: (containerH / 5.3) * 2 / 5, borderTopLeftRadius: scale(7), borderTopRightRadius: scale(7), flexDirection: 'row', alignItems: "center", borderBottomColor: 'gray', borderBottomWidth: scale(0.5) }}
-            >
-              <Text
-                style={{ flex: 6, paddingLeft: scale(7), fontSize: scale(15) }}>Số dư Pay5s</Text>
-              <Text style={{ flex: 3, fontSize: scale(15), fontWeight: 'bold', textAlign: 'right' }}>{data.balance}đ</Text>
-              <View style={{flex:0.2}}></View>
-              <Icon style={{ flex: 1 }} name={'chevron-right'} size={scale(16)} color={"black"} />
-            </TouchableOpacity>
-            <View style={{ height: (containerH / 5.3) * 3 / 5, borderBottomLeftRadius: scale(7), borderBottomRightRadius: scale(7), flexDirection: 'row', }}>
+            <View style={styles.account}>
+              <TouchableOpacity
+                onPress={() => this.checkWallet()}
+                style={{ height: (containerH / 5.3) * 2 / 5, borderTopLeftRadius: scale(7), borderTopRightRadius: scale(7), flexDirection: 'row', alignItems: "center", borderBottomColor: 'gray', borderBottomWidth: scale(0.5) }}
+              >
+                <Text
+                  style={{ flex: 6, paddingLeft: scale(7), fontSize: scale(14) }}>Số dư</Text>
+                <Text style={{ flex: 3, fontSize: scale(15), fontWeight: 'bold', textAlign: 'right' }}>{formatMoney(this.props.accountInfo.balance)}đ</Text>
+                <View style={{ flex: 0.2 }}></View>
+                <Icon style={{ flex: 1 }} name={'chevron-right'} size={scale(16)} color={"black"} />
+              </TouchableOpacity>
+              <View style={{ height: (containerH / 5.3) * 3 / 5, borderBottomLeftRadius: scale(7), borderBottomRightRadius: scale(7), flexDirection: 'row', }}>
+                {
+                  this.mainService.map((item, index) => {
+                    return this._renderMainService(item.iconName, item.label, item.onPress)
+                  })
+                }
+              </View>
+            </View>
+
+            <View style={styles.service1}>
               {
-                this.mainService.map((item, index) => {
-                  return this._renderMainService(item.iconName, item.label, item.onPress)
+                this.otherService.map((item, index) => {
+                  return this._renderOtherServices(item.iconName, item.label, item.onPress, item.color)
                 })
               }
             </View>
+            {/* <View style={styles.service2}>
+              {
+                this.otherService2.map((item, index) => {
+                  return this._renderOtherServices(item.iconName, item.label, item.onPress, item.color)
+                })
+              }
+            </View> */}
+            <View style={styles.notification}>
+              <View style={{ flexDirection: 'row', height: scale(30), paddingLeft: scale(10), paddingRight: scale(10) }}>
+                <View style={{ alignItems: 'flex-start', justifyContent: 'flex-end', flex: 1 }}>
+                  <Text style={{ fontSize: scale(14), fontWeight: '600' }}>Tin tức</Text>
+                </View>
+                <View style={{ alignItems: 'flex-end', justifyContent: 'flex-end', flex: 1 }}>
+                  <TouchableOpacity
+                    onPress={() => this.props.navigation.navigate(NOTIFICATION)}
+                  >
+                    <Text style={{ color: FACEBOOK, fontSize: scale(14), fontWeight: '600' }}>Xem tất cả</Text>
+                  </TouchableOpacity>
+                </View>
+              </View>
+              <View style={{ height: scale(230), backgroundColor: 'white' }}>
+                <ScrollView horizontal={true} style={{ paddingTop: scale(10) }}>
+                  {
+                    this.props.notiData.rows.map((item, index) => {
+                      if (index > 2) {
+                        return null;
+                      }
+                      let img_preview = item.img_preview;
+                      let headline = item.headline;
+                      let published_date = item.published_date;
+                      let author = item.author;
+                      let content = item.content;
+                      let description = item.description;
+                      let img_avatar = item.img_avatar;
+                      return this._renderNotification(img_preview, img_avatar, headline, published_date, author, content, description)
+                    })
+                  }
+                </ScrollView>
+              </View>
+            </View>
           </View>
+        </ScrollView>
 
-          <View style={styles.service1}>
-            {
-              this.otherService.map((item, index) => {
-                return this._renderOtherServices(item.iconName, item.label, item.onPress, item.color)
-              })
-            }
-          </View>
-          <View style={styles.service2}>
-            {
-              this.otherService2.map((item, index) => {
-                return this._renderOtherServices(item.iconName, item.label, item.onPress, item.color)
-              })
-            }
-          </View>
-        </View>
-      </ScrollView>
-
-    );
+      );
+    }
+    else {
+      return (
+        <Loading></Loading>
+      )
+    }
   }
 }
 const containerW = Dimensions.get('window').width;
 const containerH = Dimensions.get('window').height;
 const styles = StyleSheet.create({
+  notification: {
+    marginTop: scaleVertical(8),
+    width: containerW,
+    backgroundColor: 'white'
+  },
   container: {
     width: containerW,
     height: containerH,
@@ -192,41 +268,41 @@ const styles = StyleSheet.create({
     elevation: 3,
   },
   service1: {
-    width: containerW / 1.08,
-    height: containerH / 6.3,
+    width: containerW,
+    height: containerH / 6.5,
     flexDirection: 'row',
     marginTop: '3%',
-    borderTopLeftRadius: scale(7),
-    borderTopRightRadius: scale(7),
     backgroundColor: 'white',
 
 
   },
   service2: {
-    width: containerW / 1.08,
-    height: containerH / 6.3,
+    width: containerW,
+    height: containerH / 6.5,
     flexDirection: 'row',
     backgroundColor: 'white',
-    borderBottomLeftRadius: scale(7),
-    borderBottomRightRadius: scale(7),
   },
 
 });
 
 const mapStateToProps = (store) => {
   return {
-    accountInfo: store.homeReducer.accountInfo
+    accountInfo: store.homeReducer.accountInfo,
+    notiData: store.homeReducer.notiData
   }
 }
 const mapDispatchToProps = (dispatch) => {
   return {
-    getAccountInfo: () => {
-      dispatch(getAccountInfo())
+    getAccountInfo: (token_user) => {
+      dispatch(getAccountInfo(token_user))
     },
-    getCommonConfig: () => {
-      dispatch(getCommonConfig())
+    getCommonConfig: (token_user) => {
+      dispatch(getCommonConfig(token_user))
     },
-    
+    getNotification: (token_user) => {
+      dispatch(getNotification(token_user))
+    }
+
 
   }
 }

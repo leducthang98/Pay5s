@@ -1,12 +1,12 @@
-import { BASE_URL } from "../api/Api";
+import { ACCOUNT_GET } from "../api/Api";
 
-export default function GetAccountInfoAPI() {
+export default function GetAccountInfoAPI(token_user) {
   return new Promise((resolve, reject) => {
 
-    const url = BASE_URL
+    const url = ACCOUNT_GET
     fetch(url, {
       method: "GET",
-      headers: {"token":"ff0f2d93-006d-3aaa-94ec-05ee1a1ff2af"},
+      headers: { "token": token_user },
     })
       .then((response) => response.json())
       .then((res) => {

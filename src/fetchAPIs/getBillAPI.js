@@ -1,12 +1,11 @@
 import { BILL_GET } from "../api/Api";
 
-export default function GetBillAPI() {
+export default function GetBillAPI(token_user) {
   return new Promise((resolve, reject) => {
-
     const url = BILL_GET
     fetch(url, {
       method: "GET",
-      headers: {"token":"698b15a2-e38f-3d7b-a611-d551420d721e"},
+      headers: { "token": token_user },
 
     })
       .then((response) => response.json())

@@ -26,3 +26,10 @@ export function getTransfer(payload) {
     })
     
 }
+export function getNotification(payload) {
+    return ({
+        type: "GET_NOTIFICATION",
+        payload
+    })
+    
+}

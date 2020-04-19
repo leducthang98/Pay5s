@@ -10,3 +10,6 @@ export const TRANSFERMONEY = 'Transfer';
 export const RECHARGEPHONE = 'RechargePhone';
 export const INITHISTORY = 'Inithistory';
 export const HISTORY = 'History';
+export const REGISTER = 'Register';
+export const OTP = 'Otp';
+export const INITNOTIFICATION = 'InitNotification';

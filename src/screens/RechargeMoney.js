@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import { ScrollView } from 'react-native-gesture-handler';
 import { scale } from '../constant/Scale';
 import { PRIMARY_COLOR } from '../constant/Colors'
+import Loading from '../components/common/Loading';
 class RechargeMoney extends React.Component {
 
 
@@ -20,9 +21,7 @@ class RechargeMoney extends React.Component {
   );
 
   render() {
-
     if (this.props.commonConfigData) {
-      console.log(this.props.commonConfigData.topup_channel)
       return (
         <View style={{ flex: 1 }}>
           <Header navigation={this.props.navigation} back={true} title={'Nạp số dư tài khoản'} />
@@ -43,11 +42,7 @@ class RechargeMoney extends React.Component {
       );
     } else {
       return (
-        <View style={{ flex: 1 }}>
-          <Header navigation={this.props.navigation} back={true} title={'Nạp số dư tài khoản'} />
-          <Text>Loading</Text>
-
-        </View>
+        <Loading></Loading>
       );
     }
 

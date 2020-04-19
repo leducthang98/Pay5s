@@ -3,6 +3,7 @@ const DEFAULT_STATE = {
     rechargePhoneService: null,
     commonConfigData: null,
     transferData:null,
+    notiData:null
 }
 export default (state = DEFAULT_STATE, action) => {
     switch (action.type) {
@@ -50,6 +51,18 @@ export default (state = DEFAULT_STATE, action) => {
             }
         }
         case 'GET_TRANSFER_FAIL': {
+            return {
+
+
+            }
+        }
+        case 'GET_NOTIFICATION_SUCCESS': {
+            return {
+                ...state,
+                notiData: action.payload.notiData
+            }
+        }
+        case 'GET_NOTIFICATION_FAIL': {
             return {
 
 

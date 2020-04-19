@@ -3,16 +3,18 @@ import getAccountInfoAPI from '../fetchAPIs/getAccountInfoAPI'
 import getCommonConfigAPI from '../fetchAPIs/getCommonConfigAPI'
 import getRechargePhoneServiceAPI from '../fetchAPIs/getRechargePhoneServiceAPI'
 import getTransferAPI from '../fetchAPIs/getTransferAPI'
+import getNotificationAPI from '../fetchAPIs/getNotificationAPI'
 //account
 function* getAccountInfo(action) {
     try {
-        let accountInfoPayback = yield getAccountInfoAPI();
+        console.log("token:" + action.payload)
+        let accountInfoPayback = yield getAccountInfoAPI(action.payload);
         let accountData = accountInfoPayback.data;
         yield put({
             type: 'GET_ACCOUNT_INFO_SUCCESS',
             payload: { accountData }
         })
-    } catch(error){
+    } catch (error) {
         console.log(error.message)
         yield put({
             type: 'GET_ACCOUNT_INFO_FAIL',
@@ -23,7 +25,7 @@ function* getAccountInfo(action) {
 //services
 function* getRechargePhoneService(action) {
     try {
-        let servicePayback = yield getRechargePhoneServiceAPI();
+        let servicePayback = yield getRechargePhoneServiceAPI(action.payload);
         phoneServiceData = servicePayback.data;
         yield put({
             type: 'GET_RECHARGE_PHONE_SERVICE_SUCCESS',
@@ -39,7 +41,7 @@ function* getRechargePhoneService(action) {
 //common configs
 function* getCommonConfig(action) {
     try {
-        let commonConfigPayback = yield getCommonConfigAPI();
+        let commonConfigPayback = yield getCommonConfigAPI(action.payload);
         commonConfigData = commonConfigPayback.data;
         yield put({
             type: 'GET_COMMON_CONFIG_SUCCESS',
@@ -55,7 +57,7 @@ function* getCommonConfig(action) {
 //transfer
 function* getTransfer(action) {
     try {
-        let transferPayback = yield getTransferAPI();
+        let transferPayback = yield getTransferAPI(action.payload);
         transferData = transferPayback.data;
         yield put({
             type: 'GET_TRANSFER_SUCCESS',
@@ -68,11 +70,28 @@ function* getTransfer(action) {
         })
     }
 }
+//notification
+function* getNotification(action) {
+    try {
+        let notiPayback = yield getNotificationAPI(action.payload);
+        notiData = notiPayback.data;
+        yield put({
+            type: 'GET_NOTIFICATION_SUCCESS',
+            payload: { notiData }
+        })
+    } catch{
+        yield put({
+            type: 'GET_NOTIFICATION_FAIL',
+            payload: {}
+        })
+    }
+}
 
 export const homeSaga = [
     takeEvery('GET_ACCOUNT_INFO', getAccountInfo),
     takeEvery('GET_RECHARGE_PHONE_SERVICE', getRechargePhoneService),
     takeEvery('GET_COMMON_CONFIG', getCommonConfig),
     takeEvery('GET_TRANSFER', getTransfer),
+    takeEvery('GET_NOTIFICATION', getNotification),
 ];
 
