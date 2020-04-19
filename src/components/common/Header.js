@@ -22,7 +22,7 @@ export default class Header extends Component {
   }
 
   render() {
-    const {back, title, rightIcon} = this.props;
+    const {back, title, rightIcon,screenPopUpFromRightIcon} = this.props;
     return (
       <View style={styles.container}>
         <View style={styles.headerContent}>
@@ -39,7 +39,9 @@ export default class Header extends Component {
           <Text style={texts.white_bold}>{title || 'Pay5s'}</Text>
           {
             rightIcon ?
-              <TouchableOpacity style={styles.buttonArea}>
+              <TouchableOpacity style={styles.buttonArea}
+                onPress={()=> this.props.navigation.navigate(screenPopUpFromRightIcon)}
+              >
                 <Icon name={rightIcon} size={scaleModerate(22)} color={COLOR.WHITE}/>
               </TouchableOpacity> :
               <View style={styles.buttonArea}/>

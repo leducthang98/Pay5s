@@ -8,7 +8,6 @@ import { login } from '../fetchAPIs/AuthApi';
 import { getString } from '../res/values/String';
 import AsyncStorage from '@react-native-community/async-storage';
 import MessageDialog from '../components/common/MessageDialog';
-
 const containerW = Dimensions.get('window').width;
 const containerH = Dimensions.get('window').height;
 
@@ -24,6 +23,17 @@ class LoginScreen extends React.Component {
       responseError: null,
     };
   }
+  
+  // async componentDidMount() {
+  //   const storageData = await AsyncStorage.getAllKeys();
+  //   console.log('ComponentDidMount...')
+  //   if (storageData.length == 0) {
+
+  //   } else {
+  //     this.props.navigation.navigate(BOTTOM_TAB)
+  //   }
+
+  // }
 
   async _loginFunction() {
     const { username, password } = this.state;
@@ -144,7 +154,7 @@ class LoginScreen extends React.Component {
           </View>
           <View style={{ flex: 3, justifyContent: 'center', alignItems: 'center' }}>
             <TouchableOpacity
-            onPress={()=> this.props.navigation.navigate(REGISTER)}
+              onPress={() => this.props.navigation.navigate(REGISTER)}
             >
               <View style={{
                 width: containerW * 0.9,

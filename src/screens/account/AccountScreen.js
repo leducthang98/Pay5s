@@ -53,7 +53,7 @@ class AccountScreen extends React.Component {
         }, {
           iconLeftName: 'comment-dots',
           title: 'Mã giới thiệu: ',
-          extraInfo: 'HIEUDEPTRAI',
+          extraInfo: 0 + this.props.accountInfo.mobile,
           subTitle: 'Giới thiệu bạn tham gia Pay5s - App và nhận thưởng',
           onPress: () => this.intro(),
           iconLeftColor: COLOR.PURPLE,
@@ -101,7 +101,7 @@ class AccountScreen extends React.Component {
               onPress={() => this.props.navigation.navigate(ACCOUNTINFO)}
             >
               <View style={{ flex: 8, justifyContent: 'flex-start', flexDirection: 'column' }}>
-                <Text style={{ fontSize: scale(18) }}>Lê Đức Thắng</Text>
+                <Text style={{ fontSize: scale(18) }}>{this.props.accountInfo.fullname}</Text>
                 <Text style={{ fontSize: scale(12), color: 'gray' }}>0{this.props.accountInfo.mobile}</Text>
               </View>
               <Icon style={{ flex: 0.6 }} name={'chevron-right'} size={scale(16)} color={'gray'} />
