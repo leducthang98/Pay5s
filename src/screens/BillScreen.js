@@ -23,6 +23,7 @@ class BillScreen extends React.Component {
 
   async componentDidMount() {
     const token_user = await AsyncStorage.getItem('access_token')
+    console.log('test commit')
     this.props.getBill(token_user);
   }
   _renderBill = (service, mobile, amount, modified, telco) => (
