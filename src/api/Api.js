@@ -21,3 +21,5 @@ export const OTP_GET = 'https://client.pay5s.com/account/request_otp.html?mobile
 export const REGIST_URL = BASE_URL + '/account/register.html';
 //notification
 export const NOTI_GET = 'https://client.pay5s.com/article/list';
+//logout
+export const LOGOUT_URL = 'https://client.pay5s.com/account/logout.html';
