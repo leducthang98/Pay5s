@@ -37,7 +37,7 @@ class AccountInfo extends React.Component {
             this.setState({ responseError: response });
         } else {
             console.log(token_user)
-            this._logoutSuccess(response);
+            this._logoutSuccess();
         }
     }
 
@@ -67,8 +67,10 @@ class AccountInfo extends React.Component {
                 let gender = this.props.accountInfo.gender
                 if (gender == 'M') {
                     sex = 'Nam'
-                } else {
+                } else if(gender=='F') {
                     sex = 'Nữ'
+                }else{
+                    sex = 'Chưa có'
                 }
             }
             return (

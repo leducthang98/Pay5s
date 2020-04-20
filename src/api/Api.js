@@ -4,7 +4,7 @@ export const BILL_CREATE = BASE_URL + '/bill/';
 export const BILL_GET = BASE_URL + '/bill/list';
 export const BILL_STOP = BASE_URL + '/bill/stop';
 //account
-
+export const ACCOUNT_UPDATE = BASE_URL+'/account/update_info.html';
 //main service
 export const PHONE_SERVICE_LIST = BASE_URL + '/service/list';
 //common config

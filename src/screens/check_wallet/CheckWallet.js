@@ -22,6 +22,7 @@ import AsyncStorage from '@react-native-community/async-storage';
 const containerH = Dimensions.get('window').height;
 import { WALLET, NOTIFICATION, RECHARGEMONEY, TRANSFERMONEY, RECHARGEPHONE } from '../../navigators/RouteName';
 import { getTransfer } from '../../actions/ActionHomeScreen';
+import { formatMoney } from '../../constant/MoneyFormat';
 class CheckWallet extends React.Component {
   constructor(props) {
     super(props);
@@ -56,7 +57,7 @@ class CheckWallet extends React.Component {
                 <Text style={{ fontSize: scale(12), paddingLeft: scale(5) }}>Số dư</Text>
               </View>
               <View style={{ backgroundColor: 'white', flex: 1, alignItems: 'flex-end', justifyContent: 'center' }}>
-                <Text style={{ paddingBottom: scale(3), paddingRight: scale(5), fontWeight: 'bold', fontSize: scale(16), color: 'purple' }}>{this.props.accountInfo.balance}đ</Text>
+                <Text style={{ paddingBottom: scale(3), paddingRight: scale(5), fontWeight: 'bold', fontSize: scale(16), color: 'purple' }}>{formatMoney(this.props.accountInfo.balance)}đ</Text>
               </View>
             </View>
           </View>

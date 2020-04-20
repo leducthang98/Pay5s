@@ -5,7 +5,7 @@ const demoToken = 'ff0f2d93-006d-3aaa-94ec-05ee1a1ff2af';
 
 const _getHeaders = async () => {
   const token = await AsyncStorage.getItem('access_token') || demoToken;
-  return {token: token};
+  return { token: token };
 };
 
 export const callApi = async (method, url, input) => {
@@ -55,7 +55,7 @@ export const callApiWithRawBody = async (method, url, input) => {
   await axios(config).then((response) => {
     console.log('response = ', JSON.stringify(response));
     result = response;
-  }).catch((error)=> {
+  }).catch((error) => {
     console.log('error = ', JSON.stringify(error));
     result = error;
   });
@@ -85,12 +85,29 @@ export const callPostApiWithoutHeader = async (url, input) => {
 export const callPostApiWthRawBody = async (url, input) => {
   return await callApiWithRawBody('post', url, input);
 };
-export const callApiWithToken = async (method, url,token) => {
-  console.log('url:'+url)
+export const callApiWithToken = async (method, url, token) => {
+  console.log('url:' + url)
   return new Promise((resolve, reject) => {
     fetch(url, {
       method: method,
       headers: { "token": token },
+    })
+      .then((response) => response.json())
+      .then((res) => {
+        resolve(res);
+        console.log(res);
+      })
+      .catch((error) => {
+        reject(error);
+      });
+  });
+};
+export const callApiWithTokenAndRawBody = async (method, url, token, input) => {
+  return new Promise((resolve, reject) => {
+    fetch(url, {
+      method: method,
+      headers: { "token": token },
+      body: JSON.stringify(input)
     })
       .then((response) => response.json())
       .then((res) => {

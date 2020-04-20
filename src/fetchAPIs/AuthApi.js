@@ -1,5 +1,5 @@
-import { callApiWithoutHeader, callApiWithRawBody, callPostApiWithoutHeader, callPostApiWthRawBody, callApiWithToken } from './CommonApi';
-import { LOGIN_URL, OTP_GET, REGIST_URL, LOGOUT_URL } from '../api/Api';
+import { callApiWithoutHeader, callApiWithRawBody, callPostApiWithoutHeader, callPostApiWthRawBody, callApiWithToken, callApiWithTokenAndRawBody } from './CommonApi';
+import { LOGIN_URL, OTP_GET, REGIST_URL, LOGOUT_URL, ACCOUNT_UPDATE } from '../api/Api';
 
 export const login = async (username, password) => {
   const data = {
@@ -24,4 +24,15 @@ export const regist = async (mobile, password, otp) => {
 };
 export const logout = async (token) => {
   return await callApiWithToken('post', LOGOUT_URL, token)
+};
+
+export const updateAccount = async (token, fullname, dob, gender, email, address) => {
+  const data = {
+    fullname: fullname,
+    dob: dob,
+    gender: gender,
+    email: email,
+    address: address
+  };
+  return await callApiWithTokenAndRawBody('post', ACCOUNT_UPDATE, token, data);
 };

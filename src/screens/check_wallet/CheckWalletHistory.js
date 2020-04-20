@@ -55,7 +55,7 @@ class CheckWalletHistory extends React.Component {
         </View>
         <View style={{ flex: 2.5, height: scale(56), justifyContent: 'flex-end', alignItems: 'flex-end', paddingRight: scale(10), paddingBottom: scale(5) }}>
           <Text style={{ fontSize: scale(13), fontWeight: 'bold' }}>{amount}</Text>
-          <Text numberOfLines={1} style={{ fontSize: scale(10.5), color: '#FDA50F' }}>Trước đó: {originAmount}</Text>
+          {/* <Text numberOfLines={1} style={{ fontSize: scale(10.5), color: '#FDA50F' }}>Trước đó: {originAmount}</Text> */}
         </View>
       </View>
     </TouchableOpacity>
@@ -108,7 +108,7 @@ class CheckWalletHistory extends React.Component {
               </Modal>
               {
                 this.props.transferData.rows.map((item, index) => {
-                  let amount = formatMoney(item.amount) + 'đ';
+                  let amount = (item.amount > 0) ? '+' + formatMoney(item.amount) + 'đ' : formatMoney(item.amount) + 'đ';
                   let originAmount = formatMoney(this.props.accountInfo.balance + item.amount) + 'đ';
                   let icon;
                   if (item.amount < 0) {
@@ -126,9 +126,9 @@ class CheckWalletHistory extends React.Component {
       } else if (this.props.transferData.size == 0) {
         return (
           <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-            <Text style={{color:'gray'}}>Không có giao dịch nào</Text>
+            <Text style={{ color: 'gray' }}>Không có giao dịch nào</Text>
           </View>
-          );
+        );
       }
     }
     else {
