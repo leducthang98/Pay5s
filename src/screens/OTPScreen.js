@@ -6,7 +6,7 @@ import { PRIMARY_COLOR } from '../constant/Colors';
 import { getOTP, regist } from '../fetchAPIs/AuthApi';
 import LoadingDialog from '../components/common/LoadingDialog';
 import MessageDialog from '../components/common/MessageDialog';
-
+import Toast from 'react-native-simple-toast';
 class OTPScreen extends React.Component {
 
     constructor(props) {
@@ -42,6 +42,7 @@ class OTPScreen extends React.Component {
         }
     }
     async _registSuccess(response) {
+        Toast.show('Đăng ký thành công')
         this.props.navigation.navigate(LOGIN)
     }
     render() {
@@ -92,10 +93,11 @@ class OTPScreen extends React.Component {
                     this.state.isLoading && <LoadingDialog />
                 }
                 {
+
                     this.state.responseError !== null ? <MessageDialog
-                        message={"Mã OTP không khả dụng"}
+                        message={this.state.responseError.data.message}
                         close={() => {
-                            this.setState({ responseError: null });
+                            this.setState({ responseError: null }); 
                         }}
                     /> : null
                 }

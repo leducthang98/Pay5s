@@ -1,9 +1,10 @@
 import React from 'react';
-import { Text, View, StyleSheet, TextInput, TouchableOpacity, Dimensions } from 'react-native';
+import { Text, View, StyleSheet, TextInput, TouchableOpacity, Dimensions, ToastAndroid } from 'react-native';
 import Header from '../components/common/Header';
 import { PRIMARY_COLOR } from '../constant/Colors';
 import { scaleVertical, scale, scaleModerate } from '../constant/Scale';
 import { OTP } from '../navigators/RouteName';
+import Toast from 'react-native-simple-toast';
 class RegisterScreen extends React.Component {
     constructor(props) {
         super(props);
@@ -14,11 +15,43 @@ class RegisterScreen extends React.Component {
         };
     }
     registFunction() {
-        this.props.navigation.navigate
-            (OTP, {
-                mobile: this.state.mobile,
-                password: this.state.password
-            });
+
+        var validatePhoneNumber = this.validatePhoneNumber(this.state.mobile);
+        var validatePassword = this.validatePassword(this.state.password, this.state.repeatPassword)
+        if (validatePassword == 'OK' && validatePhoneNumber == 'OK') {
+            this.props.navigation.navigate
+                (OTP, {
+                    mobile: this.state.mobile,
+                    password: this.state.password
+                });
+        } else {
+            if (validatePhoneNumber == 'OK') {
+                Toast.show(validatePassword)
+            } else if (validatePassword == 'OK') {
+                Toast.show(validatePhoneNumber)
+            } else {
+                Toast.show(validatePhoneNumber)
+            }
+        }
+    }
+    validatePhoneNumber(mobile) {
+        var vnf_regex = /((09|03|07|08|05)+([0-9]{8})\b)/g;
+        if (vnf_regex.test(mobile)) {
+            return 'OK'
+        } else {
+            return 'Số điện thoại không hợp lệ.'
+        }
+    }
+    validatePassword(password, repeatPassword) {
+        if (password == repeatPassword) {
+            if (password.length >= 6) {
+                return 'OK'
+            } else {
+                return 'Mật khẩu phải trên 6 ký tự'
+            }
+        } else {
+            return 'Mật khẩu và mật khẩu xác nhận không khớp.'
+        }
     }
     render() {
         return (
@@ -29,19 +62,19 @@ class RegisterScreen extends React.Component {
                     <View style={{ flex: 3.5, width: "100%", alignItems: 'center' }}>
                         <TextInput
                             onChangeText={(mobile) => this.setState({ mobile })}
-                            placeholder="Số điện thoại*"
+                            placeholder="Số điện thoại*:"
                             keyboardType="number-pad"
                             style={styles.inputStyle} />
 
                         <TextInput
                             onChangeText={(password) => this.setState({ password })}
-                            placeholder="Mật khẩu*"
+                            placeholder="Mật khẩu*:"
                             secureTextEntry={true}
                             style={styles.inputStyle}></TextInput>
                         <TextInput
                             onChangeText={(repeatPassword) => this.setState({ repeatPassword })}
                             secureTextEntry={true}
-                            placeholder="Xác nhận mật khẩu*"
+                            placeholder="Xác nhận mật khẩu*:"
                             style={styles.inputStyle}></TextInput>
                     </View>
                     <View style={{ flex: 3, width: '100%', alignItems: 'center' }}>
@@ -74,9 +107,9 @@ const containerW = Dimensions.get('window').width;
 const containerH = Dimensions.get('window').height;
 const styles = StyleSheet.create({
     inputStyle: {
-        marginTop: scale(10),
-        borderBottomWidth: scale(3),
-        borderColor: PRIMARY_COLOR,
+        marginTop: scaleVertical(20),
+        borderBottomWidth: scaleVertical(2),
+        borderColor: 'black',
         width: '80%',
         paddingVertical: scaleVertical(10),
         paddingHorizontal: scaleModerate(0),
