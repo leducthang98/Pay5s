@@ -14,6 +14,7 @@ import {scaleModerate, scaleVertical} from '../../constant/Scale';
 import {getString} from '../../res/values/String';
 import {texts} from '../../constant/CommonStyles';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import {NETWORK} from '../../constant/NetworkIcon';
 
 
 const {width, height} = Layout.window;
@@ -25,7 +26,7 @@ export default class ChooseServiceAndPhone extends Component {
   }
 
   render() {
-    const {paddingHorizontal, note} = this.props;
+    const {paddingHorizontal, note, networkCode} = this.props;
 
     return (
       <View style={paddingHorizontal ? [styles.container, {paddingHorizontal: paddingHorizontal}] : styles.container}>
@@ -52,7 +53,7 @@ export default class ChooseServiceAndPhone extends Component {
             <Image
               style={{width: '100%', height: '100%'}}
               resizeMode={'contain'}
-              source={require('../../res/images/recharge/logo_viettel.png')}/>
+              source={NETWORK[networkCode || 'VINA']}/>
           </TouchableOpacity>
         </View>
         {

@@ -5344,6 +5344,11 @@ react-native-screens@^2.4.0:
   dependencies:
     debounce "^1.2.0"
 
+react-native-simple-toast@^1.1.1:
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/react-native-simple-toast/-/react-native-simple-toast-1.1.1.tgz#f00151ac56df1d5c5e78bd39addad0ed936a80cd"
+  integrity sha512-XASGDBvEi5I4KhjbbruxuW8Bo2iZEDFGsQpv55cT92tkrzuFZeVk9p7ocjV548uwVp4i9utdwjOGUVDI+NatgA==
+
 react-native-swiper@^1.6.0-nightly.5:
   version "1.6.0-rc.3"
   resolved "https://registry.yarnpkg.com/react-native-swiper/-/react-native-swiper-1.6.0-rc.3.tgz#ece82906d908c6a78a0b75fa41982ffc2cd2fb20"

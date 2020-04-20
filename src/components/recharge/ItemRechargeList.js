@@ -18,34 +18,46 @@ const {width, height} = Dimensions.get('window');
 export default class ItemRechargeList extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      discountAmount: this.props.data?.amount
-    };
   }
 
-  componentDidMount(){
-    const {discount} = this.props;
-    const {discountAmount} = this.state;
-    const newDiscountAmount = parseInt(discountAmount) * parseInt(discount)/ 100;
-    this.setState({discountAmount:newDiscountAmount})
-  }
+  // componentWillReceiveProps(nextProps){
+  //   if (this.props.discount !== nextProps.discount){
+  //     this.setState({discount: nextProps.discount})
+  //   }
+  // }
+
+  // static getDerivedStateFromProps(nextProps, prevState){
+  //   console.log('get deriverd next props = ',nextProps);
+  //   console.log('get deriverd prev state = ',prevState);
+  //   if (nextProps.discount !== prevState.discount){
+  //     return {discount: nextProps.discount}
+  //   }
+  //   return null
+  // }
+  //
+  // componentDidUpdate(prevProps, prevState){
+  //   console.log('component did update prev props = ', prevProps);
+  //   console.log('component did update prev state = ', prevState);
+  //   if (prevState.discount !== this.state.discount){
+  //     this.setState({discount: this.props.discount})
+  //   }
+  // }
 
   render() {
-    const {data, discount, selected} = this.props;
-    const {discountAmount} = this.state;
+    const {data} = this.props;
     return (
       <TouchableOpacity
         onPress={() => this.props.onPress()}
-        style={[!selected ? styles.container : styles.selectedContainer]}>
+        style={[!data?.isSelected  ? styles.container : styles.selectedContainer]}>
         <View style={styles.totalAmount}>
-          <Text style={[texts.h4, {fontWeight: 'bold', color: selected ? COLOR.PRIMARY_COLOR : COLOR.TEXT_LABEL}]}>
+          <Text style={[texts.h4, {fontWeight: 'bold', color: data?.isSelected ? COLOR.PRIMARY_COLOR : COLOR.TEXT_LABEL}]}>
             {formatMoney(data?.amount || 10000) + 'đ'}
           </Text>
         </View>
         <View style={styles.line}/>
         <View style={styles.discountAmount}>
-          <Text style={texts.sm}>-{discount || 0}%~</Text>
-          <Text style={[texts.sm, {color: COLOR.FACEBOOK}]}>{formatMoney(discountAmount) || '2000' + 'đ'}</Text>
+          <Text style={texts.sm}>-{data?.discount || 0}%~</Text>
+          <Text style={[texts.sm, {color: COLOR.FACEBOOK}]}>{formatMoney(data?.discountAmount || '2000')  + 'đ'}</Text>
         </View>
       </TouchableOpacity>
     );

@@ -18,7 +18,7 @@ export default class ItemNetwork extends Component{
   render(){
     const {isSelected, name, discount, logo} = this.props
     return(
-      <TouchableOpacity>
+      <TouchableOpacity style={styles.item}>
 
       </TouchableOpacity>
     )
@@ -29,5 +29,6 @@ const styles = StyleSheet.create({
   item:{
     flex:1,
     height: height/10,
+    backgroundColor:'#0077CC'
   }
 });

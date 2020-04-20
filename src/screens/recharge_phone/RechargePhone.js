@@ -8,14 +8,14 @@ import RechargePhoneTabView from './RechargePhoneTabView';
 import { connect } from 'react-redux';
 import AsyncStorage from '@react-native-community/async-storage';
 import { getRechargePhoneService } from '../../actions/ActionHomeScreen';
-class RechargePhone extends React.Component {
+export default class RechargePhone extends React.Component {
     constructor(props) {
         super(props);
     }
-    
+
     async componentDidMount() {
-        const token_user = await AsyncStorage.getItem('access_token')
-        this.props.getRechargePhoneService(token_user);
+        // const token_user = await AsyncStorage.getItem('access_token')
+        // this.props.getRechargePhoneService(token_user);
     }
     render() {
         console.log(this.props.rechargePhoneService)
@@ -28,18 +28,3 @@ class RechargePhone extends React.Component {
     }
 
 }
-
-const mapStateToProps = (store) => {
-    return {
-        rechargePhoneService: store.homeReducer.rechargePhoneService
-    }
-}
-const mapDispatchToProps = (dispatch) => {
-    return {
-        getRechargePhoneService: (token_user) => {
-            dispatch(getRechargePhoneService(token_user))
-        },
-
-    }
-}
-export default connect(mapStateToProps, mapDispatchToProps)(RechargePhone);

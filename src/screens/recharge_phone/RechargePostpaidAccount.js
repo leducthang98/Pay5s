@@ -15,7 +15,7 @@ const noteList = [
 ];
 const {width, height} = Layout.window;
 
-class RechargePostpaidAccount extends React.Component {
+export default class RechargePostpaidAccount extends React.Component {
   constructor(props) {
     super(props);
     this.state={
@@ -72,13 +72,3 @@ const styles = StyleSheet.create({
     backgroundColor: COLOR.BACKGROUND_COLOR,
   },
 });
-
-const mapStateToProps = (store) => {
-  return {
-    rechargePhoneService: store.homeReducer.rechargePhoneService,
-  };
-};
-const mapDispatchToProps = (dispatch) => {
-  return {};
-};
-export default connect(mapStateToProps, mapDispatchToProps)(RechargePostpaidAccount);

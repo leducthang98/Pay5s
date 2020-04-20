@@ -16,7 +16,7 @@ import ChooseNetwork from '../../components/recharge/ChooseNetwork';
 const {width, height} = Layout.window;
 const SERVICE = 'TKC';
 
-class RechargePostpaidAccount extends React.Component {
+export default class RechargePostpaidAccount extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -40,6 +40,7 @@ class RechargePostpaidAccount extends React.Component {
       // const viettel = srvTelcos[0].amounts;
       // console.log('viettel = ',viettel)
     }
+    this._calculateDiscountAmount();
   }
 
   _fetchData = async () => {
@@ -47,7 +48,7 @@ class RechargePostpaidAccount extends React.Component {
     const response = await getRechargePhoneServiceAPI();
     this.setState({isLoading: false});
     // console.log('recharge in screen = ', response);
-    if (!response) {
+    if (!response || (response && response.errorCode !== 200 && !response.message)) {
       this.setState({responseError: {message: getString('UNKNOWN_ERROR')}});
     } else if (response && response.errorCode !== 200) {
       this.setState({responseError: response});
@@ -101,15 +102,30 @@ class RechargePostpaidAccount extends React.Component {
     return newData;
   };
 
+  _calculateDiscountAmount = () => {
+    const {moneyAmount, index, srvTelcos} = this.state;
+    const {discount} = srvTelcos[index] || 0;
+    let newAmount = [];
+    moneyAmount.map((item, index) => {
+      const discountAmount = item.amount * discount / 100 || 0;
+      const newItem = Object.assign(item, {discountAmount, discount});
+      newAmount.push(newItem);
+    });
+    this.setState({moneyAmount: newAmount});
+  };
+
   render() {
     const {isLoading, error, data, moneyAmount, srvTelcos, index} = this.state;
+    console.log('srv Telcos = ',srvTelcos);
     if (data.allowTopup && data.allowAddBill) {
       return (
         <View
           style={styles.container}>
           <ChooseServiceAndPhone
             note={data?.note}
-            openChooseNetwork={() => this.setState({isVisibleChooseNetwork: true})}/>
+            openChooseNetwork={() => this.setState({isVisibleChooseNetwork: true})}
+            networkCode={srvTelcos[index]?.telco}
+          />
           <View style={{width, paddingHorizontal: scaleModerate(15)}}>
             <Text style={[texts.l_h4, {fontWeight: 'bold'}]}>{getString('AMOUNT_TO_DEPOSIT')}</Text>
           </View>
@@ -120,24 +136,19 @@ class RechargePostpaidAccount extends React.Component {
             data={moneyAmount}
             extraData={this.state}
             keyExtractor={(item, index) => index}
-            renderItem={({item, index}) =>
-              <ItemRechargeList
+            renderItem={({item, index}) => {
+              return <ItemRechargeList
                 data={item}
-                discount={srvTelcos[index]?.discount}
-                selected={item.isSelected}
-                onPress={() => this._selectItem(item, index)}/>}
+                onPress={() => this._selectItem(item, index)}/>;
+            }}
           />
-          {
-            isLoading && <LoadingDialog/>
-          }
-          {
-            error !== null ? <MessageDialog
-              message={error.message}
-              close={() => {
-                this.setState({error: null});
-              }}
-            /> : null
-          }
+          {isLoading && <LoadingDialog/>}
+          {error !== null ? <MessageDialog
+            message={error.message}
+            close={() => {
+              this.setState({error: null});
+            }}
+          /> : null}
           <ChooseNetwork
             visible={this.state.isVisibleChooseNetwork}
             close={() => this.setState({isVisibleChooseNetwork: false})}
@@ -161,13 +172,3 @@ const styles = StyleSheet.create({
     backgroundColor: COLOR.BACKGROUND_COLOR,
   },
 });
-
-const mapStateToProps = (store) => {
-  return {
-    rechargePhoneService: store.homeReducer.rechargePhoneService,
-  };
-};
-const mapDispatchToProps = (dispatch) => {
-  return {};
-};
-export default connect(mapStateToProps, mapDispatchToProps)(RechargePostpaidAccount);
