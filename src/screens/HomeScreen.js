@@ -131,8 +131,8 @@ class HomeScreen extends React.Component {
             <View style={[styles.header]}>
               <View style={styles.insideHeader}>
                 <View style={{ flex: 14, flexDirection: 'row' }}>
-                  <Text style={{ color: 'white', fontSize: scale(14) }}> Xin chào </Text>
-                  <Text style={{ color: 'white', fontSize: scale(14), fontWeight: 'bold' }}>0{this.props.accountInfo.mobile}</Text>
+                  <Text style={{ color: 'white', fontSize: scale(16) }}> Xin chào </Text>
+                  <Text style={{ color: 'white', fontSize: scale(16), fontWeight: 'bold' }}>0{this.props.accountInfo.mobile}</Text>
                 </View>
                 <TouchableOpacity
                   onPress={() => this.notification()}
