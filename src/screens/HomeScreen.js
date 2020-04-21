@@ -72,8 +72,8 @@ class HomeScreen extends React.Component {
   }
   _renderMainService = (iconName, label, onPress) => (
     <TouchableOpacity style={{ flex: 1, alignItems: 'center', paddingTop: scale(7) }} onPress={onPress}>
-      <Icon style={{ flex: 1 }} name={iconName} size={scale(28)} color={"#F8b195"} />
-      <Text style={{ fontSize: scale(10), paddingBottom: scale(6) }}>{label}</Text>
+      <Icon  name={iconName} size={scale(28)} color={"#F8b195"} />
+      <Text style={{ fontSize: scale(10),paddingTop:scale(10)}}>{label}</Text>
     </TouchableOpacity>
   );
   _renderOtherServices = (iconName, label, onPress, color) => (
