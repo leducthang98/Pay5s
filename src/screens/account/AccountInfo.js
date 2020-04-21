@@ -8,9 +8,8 @@ import {
 import Header from '../../components/common/Header';
 import { connect } from 'react-redux';
 import {CommonActions} from '@react-navigation/native';
-
 import * as COLOR from '../../constant/Colors';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import Icon from 'react-native-vector-icons/FontAwesome5';
 import { scaleVertical, scaleModerate, scale } from '../../constant/Scale';
 import { logout } from '../../fetchAPIs/AuthApi';
 import AsyncStorage from '@react-native-community/async-storage';
@@ -145,7 +144,7 @@ class AccountInfo extends React.Component {
                                         <Text style={{ fontSize: scale(13), fontWeight: '500' }}>ĐĂNG XUẤT</Text>
                                     </View>
                                     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-                                        <Icon name={'power-off'} size={scaleModerate(19)} color='black' />
+                                        <Icon name={'sign-in-alt'} size={scaleModerate(19)} color='black' />
                                     </View>
                                 </View>
                             </TouchableOpacity>

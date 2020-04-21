@@ -65,9 +65,7 @@ class CheckWalletHistory extends React.Component {
       if (this.props.transferData.size != 0) {
         return (
           <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-            <ScrollView>
-              <View style={{ height: 10 }}></View>
-              <Modal isVisible={this.state.isModalVisible} onBackdropPress={() => this.hideModal()} swipeDirection="up" onSwipeComplete={() => this.hideModal()} animationIn="slideInDown">
+             <Modal isVisible={this.state.isModalVisible} onBackdropPress={() => this.hideModal()} swipeDirection="up" onSwipeComplete={() => this.hideModal()} animationIn="slideInDown">
                 <View style={{ width: "100%", height: "100%", backgroundColor: '#D3D3D3', borderRadius: scale(5) }}>
                   <View style={{ width: "100%", height: "7%", backgroundColor: PRIMARY_COLOR, justifyContent: 'center', alignItems: 'center' }}>
                     <Text style={texts.white_bold}>Tích điểm</Text>
@@ -106,6 +104,8 @@ class CheckWalletHistory extends React.Component {
                   </View>
                 </View>
               </Modal>
+            <ScrollView>
+              <View style={{ height: 10 }}></View>
               {
                 this.props.transferData.rows.map((item, index) => {
                   let amount = (item.amount > 0) ? '+' + formatMoney(item.amount) + 'đ' : formatMoney(item.amount) + 'đ';

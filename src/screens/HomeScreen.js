@@ -6,7 +6,8 @@ import {
   Text,
   ScrollView,
   Dimensions,
-  Image
+  Image,
+  Alert
 } from 'react-native';
 import { connect } from 'react-redux';
 import Icon from 'react-native-vector-icons/FontAwesome5';
@@ -19,11 +20,6 @@ import { getAccountInfo, getCommonConfig, getNotification } from '../actions/Act
 import { formatMoney } from '../constant/MoneyFormat';
 import Loading from '../components/common/Loading';
 import { FACEBOOK } from '../constant/Colors';
-const buyCardID = () => console.log("buyCardID")
-const internetViettel = () => console.log("internetViettel")
-const KPlus = () => console.log("KPlus")
-const Support = () => console.log("Support")
-
 class HomeScreen extends React.Component {
   constructor(props) {
     super(props);
@@ -37,9 +33,9 @@ class HomeScreen extends React.Component {
     ];
     this.otherService = [
       { iconName: 'mobile-alt', label: 'Nạp tiền điện thoại', onPress: () => this.rechargePhone(), color: "#EDE574" },
-      { iconName: 'receipt', label: 'Mua mã thẻ', onPress: buyCardID, color: "#2d5e57" },
-      { iconName: 'globe', label: 'Internet Viettel', onPress: internetViettel, color: "#099FFF" },
-      { iconName: 'korvue', label: 'Gia hạn K+', onPress: KPlus, color: "#00FF00" },
+      { iconName: 'receipt', label: 'Mua mã thẻ', onPress: () => this.buyCardID(), color: "#2d5e57" },
+      { iconName: 'globe', label: 'Internet Viettel', onPress: () => this.internetViettel(), color: "#099FFF" },
+      { iconName: 'korvue', label: 'Gia hạn K+', onPress: () => this.KPlus(), color: "#00FF00" },
     ];
     this.otherService2 = [
       {},
@@ -55,6 +51,46 @@ class HomeScreen extends React.Component {
     this.props.getCommonConfig(token_user);
     this.props.getNotification(token_user);
   }
+  internetViettel() {
+    Alert.alert(
+      'Thông báo',
+      'Tính năng đang phát triển',
+      [
+        { text: 'Đóng', onPress: () => console.log('OK Pressed') },
+      ],
+      { cancelable: false },
+    );
+  }
+  KPlus() {
+    Alert.alert(
+      'Thông báo',
+      'Tính năng đang phát triển',
+      [
+        { text: 'Đóng', onPress: () => console.log('OK Pressed') },
+      ],
+      { cancelable: false },
+    );
+  }
+  buyCardID() {
+    Alert.alert(
+      'Thông báo',
+      'Tính năng đang phát triển',
+      [
+        { text: 'Đóng', onPress: () => console.log('OK Pressed') },
+      ],
+      { cancelable: false },
+    );
+  }
+  support(){
+    Alert.alert(
+      'Thông báo',
+      'Tính năng đang phát triển',
+      [
+        { text: 'Đóng', onPress: () => console.log('OK Pressed') },
+      ],
+      { cancelable: false },
+    );
+  }
   checkWallet() {
     this.props.navigation.navigate(WALLET)
   }
@@ -68,12 +104,20 @@ class HomeScreen extends React.Component {
     this.props.navigation.navigate(TRANSFERMONEY)
   }
   rechargePhone() {
-    this.props.navigation.navigate(RECHARGEPHONE)
+    // this.props.navigation.navigate(RECHARGEPHONE)
+    Alert.alert(
+      'Thông báo',
+      'Tính năng đang phát triển',
+      [
+        { text: 'Đóng', onPress: () => console.log('OK Pressed') },
+      ],
+      { cancelable: false },
+    );
   }
   _renderMainService = (iconName, label, onPress) => (
     <TouchableOpacity style={{ flex: 1, alignItems: 'center', paddingTop: scale(7) }} onPress={onPress}>
-      <Icon  name={iconName} size={scale(28)} color={"#F8b195"} />
-      <Text style={{ fontSize: scale(10),paddingTop:scale(10)}}>{label}</Text>
+      <Icon name={iconName} size={scale(28)} color={"#F8b195"} />
+      <Text style={{ fontSize: scale(10), paddingTop: scale(10) }}>{label}</Text>
     </TouchableOpacity>
   );
   _renderOtherServices = (iconName, label, onPress, color) => (
@@ -135,9 +179,9 @@ class HomeScreen extends React.Component {
                   <Text style={{ color: 'white', fontSize: scale(16), fontWeight: 'bold' }}>0{this.props.accountInfo.mobile}</Text>
                 </View>
                 <TouchableOpacity
-                  onPress={() => this.notification()}
+                  onPress={() => this.support()}
                 >
-                  <Icon style={{ flex: 1 }} name={'question-circle'} size={scale(23)} color={'white'} />
+                  <Icon style={{ flex: 1 }} name={'comments'} size={scale(23)} color={'white'} />
                 </TouchableOpacity>
 
               </View>
@@ -153,7 +197,7 @@ class HomeScreen extends React.Component {
                 <View style={{ flex: 0.2 }}></View>
                 <Icon style={{ flex: 1 }} name={'chevron-right'} size={scale(16)} color={"black"} />
               </TouchableOpacity>
-              <View style={{ height: (containerH / 5.3) * 3 / 5, borderBottomLeftRadius: scale(7), borderBottomRightRadius: scale(7), flexDirection: 'row', }}>
+              <View style={{ height: (containerH / 5.3) * 3 / 5, borderBottomLeftRadius: scale(7), borderBottomRightRadius: scale(7), flexDirection: 'row',alignItems:'center',justifyContent:'center' }}>
                 {
                   this.mainService.map((item, index) => {
                     return this._renderMainService(item.iconName, item.label, item.onPress)
@@ -189,8 +233,8 @@ class HomeScreen extends React.Component {
                   </TouchableOpacity>
                 </View>
               </View>
-              <View style={{ height: scale(150)}}>
-                <ScrollView horizontal={true} showsHorizontalScrollIndicator={false} style={{ paddingTop: scale(10)}}>
+              <View style={{ height: scale(150) }}>
+                <ScrollView horizontal={true} showsHorizontalScrollIndicator={false} style={{ paddingTop: scale(10) }}>
                   {
                     this.props.notiData.rows.map((item, index) => {
                       if (index > 2) {
@@ -269,11 +313,10 @@ const styles = StyleSheet.create({
   },
   service1: {
     width: containerW,
-    height: containerH / 6.5,
+    height: containerH / 7,
     flexDirection: 'row',
     marginTop: '3%',
     backgroundColor: 'white',
-
 
   },
   service2: {
