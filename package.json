@@ -9,7 +9,7 @@
     "test": "jest",
     "lint": "eslint .",
     "ca": "cd android && ./gradlew clean && cd ..",
-    "ba": "cd android && ./gradlew app:assembleRelease && cd .."
+    "ba": "cd android && ./gradlew packageRelease && cd .."
   },
   "dependencies": {
     "@react-native-community/async-storage": "^1.9.0",
