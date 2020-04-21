@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, View, TextInput, TouchableOpacity, Dimensions } from 'react-native';
+import { Text, View, TextInput, TouchableOpacity, Dimensions, Keyboard } from 'react-native';
 import { BOTTOM_TAB, HOME, REGISTER } from '../navigators/RouteName';
 import { scale, scaleVertical, scaleModerate } from '../constant/Scale';
 import { PRIMARY_COLOR, ERROR } from '../constant/Colors';
@@ -23,7 +23,7 @@ class LoginScreen extends React.Component {
       responseError: null,
     };
   }
-  
+
   // async componentDidMount() {
   //   const storageData = await AsyncStorage.getAllKeys();
   //   console.log('ComponentDidMount...')
@@ -36,6 +36,7 @@ class LoginScreen extends React.Component {
   // }
 
   async _loginFunction() {
+    Keyboard.dismiss();
     const { username, password } = this.state;
     this.setState({ isLoading: true });
     let mobile = username.substring(1);

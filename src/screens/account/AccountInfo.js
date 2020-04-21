@@ -7,6 +7,8 @@ import {
 } from 'react-native';
 import Header from '../../components/common/Header';
 import { connect } from 'react-redux';
+import {CommonActions} from '@react-navigation/native';
+
 import * as COLOR from '../../constant/Colors';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { scaleVertical, scaleModerate, scale } from '../../constant/Scale';
@@ -42,8 +44,15 @@ class AccountInfo extends React.Component {
     }
 
     async _logoutSuccess() {
-        await AsyncStorage.setItem('access_token', 'none');
-        this.props.navigation.navigate(LOGIN);
+        await AsyncStorage.remove();
+        // await AsyncStorage.setItem('access_token', 'none');
+        this.props.navigation.dispatch(
+          CommonActions.reset({
+              index: 1,
+              routes: [{ name: LOGIN }],
+          })
+        );
+        // this.props.navigation.navigate(LOGIN);
     }
     logoutAlert = () =>
         Alert.alert(

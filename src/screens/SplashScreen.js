@@ -5,19 +5,17 @@ import {
 } from 'react-native';
 import { BOTTOM_TAB, LOGIN } from '../navigators/RouteName';
 import AsyncStorage from '@react-native-community/async-storage';
-class BeginScreen extends React.Component {
+class SplashScreen extends React.Component {
     async componentDidMount() {
-        const token_user = await AsyncStorage.getItem('access_token')
-        console.log(token_user)
-        if (token_user == 'none') {
-            this.props.navigation.navigate(LOGIN)
+        const token_user = await AsyncStorage.getItem('access_token');
+        console.log(token_user);
+        if (!token_user || token_user === 'none') {
+            setTimeout(()=> this.props.navigation.navigate(LOGIN), 2000)
         } else {
-            this.props.navigation.navigate(BOTTOM_TAB)
+            setTimeout(()=> this.props.navigation.navigate(BOTTOM_TAB), 2000)
         }
-
     }
     render() {
-
         return (
             <View style={{ flex: 1,backgroundColor:'red' }}>
 
@@ -26,4 +24,4 @@ class BeginScreen extends React.Component {
     }
 
 }
-export default BeginScreen;
+export default SplashScreen;

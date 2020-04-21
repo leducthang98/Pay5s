@@ -13,7 +13,7 @@ import RegisterScreen from '../screens/RegisterScreen'
 import OTPScreen from '../screens/OTPScreen';
 import AccountInfo from '../screens/account/AccountInfo';
 import AsyncStorage from '@react-native-community/async-storage';
-import BeginScreen from '../screens/BeginScreen';
+import SplashScreen from '../screens/SplashScreen';
 import EditAccount from '../screens/account/EditAccount';
 const Stack = createStackNavigator();
 
@@ -21,7 +21,7 @@ function RootNavigator() {
     return (
         <NavigationContainer >
             <Stack.Navigator initialRouteName={BEGIN} headerMode={'none'} >
-                <Stack.Screen name={BEGIN} component={BeginScreen} />
+                <Stack.Screen name={BEGIN} component={SplashScreen} />
                 <Stack.Screen name={LOGIN} component={LoginScreen} />
                 <Stack.Screen name={BOTTOM_TAB} component={BottomTabNavigator} />
                 <Stack.Screen name={WALLET} component={CheckWallet} />
