@@ -22,7 +22,7 @@ export default class RechargePhone extends React.Component {
         return (
             <View style={{ flex: 1 }}>
                 <Header navigation={this.props.navigation} back={true} title={'Nạp tiền điện thoại'} />
-                <RechargePhoneTabView />
+                <RechargePhoneTabView navigation={this.props.navigation} />
             </View>
         );
     }

@@ -14,12 +14,12 @@ import { scale } from '../../constant/Scale';
 const initialLayout = { width: Dimensions.get('window').width };
 const { width, height } = Dimensions.get('window');
 
-export default function RechargePhoneTabView() {
+export default function RechargePhoneTabView(props) {
   const [index, setIndex] = React.useState(0);
   const [routes] = React.useState([
-    { key: 'TransferPrepaidAccount', title: 'Bắn TK trả trước' },
-    { key: 'RechargePostpaidAccount', title: 'Nạp thẻ trả sau' },
-    { key: 'RechargePrepaidAccount', title: 'Nạp thẻ trả trước' },
+    { key: 'TransferPrepaidAccount', title: 'Bắn TK trả trước', navigation: props.navigation},
+    { key: 'RechargePostpaidAccount', title: 'Nạp thẻ trả sau', navigation: props.navigation},
+    { key: 'RechargePrepaidAccount', title: 'Nạp thẻ trả trước', navigation: props.navigation},
   ]);
 
   const renderScene = SceneMap({

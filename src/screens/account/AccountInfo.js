@@ -49,7 +49,7 @@ class AccountInfo extends React.Component {
         this.props.navigation.dispatch(
           CommonActions.reset({
               index: 1,
-              routes: [{ name: LOGIN }],
+              routes: [{ name: BEGIN }],
           })
         );
         // this.props.navigation.navigate(LOGIN);
