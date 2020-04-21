@@ -1,4 +1,4 @@
-import {scaleModerate} from './Scale';
+import {scaleModerate, scaleVertical} from './Scale';
 import * as COLOR from './/Colors';
 
 export const shadow = {
@@ -351,4 +351,75 @@ export const texts = {
     textAlign: 'center',
 
   },
-}
+};
+
+export const size = {
+  stiny:{
+    width: scaleModerate(8),
+    height: scaleModerate(8)
+  },
+  tiny: {
+    width: scaleModerate(10),
+    height: scaleModerate(10)
+  },
+  ssm: {
+    width: scaleModerate(12),
+    height: scaleModerate(12)
+  },
+  ssml: {
+    width: scaleModerate(14),
+    height: scaleModerate(14)
+  },
+  sml: {
+    width: scaleModerate(18),
+    height: scaleModerate(18)
+  },
+  smll: {
+    width: scaleModerate(22),
+    height: scaleModerate(22)
+  },
+  sm: {
+    width: scaleModerate(24),
+    height: scaleModerate(24)
+  },
+  xsm: {
+    width: scaleModerate(28),
+    height: scaleModerate(28)
+  },
+  smd: {
+    width: scaleModerate(36),
+    height: scaleModerate(36)
+  },
+  md: {
+    width: scaleModerate(48),
+    height: scaleModerate(48)
+  },
+  xmd: {
+    width: scaleModerate(55),
+    height: scaleModerate(55)
+  },
+  slg: {
+    width: scaleModerate(60),
+    height: scaleModerate(60)
+  },
+  slgVertical: {
+    width: scaleVertical(62),
+    height: scaleVertical(62)
+  },
+  lg: {
+    width: scaleModerate(64),
+    height: scaleModerate(64)
+  },
+  xlg: {
+    width: scaleModerate(72),
+    height: scaleModerate(72)
+  },
+  xxlg: {
+    width: scaleModerate(100),
+    height: scaleModerate(100)
+  },
+  xxxlg: {
+    width: scaleModerate(150),
+    height: scaleModerate(150)
+  }
+};

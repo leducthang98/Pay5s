@@ -12,6 +12,7 @@ import * as Layout from '../../constant/Layout';
 import {scaleModerate, scaleVertical} from '../../constant/Scale';
 import {getString} from '../../res/values/String';
 import {texts} from '../../constant/CommonStyles';
+import ItemNetwork from './ItemNetwork';
 
 const {width, height} = Layout.window;
 
@@ -44,6 +45,11 @@ export default class ChooseNetwork extends Component {
               <View style={styles.separateLine}/>
               <View style={styles.note}>
                 <Text style={texts.l_placeholder}>{getString('CHANGE_NETWORK_NOTE')}</Text>
+              </View>
+              <View style={styles.networkList}>
+                <ItemNetwork />
+                <ItemNetwork />
+                <ItemNetwork />
               </View>
             </TouchableOpacity>
           </TouchableOpacity>
@@ -86,4 +92,8 @@ const styles = StyleSheet.create({
     paddingHorizontal: scaleModerate(10),
     paddingVertical: scaleVertical(10),
   },
+  networkList:{
+    paddingVertical: scaleVertical(5),
+    paddingHorizontal:scaleModerate(10)
+  }
 });
