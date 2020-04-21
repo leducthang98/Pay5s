@@ -68,6 +68,8 @@ class BillScreen extends React.Component {
                   let telco
                   if (item.service == 'TT') {
                     service = 'Bắn TK trả trước'
+                  }else if(item.service == 'TS'){
+                    service = 'Bắn TK trả sau'
                   }
                   switch (item.telco) {
                     case 'VTT':

@@ -189,8 +189,8 @@ class HomeScreen extends React.Component {
                   </TouchableOpacity>
                 </View>
               </View>
-              <View style={{ height: scale(230)}}>
-                <ScrollView horizontal={true} showsHorizontalScrollIndicator={false} style={{ paddingTop: scale(10),backgroundColor:'gray'}}>
+              <View style={{ height: scale(150)}}>
+                <ScrollView horizontal={true} showsHorizontalScrollIndicator={false} style={{ paddingTop: scale(10)}}>
                   {
                     this.props.notiData.rows.map((item, index) => {
                       if (index > 2) {

@@ -92,8 +92,10 @@ class EditAccount extends React.Component {
                             </View>
                             <View style={{ flex: 3, justifyContent: 'center', alignItems: 'flex-end' }}>
                                 <TextInput
+                                    placeholder={(this.props.accountInfo.fullname) ? this.props.accountInfo.fullname : 'Chưa có'}
+                                    placeholderTextColor={'black'}
                                     onChangeText={(fullname) => this.setState({ fullname })}
-                                    style={{ fontSize: scaleModerate(12), paddingRight: scaleModerate(15), paddingVertical: scaleVertical(0) }}>{(this.props.accountInfo.fullname) ? this.props.accountInfo.fullname : 'Chưa có'}</TextInput>
+                                    style={{ fontSize: scaleModerate(12), paddingRight: scaleModerate(15), paddingVertical: scaleVertical(0) }}></TextInput>
                             </View>
                         </View>
                         <View style={{ flexDirection: 'row', height: scaleVertical(40), marginTop: scaleVertical(1) }}>
@@ -110,8 +112,10 @@ class EditAccount extends React.Component {
                             </View>
                             <View style={{ flex: 3, justifyContent: 'center', alignItems: 'flex-end' }}>
                                 <TextInput
+                                    placeholder={(this.props.accountInfo.dob) ? this.props.accountInfo.dob : '0000-00-00'}
+                                    placeholderTextColor={'black'}
                                     onChangeText={(dob) => this.setState({ dob })}
-                                    style={{ fontSize: scaleModerate(12), paddingRight: scaleModerate(15), paddingVertical: scaleVertical(0) }}>{(this.props.accountInfo.dob) ? this.props.accountInfo.dob : '0000-00-00'}</TextInput>
+                                    style={{ fontSize: scaleModerate(12), paddingRight: scaleModerate(15), paddingVertical: scaleVertical(0) }}></TextInput>
                             </View>
                         </View>
                         <View style={{ flexDirection: 'row', height: scaleVertical(40), marginTop: scaleVertical(1), backgroundColor: 'white' }}>
@@ -120,8 +124,10 @@ class EditAccount extends React.Component {
                             </View>
                             <View style={{ flex: 3, justifyContent: 'center', alignItems: 'flex-end' }}>
                                 <TextInput
+                                    placeholder={(this.props.accountInfo.gender) ? sex : 'Chưa có'}
+                                    placeholderTextColor={'black'}
                                     onChangeText={(gender) => this.setState({ gender })}
-                                    style={{ fontSize: scaleModerate(12), paddingRight: scaleModerate(15), paddingVertical: scaleVertical(0) }}>{(this.props.accountInfo.gender) ? sex : 'Chưa có'}</TextInput>
+                                    style={{ fontSize: scaleModerate(12), paddingRight: scaleModerate(15), paddingVertical: scaleVertical(0) }}></TextInput>
                             </View>
                         </View>
                         <View style={{ flexDirection: 'row', height: scaleVertical(40), marginTop: scaleVertical(1), backgroundColor: 'white' }}>
@@ -130,8 +136,10 @@ class EditAccount extends React.Component {
                             </View>
                             <View style={{ flex: 3, justifyContent: 'center', alignItems: 'flex-end' }}>
                                 <TextInput
+                                    placeholder={(this.props.accountInfo.email) ? this.props.accountInfo.email : 'Chưa có'}
+                                    placeholderTextColor={'black'}
                                     onChangeText={(email) => this.setState({ email })}
-                                    style={{ fontSize: scaleModerate(12), paddingRight: scaleModerate(15), paddingVertical: scaleVertical(0) }}>{(this.props.accountInfo.email) ? this.props.accountInfo.email : 'Chưa có'}</TextInput>
+                                    style={{ fontSize: scaleModerate(12), paddingRight: scaleModerate(15), paddingVertical: scaleVertical(0) }}></TextInput>
                             </View>
                         </View>
                         <View style={{ flexDirection: 'row', height: scaleVertical(40), marginTop: scaleVertical(10), backgroundColor: 'white' }}>
@@ -140,8 +148,10 @@ class EditAccount extends React.Component {
                             </View>
                             <View style={{ flex: 3, justifyContent: 'center', alignItems: 'flex-end' }}>
                                 <TextInput
+                                    placeholder={(this.props.accountInfo.address) ? this.props.accountInfo.address : 'Chưa có'}
+                                    placeholderTextColor='black'
                                     onChangeText={(address) => this.setState({ address })}
-                                    style={{ fontSize: scaleModerate(12), paddingRight: scaleModerate(15), paddingVertical: scaleVertical(0) }}>{(this.props.accountInfo.address) ? this.props.accountInfo.address : 'Chưa có'}</TextInput>
+                                    style={{ fontSize: scaleModerate(12), paddingRight: scaleModerate(15), paddingVertical: scaleVertical(0) }}></TextInput>
                             </View>
                         </View>
                     </View>
