@@ -47,7 +47,7 @@ export default function BottomTabNavigator() {
                     },
                     shadowOpacity: 0.20,
                     shadowRadius: 1.41,
-                    backgroundColor:COLOR.FACEBOOK,
+                    backgroundColor:COLOR.WHITE,
                     elevation: 15,
 
                 }

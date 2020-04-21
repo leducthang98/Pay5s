@@ -44,7 +44,7 @@ class AccountInfo extends React.Component {
     }
 
     async _logoutSuccess() {
-        await AsyncStorage.remove();
+        await AsyncStorage.clear();
         // await AsyncStorage.setItem('access_token', 'none');
         this.props.navigation.dispatch(
           CommonActions.reset({
