@@ -32,6 +32,7 @@ export default class RechargePostpaidAccount extends React.Component {
 
   async componentDidMount() {
     await this._fetchData();
+    console.log('props in transfer prepaid = ', this.props)
     const {data} = this.state;
     if (data) {
       const {srvTelcos} = data;
@@ -122,6 +123,7 @@ export default class RechargePostpaidAccount extends React.Component {
         <View
           style={styles.container}>
           <ChooseServiceAndPhone
+            navigation={this.props.route?.navigation}
             note={data?.note}
             openChooseNetwork={() => this.setState({isVisibleChooseNetwork: true})}
             networkCode={srvTelcos[index]?.telco}

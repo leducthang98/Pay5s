@@ -4,7 +4,21 @@ import { createStackNavigator } from '@react-navigation/stack';
 import InitNotiScreen from '../screens/notification/InitNotiScreen';
 import LoginScreen from '../screens/LoginScreen';
 import BottomTabNavigator from './BottomTabNavigator';
-import { BOTTOM_TAB, LOGIN, WALLET, RECHARGEMONEY, TRANSFERMONEY, RECHARGEPHONE, REGISTER, OTP, INITNOTIFICATION, ACCOUNTINFO, BEGIN,EDITACCOUNT } from './RouteName';
+import {
+    BOTTOM_TAB,
+    LOGIN,
+    WALLET,
+    RECHARGEMONEY,
+    TRANSFERMONEY,
+    RECHARGEPHONE,
+    REGISTER,
+    OTP,
+    INITNOTIFICATION,
+    ACCOUNTINFO,
+    BEGIN,
+    EDITACCOUNT,
+    CHECK_WALLET_HISTORY, TRANSFER_PREPAID_ACCOUNT, CHECK_WALLET_INFO,
+} from './RouteName';
 import CheckWallet from '../screens/check_wallet/CheckWallet';
 import RechargeMoney from '../screens/RechargeMoney';
 import TransferMoney from '../screens/TransferMoney';
@@ -15,6 +29,9 @@ import AccountInfo from '../screens/account/AccountInfo';
 import AsyncStorage from '@react-native-community/async-storage';
 import SplashScreen from '../screens/SplashScreen';
 import EditAccount from '../screens/account/EditAccount';
+import CheckWalletHistory from '../screens/check_wallet/CheckWalletHistory';
+import TransferPrepaidAccount from '../screens/recharge_phone/TransferPrepaidAccount';
+import CheckWalletInfo from '../screens/check_wallet/CheckWalletInfo';
 const Stack = createStackNavigator();
 
 function RootNavigator() {
@@ -33,6 +50,9 @@ function RootNavigator() {
                 <Stack.Screen name={INITNOTIFICATION} component={InitNotiScreen} />
                 <Stack.Screen name={ACCOUNTINFO} component={AccountInfo} />
                 <Stack.Screen name={EDITACCOUNT} component={EditAccount} />
+                <Stack.Screen name={CHECK_WALLET_HISTORY} component={CheckWalletHistory} />
+                <Stack.Screen name={CHECK_WALLET_INFO} component={CheckWalletInfo} />
+                <Stack.Screen name={TRANSFER_PREPAID_ACCOUNT} component={TransferPrepaidAccount} />
             </Stack.Navigator>
         </NavigationContainer >
     );

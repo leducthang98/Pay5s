@@ -15,6 +15,7 @@ import {getString} from '../../res/values/String';
 import {texts} from '../../constant/CommonStyles';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {NETWORK} from '../../constant/NetworkIcon';
+import {CHECK_WALLET_HISTORY, CHECK_WALLET_INFO, HISTORY} from '../../navigators/RouteName';
 
 
 const {width, height} = Layout.window;
@@ -25,6 +26,11 @@ export default class ChooseServiceAndPhone extends Component {
     super(props);
   }
 
+  _moveToHistoryScreen = () => {
+    console.log('props = ',this.props);
+    this.props.navigation.navigate(CHECK_WALLET_INFO)
+  };
+
   render() {
     const {paddingHorizontal, note, networkCode} = this.props;
 
@@ -32,7 +38,7 @@ export default class ChooseServiceAndPhone extends Component {
       <View style={paddingHorizontal ? [styles.container, {paddingHorizontal: paddingHorizontal}] : styles.container}>
         <View style={styles.historyArea}>
           <Text style={[texts.h4, {fontWeight: 'bold'}]}>{getString('DEPOSIT_TO')}</Text>
-          <TouchableOpacity>
+          <TouchableOpacity onPress={()=>this._moveToHistoryScreen()}>
             <Text style={[texts.normal, {color: COLOR.FACEBOOK}]}>{getString('WATCH_HISTORY')}</Text>
           </TouchableOpacity>
         </View>
