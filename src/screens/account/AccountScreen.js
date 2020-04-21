@@ -93,8 +93,8 @@ class AccountScreen extends React.Component {
           <Header title={'Tài khoản'} />
           <View style={styles.body1}>
             <TouchableOpacity style={{ flex: 2.5, marginLeft: scale(4), justifyContent: 'center', alignItems: 'center',paddingLeft:scale(7) }}>
-              <View style={{width:containerH/8,height:containerH/8}}>
-                <Image style={{ height: '100%', width: '100%', borderRadius: scale(999) }}
+              <View style={{width:containerH/8,height:containerH/8,justifyContent:'center',alignItems:'center'}}>
+                <Image style={{ height: '70%', width: '70%', borderRadius: scale(999) }}
                   source={{ uri: this.props.commonConfigData.banner.default }}
                 />
               </View>
@@ -158,7 +158,7 @@ const styles = StyleSheet.create({
   },
   body1: {
     width: containerW,
-    height: containerH / 6.7,
+    height: containerH / 8,
     marginTop: '2%',
     flexDirection: 'row',
     backgroundColor: 'white',

@@ -83,13 +83,13 @@ class RegisterScreen extends React.Component {
                         >
                             <View style={{
                                 width: containerW * 0.4,
-                                height: scale(31),
+                                height: scale(45),
                                 backgroundColor: PRIMARY_COLOR,
-                                borderRadius: scaleModerate(4),
+                                borderRadius: scaleModerate(10),
                                 alignItems: 'center',
                                 justifyContent: 'center',
                             }}>
-                                <Text style={{ color: 'white', fontWeight: 'bold' }}>Đăng ký</Text>
+                                <Text style={{ color: 'white', fontWeight: 'bold',fontSize:scaleModerate(14) }}>Đăng ký</Text>
                             </View>
                         </TouchableOpacity>
                         <TouchableOpacity
