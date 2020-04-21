@@ -92,8 +92,8 @@ class AccountScreen extends React.Component {
         <View style={styles.container}>
           <Header title={'Tài khoản'} />
           <View style={styles.body1}>
-            <TouchableOpacity style={{ flex: 2.5, marginLeft: 4, }}>
-              <Image style={{ height: '100%', borderRadius: 40 }}
+            <TouchableOpacity style={{ flex: 2.5, marginLeft: 4,justifyContent:'center' }}>
+              <Image style={{ height: '80%', borderRadius: scale(40) }}
                 source={{ uri: this.props.commonConfigData.banner.default }}
               />
             </TouchableOpacity>
