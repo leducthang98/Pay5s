@@ -92,10 +92,12 @@ class AccountScreen extends React.Component {
         <View style={styles.container}>
           <Header title={'Tài khoản'} />
           <View style={styles.body1}>
-            <TouchableOpacity style={{ flex: 2.5, marginLeft: 4,justifyContent:'center' }}>
-              <Image style={{ height: '80%', borderRadius: scale(40) }}
-                source={{ uri: this.props.commonConfigData.banner.default }}
-              />
+            <TouchableOpacity style={{ flex: 2.5, marginLeft: scale(4), justifyContent: 'center', alignItems: 'center',paddingLeft:scale(7) }}>
+              <View style={{width:containerH/8,height:containerH/8}}>
+                <Image style={{ height: '100%', width: '100%', borderRadius: scale(999) }}
+                  source={{ uri: this.props.commonConfigData.banner.default }}
+                />
+              </View>
             </TouchableOpacity>
             <TouchableOpacity style={styles.infoArea}
               onPress={() => this.props.navigation.navigate(ACCOUNTINFO)}

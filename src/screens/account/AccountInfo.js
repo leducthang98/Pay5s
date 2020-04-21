@@ -12,7 +12,7 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { scaleVertical, scaleModerate, scale } from '../../constant/Scale';
 import { logout } from '../../fetchAPIs/AuthApi';
 import AsyncStorage from '@react-native-community/async-storage';
-import { LOGIN } from '../../navigators/RouteName';
+import { LOGIN, BEGIN } from '../../navigators/RouteName';
 import LoadingDialog from '../../components/common/LoadingDialog';
 import MessageDialog from '../../components/common/MessageDialog';
 import Loading from '../../components/common/Loading';
@@ -42,7 +42,7 @@ class AccountInfo extends React.Component {
     }
 
     async _logoutSuccess() {
-        await AsyncStorage.clear();
+        await AsyncStorage.setItem('access_token', 'none');
         this.props.navigation.navigate(LOGIN);
     }
     logoutAlert = () =>
@@ -67,9 +67,9 @@ class AccountInfo extends React.Component {
                 let gender = this.props.accountInfo.gender
                 if (gender == 'M') {
                     sex = 'Nam'
-                } else if(gender=='F') {
+                } else if (gender == 'F') {
                     sex = 'Nữ'
-                }else{
+                } else {
                     sex = 'Chưa có'
                 }
             }

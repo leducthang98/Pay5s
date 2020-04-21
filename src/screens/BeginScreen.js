@@ -7,9 +7,9 @@ import { BOTTOM_TAB, LOGIN } from '../navigators/RouteName';
 import AsyncStorage from '@react-native-community/async-storage';
 class BeginScreen extends React.Component {
     async componentDidMount() {
-        const storageData = await AsyncStorage.getAllKeys();
-        console.log('ComponentDidMount...')
-        if (storageData.length == 0) {
+        const token_user = await AsyncStorage.getItem('access_token')
+        console.log(token_user)
+        if (token_user == 'none') {
             this.props.navigation.navigate(LOGIN)
         } else {
             this.props.navigation.navigate(BOTTOM_TAB)
@@ -19,7 +19,7 @@ class BeginScreen extends React.Component {
     render() {
 
         return (
-            <View style={{ flex: 1 }}>
+            <View style={{ flex: 1,backgroundColor:'red' }}>
 
             </View>
         );
