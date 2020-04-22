@@ -36,12 +36,11 @@ export default class Header extends Component {
               <View style={styles.buttonArea}/>
           }
 
-          <Text style={texts.white_bold}>{title || 'Pay5s'}</Text>
+          <Text style={[texts.white_bold, {fontSize:scaleModerate(16)}]}>{title || 'Pay5s'}</Text>
           {
             rightIcon ?
               <TouchableOpacity style={styles.buttonArea}
-                onPress={()=> this.props.navigation.navigate(screenPopUpFromRightIcon)}
-              >
+                onPress={()=> this.props.navigation.navigate(screenPopUpFromRightIcon)}>
                 <Icon name={rightIcon} size={scaleModerate(22)} color={COLOR.WHITE}/>
               </TouchableOpacity> :
               <View style={styles.buttonArea}/>

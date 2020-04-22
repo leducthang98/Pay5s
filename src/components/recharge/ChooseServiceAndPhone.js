@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import {
   View,
   Text,
@@ -10,15 +10,15 @@ import {
 } from 'react-native';
 import * as COLOR from '../../constant/Colors';
 import * as Layout from '../../constant/Layout';
-import {scaleModerate, scaleVertical} from '../../constant/Scale';
-import {getString} from '../../res/values/String';
-import {texts} from '../../constant/CommonStyles';
+import { scaleModerate, scaleVertical } from '../../constant/Scale';
+import { getString } from '../../res/values/String';
+import { texts } from '../../constant/CommonStyles';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import {NETWORK} from '../../constant/NetworkIcon';
-import {CHECK_WALLET_HISTORY, CHECK_WALLET_INFO, HISTORY} from '../../navigators/RouteName';
+import { NETWORK } from '../../constant/NetworkIcon';
+import { CHECK_WALLET_HISTORY, CHECK_WALLET_INFO, HISTORY } from '../../navigators/RouteName';
 
 
-const {width, height} = Layout.window;
+const { width, height } = Layout.window;
 const networkHeight = height / 14;
 
 export default class ChooseServiceAndPhone extends Component {
@@ -27,43 +27,46 @@ export default class ChooseServiceAndPhone extends Component {
   }
 
   _moveToHistoryScreen = () => {
-    console.log('props = ',this.props);
+    console.log('props = ', this.props);
     this.props.navigation.navigate(CHECK_WALLET_INFO)
   };
 
   render() {
-    const {paddingHorizontal, note, networkCode} = this.props;
-
+    const { paddingHorizontal, note, networkCode, error, errorContent } = this.props;
     return (
-      <View style={paddingHorizontal ? [styles.container, {paddingHorizontal: paddingHorizontal}] : styles.container}>
+      <View style={paddingHorizontal ? [styles.container, { paddingHorizontal: paddingHorizontal }] : styles.container}>
         <View style={styles.historyArea}>
-          <Text style={[texts.h4, {fontWeight: 'bold'}]}>{getString('DEPOSIT_TO')}</Text>
-          <TouchableOpacity onPress={()=>this._moveToHistoryScreen()}>
-            <Text style={[texts.normal, {color: COLOR.FACEBOOK}]}>{getString('WATCH_HISTORY')}</Text>
+          <Text style={[texts.h4, { fontWeight: 'bold' }]}>{getString('DEPOSIT_TO')}</Text>
+          <TouchableOpacity onPress={() => this._moveToHistoryScreen()}>
+            <Text style={[texts.normal, { color: COLOR.FACEBOOK }]}>{getString('WATCH_HISTORY')}</Text>
           </TouchableOpacity>
         </View>
         <View style={styles.selectPhoneAndService}>
-          <View style={styles.phoneArea}>
+          <View style={!error ? styles.phoneArea : styles.phoneAreaError}>
             <TextInput
               style={styles.phone}
               placeholder={getString('TYPE_PHONE_NUMBER')}
               keyboardType={'phone-pad'}
+              
             />
             <TouchableOpacity style={styles.contact}>
-              <Icon name={'account-circle'} color={COLOR.CONTACTS} size={scaleModerate(30)}/>
+              <Icon name={'account-circle'} color={COLOR.CONTACTS} size={scaleModerate(30)} />
             </TouchableOpacity>
           </View>
           <TouchableOpacity
-            onPress={()=>this.props.openChooseNetwork()}
+            onPress={() => this.props.openChooseNetwork()}
             style={styles.network}>
             <Image
-              style={{width: '100%', height: '100%'}}
+              style={{ width: '100%', height: '100%' }}
               resizeMode={'contain'}
-              source={NETWORK[networkCode || 'VINA']}/>
+              source={NETWORK[networkCode || 'VINA']} />
           </TouchableOpacity>
         </View>
         {
-          note && <Text style={[texts.l_normal, {marginTop: scaleVertical(15)}]}>{note}</Text>
+          (errorContent && errorContent !== '') ? <Text style={[texts.sm, { marginTop: scaleVertical(5), color: COLOR.ERROR }]}>{errorContent}</Text> : null
+        }
+        {
+          note && <Text style={[texts.l_normal, { marginTop: scaleVertical(15) }]}>{note}</Text>
         }
       </View>
     );
@@ -91,6 +94,16 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     borderWidth: 0.6,
     borderColor: COLOR.BORDER,
+    borderRadius: scaleModerate(8),
+    height: networkHeight,
+    flex: 1,
+    marginRight: scaleModerate(10),
+  },
+  phoneAreaError: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    borderWidth: 0.6,
+    borderColor: COLOR.ERROR,
     borderRadius: scaleModerate(8),
     height: networkHeight,
     flex: 1,

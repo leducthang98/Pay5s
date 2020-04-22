@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import {
   View,
   Text,
@@ -8,29 +8,32 @@ import {
 } from 'react-native';
 import * as Layout from '../../constant/Layout'
 import * as COLOR from '../../constant/Colors'
-import {scaleModerate, scaleVertical} from '../../constant/Scale';
-import {NETWORK} from '../../constant/NetworkIcon';
-import {size, texts} from '../../constant/CommonStyles';
+import { scaleModerate, scaleVertical } from '../../constant/Scale';
+import { NETWORK } from '../../constant/NetworkIcon';
+import { size, texts } from '../../constant/CommonStyles';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import { getString } from '../../res/values/String';
 
-const {width, height} = Layout.window;
-const itemHeight = height/10;
+const { width, height } = Layout.window;
+const itemHeight = height / 10;
 
-export default class ItemNetwork extends Component{
+export default class ItemNetwork extends Component {
   constructor(props) {
     super(props);
   }
 
-  render(){
-    const {isSelected, name, discount, telco} = this.props
-    return(
-      <TouchableOpacity style={styles.item}>
+  render() {
+    const { isSelected, name, discount, telco } = this.props
+    return (
+      <TouchableOpacity
+        onPress={() => this.props.selectItem(telco)}
+        style={[styles.item, { backgroundColor: isSelected ? COLOR.NETWORK_SELECTED : COLOR.BACKGROUND_COLOR }]}>
         <View style={styles.imageArea}>
           <Image source={NETWORK[telco || 'VTT']} style={styles.image} resizeMode={'contain'} />
         </View>
         <View style={styles.contentArea}>
           <Text style={[texts.h5]}>{name || "Viettel"}</Text>
-          <Text style={[texts.sm_placeholder]}>Giảm: {discount || 0} %</Text>
+          <Text style={[texts.sm_placeholder]}>{getString('DISCOUNT')}: {discount || 0}%</Text>
         </View>
         <Icon name={'check'} size={scaleModerate(20)} color={isSelected ? COLOR.SUCCESS : 'transparent'} />
       </TouchableOpacity>
@@ -39,31 +42,30 @@ export default class ItemNetwork extends Component{
 }
 
 const styles = StyleSheet.create({
-  item:{
+  item: {
     height: itemHeight,
-    backgroundColor: COLOR.BACKGROUND_COLOR,
-    flexDirection:'row',
+    flexDirection: 'row',
     borderRadius: scaleModerate(8),
     alignItems: 'center',
-    paddingHorizontal:scaleModerate(10)
+    paddingHorizontal: scaleModerate(10)
   },
-  imageArea:{
-    width: height/13,
-    height: height/13,
-    alignItems:'center',
-    justifyContent:'center',
+  imageArea: {
+    width: height / 13,
+    height: height / 13,
+    alignItems: 'center',
+    justifyContent: 'center',
     backgroundColor: COLOR.BACKGROUND_COLOR,
     borderRadius: scaleModerate(8)
   },
-  image:{
-    width: height/15,
-    height: height/15,
+  image: {
+    width: height / 15,
+    height: height / 15,
   },
-  contentArea:{
+  contentArea: {
     height: itemHeight,
-    flex:1,
+    flex: 1,
     paddingLeft: scaleModerate(10),
-    justifyContent:'center',
-    alignItems:'flex-start'
+    justifyContent: 'center',
+    alignItems: 'flex-start'
   }
 });
