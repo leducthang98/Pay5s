@@ -30,7 +30,6 @@ import AsyncStorage from '@react-native-community/async-storage';
 import SplashScreen from '../screens/SplashScreen';
 import EditAccount from '../screens/account/EditAccount';
 import CheckWalletHistory from '../screens/check_wallet/CheckWalletHistory';
-import TransferPrepaidAccount from '../screens/recharge_phone/TransferPrepaidAccount';
 import CheckWalletInfo from '../screens/check_wallet/CheckWalletInfo';
 const Stack = createStackNavigator();
 
@@ -52,7 +51,6 @@ function RootNavigator() {
                 <Stack.Screen name={EDITACCOUNT} component={EditAccount} />
                 <Stack.Screen name={CHECK_WALLET_HISTORY} component={CheckWalletHistory} />
                 <Stack.Screen name={CHECK_WALLET_INFO} component={CheckWalletInfo} />
-                <Stack.Screen name={TRANSFER_PREPAID_ACCOUNT} component={TransferPrepaidAccount} />
             </Stack.Navigator>
         </NavigationContainer >
     );

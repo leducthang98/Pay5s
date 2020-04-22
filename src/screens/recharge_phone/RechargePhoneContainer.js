@@ -6,7 +6,8 @@ import {
   StyleSheet,
   KeyboardAvoidingView,
   TouchableOpacity,
-  ScrollView
+  ScrollView,
+  Keyboard
 } from 'react-native';
 import ItemRechargeList from '../../components/recharge/ItemRechargeList';
 import ChooseServiceAndPhone from '../../components/recharge/ChooseServiceAndPhone';
@@ -19,7 +20,7 @@ import { getRechargePhoneServiceAPI } from '../../fetchAPIs/getRechargePhoneServ
 import LoadingDialog from '../../components/common/LoadingDialog';
 import MessageDialog from '../../components/common/MessageDialog';
 import ChooseNetwork from '../../components/recharge/ChooseNetwork';
-import {isPhoneNumber} from '../../constant/Validate';
+import { isPhoneNumber } from '../../constant/Validate';
 
 
 const { width } = Layout.window;
@@ -38,7 +39,7 @@ export default class RechargePostpaidAccount extends React.Component {
       isVisibleChooseNetwork: false,
 
       //phone number
-      phoneNumber:'',
+      phoneNumber: '',
       phoneNumberError: 0,
       phoneNumberErrorContent: '',
     };
@@ -72,7 +73,7 @@ export default class RechargePostpaidAccount extends React.Component {
   };
 
   _findData = data => {
-    const index = data.findIndex(item => item.service === SERVICE);
+    const index = data.findIndex(item => item.service === this.props.route?.service);
     this.setState({ data: data[index] });
     // console.log('data viettel = ', data[index].srvTelcos[0].amounts);
     const moneyAmount = this._addSelectedPropsToMoney(data[index].srvTelcos[0].amounts);
@@ -144,24 +145,44 @@ export default class RechargePostpaidAccount extends React.Component {
     this._calculateDiscountAmount()
   }
 
-  _checkPhoneNumberError = () => {
-    const {phoneNumber} = this.state;
-    if (!phoneNumber){
+  _checkValidPhoneNumber = () => {
+    const { phoneNumber } = this.state;
+    if (phoneNumber !== '' && !isPhoneNumber(phoneNumber)) {
       this.setState({
-        phoneNumberError:true,
-        phoneNumberErrorContent: getString('YOU_NEED_TO_ENTER_PHONE_NUMBER')
-      })
-    } else if (phoneNumber && !isPhoneNumber(phoneNumber)){
-      this.setState({
-        phoneNumberError:true,
+        phoneNumberError: true,
         phoneNumberErrorContent: getString('PHONE_NUMBER_IS_INCORRECT_TYPE')
       })
-    } else{
-      this.setState({
-        phoneNumberError:false,
+    }
+  }
+
+  _checkHavePhoneNumber = async () => {
+    const { phoneNumber } = this.state;
+    if (phoneNumber === '') {
+      await this.setState({
+        phoneNumberError: true,
+        phoneNumberErrorContent: getString('YOU_NEED_TO_ENTER_PHONE_NUMBER')
+      })
+    } else if (phoneNumber !== '') {
+      await this.setState({
+        phoneNumberError: false,
         phoneNumberErrorContent: null
       })
     }
+  }
+
+  _onTypingPhoneNumber = async phoneNumber => {
+    await this.setState({ phoneNumber });
+    await this._checkHavePhoneNumber()
+  }
+
+  _onKeyboardDismiss = async () => {
+    Keyboard.dismiss();
+    await this._checkHavePhoneNumber();
+    await this._checkValidPhoneNumber();
+  }
+
+  _onPressDeposit = async () => {
+    await this._onKeyboardDismiss();
   }
 
   render() {
@@ -180,10 +201,15 @@ export default class RechargePostpaidAccount extends React.Component {
           <KeyboardAvoidingView
             style={{ flex: 1, alignItems: 'center', backgroundColor: COLOR.BACKGROUND_COLOR }}
             behavior={'padding'}>
-            <ScrollView contentContainerStyle={styles.center}>
+            <ScrollView
+              keyboardShouldPersistTaps={'always'}
+              contentContainerStyle={styles.center}>
               <ChooseServiceAndPhone
                 error={phoneNumberError}
                 errorContent={phoneNumberErrorContent}
+                onTypingPhoneNumber={phoneNumber => this._onTypingPhoneNumber(phoneNumber)}
+                checkValidPhoneNumber={phoneNumber => this._checkValidPhoneNumber(phoneNumber)}
+                phoneNumber={this.state.phoneNumber}
                 navigation={this.props.route?.navigation}
                 note={data?.note}
                 openChooseNetwork={() => this.setState({ isVisibleChooseNetwork: true })}
@@ -221,7 +247,9 @@ export default class RechargePostpaidAccount extends React.Component {
               }
             </ScrollView>
             <View style={styles.buttonArea}>
-              <TouchableOpacity style={styles.button}>
+              <TouchableOpacity 
+              onPress={()=>this._onPressDeposit()}
+              style={styles.button}>
                 <Text style={texts.white_bold}>{getString('DEPOSIT_NOW').toUpperCase()}</Text>
               </TouchableOpacity>
             </View>

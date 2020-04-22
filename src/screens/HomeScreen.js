@@ -107,15 +107,15 @@ class HomeScreen extends React.Component {
     this.props.navigation.navigate(TRANSFERMONEY)
   }
   rechargePhone() {
-    // this.props.navigation.navigate(RECHARGEPHONE)
-    Alert.alert(
-      'Thông báo',
-      'Tính năng đang phát triển',
-      [
-        { text: 'Đóng', onPress: () => console.log('OK Pressed') },
-      ],
-      { cancelable: false },
-    );
+    this.props.navigation.navigate(RECHARGEPHONE)
+    // Alert.alert(
+    //   'Thông báo',
+    //   'Tính năng đang phát triển',
+    //   [
+    //     { text: 'Đóng', onPress: () => console.log('OK Pressed') },
+    //   ],
+    //   { cancelable: false },
+    // );
   }
   _renderMainService = (iconName, label, onPress) => (
     <TouchableOpacity style={{ flex: 1, alignItems: 'center', paddingTop: scale(7) }} onPress={onPress}>

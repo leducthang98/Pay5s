@@ -27,12 +27,11 @@ export default class ChooseServiceAndPhone extends Component {
   }
 
   _moveToHistoryScreen = () => {
-    console.log('props = ', this.props);
     this.props.navigation.navigate(CHECK_WALLET_INFO)
   };
 
   render() {
-    const { paddingHorizontal, note, networkCode, error, errorContent } = this.props;
+    const { paddingHorizontal, note, networkCode, error, errorContent, phoneNumber } = this.props;
     return (
       <View style={paddingHorizontal ? [styles.container, { paddingHorizontal: paddingHorizontal }] : styles.container}>
         <View style={styles.historyArea}>
@@ -44,10 +43,12 @@ export default class ChooseServiceAndPhone extends Component {
         <View style={styles.selectPhoneAndService}>
           <View style={!error ? styles.phoneArea : styles.phoneAreaError}>
             <TextInput
+              value={phoneNumber}
               style={styles.phone}
               placeholder={getString('TYPE_PHONE_NUMBER')}
               keyboardType={'phone-pad'}
-              
+              onChangeText={phoneNumber => this.props.onTypingPhoneNumber(phoneNumber)}
+              onSubmitEditing={()=>this.props.checkValidPhoneNumber(phoneNumber)}
             />
             <TouchableOpacity style={styles.contact}>
               <Icon name={'account-circle'} color={COLOR.CONTACTS} size={scaleModerate(30)} />
@@ -63,7 +64,7 @@ export default class ChooseServiceAndPhone extends Component {
           </TouchableOpacity>
         </View>
         {
-          (errorContent && errorContent !== '') ? <Text style={[texts.sm, { marginTop: scaleVertical(5), color: COLOR.ERROR }]}>{errorContent}</Text> : null
+          (errorContent && errorContent !== '') ? <Text style={[texts.l_sm, { marginTop: scaleVertical(5), color: COLOR.ERROR }]}>{errorContent}</Text> : null
         }
         {
           note && <Text style={[texts.l_normal, { marginTop: scaleVertical(15) }]}>{note}</Text>
