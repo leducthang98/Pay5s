@@ -12,7 +12,11 @@ import { connect } from 'react-redux';
 import Loading from '../../components/common/Loading';
 import Header from '../../components/common/Header';
 import { scale } from '../../constant/Scale';
-import { INITNOTIFICATION } from '../../navigators/RouteName';
+import { INITNOTIFICATION, LOGIN } from '../../navigators/RouteName';
+import { CommonActions } from '@react-navigation/native';
+import AsyncStorage from '@react-native-community/async-storage';
+import Toast from 'react-native-simple-toast';
+import { refreshStore } from '../../actions/ActionRefresh';
 class NotiScreen extends React.Component {
   _renderNotification = (img_preview, img_avatar, headline, published_date, author, content, description) => (
     <TouchableOpacity
@@ -24,7 +28,7 @@ class NotiScreen extends React.Component {
           author: author,
           content: content,
           description: description,
-          img_avatar:img_avatar
+          img_avatar: img_avatar
         }
       })}
     >
@@ -59,27 +63,44 @@ class NotiScreen extends React.Component {
       </View>
     </TouchableOpacity>
   );
+  async tokenInvalidFunction() {
+    this.props.refreshStore();
+    await AsyncStorage.clear();
+    Toast.show("Phiên đăng nhập đã hết hạn, bạn sẽ được quay trở về trang đăng nhập.")
+    this.props.navigation.dispatch(
+      CommonActions.reset({
+        index: 1,
+        routes: [{ name: LOGIN }],
+      })
+    );
+  }
   render() {
     if (this.props.notiData) {
-      return (
-        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', }}>
-          <Header navigation={this.props.navigation} back={false} title={'Tin tức'} />
-          <ScrollView>
-            {
-              this.props.notiData.rows.map((item, index) => {
-                let img_preview = item.img_preview;
-                let headline = item.headline;
-                let published_date = item.published_date;
-                let author = item.author;
-                let content = item.content;
-                let description = item.description;
-                let img_avatar = item.img_avatar;
-                return this._renderNotification(img_preview, img_avatar, headline, published_date, author, content, description)
-              })
-            }
-          </ScrollView>
-        </View>
-      );
+      const notiResponse = this.props.notiData
+      if (notiResponse.errorCode === 200) {
+        return (
+          <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', }}>
+            <Header navigation={this.props.navigation} back={false} title={'Tin tức'} />
+            <ScrollView>
+              {
+                notiResponse.data.rows.map((item, index) => {
+                  let img_preview = item.img_preview;
+                  let headline = item.headline;
+                  let published_date = item.published_date;
+                  let author = item.author;
+                  let content = item.content;
+                  let description = item.description;
+                  let img_avatar = item.img_avatar;
+                  return this._renderNotification(img_preview, img_avatar, headline, published_date, author, content, description)
+                })
+              }
+            </ScrollView>
+          </View>
+        );
+      } else if (notiResponse.errorCode === 500) {
+        this.tokenInvalidFunction();
+        return null;
+      }
     } else {
       return (
         <Loading></Loading>
@@ -96,7 +117,9 @@ const mapStateToProps = (store) => {
 }
 const mapDispatchToProps = (dispatch) => {
   return {
-
+    refreshStore: () => {
+      dispatch(refreshStore())
+    },
 
   }
 }

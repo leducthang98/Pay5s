@@ -8,6 +8,10 @@ import { PRIMARY_COLOR } from '../constant/Colors'
 import Loading from '../components/common/Loading';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import Toast from 'react-native-simple-toast';
+import { refreshStore } from '../actions/ActionRefresh';
+import AsyncStorage from '@react-native-community/async-storage';
+import { LOGIN } from '../navigators/RouteName';
+import { CommonActions } from '@react-navigation/native';
 class RechargeMoney extends React.Component {
   writeToClipboard = async (acc_no) => {
     await Clipboard.setString(acc_no);
@@ -29,27 +33,43 @@ class RechargeMoney extends React.Component {
       <Text style={styles.textComponent}>- {syntax}</Text>
     </View>
   );
-
+  async tokenInvalidFunction() {
+    this.props.refreshStore();
+    await AsyncStorage.clear();
+    Toast.show("Phiên đăng nhập đã hết hạn, bạn sẽ được quay trở về trang đăng nhập.")
+    this.props.navigation.dispatch(
+      CommonActions.reset({
+        index: 1,
+        routes: [{ name: LOGIN }],
+      })
+    );
+  }
   render() {
     if (this.props.commonConfigData) {
-      return (
-        <View style={{ flex: 1 }}>
-          <Header navigation={this.props.navigation} back={true} title={'Nạp số dư tài khoản'} />
-          <ScrollView>
-            <View style={{ paddingLeft: scale(10), backgroundColor: 'white', paddingTop: scale(8) }}>
-              <Text style={{ paddingBottom: scale(10), backgroundColor: 'white', fontSize: scale(16) }}>Chọn hình thức Nạp số dư tài khoản</Text>
-            </View>
-            {
-              this.props.commonConfigData.topup_channel.map((item, index) => {
-                if (item.enable === false) {
-                  return null;
-                }
-                return this._renderCommonData(item.name, item.note, item.acc_name, item.acc_no, item.bank, item.syntax)
-              })
-            }
-          </ScrollView>
-        </View>
-      );
+      const commonConfigResponse = this.props.commonConfigData;
+      if (commonConfigResponse.errorCode === 200) {
+        return (
+          <View style={{ flex: 1 }}>
+            <Header navigation={this.props.navigation} back={true} title={'Nạp số dư tài khoản'} />
+            <ScrollView>
+              <View style={{ paddingLeft: scale(10), backgroundColor: 'white', paddingTop: scale(8) }}>
+                <Text style={{ paddingBottom: scale(10), backgroundColor: 'white', fontSize: scale(16) }}>Chọn hình thức Nạp số dư tài khoản</Text>
+              </View>
+              {
+                commonConfigResponse.data.topup_channel.map((item, index) => {
+                  if (item.enable === false) {
+                    return null;
+                  }
+                  return this._renderCommonData(item.name, item.note, item.acc_name, item.acc_no, item.bank, item.syntax)
+                })
+              }
+            </ScrollView>
+          </View>
+        );
+      }else if(commonConfigResponse.errorCode ===500){
+        this.tokenInvalidFunction();
+        return null;
+      }
     } else {
       return (
         <Loading></Loading>
@@ -74,8 +94,9 @@ const mapStateToProps = (store) => {
 }
 const mapDispatchToProps = (dispatch) => {
   return {
-
-
+    refreshStore: () => {
+      dispatch(refreshStore())
+    },
   }
 }
 export default connect(mapStateToProps, mapDispatchToProps)(RechargeMoney);

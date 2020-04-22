@@ -14,16 +14,20 @@ import {
 } from 'react-native';
 import Header from '../components/common/Header';
 import { connect } from 'react-redux';
-import Icon from 'react-native-vector-icons/FontAwesome5';
 import AsyncStorage from '@react-native-community/async-storage';
 import { getBill } from '../actions/ActionBillScreen';
 import { scale } from '../constant/Scale';
 import { formatMoney } from '../constant/MoneyFormat';
+import Loading from '../components/common/Loading';
+import Toast from 'react-native-simple-toast';
+import { CommonActions } from '@react-navigation/native';
+import { LOGIN } from '../navigators/RouteName';
+import { refreshStore } from '../actions/ActionRefresh';
 class BillScreen extends React.Component {
 
   async componentDidMount() {
     const token_user = await AsyncStorage.getItem('access_token')
-    console.log('test commit')
+    console.log(token_user)
     this.props.getBill(token_user);
   }
   _renderBill = (service, mobile, amount, modified, telco) => (
@@ -53,63 +57,83 @@ class BillScreen extends React.Component {
       </View>
     </View>
   );
+  async tokenInvalidFunction() {
+    this.props.refreshStore();
+    await AsyncStorage.clear();
+    Toast.show("Phiên đăng nhập đã hết hạn, bạn sẽ được quay trở về trang đăng nhập.")
+    this.props.navigation.dispatch(
+      CommonActions.reset({
+        index: 1,
+        routes: [{ name: LOGIN }],
+      })
+    );
+  }
   render() {
-    let billData;
-    if (this.props.billData) {
-      billData = this.props.billData.rows
-      if (this.props.billData.size != 0) {
-        return (
-          <View>
-            <Header navigation={this.props.navigation} back={false} title={'Danh sách đơn hàng'} />
-            <ScrollView style={{ marginTop: scale(5) }}>
-              {
-                billData.map((item, index) => {
-                  let service
-                  let telco
-                  if (item.service == 'TT') {
-                    service = 'Bắn TK trả trước'
-                  }else if(item.service == 'TS'){
-                    service = 'Bắn TK trả sau'
-                  }
-                  switch (item.telco) {
-                    case 'VTT':
-                      telco = 'Viettel'
-                      break;
-                    case 'VINA':
-                      telco = 'Vinaphone'
-                      break;
-                    case 'VMS':
-                      telco = 'Mobiphone'
-                      break;
-                  }
-                  let mobile = '0' + item.mobile
-                  let amount = formatMoney(item.amount) + 'đ'
-                  return this._renderBill(service, mobile, amount, item.modified, telco)
-                })
-              }
-            </ScrollView>
-          </View>
-        );
-      } else if (this.props.billData.size == 0) {
-        return (
-          <View>
-            <Header navigation={this.props.navigation} back={false} title={'Danh sách đơn hàng'} />
-            <View style={{ width: '100%', height: '90%', justifyContent: 'center', alignItems: 'center' }}>
-              <Text style={{color:'gray'}} >Không có đơn hàng nào</Text>
+
+    if (this.props.bills) {
+      console.log("Code_Bill_Response:" + this.props.bills.errorCode)
+      let billRespond = this.props.bills
+      if (billRespond.errorCode === 200) {
+        // co data
+        let billData = billRespond.data.rows
+        if (billData.size != 0) {
+          return (
+            <View>
+              <Header navigation={this.props.navigation} back={false} title={'Danh sách đơn hàng'} />
+              <ScrollView style={{ marginTop: scale(5) }}>
+                {
+                  billData.map((item, index) => {
+                    let service
+                    let telco
+                    if (item.service == 'TT') {
+                      service = 'Bắn TK trả trước'
+                    } else if (item.service == 'TS') {
+                      service = 'Bắn TK trả sau'
+                    }
+                    switch (item.telco) {
+                      case 'VTT':
+                        telco = 'Viettel'
+                        break;
+                      case 'VINA':
+                        telco = 'Vinaphone'
+                        break;
+                      case 'VMS':
+                        telco = 'Mobiphone'
+                        break;
+                    }
+                    let mobile = '0' + item.mobile
+                    let amount = formatMoney(item.amount) + 'đ'
+                    return this._renderBill(service, mobile, amount, item.modified, telco)
+                  })
+                }
+              </ScrollView>
             </View>
-          </View>
-        )
+          );
+        } else if (billData.size == 0) {
+          return (
+            <View>
+              <Header navigation={this.props.navigation} back={false} title={'Danh sách đơn hàng'} />
+              <View style={{ width: '100%', height: '90%', justifyContent: 'center', alignItems: 'center' }}>
+                <Text style={{ color: 'gray' }} >Không có đơn hàng nào</Text>
+              </View>
+            </View>
+          )
+        }
+      } else if (billRespond.errorCode === 500) {
+        //fail
+        console.log('500 executed')
+        this.tokenInvalidFunction();
+        return null;
       }
     } else {
+      //loading
       return (
         <View style={styles.container}>
-          <View style={styles.loadingContainer}>
-            <ActivityIndicator size={'large'} color='#ff8c00' />
-            <Text style={styles.textLoading}>loading</Text>
-          </View>
+          <Loading></Loading>
         </View>
       );
     }
+
 
   }
 }
@@ -151,13 +175,16 @@ const styles = StyleSheet.create({
 });
 const mapStateToProps = (store) => {
   return {
-    billData: store.billReducer.billData
+    bills: store.billReducer.bills
   }
 }
 const mapDispatchToProps = (dispatch) => {
   return {
     getBill: (token_user) => {
       dispatch(getBill(token_user))
+    },
+    refreshStore: () => {
+      dispatch(refreshStore())
     },
 
   }

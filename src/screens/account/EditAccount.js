@@ -186,7 +186,7 @@ class EditAccount extends React.Component {
 }
 const mapStateToProps = (store) => {
     return {
-        accountInfo: store.homeReducer.accountInfo,
+        accountInfo: store.homeReducer.accountInfo.data,
     }
 }
 const mapDispatchToProps = (dispatch) => {

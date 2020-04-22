@@ -2,8 +2,8 @@ const DEFAULT_STATE = {
     accountInfo: null,
     rechargePhoneService: null,
     commonConfigData: null,
-    transferData:null,
-    notiData:null
+    transferData: null,
+    notiData: null
 }
 export default (state = DEFAULT_STATE, action) => {
     switch (action.type) {
@@ -66,6 +66,15 @@ export default (state = DEFAULT_STATE, action) => {
             return {
 
 
+            }
+        }
+        case 'REFRESH_STORE': {
+            return {
+                accountInfo: null,
+                rechargePhoneService: null,
+                commonConfigData: null,
+                transferData: null,
+                notiData: null
             }
         }
 

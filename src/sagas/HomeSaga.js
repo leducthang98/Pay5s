@@ -9,7 +9,7 @@ function* getAccountInfo(action) {
     try {
         console.log("token:" + action.payload)
         let accountInfoPayback = yield getAccountInfoAPI(action.payload);
-        let accountData = accountInfoPayback.data;
+        let accountData = accountInfoPayback;
         yield put({
             type: 'GET_ACCOUNT_INFO_SUCCESS',
             payload: { accountData }
@@ -42,7 +42,7 @@ function* getRechargePhoneService(action) {
 function* getCommonConfig(action) {
     try {
         let commonConfigPayback = yield getCommonConfigAPI(action.payload);
-        commonConfigData = commonConfigPayback.data;
+        commonConfigData = commonConfigPayback;
         yield put({
             type: 'GET_COMMON_CONFIG_SUCCESS',
             payload: { commonConfigData }
@@ -58,7 +58,7 @@ function* getCommonConfig(action) {
 function* getTransfer(action) {
     try {
         let transferPayback = yield getTransferAPI(action.payload);
-        transferData = transferPayback.data;
+        transferData = transferPayback;
         yield put({
             type: 'GET_TRANSFER_SUCCESS',
             payload: { transferData }
@@ -74,7 +74,7 @@ function* getTransfer(action) {
 function* getNotification(action) {
     try {
         let notiPayback = yield getNotificationAPI(action.payload);
-        notiData = notiPayback.data;
+        notiData = notiPayback;
         yield put({
             type: 'GET_NOTIFICATION_SUCCESS',
             payload: { notiData }
