@@ -6,24 +6,23 @@ import {
   Text,
   ScrollView,
   Dimensions,
-  Image
+  Image,
+  Alert
 } from 'react-native';
 import { connect } from 'react-redux';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import { scale, scaleVertical } from '../constant/Scale';
 import { shadow } from '../constant/CommonStyles';
 import { statusBarHeight } from '../constant/Layout';
-import { WALLET, NOTIFICATION, RECHARGEMONEY, TRANSFERMONEY, RECHARGEPHONE, INITNOTIFICATION } from '../navigators/RouteName';
+import { WALLET, NOTIFICATION, RECHARGEMONEY, TRANSFERMONEY, RECHARGEPHONE, INITNOTIFICATION, LOGIN } from '../navigators/RouteName';
 import AsyncStorage from '@react-native-community/async-storage';
 import { getAccountInfo, getCommonConfig, getNotification } from '../actions/ActionHomeScreen';
 import { formatMoney } from '../constant/MoneyFormat';
 import Loading from '../components/common/Loading';
 import { FACEBOOK } from '../constant/Colors';
-const buyCardID = () => console.log("buyCardID")
-const internetViettel = () => console.log("internetViettel")
-const KPlus = () => console.log("KPlus")
-const Support = () => console.log("Support")
-
+import { CommonActions } from '@react-navigation/native';
+import Toast from 'react-native-simple-toast';
+import { refreshStore } from '../actions/ActionRefresh';
 class HomeScreen extends React.Component {
   constructor(props) {
     super(props);
@@ -37,9 +36,9 @@ class HomeScreen extends React.Component {
     ];
     this.otherService = [
       { iconName: 'mobile-alt', label: 'Nạp tiền điện thoại', onPress: () => this.rechargePhone(), color: "#EDE574" },
-      { iconName: 'receipt', label: 'Mua mã thẻ', onPress: buyCardID, color: "#2d5e57" },
-      { iconName: 'globe', label: 'Internet Viettel', onPress: internetViettel, color: "#099FFF" },
-      { iconName: 'korvue', label: 'Gia hạn K+', onPress: KPlus, color: "#00FF00" },
+      { iconName: 'receipt', label: 'Mua mã thẻ', onPress: () => this.buyCardID(), color: "#2d5e57" },
+      { iconName: 'globe', label: 'Internet Viettel', onPress: () => this.internetViettel(), color: "#099FFF" },
+      { iconName: 'korvue', label: 'Gia hạn K+', onPress: () => this.KPlus(), color: "#00FF00" },
     ];
     this.otherService2 = [
       {},
@@ -55,6 +54,46 @@ class HomeScreen extends React.Component {
     this.props.getCommonConfig(token_user);
     this.props.getNotification(token_user);
   }
+  internetViettel() {
+    Alert.alert(
+      'Thông báo',
+      'Tính năng đang phát triển',
+      [
+        { text: 'Đóng', onPress: () => console.log('OK Pressed') },
+      ],
+      { cancelable: false },
+    );
+  }
+  KPlus() {
+    Alert.alert(
+      'Thông báo',
+      'Tính năng đang phát triển',
+      [
+        { text: 'Đóng', onPress: () => console.log('OK Pressed') },
+      ],
+      { cancelable: false },
+    );
+  }
+  buyCardID() {
+    Alert.alert(
+      'Thông báo',
+      'Tính năng đang phát triển',
+      [
+        { text: 'Đóng', onPress: () => console.log('OK Pressed') },
+      ],
+      { cancelable: false },
+    );
+  }
+  support() {
+    Alert.alert(
+      'Thông báo',
+      'Tính năng đang phát triển',
+      [
+        { text: 'Đóng', onPress: () => console.log('OK Pressed') },
+      ],
+      { cancelable: false },
+    );
+  }
   checkWallet() {
     this.props.navigation.navigate(WALLET)
   }
@@ -68,12 +107,20 @@ class HomeScreen extends React.Component {
     this.props.navigation.navigate(TRANSFERMONEY)
   }
   rechargePhone() {
-    this.props.navigation.navigate(RECHARGEPHONE)
+    // this.props.navigation.navigate(RECHARGEPHONE)
+    Alert.alert(
+      'Thông báo',
+      'Tính năng đang phát triển',
+      [
+        { text: 'Đóng', onPress: () => console.log('OK Pressed') },
+      ],
+      { cancelable: false },
+    );
   }
   _renderMainService = (iconName, label, onPress) => (
     <TouchableOpacity style={{ flex: 1, alignItems: 'center', paddingTop: scale(7) }} onPress={onPress}>
-      <Icon  name={iconName} size={scale(28)} color={"#F8b195"} />
-      <Text style={{ fontSize: scale(10),paddingTop:scale(10)}}>{label}</Text>
+      <Icon name={iconName} size={scale(28)} color={"#F8b195"} />
+      <Text style={{ fontSize: scale(10), paddingTop: scale(10) }}>{label}</Text>
     </TouchableOpacity>
   );
   _renderOtherServices = (iconName, label, onPress, color) => (
@@ -122,97 +169,114 @@ class HomeScreen extends React.Component {
       </View>
     </TouchableOpacity>
   );
-
+  async tokenInvalidFunction() {
+    this.props.refreshStore();
+    await AsyncStorage.clear();
+    Toast.show("Phiên đăng nhập đã hết hạn, bạn sẽ được quay trở về trang đăng nhập.")
+    this.props.navigation.dispatch(
+      CommonActions.reset({
+        index: 1,
+        routes: [{ name: LOGIN }],
+      })
+    );
+  }
   render() {
     if (this.props.accountInfo && this.props.notiData) {
-      return (
-        <ScrollView style={styles.container}>
-          <View style={{ alignItems: 'center' }}>
-            <View style={[styles.header]}>
-              <View style={styles.insideHeader}>
-                <View style={{ flex: 14, flexDirection: 'row' }}>
-                  <Text style={{ color: 'white', fontSize: scale(16) }}> Xin chào </Text>
-                  <Text style={{ color: 'white', fontSize: scale(16), fontWeight: 'bold' }}>0{this.props.accountInfo.mobile}</Text>
-                </View>
-                <TouchableOpacity
-                  onPress={() => this.notification()}
-                >
-                  <Icon style={{ flex: 1 }} name={'question-circle'} size={scale(23)} color={'white'} />
-                </TouchableOpacity>
+      const accountResponse = this.props.accountInfo
+      const notiResponse = this.props.notiData
+      if (accountResponse.errorCode === 200 && notiResponse.errorCode === 200) {
+        return (
+          <ScrollView style={styles.container}>
+            <View style={{ alignItems: 'center' }}>
+              <View style={[styles.header]}>
+                <View style={styles.insideHeader}>
+                  <View style={{ flex: 14, flexDirection: 'row' }}>
+                    <Text style={{ color: 'white', fontSize: scale(16) }}> Xin chào </Text>
+                    <Text style={{ color: 'white', fontSize: scale(16), fontWeight: 'bold' }}>0{accountResponse.data.mobile}</Text>
+                  </View>
+                  <TouchableOpacity
+                    onPress={() => this.support()}
+                  >
+                    <Icon style={{ flex: 1 }} name={'comments'} size={scale(23)} color={'white'} />
+                  </TouchableOpacity>
 
+                </View>
               </View>
-            </View>
-            <View style={styles.account}>
-              <TouchableOpacity
-                onPress={() => this.checkWallet()}
-                style={{ height: (containerH / 5.3) * 2 / 5, borderTopLeftRadius: scale(7), borderTopRightRadius: scale(7), flexDirection: 'row', alignItems: "center", borderBottomColor: 'gray', borderBottomWidth: scale(0.5) }}
-              >
-                <Text
-                  style={{ flex: 6, paddingLeft: scale(7), fontSize: scale(14) }}>Số dư</Text>
-                <Text style={{ flex: 3, fontSize: scale(15), fontWeight: 'bold', textAlign: 'right' }}>{formatMoney(this.props.accountInfo.balance)}đ</Text>
-                <View style={{ flex: 0.2 }}></View>
-                <Icon style={{ flex: 1 }} name={'chevron-right'} size={scale(16)} color={"black"} />
-              </TouchableOpacity>
-              <View style={{ height: (containerH / 5.3) * 3 / 5, borderBottomLeftRadius: scale(7), borderBottomRightRadius: scale(7), flexDirection: 'row', }}>
+              <View style={styles.account}>
+                <TouchableOpacity
+                  onPress={() => this.checkWallet()}
+                  style={{ height: (containerH / 5.3) * 2 / 5, borderTopLeftRadius: scale(7), borderTopRightRadius: scale(7), flexDirection: 'row', alignItems: "center", borderBottomColor: 'gray', borderBottomWidth: scale(0.5) }}
+                >
+                  <Text
+                    style={{ flex: 6, paddingLeft: scale(7), fontSize: scale(14) }}>Số dư</Text>
+                  <Text style={{ flex: 3, fontSize: scale(15), fontWeight: 'bold', textAlign: 'right' }}>{formatMoney(accountResponse.data.balance)}đ</Text>
+                  <View style={{ flex: 0.2 }}></View>
+                  <Icon style={{ flex: 1 }} name={'chevron-right'} size={scale(16)} color={"black"} />
+                </TouchableOpacity>
+                <View style={{ height: (containerH / 5.3) * 3 / 5, borderBottomLeftRadius: scale(7), borderBottomRightRadius: scale(7), flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}>
+                  {
+                    this.mainService.map((item, index) => {
+                      return this._renderMainService(item.iconName, item.label, item.onPress)
+                    })
+                  }
+                </View>
+              </View>
+
+              <View style={styles.service1}>
                 {
-                  this.mainService.map((item, index) => {
-                    return this._renderMainService(item.iconName, item.label, item.onPress)
+                  this.otherService.map((item, index) => {
+                    return this._renderOtherServices(item.iconName, item.label, item.onPress, item.color)
                   })
                 }
               </View>
-            </View>
-
-            <View style={styles.service1}>
-              {
-                this.otherService.map((item, index) => {
-                  return this._renderOtherServices(item.iconName, item.label, item.onPress, item.color)
-                })
-              }
-            </View>
-            {/* <View style={styles.service2}>
+              {/* <View style={styles.service2}>
               {
                 this.otherService2.map((item, index) => {
                   return this._renderOtherServices(item.iconName, item.label, item.onPress, item.color)
                 })
               }
             </View> */}
-            <View style={styles.notification}>
-              <View style={{ flexDirection: 'row', height: scale(30), paddingLeft: scale(10), paddingRight: scale(10) }}>
-                <View style={{ alignItems: 'flex-start', justifyContent: 'flex-end', flex: 1 }}>
-                  <Text style={{ fontSize: scale(14), fontWeight: '600' }}>Tin tức</Text>
+              <View style={styles.notification}>
+                <View style={{ flexDirection: 'row', height: scale(30), paddingLeft: scale(10), paddingRight: scale(10) }}>
+                  <View style={{ alignItems: 'flex-start', justifyContent: 'flex-end', flex: 1 }}>
+                    <Text style={{ fontSize: scale(14), fontWeight: '600' }}>Tin tức</Text>
+                  </View>
+                  <View style={{ alignItems: 'flex-end', justifyContent: 'flex-end', flex: 1 }}>
+                    <TouchableOpacity
+                      onPress={() => this.props.navigation.navigate(NOTIFICATION)}
+                    >
+                      <Text style={{ color: FACEBOOK, fontSize: scale(14), fontWeight: '600' }}>Xem tất cả</Text>
+                    </TouchableOpacity>
+                  </View>
                 </View>
-                <View style={{ alignItems: 'flex-end', justifyContent: 'flex-end', flex: 1 }}>
-                  <TouchableOpacity
-                    onPress={() => this.props.navigation.navigate(NOTIFICATION)}
-                  >
-                    <Text style={{ color: FACEBOOK, fontSize: scale(14), fontWeight: '600' }}>Xem tất cả</Text>
-                  </TouchableOpacity>
+                <View style={{ height: scale(150) }}>
+                  <ScrollView horizontal={true} showsHorizontalScrollIndicator={false} style={{ paddingTop: scale(10) }}>
+                    {
+                      notiResponse.data.rows.map((item, index) => {
+                        if (index > 2) {
+                          return null;
+                        }
+                        let img_preview = item.img_preview;
+                        let headline = item.headline;
+                        let published_date = item.published_date;
+                        let author = item.author;
+                        let content = item.content;
+                        let description = item.description;
+                        let img_avatar = item.img_avatar;
+                        return this._renderNotification(img_preview, img_avatar, headline, published_date, author, content, description)
+                      })
+                    }
+                  </ScrollView>
                 </View>
-              </View>
-              <View style={{ height: scale(230), backgroundColor: 'white' }}>
-                <ScrollView horizontal={true} style={{ paddingTop: scale(10) }}>
-                  {
-                    this.props.notiData.rows.map((item, index) => {
-                      if (index > 2) {
-                        return null;
-                      }
-                      let img_preview = item.img_preview;
-                      let headline = item.headline;
-                      let published_date = item.published_date;
-                      let author = item.author;
-                      let content = item.content;
-                      let description = item.description;
-                      let img_avatar = item.img_avatar;
-                      return this._renderNotification(img_preview, img_avatar, headline, published_date, author, content, description)
-                    })
-                  }
-                </ScrollView>
               </View>
             </View>
-          </View>
-        </ScrollView>
+          </ScrollView>
 
-      );
+        );
+      } else if (accountResponse.errorCode === 500 || notiResponse.errorCode === 500) {
+        this.tokenInvalidFunction();
+        return null;
+      }
     }
     else {
       return (
@@ -269,11 +333,10 @@ const styles = StyleSheet.create({
   },
   service1: {
     width: containerW,
-    height: containerH / 6.5,
+    height: containerH / 7,
     flexDirection: 'row',
     marginTop: '3%',
     backgroundColor: 'white',
-
 
   },
   service2: {
@@ -301,7 +364,10 @@ const mapDispatchToProps = (dispatch) => {
     },
     getNotification: (token_user) => {
       dispatch(getNotification(token_user))
-    }
+    },
+    refreshStore: () => {
+      dispatch(refreshStore())
+    },
 
 
   }

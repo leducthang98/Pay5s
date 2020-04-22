@@ -24,6 +24,7 @@ class OTPScreen extends React.Component {
     async getOTP() {
         let params = this.props.route.params;
         const respond = await getOTP(params.mobile);
+        Toast.show("ĐANG GỬI MÃ OTP, VUI LÒNG ĐỢI...");
     }
     async registWithOTP() {
         this.setState({ isLoading: true });
@@ -64,28 +65,28 @@ class OTPScreen extends React.Component {
                         >
                             <View style={{
                                 width: containerW * 0.8,
-                                height: scale(31),
+                                height: scale(45),
                                 backgroundColor: PRIMARY_COLOR,
                                 borderRadius: scaleModerate(4),
                                 alignItems: 'center',
                                 justifyContent: 'center',
                                 marginTop: scale(30)
                             }}>
-                                <Text style={{ color: 'white', fontWeight: 'bold' }}>Xác nhận</Text>
+                                <Text style={{ color: 'white', fontWeight: 'bold',fontSize:scaleModerate(14) }}>Xác nhận</Text>
                             </View>
                         </TouchableOpacity>
                         <View style={{ flexDirection: 'row', marginTop: scale(20) }}>
-                            <Text style={{ color: "black", fontWeight: 'bold', fontSize: scale(12) }}>Chưa nhận được mã OTP? </Text>
+                            <Text style={{ color: "black", fontWeight: 'bold', fontSize: scale(15) }}>Chưa nhận được mã OTP? </Text>
                             <TouchableOpacity
                                 onPress={() => this.getOTP()}
                             >
-                                <Text style={{ color: PRIMARY_COLOR, fontWeight: 'bold', fontSize: scale(12) }}>Thử lại.</Text>
+                                <Text style={{ color: PRIMARY_COLOR, fontWeight: 'bold', fontSize: scale(15) }}>Thử lại.</Text>
                             </TouchableOpacity>
                         </View>
                         <TouchableOpacity
                             onPress={() => this.props.navigation.pop()}
                         >
-                            <Text style={{ color: PRIMARY_COLOR, fontWeight: 'bold', marginTop: scaleVertical(10), fontSize: scale(12) }}>Quay lại</Text>
+                            <Text style={{ color: PRIMARY_COLOR, fontWeight: 'bold', marginTop: scaleVertical(10), fontSize: scale(15) }}>Quay lại</Text>
                         </TouchableOpacity>
                     </View>
                 </View>

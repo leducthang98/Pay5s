@@ -22,7 +22,6 @@ export default class ItemAccount extends Component {
     const {iconLeftName, iconRightName, subTitle, title, canPress, iconLeftColor, iconStyle, extraInfo, extraInfoColor} = this.props;
     return (
       <TouchableOpacity
-        activeOpacity={canPress ? 0 : 1}
         onPress={canPress ? () => this.props.onPress() : ()=>{}}
         style={styles.container}>
         <Icon style={iconStyle ? iconStyle : styles.icon} name={iconLeftName} size={scale(28)}

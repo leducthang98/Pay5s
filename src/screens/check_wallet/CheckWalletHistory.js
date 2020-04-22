@@ -8,6 +8,11 @@ import { formatMoney } from '../../constant/MoneyFormat';
 import Modal from 'react-native-modal';
 import { PRIMARY_COLOR } from '../../constant/Colors';
 import { texts } from '../../constant/CommonStyles';
+import { refreshStore } from '../../actions/ActionRefresh';
+import Toast from 'react-native-simple-toast';
+import AsyncStorage from '@react-native-community/async-storage';
+import { CommonActions } from '@react-navigation/native';
+import { LOGIN } from '../../navigators/RouteName';
 class CheckWalletHistory extends React.Component {
   constructor(props) {
     super(props);
@@ -42,7 +47,7 @@ class CheckWalletHistory extends React.Component {
 
     });
   };
-  _renderTransfer = (id, amount, note, type, time, originAmount, icon) => (
+  _renderTransfer = (id, amount, note, type, time, icon) => (
     <TouchableOpacity onPress={() => this.openModalTransfer(id, amount, note, type, time)}>
       <View style={{ width: containerW, height: scale(56), flexDirection: 'row', justifyContent: 'center', alignItems: 'center', borderBottomWidth: scale(0.4), borderColor: 'gray' }}>
         <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
@@ -60,13 +65,24 @@ class CheckWalletHistory extends React.Component {
       </View>
     </TouchableOpacity>
   );
+  async tokenInvalidFunction() {
+    this.props.refreshStore();
+    await AsyncStorage.clear();
+    Toast.show("Phiên đăng nhập đã hết hạn, vui lòng thoát ra và khởi động lại ứng dụng.")
+    // this.props.navigation.dispatch(
+    //   CommonActions.reset({
+    //     index: 1,
+    //     routes: [{ name: LOGIN }],
+    //   })
+    // );
+  }
   render() {
     if (this.props.transferData) {
-      if (this.props.transferData.size != 0) {
-        return (
-          <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-            <ScrollView>
-              <View style={{ height: 10 }}></View>
+      const transferResponse = this.props.transferData;
+      if (transferResponse.errorCode === 200) {
+        if (transferResponse.data.size != 0) {
+          return (
+            <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
               <Modal isVisible={this.state.isModalVisible} onBackdropPress={() => this.hideModal()} swipeDirection="up" onSwipeComplete={() => this.hideModal()} animationIn="slideInDown">
                 <View style={{ width: "100%", height: "100%", backgroundColor: '#D3D3D3', borderRadius: scale(5) }}>
                   <View style={{ width: "100%", height: "7%", backgroundColor: PRIMARY_COLOR, justifyContent: 'center', alignItems: 'center' }}>
@@ -106,35 +122,40 @@ class CheckWalletHistory extends React.Component {
                   </View>
                 </View>
               </Modal>
-              {
-                this.props.transferData.rows.map((item, index) => {
-                  let amount = (item.amount > 0) ? '+' + formatMoney(item.amount) + 'đ' : formatMoney(item.amount) + 'đ';
-                  let originAmount = formatMoney(this.props.accountInfo.balance + item.amount) + 'đ';
-                  let icon;
-                  if (item.amount < 0) {
-                    icon = 'chevron-circle-left'
-                  } else {
-                    icon = 'chevron-circle-right'
-                  }
-                  return this._renderTransfer(item.id, amount, item.note, item.type, item.time, originAmount, icon)
-                })
-              }
+              <ScrollView>
+                <View style={{ height: 10 }}></View>
+                {
+                  transferResponse.data.rows.map((item, index) => {
+                    let amount = (item.amount > 0) ? '+' + formatMoney(item.amount) + 'đ' : formatMoney(item.amount) + 'đ';
+                    let icon;
+                    if (item.amount < 0) {
+                      icon = 'chevron-circle-left'
+                    } else {
+                      icon = 'chevron-circle-right'
+                    }
+                    return this._renderTransfer(item.id, amount, item.note, item.type, item.time, icon)
+                  })
+                }
 
-            </ScrollView>
-          </View>
-        );
-      } else if (this.props.transferData.size == 0) {
-        return (
-          <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-            <Text style={{ color: 'gray' }}>Không có giao dịch nào</Text>
-          </View>
-        );
+              </ScrollView>
+            </View>
+          );
+        } else if (transferResponse.data.size == 0) {
+          return (
+            <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+              <Text style={{ color: 'gray' }}>Không có giao dịch nào</Text>
+            </View>
+          );
+        }
+      } else if (transferResponse.errorCode === 500) {
+        this.tokenInvalidFunction();
+        return null;
       }
     }
     else {
       return (
         <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-
+          {/* Loading */}
         </View>
       );
     }
@@ -146,12 +167,13 @@ const containerH = Dimensions.get('window').height;
 const mapStateToProps = (store) => {
   return {
     transferData: store.homeReducer.transferData,
-    accountInfo: store.homeReducer.accountInfo
   }
 }
 const mapDispatchToProps = (dispatch) => {
   return {
-
+    refreshStore: () => {
+      dispatch(refreshStore())
+    },
   }
 }
 export default connect(mapStateToProps, mapDispatchToProps)(CheckWalletHistory);

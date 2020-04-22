@@ -87,7 +87,7 @@ class LoginScreen extends React.Component {
       paddingVertical: scaleVertical(10),
       paddingHorizontal: scaleModerate(15),
       justifyContent: 'center',
-      fontSize: scaleModerate(12),
+      fontSize: scaleModerate(14),
     }];
     const inputStylePass = [{
       borderBottomLeftRadius: scale(3),
@@ -100,7 +100,7 @@ class LoginScreen extends React.Component {
       paddingVertical: scaleVertical(10),
       paddingHorizontal: scaleModerate(15),
       justifyContent: 'center',
-      fontSize: scaleModerate(12),
+      fontSize: scaleModerate(14),
     }];
     const inputErrorStyleUser = [...inputStyleUser, { borderWidth: 1, borderColor: ERROR }];
     const inputErrorStylePass = [...inputStylePass, { borderWidth: 1, borderColor: ERROR }];
@@ -130,19 +130,19 @@ class LoginScreen extends React.Component {
           >
             <View style={{
               width: containerW * 0.9,
-              height: scale(31),
+              height: scale(45),
               backgroundColor: PRIMARY_COLOR,
-              borderRadius: scaleModerate(4),
+              borderRadius: scaleModerate(8),
               alignItems: 'center',
               justifyContent: 'center',
             }}>
-              <Text style={{ color: ((!this.state.username) ? '#DCDCDC' : 'white'), fontWeight: 'bold' }}>Đăng nhập</Text>
+              <Text style={{ color: ((!this.state.username) ? '#DCDCDC' : 'white'), fontWeight: 'bold',fontSize:scaleModerate(14) }}>Đăng nhập</Text>
             </View>
           </TouchableOpacity>
-          <View style={{ width: '100%', height: '1%' }} />
+          <View style={{ width: '100%', height: '2%' }} />
           <TouchableOpacity>
 
-            <Text style={{ color: PRIMARY_COLOR, fontWeight: 'bold' }}>Quên mật khẩu?</Text>
+            <Text style={{ color: PRIMARY_COLOR, fontWeight: 'bold',fontSize:scaleModerate(14) }}>Quên mật khẩu?</Text>
 
           </TouchableOpacity>
 
@@ -150,7 +150,7 @@ class LoginScreen extends React.Component {
         <View style={{ flex: 1, backgroundColor: 'white' }}>
           <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}>
             <View style={{ width: scale(60), height: scale(1), backgroundColor: 'gray' }}></View>
-            <Text style={{ fontSize: scaleModerate(11.5) }}> HOẶC </Text>
+            <Text style={{ fontSize: scaleModerate(14) }}> HOẶC </Text>
             <View style={{ width: scale(60), height: scale(0.4), backgroundColor: 'gray' }}></View>
           </View>
           <View style={{ flex: 3, justifyContent: 'center', alignItems: 'center' }}>
@@ -159,13 +159,13 @@ class LoginScreen extends React.Component {
             >
               <View style={{
                 width: containerW * 0.9,
-                height: scale(31),
+                height: scale(45),
                 backgroundColor: '#DCDCDC',
                 borderRadius: scaleModerate(4),
                 alignItems: 'center',
                 justifyContent: 'center',
               }}>
-                <Text style={{ color: PRIMARY_COLOR, fontWeight: 'bold' }}>Tạo tài khoản mới</Text>
+                <Text style={{ color: PRIMARY_COLOR, fontWeight: 'bold',fontSize:scaleModerate(14) }}>Tạo tài khoản mới</Text>
               </View>
             </TouchableOpacity>
           </View>
