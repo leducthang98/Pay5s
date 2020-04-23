@@ -137,12 +137,13 @@ class LoginScreen extends React.Component {
           </TouchableOpacity>
 
         </View>
-        <View style={{ flex: 1, backgroundColor: 'white' }}>
+        <View style={{ flex: 1, backgroundColor: 'white',paddingBottom:scaleVertical(30) }}>
           <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}>
             <View style={{ width: scale(60), height: scale(1), backgroundColor: 'gray' }}></View>
             <Text style={{ fontSize: scaleModerate(14) }}> HOẶC </Text>
             <View style={{ width: scale(60), height: scale(0.4), backgroundColor: 'gray' }}></View>
           </View>
+          <View style={{flex:1}}/>
           <View style={{ flex: 3, justifyContent: 'center', alignItems: 'center' }}>
             <TouchableOpacity
               onPress={() => this.props.navigation.navigate(REGISTER)}

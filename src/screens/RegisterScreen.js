@@ -62,19 +62,19 @@ class RegisterScreen extends React.Component {
                     <View style={{ flex: 3.5, width: "100%", alignItems: 'center' }}>
                         <TextInput
                             onChangeText={(mobile) => this.setState({ mobile })}
-                            placeholder="Phone Number"
+                            placeholder="Nhập số điện thoại"
                             keyboardType="number-pad"
                             style={styles.inputStyle} />
 
                         <TextInput
                             onChangeText={(password) => this.setState({ password })}
-                            placeholder="Password"
+                            placeholder="Nhập mật khẩu"
                             secureTextEntry={true}
                             style={styles.inputStyle}></TextInput>
                         <TextInput
                             onChangeText={(repeatPassword) => this.setState({ repeatPassword })}
                             secureTextEntry={true}
-                            placeholder="Repeat Password"
+                            placeholder="Xác nhận mật khẩu"
                             style={styles.inputStyle}></TextInput>
                     </View>
                     <View style={{ flex: 5, width: '100%', alignItems: 'center' }}>

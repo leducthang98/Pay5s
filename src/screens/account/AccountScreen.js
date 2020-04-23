@@ -14,6 +14,7 @@ import AsyncStorage from '@react-native-community/async-storage';
 import Toast from 'react-native-simple-toast';
 import { CommonActions } from '@react-navigation/native';
 import { refreshStore } from '../../actions/ActionRefresh';
+import { PRIMARY_COLOR } from '../../constant/Colors'
 class AccountScreen extends React.Component {
   constructor(props) {
     super(props);
@@ -63,7 +64,7 @@ class AccountScreen extends React.Component {
             extraInfo: formatMoney(accountResponse.data.balance),
             onPress: () => this.checkWallet(),
             iconLeftColor: COLOR.GOLD,
-            extraInfoColor: COLOR.PURPLE,
+            extraInfoColor: PRIMARY_COLOR,
             canPress: true,
           }, {
             iconLeftName: 'comment-dots',
@@ -95,21 +96,31 @@ class AccountScreen extends React.Component {
         }, {
           section: 3,
           data: [{
+            iconLeftName: 'lock',
+            title: 'Bảo mật giao dịch',
+            subTitle: 'Quản lý mật khẩu giao dịch',
+            onPress: () => this.showApplicationInfo(),
+            iconLeftColor: 'black',
+            canPress: false,
+          },
+          {
             iconLeftName: 'question-circle',
             title: 'Thông tin ứng dụng',
             subTitle: 'Sản phẩm của Pay5s - Phiên bản hiện tại: 1.0.2',
             onPress: () => this.showApplicationInfo(),
             iconLeftColor: COLOR.QUESTION,
             canPress: false,
-          }],
-        }];
+          }
+        ],
+        }
+      ];
         return (
           <View style={styles.container}>
             <Header title={'Tài khoản'} />
             <View style={styles.body1}>
-              <TouchableOpacity style={{ flex: 2.5, marginLeft: scale(4), justifyContent: 'center', alignItems: 'center', paddingLeft: scale(7) }}>
+              <TouchableOpacity style={{ flex: 2.5, justifyContent: 'center', alignItems: 'center', paddingLeft: scale(7) }}>
                 <View style={{ width: containerH / 8, height: containerH / 8, justifyContent: 'center', alignItems: 'center' }}>
-                  <Image style={{ height: '70%', width: '70%', borderRadius: scale(999) }}
+                  <Image style={{ height: '80%', width: '80%', borderRadius: scale(999) }}
                     source={{ uri: commonConfigResponse.data.banner.default }}
                   />
                 </View>

@@ -23,6 +23,7 @@ import Toast from 'react-native-simple-toast';
 import { CommonActions } from '@react-navigation/native';
 import { LOGIN } from '../navigators/RouteName';
 import { refreshStore } from '../actions/ActionRefresh';
+import {PRIMARY_COLOR} from '../constant/Colors'
 class BillScreen extends React.Component {
 
   async componentDidMount() {
@@ -45,7 +46,7 @@ class BillScreen extends React.Component {
           <View style={{ flex: 2.2, flexDirection: 'column' }}>
             <View style={{ flex: 0.05, }}></View>
             <Text style={{ fontSize: scale(12), fontWeight: 'bold' }}>{service} {telco}</Text>
-            <Text style={{ fontSize: scale(12), fontWeight: 'bold', color: '#C71585' }}>{mobile}-{amount}</Text>
+            <Text style={{ fontSize: scale(12), fontWeight: 'bold', color: PRIMARY_COLOR }}>{mobile}-{amount}</Text>
             <Text style={{ fontSize: scale(10), color: 'gray' }}>{modified}</Text>
           </View>
           <View style={{ flex: 0.8, justifyContent: 'flex-end', alignItems: 'flex-end' }}>

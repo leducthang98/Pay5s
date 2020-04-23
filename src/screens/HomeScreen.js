@@ -23,6 +23,7 @@ import { FACEBOOK } from '../constant/Colors';
 import { CommonActions } from '@react-navigation/native';
 import Toast from 'react-native-simple-toast';
 import { refreshStore } from '../actions/ActionRefresh';
+import {PRIMARY_COLOR} from '../constant/Colors'
 class HomeScreen extends React.Component {
   constructor(props) {
     super(props);
@@ -205,7 +206,7 @@ class HomeScreen extends React.Component {
               <View style={styles.account}>
                 <TouchableOpacity
                   onPress={() => this.checkWallet()}
-                  style={{ height: (containerH / 5.3) * 2 / 5, borderTopLeftRadius: scale(7), borderTopRightRadius: scale(7), flexDirection: 'row', alignItems: "center", borderBottomColor: 'gray', borderBottomWidth: scale(0.5) }}
+                  style={{ height: (containerH / 5.3) * 2 / 5, borderTopLeftRadius: scale(7), borderTopRightRadius: scale(7), flexDirection: 'row', alignItems: "center", borderBottomColor: 'black', borderBottomWidth: scale(0.4) }}
                 >
                   <Text
                     style={{ flex: 6, paddingLeft: scale(7), fontSize: scale(14) }}>Số dư</Text>
@@ -298,7 +299,7 @@ const styles = StyleSheet.create({
     height: containerH,
   },
   header: {
-    backgroundColor: '#C71585',
+    backgroundColor: PRIMARY_COLOR,
     width: containerW + scale(20),
     height: containerH / 5,
     borderBottomLeftRadius: scale(27),
@@ -308,7 +309,7 @@ const styles = StyleSheet.create({
 
   },
   insideHeader: {
-    backgroundColor: '#C71585',
+    backgroundColor: PRIMARY_COLOR,
     width: containerW / 1.08,
     height: containerH / 10,
     flexDirection: 'row',

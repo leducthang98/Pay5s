@@ -24,3 +24,5 @@ export const REGIST_URL = BASE_URL + '/account/register.html';
 export const NOTI_GET = 'https://client.pay5s.com/article/list';
 //logout
 export const LOGOUT_URL = 'https://client.pay5s.com/account/logout.html';
+//forget password
+export const FORGET_PASSWORD = 'https://client.pay5s.com/account/reset_password_login.html';
