@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import {
   Modal,
   View,
@@ -6,15 +6,16 @@ import {
   Image,
   StyleSheet,
   TouchableOpacity,
+  FlatList
 } from 'react-native';
 import * as COLOR from '../../constant/Colors';
 import * as Layout from '../../constant/Layout';
-import {scaleModerate, scaleVertical} from '../../constant/Scale';
-import {getString} from '../../res/values/String';
-import {texts} from '../../constant/CommonStyles';
+import { scaleModerate, scaleVertical } from '../../constant/Scale';
+import { getString } from '../../res/values/String';
+import { texts } from '../../constant/CommonStyles';
 import ItemNetwork from './ItemNetwork';
 
-const {width, height} = Layout.window;
+const { width, height } = Layout.window;
 
 export default class ChooseNetwork extends Component {
   constructor(props) {
@@ -24,6 +25,8 @@ export default class ChooseNetwork extends Component {
   _close = () => this.props.close();
 
   render() {
+    console.log('props in Choose Network = ', this.props);
+    const { srvTelcos, indexSelected } = this.props;
     return (
       <View style={styles.container}>
         <Modal
@@ -31,25 +34,35 @@ export default class ChooseNetwork extends Component {
           transparent={true}
           visible={this.props.visible}
           onRequestClose={() => this._close()}>
-          <TouchableOpacity activeOpacity={1} onPress={()=>this._close()} style={styles.container}>
+          <TouchableOpacity activeOpacity={1} onPress={() => this._close()} style={styles.container}>
             <TouchableOpacity activeOpacity={1} style={styles.contentArea}>
               <View style={styles.header}>
                 <TouchableOpacity style={styles.closeButton} onPress={() => this._close()}>
-                  <Text style={[texts.placeholder, {fontWeight: 'bold'}]}>{getString('CLOSE')}</Text>
+                  <Text style={[texts.placeholder, { fontWeight: 'bold' }]}>{getString('CLOSE')}</Text>
                 </TouchableOpacity>
                 <Text style={texts.bold}>{getString('CHANGE_NETWORK')}</Text>
                 <View style={styles.closeButton}>
-                  <Text style={[texts.placeholder, {color:'transparent'}]}>{getString('CLOSE')}</Text>
+                  <Text style={[texts.placeholder, { color: 'transparent' }]}>{getString('CLOSE')}</Text>
                 </View>
               </View>
-              <View style={styles.separateLine}/>
+              <View style={styles.separateLine} />
               <View style={styles.note}>
                 <Text style={texts.l_placeholder}>{getString('CHANGE_NETWORK_NOTE')}</Text>
               </View>
               <View style={styles.networkList}>
-                <ItemNetwork />
-                <ItemNetwork />
-                <ItemNetwork />
+                <FlatList
+                  data={srvTelcos}
+                  keyExtractor={item => item.id.toString()}
+                  renderItem={({ item, index }) =>
+                    <ItemNetwork
+                      isSelected={indexSelected === index}
+                      name={item.name}
+                      telco={item.telco}
+                      discount={item.discount.toString()}
+                      selectItem={telco => this.props.selectNetwork(telco)}
+                    />
+                  }
+                />
               </View>
             </TouchableOpacity>
           </TouchableOpacity>
@@ -79,9 +92,9 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     paddingHorizontal: scaleModerate(10),
   },
-  separateLine:{
+  separateLine: {
     height: scaleVertical(1),
-    backgroundColor:COLOR.SEPARATE_LINE
+    backgroundColor: COLOR.SEPARATE_LINE
   },
   closeButton: {
     height: height / 12,
@@ -92,8 +105,8 @@ const styles = StyleSheet.create({
     paddingHorizontal: scaleModerate(10),
     paddingVertical: scaleVertical(10),
   },
-  networkList:{
+  networkList: {
     paddingVertical: scaleVertical(5),
-    paddingHorizontal:scaleModerate(10)
+    paddingHorizontal: scaleModerate(10)
   }
 });

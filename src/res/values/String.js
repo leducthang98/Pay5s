@@ -18,7 +18,10 @@ const vn = {
   AMOUNT_TO_DEPOSIT: 'Mệnh giá nạp',
   CHANGE_NETWORK: 'Thay đổi nhà mạng',
   CHANGE_NETWORK_NOTE: 'Lưu ý: chỉ thay đổi nhà mạng khi bạn đã đăng ký chuyển mạng giữ số điện thoại',
-
+  DISCOUNT: 'Giảm',
+  DEPOSIT_NOW: 'Nạp ngay',
+  YOU_NEED_TO_ENTER_PHONE_NUMBER: 'Bạn cần nhập số điện thoại',
+  PHONE_NUMBER_IS_INCORRECT_TYPE: 'Số điện thoại không đúng định dạng',
   //commons
   CONNECTING: 'Đang kết nối',
   FETCHING_DATA: 'Đang tải dữ liệu',

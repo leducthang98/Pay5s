@@ -7,6 +7,7 @@ export const BILL_STOP = BASE_URL + '/bill/stop';
 export const ACCOUNT_UPDATE = BASE_URL+'/account/update_info.html';
 //main service
 export const PHONE_SERVICE_LIST = BASE_URL + '/service/list';
+export const SERVICE_DETAILS = BASE_URL + 'service/detail'
 //common config
 export const COMMON_CONFIG = BASE_URL + '/common_config';
 //transfer
