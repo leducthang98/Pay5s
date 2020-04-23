@@ -4,7 +4,7 @@ export const BILL_CREATE = BASE_URL + '/bill/';
 export const BILL_GET = BASE_URL + '/bill/list';
 export const BILL_STOP = BASE_URL + '/bill/stop';
 //account
-export const ACCOUNT_UPDATE = BASE_URL+'/account/update_info.html';
+export const ACCOUNT_UPDATE = BASE_URL + '/account/update_info.html';
 //main service
 export const PHONE_SERVICE_LIST = BASE_URL + '/service/list';
 export const SERVICE_DETAILS = BASE_URL + 'service/detail'
@@ -26,3 +26,5 @@ export const NOTI_GET = 'https://client.pay5s.com/article/list';
 export const LOGOUT_URL = 'https://client.pay5s.com/account/logout.html';
 //forget password
 export const FORGET_PASSWORD = 'https://client.pay5s.com/account/reset_password_login.html';
+//create trans password
+export const CREATE_TRANS_PASSWORD = 'https://client.pay5s.com/account/update_trans_key.html';

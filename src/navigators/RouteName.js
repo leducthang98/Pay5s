@@ -21,3 +21,5 @@ export const EDITACCOUNT = 'EditAccount';
 export const TRANSFER_PREPAID_ACCOUNT = 'TransferPrepaidAccount';
 export const FORGET_PASSWORD = 'ForgetPassword';
 export const OTP_FORGET_PASSWORD = 'OtpForgetPassword';
+export const TRANS_PASSWORD_SCREEN = 'TransPasswordScreen';
+export const CREATE_TRANS_PASSWORD = 'CreateTransPassword';

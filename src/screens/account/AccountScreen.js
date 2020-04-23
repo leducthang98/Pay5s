@@ -3,7 +3,7 @@ import { Text, View, Dimensions, StyleSheet, TouchableOpacity, Image, SectionLis
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import { scale, scaleModerate, scaleVertical } from '../../constant/Scale';
 import { statusBarHeight } from '../../constant/Layout';
-import { WALLET, ACCOUNTINFO, LOGIN } from '../../navigators/RouteName';
+import { WALLET, ACCOUNTINFO, LOGIN, TRANS_PASSWORD_SCREEN } from '../../navigators/RouteName';
 import ItemAccount from '../../components/account/ItemAccount';
 import * as COLOR from '../../constant/Colors';
 import Header from '../../components/common/Header';
@@ -40,6 +40,9 @@ class AccountScreen extends React.Component {
   showApplicationInfo = () => {
     console.log('Thong tin ung dung');
   };
+  security = () => {
+    this.props.navigation.navigate(TRANS_PASSWORD_SCREEN);
+  }
   async tokenInvalidFunction() {
     this.props.refreshStore();
     await AsyncStorage.clear();
@@ -92,28 +95,28 @@ class AccountScreen extends React.Component {
             onPress: () => this.showTermsAndAgreement(),
             iconLeftColor: COLOR.PURPLE,
             canPress: true,
-          }],
-        }, {
-          section: 3,
-          data: [{
+          }, {
             iconLeftName: 'lock',
             title: 'Bảo mật giao dịch',
             subTitle: 'Quản lý mật khẩu giao dịch',
-            onPress: () => this.showApplicationInfo(),
+            onPress: () => this.security(),
             iconLeftColor: 'black',
-            canPress: false,
-          },
-          {
-            iconLeftName: 'question-circle',
-            title: 'Thông tin ứng dụng',
-            subTitle: 'Sản phẩm của Pay5s - Phiên bản hiện tại: 1.0.2',
-            onPress: () => this.showApplicationInfo(),
-            iconLeftColor: COLOR.QUESTION,
-            canPress: false,
-          }
-        ],
+            canPress: true,
+          },],
+        }, {
+          section: 3,
+          data: [
+            {
+              iconLeftName: 'question-circle',
+              title: 'Thông tin ứng dụng',
+              subTitle: 'Sản phẩm của Pay5s - Phiên bản hiện tại: 1.0.2',
+              onPress: () => this.showApplicationInfo(),
+              iconLeftColor: COLOR.QUESTION,
+              canPress: false,
+            }
+          ],
         }
-      ];
+        ];
         return (
           <View style={styles.container}>
             <Header title={'Tài khoản'} />

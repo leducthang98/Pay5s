@@ -1,5 +1,5 @@
 import { callApiWithoutHeader, callApiWithRawBody, callPostApiWithoutHeader, callPostApiWthRawBody, callApiWithToken, callApiWithTokenAndRawBody } from './CommonApi';
-import { LOGIN_URL, OTP_GET, REGIST_URL, LOGOUT_URL, ACCOUNT_UPDATE, FORGET_PASSWORD } from '../api/Api';
+import { LOGIN_URL, OTP_GET, REGIST_URL, LOGOUT_URL, ACCOUNT_UPDATE, FORGET_PASSWORD, CREATE_TRANS_PASSWORD } from '../api/Api';
 
 export const login = async (username, password) => {
   const data = {
@@ -43,4 +43,10 @@ export const forgetPassword = async (mobile, password, otp) => {
     otp: otp
   };
   return await callPostApiWthRawBody(FORGET_PASSWORD, data);
+};
+export const createTransPassword = async (password, token) => {
+  const data = {
+    new_trans_key: password
+  }
+  return await callApiWithTokenAndRawBody('post', CREATE_TRANS_PASSWORD, token, data);
 };

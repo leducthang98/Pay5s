@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, View, StyleSheet, TextInput, TouchableOpacity, Dimensions, ToastAndroid } from 'react-native';
+import { Text, View, StyleSheet, TextInput, TouchableOpacity, Dimensions } from 'react-native';
 import Header from '../components/common/Header';
 import { PRIMARY_COLOR } from '../constant/Colors';
 import { scaleVertical, scale, scaleModerate } from '../constant/Scale';
@@ -15,7 +15,6 @@ class RegisterScreen extends React.Component {
         };
     }
     registFunction() {
-
         var validatePhoneNumber = this.validatePhoneNumber(this.state.mobile);
         var validatePassword = this.validatePassword(this.state.password, this.state.repeatPassword)
         if (validatePassword == 'OK' && validatePhoneNumber == 'OK') {
