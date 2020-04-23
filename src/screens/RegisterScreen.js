@@ -56,28 +56,28 @@ class RegisterScreen extends React.Component {
     render() {
         return (
             <View style={{ flex: 1 }}>
-                <Header navigation={this.props.navigation} back={false} title={'Đăng ký'} />
+                <Header navigation={this.props.navigation} back={false} title={'Đăng ký tài khoản'} />
                 <View style={{ width: '100%', height: '100%', alignItems: 'center' }}>
                     <View style={{ flex: 1 }}></View>
                     <View style={{ flex: 3.5, width: "100%", alignItems: 'center' }}>
                         <TextInput
                             onChangeText={(mobile) => this.setState({ mobile })}
-                            placeholder="Số điện thoại*:"
+                            placeholder="Phone Number"
                             keyboardType="number-pad"
                             style={styles.inputStyle} />
 
                         <TextInput
                             onChangeText={(password) => this.setState({ password })}
-                            placeholder="Mật khẩu*:"
+                            placeholder="Password"
                             secureTextEntry={true}
                             style={styles.inputStyle}></TextInput>
                         <TextInput
                             onChangeText={(repeatPassword) => this.setState({ repeatPassword })}
                             secureTextEntry={true}
-                            placeholder="Xác nhận mật khẩu*:"
+                            placeholder="Repeat Password"
                             style={styles.inputStyle}></TextInput>
                     </View>
-                    <View style={{ flex: 3, width: '100%', alignItems: 'center' }}>
+                    <View style={{ flex: 5, width: '100%', alignItems: 'center' }}>
                         <TouchableOpacity
                             onPress={() => this.registFunction()}
                         >
@@ -95,7 +95,7 @@ class RegisterScreen extends React.Component {
                         <TouchableOpacity
                             onPress={() => this.props.navigation.pop()}
                         >
-                            <Text style={{ color: PRIMARY_COLOR, fontWeight: 'bold', marginTop: scaleVertical(25), fontSize: scale(12) }}>Quay lại</Text>
+                            <Text style={{ color: PRIMARY_COLOR, fontWeight: 'bold', marginTop: scaleVertical(25), fontSize: scale(14) }}>Quay lại</Text>
                         </TouchableOpacity>
                     </View>
                 </View>
@@ -108,13 +108,19 @@ const containerH = Dimensions.get('window').height;
 const styles = StyleSheet.create({
     inputStyle: {
         marginTop: scaleVertical(20),
-        borderBottomWidth: scaleVertical(2),
         borderColor: 'black',
         width: '80%',
         paddingVertical: scaleVertical(10),
         paddingHorizontal: scaleModerate(0),
         justifyContent: 'center',
         fontSize: scaleModerate(15),
+        borderRadius:scale(10),
+        borderLeftWidth: scale(0.7),
+        borderTopWidth: scale(0.7),
+        borderRightWidth: scale(0.7),
+        borderBottomWidth: scale(0.7),
+        borderColor: 'gray',
+        paddingLeft:scale(10)
     }
 
 })

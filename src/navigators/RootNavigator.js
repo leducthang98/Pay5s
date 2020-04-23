@@ -17,7 +17,7 @@ import {
     ACCOUNTINFO,
     BEGIN,
     EDITACCOUNT,
-    CHECK_WALLET_HISTORY, TRANSFER_PREPAID_ACCOUNT, CHECK_WALLET_INFO,
+    CHECK_WALLET_HISTORY, TRANSFER_PREPAID_ACCOUNT, CHECK_WALLET_INFO, FORGET_PASSWORD,
 } from './RouteName';
 import CheckWallet from '../screens/check_wallet/CheckWallet';
 import RechargeMoney from '../screens/RechargeMoney';
@@ -32,6 +32,7 @@ import EditAccount from '../screens/account/EditAccount';
 import CheckWalletHistory from '../screens/check_wallet/CheckWalletHistory';
 import TransferPrepaidAccount from '../screens/recharge_phone/TransferPrepaidAccount';
 import CheckWalletInfo from '../screens/check_wallet/CheckWalletInfo';
+import ForgetPassword from '../screens/forget_password/ForgetPassword';
 const Stack = createStackNavigator();
 
 function RootNavigator() {
@@ -53,6 +54,7 @@ function RootNavigator() {
                 <Stack.Screen name={CHECK_WALLET_HISTORY} component={CheckWalletHistory} />
                 <Stack.Screen name={CHECK_WALLET_INFO} component={CheckWalletInfo} />
                 <Stack.Screen name={TRANSFER_PREPAID_ACCOUNT} component={TransferPrepaidAccount} />
+                <Stack.Screen name={FORGET_PASSWORD} component={ForgetPassword} />
             </Stack.Navigator>
         </NavigationContainer >
     );
