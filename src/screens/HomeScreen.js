@@ -17,7 +17,7 @@ import { statusBarHeight } from '../constant/Layout';
 import { WALLET, NOTIFICATION, RECHARGEMONEY, TRANSFERMONEY, RECHARGEPHONE, INITNOTIFICATION, LOGIN } from '../navigators/RouteName';
 import AsyncStorage from '@react-native-community/async-storage';
 import { getAccountInfo, getCommonConfig, getNotification } from '../actions/ActionHomeScreen';
-import { formatMoney } from '../constant/MoneyFormat';
+import { formatMoney } from '../constant/CommonFormat';
 import Loading from '../components/common/Loading';
 import { FACEBOOK } from '../constant/Colors';
 import { CommonActions } from '@react-navigation/native';

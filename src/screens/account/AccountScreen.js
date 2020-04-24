@@ -8,7 +8,7 @@ import ItemAccount from '../../components/account/ItemAccount';
 import * as COLOR from '../../constant/Colors';
 import Header from '../../components/common/Header';
 import { connect } from 'react-redux'
-import { formatMoney } from '../../constant/MoneyFormat';
+import { formatMoney } from '../../constant/CommonFormat';
 import Loading from '../../components/common/Loading';
 import AsyncStorage from '@react-native-community/async-storage';
 import Toast from 'react-native-simple-toast';

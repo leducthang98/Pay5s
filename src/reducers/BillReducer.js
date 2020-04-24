@@ -22,6 +22,12 @@ export default (state = DEFAULT_STATE, action) => {
 
             }
         }
+        case 'SET_PHONE_NUMBER': {
+            return {
+                ...state,
+                phoneNumberForRecharge: action.phoneNumber
+            }
+        }
     }
     return state;
 }

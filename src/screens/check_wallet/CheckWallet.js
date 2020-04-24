@@ -22,7 +22,7 @@ import AsyncStorage from '@react-native-community/async-storage';
 const containerH = Dimensions.get('window').height;
 import { WALLET, NOTIFICATION, RECHARGEMONEY, TRANSFERMONEY, RECHARGEPHONE, LOGIN } from '../../navigators/RouteName';
 import { getTransfer } from '../../actions/ActionHomeScreen';
-import { formatMoney } from '../../constant/MoneyFormat';
+import { formatMoney } from '../../constant/CommonFormat';
 import { refreshStore } from '../../actions/ActionRefresh';
 import Toast from 'react-native-simple-toast';
 import { CommonActions } from '@react-navigation/native';
