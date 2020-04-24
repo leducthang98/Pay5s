@@ -15,7 +15,7 @@ import { getString } from '../../res/values/String';
 import { texts } from '../../constant/CommonStyles';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { NETWORK } from '../../constant/NetworkIcon';
-import { CHECK_WALLET_HISTORY, CHECK_WALLET_INFO, HISTORY } from '../../navigators/RouteName';
+import { CHECK_WALLET_HISTORY, CHECK_WALLET_INFO, HISTORY, CONTACT_LIST } from '../../navigators/RouteName';
 
 
 const { width, height } = Layout.window;
@@ -29,6 +29,10 @@ export default class ChooseServiceAndPhone extends Component {
   _moveToHistoryScreen = () => {
     this.props.navigation.navigate(CHECK_WALLET_INFO)
   };
+
+  _moveToContactScreen = () => {
+    this.props.navigation.navigate(CONTACT_LIST)
+  }
 
   render() {
     const { paddingHorizontal, note, networkCode, error, errorContent, phoneNumber } = this.props;
@@ -50,7 +54,9 @@ export default class ChooseServiceAndPhone extends Component {
               onChangeText={phoneNumber => this.props.onTypingPhoneNumber(phoneNumber)}
               onSubmitEditing={()=>this.props.checkValidPhoneNumber(phoneNumber)}
             />
-            <TouchableOpacity style={styles.contact}>
+            <TouchableOpacity 
+            onPress={()=>this._moveToContactScreen()}
+            style={styles.contact}>
               <Icon name={'account-circle'} color={COLOR.CONTACTS} size={scaleModerate(30)} />
             </TouchableOpacity>
           </View>

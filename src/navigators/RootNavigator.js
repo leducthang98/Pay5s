@@ -17,7 +17,10 @@ import {
     ACCOUNTINFO,
     BEGIN,
     EDITACCOUNT,
-    CHECK_WALLET_HISTORY, TRANSFER_PREPAID_ACCOUNT, CHECK_WALLET_INFO,
+    CHECK_WALLET_HISTORY, 
+    TRANSFER_PREPAID_ACCOUNT, 
+    CHECK_WALLET_INFO,
+    CONTACT_LIST
 } from './RouteName';
 import CheckWallet from '../screens/check_wallet/CheckWallet';
 import RechargeMoney from '../screens/RechargeMoney';
@@ -31,6 +34,8 @@ import SplashScreen from '../screens/SplashScreen';
 import EditAccount from '../screens/account/EditAccount';
 import CheckWalletHistory from '../screens/check_wallet/CheckWalletHistory';
 import CheckWalletInfo from '../screens/check_wallet/CheckWalletInfo';
+import ContactList from '../screens/recharge_phone/ContactList';
+
 const Stack = createStackNavigator();
 
 function RootNavigator() {
@@ -51,6 +56,7 @@ function RootNavigator() {
                 <Stack.Screen name={EDITACCOUNT} component={EditAccount} />
                 <Stack.Screen name={CHECK_WALLET_HISTORY} component={CheckWalletHistory} />
                 <Stack.Screen name={CHECK_WALLET_INFO} component={CheckWalletInfo} />
+                <Stack.Screen name={CONTACT_LIST} component={ContactList} />
             </Stack.Navigator>
         </NavigationContainer >
     );
