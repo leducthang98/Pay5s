@@ -3,7 +3,7 @@ import { Text, View, Dimensions, StyleSheet, TouchableOpacity, Image, SectionLis
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import { scale, scaleModerate, scaleVertical } from '../../constant/Scale';
 import { statusBarHeight } from '../../constant/Layout';
-import { WALLET, ACCOUNTINFO, LOGIN } from '../../navigators/RouteName';
+import { WALLET, ACCOUNTINFO, LOGIN, TRANS_PASSWORD_SCREEN } from '../../navigators/RouteName';
 import ItemAccount from '../../components/account/ItemAccount';
 import * as COLOR from '../../constant/Colors';
 import Header from '../../components/common/Header';
@@ -14,6 +14,7 @@ import AsyncStorage from '@react-native-community/async-storage';
 import Toast from 'react-native-simple-toast';
 import { CommonActions } from '@react-navigation/native';
 import { refreshStore } from '../../actions/ActionRefresh';
+import { PRIMARY_COLOR } from '../../constant/Colors'
 class AccountScreen extends React.Component {
   constructor(props) {
     super(props);
@@ -39,6 +40,9 @@ class AccountScreen extends React.Component {
   showApplicationInfo = () => {
     console.log('Thong tin ung dung');
   };
+  security = () => {
+    this.props.navigation.navigate(TRANS_PASSWORD_SCREEN);
+  }
   async tokenInvalidFunction() {
     this.props.refreshStore();
     await AsyncStorage.clear();
@@ -63,7 +67,7 @@ class AccountScreen extends React.Component {
             extraInfo: formatMoney(accountResponse.data.balance),
             onPress: () => this.checkWallet(),
             iconLeftColor: COLOR.GOLD,
-            extraInfoColor: COLOR.PURPLE,
+            extraInfoColor: PRIMARY_COLOR,
             canPress: true,
           }, {
             iconLeftName: 'comment-dots',
@@ -91,25 +95,35 @@ class AccountScreen extends React.Component {
             onPress: () => this.showTermsAndAgreement(),
             iconLeftColor: COLOR.PURPLE,
             canPress: true,
-          }],
+          }, {
+            iconLeftName: 'lock',
+            title: 'Bảo mật giao dịch',
+            subTitle: 'Quản lý mật khẩu giao dịch',
+            onPress: () => this.security(),
+            iconLeftColor: 'black',
+            canPress: true,
+          },],
         }, {
           section: 3,
-          data: [{
-            iconLeftName: 'question-circle',
-            title: 'Thông tin ứng dụng',
-            subTitle: 'Sản phẩm của Pay5s - Phiên bản hiện tại: 1.0.2',
-            onPress: () => this.showApplicationInfo(),
-            iconLeftColor: COLOR.QUESTION,
-            canPress: false,
-          }],
-        }];
+          data: [
+            {
+              iconLeftName: 'question-circle',
+              title: 'Thông tin ứng dụng',
+              subTitle: 'Sản phẩm của Pay5s - Phiên bản hiện tại: 1.0.2',
+              onPress: () => this.showApplicationInfo(),
+              iconLeftColor: COLOR.QUESTION,
+              canPress: false,
+            }
+          ],
+        }
+        ];
         return (
           <View style={styles.container}>
             <Header title={'Tài khoản'} />
             <View style={styles.body1}>
-              <TouchableOpacity style={{ flex: 2.5, marginLeft: scale(4), justifyContent: 'center', alignItems: 'center', paddingLeft: scale(7) }}>
+              <TouchableOpacity style={{ flex: 2.5, justifyContent: 'center', alignItems: 'center', paddingLeft: scale(7) }}>
                 <View style={{ width: containerH / 8, height: containerH / 8, justifyContent: 'center', alignItems: 'center' }}>
-                  <Image style={{ height: '70%', width: '70%', borderRadius: scale(999) }}
+                  <Image style={{ height: '80%', width: '80%', borderRadius: scale(999) }}
                     source={{ uri: commonConfigResponse.data.banner.default }}
                   />
                 </View>

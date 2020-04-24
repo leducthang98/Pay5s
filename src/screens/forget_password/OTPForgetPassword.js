@@ -1,13 +1,13 @@
 import React from 'react';
 import { Text, View, StyleSheet, TextInput, TouchableOpacity, Dimensions } from 'react-native';
-import { REGISTER, OTP, LOGIN } from '../navigators/RouteName';
-import { scaleModerate, scale, scaleVertical } from '../constant/Scale';
-import { PRIMARY_COLOR } from '../constant/Colors';
-import { getOTP, regist } from '../fetchAPIs/AuthApi';
-import LoadingDialog from '../components/common/LoadingDialog';
-import MessageDialog from '../components/common/MessageDialog';
+import { scaleModerate, scale, scaleVertical } from '../../constant/Scale';
+import { PRIMARY_COLOR } from '../../constant/Colors';
 import Toast from 'react-native-simple-toast';
-class OTPScreen extends React.Component {
+import { getOTP,forgetPassword } from '../../fetchAPIs/AuthApi';
+import LoadingDialog from '../../components/common/LoadingDialog';
+import MessageDialog from '../../components/common/MessageDialog';
+import { LOGIN } from '../../navigators/RouteName';
+class OTPForgetPassword extends React.Component {
 
     constructor(props) {
         super(props);
@@ -19,34 +19,37 @@ class OTPScreen extends React.Component {
     }
     async componentDidMount() {
         let params = this.props.route.params;
-        const respond = await getOTP(params.mobile);
+        let mobile = params.forgetPasswordData.mobile;
+        const respond = await getOTP(mobile);
     }
     async getOTP() {
         let params = this.props.route.params;
-        const respond = await getOTP(params.mobile);
+        let mobile = params.forgetPasswordData.mobile;
+        const respond = await getOTP(mobile);
         Toast.show("ĐANG GỬI MÃ OTP, VUI LÒNG ĐỢI...");
     }
-    async registWithOTP() {
+    async commitForgetPassOTP() {
         this.setState({ isLoading: true });
         let params = this.props.route.params;
-        let mobile = params.mobile;
-        let password = params.password;
+        let mobile = params.forgetPasswordData.mobile;
+        let password = params.forgetPasswordData.password;
         let otp = this.state.otp;
-        const response = await regist(mobile, password, otp);
+        const response = await forgetPassword(mobile, password, otp);
         this.setState({ isLoading: false });
         if (!response) {
             this.setState({ responseError: { message: getString('UNKNOWN_ERROR') } });
         } else if (response && response.data?.errorCode !== 200) {
             this.setState({ responseError: response });
         } else {
-            this._registSuccess(response);
+            this.commitForgetPassSuccess(response);
         }
     }
-    async _registSuccess(response) {
-        Toast.show('Đăng ký thành công')
+    async commitForgetPassSuccess(response) {
+        Toast.show('Thay đổi mật khẩu thành công')
         this.props.navigation.navigate(LOGIN)
     }
     render() {
+
 
         return (
             <>
@@ -61,7 +64,7 @@ class OTPScreen extends React.Component {
                             keyboardType="number-pad"
                             style={styles.inputStyle} />
                         <TouchableOpacity
-                            onPress={() => this.registWithOTP()}
+                            onPress={() => this.commitForgetPassOTP()}
                         >
                             <View style={{
                                 width: containerW * 0.8,
@@ -72,7 +75,7 @@ class OTPScreen extends React.Component {
                                 justifyContent: 'center',
                                 marginTop: scale(30)
                             }}>
-                                <Text style={{ color: 'white', fontWeight: 'bold',fontSize:scaleModerate(14) }}>Xác nhận</Text>
+                                <Text style={{ color: 'white', fontWeight: 'bold', fontSize: scaleModerate(14) }}>Xác nhận</Text>
                             </View>
                         </TouchableOpacity>
                         <View style={{ flexDirection: 'row', marginTop: scale(20) }}>
@@ -96,7 +99,7 @@ class OTPScreen extends React.Component {
                 {
 
                     this.state.responseError !== null ? <MessageDialog
-                        message={this.state.responseError.data.descripiton}
+                        message={this.state.responseError.data.message}
                         close={() => {
                             this.setState({ responseError: null }); 
                         }}
@@ -124,4 +127,4 @@ const styles = StyleSheet.create({
     }
 
 })
-export default OTPScreen;
+export default OTPForgetPassword;

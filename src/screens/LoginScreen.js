@@ -1,6 +1,6 @@
 import React from 'react';
 import { Text, View, TextInput, TouchableOpacity, Dimensions, Keyboard } from 'react-native';
-import { BOTTOM_TAB, HOME, REGISTER } from '../navigators/RouteName';
+import { BOTTOM_TAB, HOME, REGISTER, FORGET_PASSWORD } from '../navigators/RouteName';
 import { scale, scaleVertical, scaleModerate } from '../constant/Scale';
 import { PRIMARY_COLOR, ERROR } from '../constant/Colors';
 import LoadingDialog from '../components/common/LoadingDialog';
@@ -23,18 +23,6 @@ class LoginScreen extends React.Component {
       responseError: null,
     };
   }
-
-  // async componentDidMount() {
-  //   const storageData = await AsyncStorage.getAllKeys();
-  //   console.log('ComponentDidMount...')
-  //   if (storageData.length == 0) {
-
-  //   } else {
-  //     this.props.navigation.navigate(BOTTOM_TAB)
-  //   }
-
-  // }
-
   async _loginFunction() {
     Keyboard.dismiss();
     const { username, password } = this.state;
@@ -78,9 +66,9 @@ class LoginScreen extends React.Component {
     const inputStyleUser = [{
       borderTopLeftRadius: scale(3),
       borderTopRightRadius: scale(3),
-      borderLeftWidth: scale(0.4),
+      borderLeftWidth: scale(0.7),
       borderTopWidth: scale(0.7),
-      borderRightWidth: scale(0.4),
+      borderRightWidth: scale(0.7),
       borderBottomWidth: scale(0.7),
       borderColor: 'gray',
       width: '90%',
@@ -92,8 +80,8 @@ class LoginScreen extends React.Component {
     const inputStylePass = [{
       borderBottomLeftRadius: scale(3),
       borderBottomRightRadius: scale(3),
-      borderLeftWidth: scale(0.4),
-      borderRightWidth: scale(0.4),
+      borderLeftWidth: scale(0.7),
+      borderRightWidth: scale(0.7),
       borderBottomWidth: scale(0.7),
       borderColor: 'gray',
       width: '90%',
@@ -136,23 +124,26 @@ class LoginScreen extends React.Component {
               alignItems: 'center',
               justifyContent: 'center',
             }}>
-              <Text style={{ color: ((!this.state.username) ? '#DCDCDC' : 'white'), fontWeight: 'bold',fontSize:scaleModerate(14) }}>Đăng nhập</Text>
+              <Text style={{ color: ((!this.state.username) ? '#DCDCDC' : 'white'), fontWeight: 'bold', fontSize: scaleModerate(14) }}>Đăng nhập</Text>
             </View>
           </TouchableOpacity>
           <View style={{ width: '100%', height: '2%' }} />
-          <TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => this.props.navigation.navigate(FORGET_PASSWORD)}
+          >
 
-            <Text style={{ color: PRIMARY_COLOR, fontWeight: 'bold',fontSize:scaleModerate(14) }}>Quên mật khẩu?</Text>
+            <Text style={{ color: PRIMARY_COLOR, fontWeight: 'bold', fontSize: scaleModerate(14) }}>Quên mật khẩu?</Text>
 
           </TouchableOpacity>
 
         </View>
-        <View style={{ flex: 1, backgroundColor: 'white' }}>
+        <View style={{ flex: 1, backgroundColor: 'white',paddingBottom:scaleVertical(30) }}>
           <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}>
             <View style={{ width: scale(60), height: scale(1), backgroundColor: 'gray' }}></View>
             <Text style={{ fontSize: scaleModerate(14) }}> HOẶC </Text>
             <View style={{ width: scale(60), height: scale(0.4), backgroundColor: 'gray' }}></View>
           </View>
+          <View style={{flex:1}}/>
           <View style={{ flex: 3, justifyContent: 'center', alignItems: 'center' }}>
             <TouchableOpacity
               onPress={() => this.props.navigation.navigate(REGISTER)}
@@ -165,7 +156,7 @@ class LoginScreen extends React.Component {
                 alignItems: 'center',
                 justifyContent: 'center',
               }}>
-                <Text style={{ color: PRIMARY_COLOR, fontWeight: 'bold',fontSize:scaleModerate(14) }}>Tạo tài khoản mới</Text>
+                <Text style={{ color: PRIMARY_COLOR, fontWeight: 'bold', fontSize: scaleModerate(14) }}>Tạo tài khoản mới</Text>
               </View>
             </TouchableOpacity>
           </View>
@@ -176,7 +167,7 @@ class LoginScreen extends React.Component {
         }
         {
           this.state.responseError !== null ? <MessageDialog
-            message={this.state.responseError.data?.message}
+            message={this.state.responseError.data?.descripiton}
             close={() => {
               this.setState({ responseError: null });
             }}
