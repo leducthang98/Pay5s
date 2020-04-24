@@ -6,6 +6,7 @@ import {
   Text,
   ScrollView,
   Dimensions,
+  RefreshControl,
   Image
 } from 'react-native';
 import { connect } from 'react-redux';
@@ -17,7 +18,14 @@ import { CommonActions } from '@react-navigation/native';
 import AsyncStorage from '@react-native-community/async-storage';
 import Toast from 'react-native-simple-toast';
 import { refreshStore } from '../../actions/ActionRefresh';
+import { getNotification } from '../../actions/ActionHomeScreen';
 class NotiScreen extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      refreshing: false
+    }
+  }
   _renderNotification = (img_preview, img_avatar, headline, published_date, author, content, description) => (
     <TouchableOpacity
       onPress={() => this.props.navigation.navigate(INITNOTIFICATION, {
@@ -74,6 +82,19 @@ class NotiScreen extends React.Component {
       })
     );
   }
+  async _onRefresh() {
+    const token_user = await AsyncStorage.getItem('access_token');
+    this.setState({
+      ...this.state,
+      refreshing: true
+    })
+    this.props.getNotification(token_user)
+    this.setState({
+      ...this.state,
+      refreshing: false
+    })
+  }
+
   render() {
     if (this.props.notiData) {
       const notiResponse = this.props.notiData
@@ -81,7 +102,10 @@ class NotiScreen extends React.Component {
         return (
           <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', }}>
             <Header navigation={this.props.navigation} back={false} title={'Tin tức'} />
-            <ScrollView>
+            <ScrollView
+              refreshControl={
+                <RefreshControl refreshing={this.state.refreshing} onRefresh={() => this._onRefresh()} />}
+            >
               {
                 notiResponse.data.rows.map((item, index) => {
                   let img_preview = item.img_preview;
@@ -119,6 +143,9 @@ const mapDispatchToProps = (dispatch) => {
   return {
     refreshStore: () => {
       dispatch(refreshStore())
+    },
+    getNotification: (token_user) => {
+      dispatch(getNotification(token_user))
     },
 
   }

@@ -3,11 +3,10 @@ import {
   View,
   Text,
   TouchableOpacity,
-  Animated,
   ScrollView,
-  Image,
   StyleSheet,
   Dimensions,
+  RefreshControl
 } from 'react-native';
 import { scale } from '../../constant/Scale';
 import { statusBarHeight } from '../../constant/Layout';
@@ -20,7 +19,7 @@ const { width } = Dimensions.get('window');
 const containerW = Dimensions.get('window').width;
 import AsyncStorage from '@react-native-community/async-storage';
 const containerH = Dimensions.get('window').height;
-import { WALLET, NOTIFICATION, RECHARGEMONEY, TRANSFERMONEY, RECHARGEPHONE, LOGIN } from '../../navigators/RouteName';
+import { RECHARGEMONEY, TRANSFERMONEY, LOGIN } from '../../navigators/RouteName';
 import { getTransfer } from '../../actions/ActionHomeScreen';
 import { formatMoney } from '../../constant/MoneyFormat';
 import { refreshStore } from '../../actions/ActionRefresh';
@@ -29,6 +28,9 @@ import { CommonActions } from '@react-navigation/native';
 class CheckWallet extends React.Component {
   constructor(props) {
     super(props);
+    this.state = {
+      refreshing: false
+    }
   }
   async componentDidMount() {
     const token_user = await AsyncStorage.getItem('access_token')
@@ -51,6 +53,18 @@ class CheckWallet extends React.Component {
       })
     );
   }
+  async _onRefresh() {
+    const token_user = await AsyncStorage.getItem('access_token');
+    this.setState({
+      ...this.state,
+      refreshing: true
+    })
+    this.props.getTransfer(token_user);
+    this.setState({
+      ...this.state,
+      refreshing: false
+    })
+  }
   render() {
     if (this.props.accountInfo) {
       const accountResponse = this.props.accountInfo;
@@ -58,30 +72,35 @@ class CheckWallet extends React.Component {
         return (
           <View style={{ flex: 1 }}>
             <Header navigation={this.props.navigation} back={true} title={'Số dư'} />
-            <View style={styles.body}>
-              <TouchableOpacity style={{ flex: 1, backgroundColor: 'white', alignItems: 'center', justifyContent: 'center' }} onPress={() => this.rechargeMoney()}>
-                <Icon name={'qrcode'} size={scale(23)} color={"black"} />
-                <Text style={{ fontSize: scale(11), paddingTop: scale(3) }}>Nạp số dư</Text>
-              </TouchableOpacity>
-              <TouchableOpacity style={{ flex: 1, backgroundColor: 'white', alignItems: 'center', justifyContent: 'center' }} onPress={() => this.transferMoney()}>
-                <Icon name={'minus-square'} size={scale(23)} color={"black"} />
-                <Text style={{ fontSize: scale(11), paddingTop: scale(3) }}>Chuyển khoản</Text>
-              </TouchableOpacity>
-              <View style={{ flex: 2, backgroundColor: 'white' }}>
-                <View style={{ backgroundColor: 'white', flex: 1, flexDirection: 'row', alignItems: 'center' }}>
-                  <Icon style={{ paddingLeft: scale(5) }} name={'dollar-sign'} size={scale(15)} color={"purple"} />
-                  <Text style={{ fontSize: scale(12), paddingLeft: scale(5) }}>Số dư</Text>
-                </View>
-                <View style={{ backgroundColor: 'white', flex: 1, alignItems: 'flex-end', justifyContent: 'center' }}>
-                  <Text style={{ paddingBottom: scale(3), paddingRight: scale(5), fontWeight: 'bold', fontSize: scale(16), color: 'purple' }}>{formatMoney(accountResponse.data.balance)}đ</Text>
+            <ScrollView
+              refreshControl={
+                <RefreshControl refreshing={this.state.refreshing} onRefresh={() => this._onRefresh()} />}
+            >
+              <View style={styles.body}>
+                <TouchableOpacity style={{ flex: 1, backgroundColor: 'white', alignItems: 'center', justifyContent: 'center' }} onPress={() => this.rechargeMoney()}>
+                  <Icon name={'qrcode'} size={scale(23)} color={"black"} />
+                  <Text style={{ fontSize: scale(11), paddingTop: scale(3) }}>Nạp số dư</Text>
+                </TouchableOpacity>
+                <TouchableOpacity style={{ flex: 1, backgroundColor: 'white', alignItems: 'center', justifyContent: 'center' }} onPress={() => this.transferMoney()}>
+                  <Icon name={'minus-square'} size={scale(23)} color={"black"} />
+                  <Text style={{ fontSize: scale(11), paddingTop: scale(3) }}>Chuyển khoản</Text>
+                </TouchableOpacity>
+                <View style={{ flex: 2, backgroundColor: 'white' }}>
+                  <View style={{ backgroundColor: 'white', flex: 1, flexDirection: 'row', alignItems: 'center' }}>
+                    <Icon style={{ paddingLeft: scale(5) }} name={'dollar-sign'} size={scale(15)} color={"purple"} />
+                    <Text style={{ fontSize: scale(12), paddingLeft: scale(5) }}>Số dư</Text>
+                  </View>
+                  <View style={{ backgroundColor: 'white', flex: 1, alignItems: 'flex-end', justifyContent: 'center' }}>
+                    <Text style={{ paddingBottom: scale(3), paddingRight: scale(5), fontWeight: 'bold', fontSize: scale(16), color: 'purple' }}>{formatMoney(accountResponse.data.balance)}đ</Text>
+                  </View>
                 </View>
               </View>
-            </View>
-            <AccountTabView />
+              <AccountTabView />
+            </ScrollView>
           </View>
         );
       }
-      else if(accountResponse.errorCode===500){
+      else if (accountResponse.errorCode === 500) {
         this.tokenInvalidFunction();
         return null;
       }
@@ -90,9 +109,7 @@ class CheckWallet extends React.Component {
         <Loading></Loading>
       );
     }
-
   }
-
 }
 const styles = StyleSheet.create({
   container: {
@@ -129,7 +146,6 @@ const mapDispatchToProps = (dispatch) => {
     refreshStore: () => {
       dispatch(refreshStore())
     },
-
   }
 }
 export default connect(mapStateToProps, mapDispatchToProps)(CheckWallet);

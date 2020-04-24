@@ -7,7 +7,8 @@ import {
   ScrollView,
   Dimensions,
   Image,
-  Alert
+  Alert,
+  RefreshControl
 } from 'react-native';
 import { connect } from 'react-redux';
 import Icon from 'react-native-vector-icons/FontAwesome5';
@@ -23,12 +24,12 @@ import { FACEBOOK } from '../constant/Colors';
 import { CommonActions } from '@react-navigation/native';
 import Toast from 'react-native-simple-toast';
 import { refreshStore } from '../actions/ActionRefresh';
-import {PRIMARY_COLOR} from '../constant/Colors'
+import { PRIMARY_COLOR } from '../constant/Colors'
 class HomeScreen extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-
+      refreshing: false
     }
     this.mainService = [
       { iconName: 'wallet', label: 'Nạp tiền', onPress: () => this.rechargeMoney() },
@@ -47,7 +48,6 @@ class HomeScreen extends React.Component {
       {},
       {},
     ];
-
   }
   async componentDidMount() {
     const token_user = await AsyncStorage.getItem('access_token');
@@ -181,13 +181,33 @@ class HomeScreen extends React.Component {
       })
     );
   }
+
+  async _onRefresh() {
+    const token_user = await AsyncStorage.getItem('access_token');
+    this.setState({
+      ...this.state,
+      refreshing: true
+    })
+    this.props.getAccountInfo(token_user);
+    this.props.getCommonConfig(token_user);
+    this.props.getNotification(token_user);
+    this.setState({
+      ...this.state,
+      refreshing: false
+    })
+  }
+
+
   render() {
     if (this.props.accountInfo && this.props.notiData) {
       const accountResponse = this.props.accountInfo
       const notiResponse = this.props.notiData
       if (accountResponse.errorCode === 200 && notiResponse.errorCode === 200) {
         return (
-          <ScrollView style={styles.container}>
+          <ScrollView
+            refreshControl={
+              <RefreshControl refreshing={this.state.refreshing} onRefresh={() => this._onRefresh()} />}
+            style={styles.container}>
             <View style={{ alignItems: 'center' }}>
               <View style={[styles.header]}>
                 <View style={styles.insideHeader}>

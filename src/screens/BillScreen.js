@@ -2,15 +2,11 @@ import React from 'react';
 import {
   StyleSheet,
   View,
-  TouchableOpacity,
   Text,
   ScrollView,
   Dimensions,
   Image,
-  StatusBar,
-  FlatList,
-  ActivityIndicator,
-  Platform
+  RefreshControl
 } from 'react-native';
 import Header from '../components/common/Header';
 import { connect } from 'react-redux';
@@ -23,9 +19,14 @@ import Toast from 'react-native-simple-toast';
 import { CommonActions } from '@react-navigation/native';
 import { LOGIN } from '../navigators/RouteName';
 import { refreshStore } from '../actions/ActionRefresh';
-import {PRIMARY_COLOR} from '../constant/Colors'
+import { PRIMARY_COLOR } from '../constant/Colors'
 class BillScreen extends React.Component {
-
+  constructor(props) {
+    super(props);
+    this.state = {
+      refreshing: false
+    }
+  }
   async componentDidMount() {
     const token_user = await AsyncStorage.getItem('access_token')
     console.log(token_user)
@@ -69,10 +70,21 @@ class BillScreen extends React.Component {
       })
     );
   }
-  render() {
+  async _onRefresh() {
+    const token_user = await AsyncStorage.getItem('access_token');
+    this.setState({
+      ...this.state,
+      refreshing: true
+    })
+    this.props.getBill(token_user);
+    this.setState({
+      ...this.state,
+      refreshing: false
+    })
+  }
 
+  render() {
     if (this.props.bills) {
-      console.log("Code_Bill_Response:" + this.props.bills.errorCode)
       let billRespond = this.props.bills
       if (billRespond.errorCode === 200) {
         // co data
@@ -81,7 +93,10 @@ class BillScreen extends React.Component {
           return (
             <View>
               <Header navigation={this.props.navigation} back={false} title={'Danh sách đơn hàng'} />
-              <ScrollView style={{ marginTop: scale(5) }}>
+              <ScrollView
+                refreshControl={
+                  <RefreshControl refreshing={this.state.refreshing} onRefresh={() => this._onRefresh()} />}
+                style={{ marginTop: scale(5) }}>
                 {
                   billData.map((item, index) => {
                     let service
