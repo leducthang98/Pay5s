@@ -24,7 +24,6 @@ import { isPhoneNumber } from '../../constant/Validate';
 
 
 const { width } = Layout.window;
-const SERVICE = 'TKC';
 
 export default class RechargePostpaidAccount extends React.Component {
   constructor(props) {
@@ -247,7 +246,7 @@ export default class RechargePostpaidAccount extends React.Component {
               }
             </ScrollView>
             <View style={styles.buttonArea}>
-              <TouchableOpacity 
+              <TouchableOpacity
               onPress={()=>this._onPressDeposit()}
               style={styles.button}>
                 <Text style={texts.white_bold}>{getString('DEPOSIT_NOW').toUpperCase()}</Text>

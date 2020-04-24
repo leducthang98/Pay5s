@@ -1,57 +1,81 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import {
   View,
-  Text,
-  Image,
-  TouchableOpacity,
+  FlatList,
   Platform,
   StyleSheet,
-  PermissionsAndroid
+  PermissionsAndroid,
 } from 'react-native';
 import Contacts from 'react-native-contacts';
 import * as COLOR from '../../constant/Colors';
 import Header from '../../components/common/Header';
+import SearchBox from '../../components/recharge/SearchBox';
+import {scaleModerate} from '../../constant/Scale';
+import ContactItem from '../../components/recharge/ContactItem';
 
 export default class ContactList extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      data: []
-    }
+      contacts: [],
+    };
   }
 
-  componentDidMount() {
+  async componentDidMount() {
     if (Platform.OS === 'android') {
-      this._getPermissionAndroid();
+      await this._getPermissionAndroid();
+      await this._getAllContact();
     }
   }
 
-  _getPermissionAndroid = () => {
-    PermissionsAndroid.request(
+  _getAllContact = async () => {
+    Contacts.getAll((error, contacts) => {
+      if (error === 'denied') {
+        console.error('error when get contact = ', error);
+      } else {
+        this.setState({contacts});
+      }
+    });
+  };
+
+  _getPermissionAndroid = async () => {
+    await PermissionsAndroid.request(
       PermissionsAndroid.PERMISSIONS.READ_CONTACTS,
       {
-        'title': 'Contacts',
-        'message': 'This app would like to view your contacts.',
-        'buttonPositive': 'Please accept bare mortal'
-      }
-    ).then(() => {
-      Contacts.getAll((err, contacts) => {
-        if (err === 'denied') {
-          // error
-        } else {
-          // contacts returned in Array
-          console.log('contacts = ', contacts);
-        }
-      })
-    })
-  }
+        'title': 'Danh bạ',
+        'message': 'Ứng dụng cần được truy cập vào danh bạ của bạn để tiếp tục',
+        'buttonPositive': 'Chấp nhận',
+      },
+    );
+  };
+
+  _chooseContact = phoneNumber => {
+    this.props.action.setPhoneNumberForRecharge(phoneNumber);
+    this.props.navigation.pop()
+  };
 
   render() {
+    const {contacts} = this.state;
+    console.log('contact list = ', contacts);
     return (
       <View style={styles.container}>
-        <Header back={true} title={'Danh sách liên lạc'} />
+        <Header back={true} title={'Danh sách liên lạc'}/>
+        <SearchBox/>
+        <FlatList
+          style={styles.list}
+          data={contacts}
+          keyExtractor={item => item?.rawContactId}
+          renderItem={({item, index}) =>
+            <ContactItem
+              fullName={item?.displayName}
+              givenName={item?.givenName}
+              phoneNumber={item?.phoneNumbers[0]?.number}
+              chooseContact={phoneNumber => this._chooseContact(phoneNumber)}
+            />
+          }
+        />
       </View>
-    )
+    );
   }
 }
 
@@ -60,5 +84,9 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     backgroundColor: COLOR.BACKGROUND_COLOR,
-  }
+    paddingHorizontal: scaleModerate(10),
+  },
+  list: {
+    width: '100%',
+  },
 });

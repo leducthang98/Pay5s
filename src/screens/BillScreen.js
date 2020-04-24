@@ -13,7 +13,7 @@ import { connect } from 'react-redux';
 import AsyncStorage from '@react-native-community/async-storage';
 import { getBill } from '../actions/ActionBillScreen';
 import { scale } from '../constant/Scale';
-import { formatMoney } from '../constant/MoneyFormat';
+import { formatMoney } from '../constant/CommonFormat';
 import Loading from '../components/common/Loading';
 import Toast from 'react-native-simple-toast';
 import { CommonActions } from '@react-navigation/native';

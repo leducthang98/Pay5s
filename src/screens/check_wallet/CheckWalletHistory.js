@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { scale } from '../../constant/Scale';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import Icon from 'react-native-vector-icons/FontAwesome5';
-import { formatMoney } from '../../constant/MoneyFormat';
+import { formatMoney } from '../../constant/CommonFormat';
 import Modal from 'react-native-modal';
 import { PRIMARY_COLOR } from '../../constant/Colors';
 import { texts } from '../../constant/CommonStyles';

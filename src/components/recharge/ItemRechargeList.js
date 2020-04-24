@@ -11,7 +11,7 @@ import * as COLOR from '../../constant/Colors';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {scaleModerate, scaleVertical} from '../../constant/Scale';
 import {shadow, texts} from '../../constant/CommonStyles';
-import {formatMoney} from '../../constant/MoneyFormat';
+import {formatMoney} from '../../constant/CommonFormat';
 
 const {width, height} = Dimensions.get('window');
 
