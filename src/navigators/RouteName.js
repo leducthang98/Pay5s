@@ -19,11 +19,8 @@ export const INITNOTIFICATION = 'InitNotification';
 export const ACCOUNTINFO = 'AccountInfo';
 export const EDITACCOUNT = 'EditAccount';
 export const TRANSFER_PREPAID_ACCOUNT = 'TransferPrepaidAccount';
-<<<<<<< HEAD
 export const CONTACT_LIST = 'ContactList';
-=======
 export const FORGET_PASSWORD = 'ForgetPassword';
 export const OTP_FORGET_PASSWORD = 'OtpForgetPassword';
 export const TRANS_PASSWORD_SCREEN = 'TransPasswordScreen';
 export const CREATE_TRANS_PASSWORD = 'CreateTransPassword';
->>>>>>> c5c743b492067cd65d2b72912c8ae62bb3c30dba
