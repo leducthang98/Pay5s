@@ -18,6 +18,7 @@ class OTPForgetPassword extends React.Component {
         };
     }
     async componentDidMount() {
+        Toast.show("ĐANG GỬI MÃ OTP, VUI LÒNG ĐỢI...");
         let params = this.props.route.params;
         let mobile = params.forgetPasswordData.mobile;
         const respond = await getOTP(mobile);

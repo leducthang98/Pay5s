@@ -24,3 +24,5 @@ export const FORGET_PASSWORD = 'ForgetPassword';
 export const OTP_FORGET_PASSWORD = 'OtpForgetPassword';
 export const TRANS_PASSWORD_SCREEN = 'TransPasswordScreen';
 export const CREATE_TRANS_PASSWORD = 'CreateTransPassword';
+export const FORGET_TRANS_PASSWORD = 'ForgetTransPassword';
+export const GETOTP_FORGET_TRANS_PASSWORD = 'GetOTPForgetTransPassword';

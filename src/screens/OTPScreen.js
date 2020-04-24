@@ -18,6 +18,7 @@ class OTPScreen extends React.Component {
         };
     }
     async componentDidMount() {
+        Toast.show("ĐANG GỬI MÃ OTP, VUI LÒNG ĐỢI...");
         let params = this.props.route.params;
         const respond = await getOTP(params.mobile);
     }

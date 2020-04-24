@@ -50,7 +50,7 @@ class HomeScreen extends React.Component {
 
   }
   async componentDidMount() {
-    const token_user = await AsyncStorage.getItem('access_token')
+    const token_user = await AsyncStorage.getItem('access_token');
     this.props.getAccountInfo(token_user);
     this.props.getCommonConfig(token_user);
     this.props.getNotification(token_user);
