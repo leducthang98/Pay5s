@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, View, Dimensions, StyleSheet, TouchableOpacity, Image, SectionList, ScrollView,RefreshControl } from 'react-native';
+import { Text, View, Dimensions, StyleSheet, TouchableOpacity, Image, SectionList, ScrollView,RefreshControl, Linking } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import { scale, scaleModerate, scaleVertical } from '../../constant/Scale';
 import { statusBarHeight } from '../../constant/Layout';
@@ -33,7 +33,14 @@ class AccountScreen extends React.Component {
   };
 
   goToFanPage = () => {
-    console.log('Facebook Fanpage');
+    Linking.canOpenURL('fb://profile/100006668479260').then( supported => {
+      console.log('supported = ',supported);
+      if (supported) {
+        Linking.openURL('fb://profile/100006668479260')
+      }else{
+        Linking.openURL('https://facebook.com')
+      }
+    })
   };
 
   showTermsAndAgreement = () => {
