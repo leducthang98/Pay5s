@@ -36,7 +36,7 @@ class InitNotiScreen extends React.Component {
                             <Text style={{ color: 'gray', fontSize: scaleModerate(12), paddingLeft: scale(15) }} >Pay5s - App</Text>
                         </View>
                         <View style={{ marginTop: scale(10) }}>
-                            <Text style={{ fontSize: scale(16) }}>{data.dataNotification.description}+{data.dataNotification.description}+{data.dataNotification.description}+{data.dataNotification.description}+{data.dataNotification.description}+{data.dataNotification.description}+{data.dataNotification.description}</Text>
+                            <Text style={{ fontSize: scale(16) }}>{data.dataNotification.description}</Text>
                         </View>
                         <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center', marginTop: scaleVertical(30) }}>
                             <Text style={{ fontSize: scaleModerate(14), fontWeight: 'bold' }}> {data.dataNotification.author} </Text>

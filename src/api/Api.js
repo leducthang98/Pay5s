@@ -28,3 +28,7 @@ export const LOGOUT_URL = 'https://client.pay5s.com/account/logout.html';
 export const FORGET_PASSWORD = 'https://client.pay5s.com/account/reset_password_login.html';
 //create trans password
 export const CREATE_TRANS_PASSWORD = 'https://client.pay5s.com/account/update_trans_key.html';
+//request otp trans
+export const REQUEST_OTP_TRANS = 'https://client.pay5s.com/account/request_otp_trans.html';
+//reset trans key
+export const RESET_TRANS_KEY = 'https://client.pay5s.com/account/reset_trans_key.html';

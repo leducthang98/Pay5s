@@ -21,7 +21,7 @@ import Loading from '../../components/common/Loading';
 import AsyncStorage from '@react-native-community/async-storage';
 import Toast from 'react-native-simple-toast';
 import { CommonActions } from '@react-navigation/native';
-import { LOGIN, CREATE_TRANS_PASSWORD } from '../../navigators/RouteName';
+import { LOGIN, CREATE_TRANS_PASSWORD, FORGET_TRANS_PASSWORD } from '../../navigators/RouteName';
 class TransPasswordScreen extends React.Component {
     constructor(props) {
         super(props);
@@ -42,15 +42,17 @@ class TransPasswordScreen extends React.Component {
     createTransPassword() {
         this.props.navigation.navigate(CREATE_TRANS_PASSWORD)
     }
-    forgetTransPassword() {
-        Toast.show("Quên mật khẩu.")
+    forgetTransPassword(mobile) {
+        this.props.navigation.navigate(FORGET_TRANS_PASSWORD, {
+            mobile: mobile
+        })
     }
-    renderButton(set_trans_key) {
+    renderButton(set_trans_key, mobile) {
         if (set_trans_key) {
             return (
                 <View style={{ alignItems: 'center', marginTop: scale(70) }}>
                     <TouchableOpacity style={styles.buttons}
-                        onPress={() => this.forgetTransPassword()}
+                        onPress={() => this.forgetTransPassword(mobile)}
                     >
                         <View>
                             <Text style={{ color: 'white', fontSize: scale(14), fontWeight: 'bold' }} >Quên mật khẩu giao dịch</Text>
@@ -93,7 +95,7 @@ class TransPasswordScreen extends React.Component {
                             <Text style={{ fontSize: scale(14), color: '#696969' }}>- Mật khẩu giao dịch được dùng trong khi giao dịch(vd: thanh toán hóa đơn, chuyển khoản,...).</Text>
                             <Text style={{ fontSize: scale(14), color: '#696969' }}>- Mật khẩu giao dịch gồm 4 chữ số.</Text>
                             <Text style={{ fontSize: scale(14), color: '#696969' }}>- Vì an toàn cá nhân, tuyệt đối không cho người khác biết mật khẩu giao dịch của bạn.</Text>
-                            {this.renderButton(accountResponse.data.set_trans_key)}
+                            {this.renderButton(accountResponse.data.set_trans_key, accountResponse.data.mobile)}
                         </View>
                     </View>
                 );
