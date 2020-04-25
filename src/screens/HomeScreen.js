@@ -8,7 +8,8 @@ import {
   Dimensions,
   Image,
   Alert,
-  RefreshControl
+  RefreshControl,
+  Linking
 } from 'react-native';
 import { connect } from 'react-redux';
 import Icon from 'react-native-vector-icons/FontAwesome5';
@@ -85,14 +86,15 @@ class HomeScreen extends React.Component {
       { cancelable: false },
     );
   }
-  support() {
+  support(hotline, fanpage) {
     Alert.alert(
-      'Thông báo',
-      'Tính năng đang phát triển',
+      'Support',
+      'Phương thức hỗ trợ dịch vụ App Pay5s',
       [
-        { text: 'Đóng', onPress: () => console.log('OK Pressed') },
+        { text: 'Hotline', onPress: () => Linking.openURL('tel:' + hotline) },
+        { text: 'Facebook', onPress: () => Linking.openURL(fanpage) },
       ],
-      { cancelable: false },
+      { cancelable: true },
     );
   }
   checkWallet() {
@@ -199,10 +201,11 @@ class HomeScreen extends React.Component {
 
 
   render() {
-    if (this.props.accountInfo && this.props.notiData) {
-      const accountResponse = this.props.accountInfo
-      const notiResponse = this.props.notiData
-      if (accountResponse.errorCode === 200 && notiResponse.errorCode === 200) {
+    if (this.props.accountInfo && this.props.notiData && this.props.commonConfigData) {
+      const accountResponse = this.props.accountInfo;
+      const notiResponse = this.props.notiData;
+      const commonResponse = this.props.commonConfigData;
+      if (accountResponse.errorCode === 200 && notiResponse.errorCode === 200 && commonResponse.errorCode === 200) {
         return (
           <ScrollView
             refreshControl={
@@ -216,7 +219,7 @@ class HomeScreen extends React.Component {
                     <Text style={{ color: 'white', fontSize: scale(16), fontWeight: 'bold' }}>0{accountResponse.data.mobile}</Text>
                   </View>
                   <TouchableOpacity
-                    onPress={() => this.support()}
+                    onPress={() => this.support(commonResponse.data.hotline, commonResponse.data.fanpage)}
                   >
                     <Icon style={{ flex: 1 }} name={'comments'} size={scale(23)} color={'white'} />
                   </TouchableOpacity>
@@ -294,7 +297,7 @@ class HomeScreen extends React.Component {
           </ScrollView>
 
         );
-      } else if (accountResponse.errorCode === 500 || notiResponse.errorCode === 500) {
+      } else if (accountResponse.errorCode === 500 || notiResponse.errorCode === 500 || commonResponse.errorCode === 500) {
         this.tokenInvalidFunction();
         return null;
       }
@@ -372,7 +375,8 @@ const styles = StyleSheet.create({
 const mapStateToProps = (store) => {
   return {
     accountInfo: store.homeReducer.accountInfo,
-    notiData: store.homeReducer.notiData
+    notiData: store.homeReducer.notiData,
+    commonConfigData: store.homeReducer.commonConfigData
   }
 }
 const mapDispatchToProps = (dispatch) => {

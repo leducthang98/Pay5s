@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, View, TouchableOpacity, TextInput, Dimensions, StyleSheet } from 'react-native';
+import { Text, View, TouchableOpacity, TextInput, Dimensions, StyleSheet,Image } from 'react-native';
 import { scaleVertical, scale, scaleModerate } from '../../constant/Scale';
 import AsyncStorage from '@react-native-community/async-storage';
 import Toast from 'react-native-simple-toast';
@@ -11,6 +11,7 @@ import { connect } from 'react-redux';
 import { refreshStore } from '../../actions/ActionRefresh';
 import LoadingDialog from '../../components/common/LoadingDialog';
 import MessageDialog from '../../components/common/MessageDialog';
+import { statusBarHeight } from '../../constant/Layout';
 class GetOTPForgetTransPassword extends React.Component {
     constructor(props) {
         super(props);
@@ -41,7 +42,7 @@ class GetOTPForgetTransPassword extends React.Component {
             }
         } else {
             Toast.show("MÃ OTP SẼ ĐƯỢC GỬI TỚI SỐ ĐIỆN THOẠI " + mobile + ". VUI LÒNG ĐỢI...");
-           
+
         }
     }
     async tokenInvalidFunction() {
@@ -85,8 +86,13 @@ class GetOTPForgetTransPassword extends React.Component {
         if (!this.state.isTokenExpired) {
             return (
                 <>
+                    <View style={{ height: statusBarHeight, backgroundColor: PRIMARY_COLOR }}></View>
                     <View style={{ flex: 1, alignItems: 'center' }}>
-                        <View style={{ width: '100%', height: '40%', backgroundColor: PRIMARY_COLOR }}></View>
+                        <Image style={{ height: '30%', width: '100%' }}
+                            source={{
+                                uri: 'https://client.pay5s.com/assets/img/banner_default.jpg'
+                            }}
+                        />
                         <View style={{ width: '100%', height: '60%', alignItems: 'center', justifyContent: 'flex-start', paddingTop: scaleVertical(30) }}>
                             <TextInput
                                 onChangeText={(otp) => this.setState({ otp })}

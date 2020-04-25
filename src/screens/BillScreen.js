@@ -32,7 +32,7 @@ class BillScreen extends React.Component {
     console.log(token_user)
     this.props.getBill(token_user);
   }
-  _renderBill = (service, mobile, amount, modified, telco) => (
+  _renderBill = (service, mobile, amount, modified, telco, status) => (
     <View style={styles.component} >
       <View style={{ width: '92%', height: containerH / 9, borderWidth: scale(0.3), borderRadius: scale(7), borderColor: 'gray', justifyContent: 'center', alignItems: 'center' }}>
         <View style={{ flexDirection: 'row', width: containerW - scale(35), height: containerH / 11 }}>
@@ -50,9 +50,8 @@ class BillScreen extends React.Component {
             <Text style={{ fontSize: scale(12), fontWeight: 'bold', color: PRIMARY_COLOR }}>{mobile}-{amount}</Text>
             <Text style={{ fontSize: scale(10), color: 'gray' }}>{modified}</Text>
           </View>
-          <View style={{ flex: 0.8, justifyContent: 'flex-end', alignItems: 'flex-end' }}>
-
-            <Text style={{ fontSize: scale(11), color: 'purple' }}> Đã đóng </Text>
+          <View style={{ flex: 0.8, justifyContent: 'flex-end', alignItems: 'flex-end', paddingRight: scale(3) }}>
+            <Text style={{ fontSize: scale(11), color: 'purple' }}>{status}</Text>
           </View>
 
         </View>
@@ -99,13 +98,21 @@ class BillScreen extends React.Component {
                 style={{ marginTop: scale(5) }}>
                 {
                   billData.map((item, index) => {
-                    let service
-                    let telco
+                    let service;
+                    let telco;
+                    let status;
                     if (item.service == 'TT') {
                       service = 'Bắn TK trả trước'
                     } else if (item.service == 'TS') {
                       service = 'Bắn TK trả sau'
                     }
+
+                    if (item.status == 0) {
+                      status = 'Đang xử lý'
+                    } else {
+                      status = 'Đã đóng'
+                    }
+
                     switch (item.telco) {
                       case 'VTT':
                         telco = 'Viettel'
@@ -119,7 +126,7 @@ class BillScreen extends React.Component {
                     }
                     let mobile = '0' + item.mobile
                     let amount = formatMoney(item.amount) + 'đ'
-                    return this._renderBill(service, mobile, amount, item.modified, telco)
+                    return this._renderBill(service, mobile, amount, item.modified, telco, status)
                   })
                 }
               </ScrollView>

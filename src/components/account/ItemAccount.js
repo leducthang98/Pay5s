@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import {
   View,
   Text,
@@ -7,11 +7,11 @@ import {
   StyleSheet,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome5';
-import {scale, scaleModerate, scaleVertical} from '../../constant/Scale';
-import {texts} from '../../constant/CommonStyles';
+import { scale, scaleModerate, scaleVertical } from '../../constant/Scale';
+import { texts } from '../../constant/CommonStyles';
 import * as COLOR from '../../constant/Colors';
 
-const {width, height} = Dimensions.get('window');
+const { width, height } = Dimensions.get('window');
 
 export default class ItemAccount extends Component {
   constructor(props) {
@@ -19,18 +19,19 @@ export default class ItemAccount extends Component {
   }
 
   render() {
-    const {iconLeftName, iconRightName, subTitle, title, canPress, iconLeftColor, iconStyle, extraInfo, extraInfoColor} = this.props;
+    const { iconLeftName, iconRightName, subTitle, title, canPress, iconLeftColor, iconStyle, extraInfo, extraInfoColor } = this.props;
     return (
       <TouchableOpacity
-        onPress={canPress ? () => this.props.onPress() : ()=>{}}
+        disabled={!canPress}
+        onPress={canPress ? () => this.props.onPress() : () => { }}
         style={styles.container}>
         <Icon style={iconStyle ? iconStyle : styles.icon} name={iconLeftName} size={scale(28)}
-              color={iconLeftColor || 'gray'}/>
+          color={iconLeftColor || 'gray'} />
         <View style={styles.textArea}>
           {
             extraInfo ? <View style={styles.title}>
               <Text style={texts.l_normal}>{title}</Text>
-              <Text style={[texts.l_bold, {color: extraInfoColor || COLOR.TEXT_LABEL}]}>{extraInfo}</Text>
+              <Text style={[texts.l_bold, { color: extraInfoColor || COLOR.TEXT_LABEL }]}>{extraInfo}</Text>
             </View> : <Text>{title}</Text>
           }
           {
@@ -40,8 +41,8 @@ export default class ItemAccount extends Component {
         </View>
         {
           canPress ?
-            <Icon style={{flex: 0.5}} name={iconRightName || 'chevron-right'} size={scale(16)} color={'gray'}/> :
-            <View style={{flex: 0.5}}/>
+            <Icon style={{ flex: 0.5 }} name={iconRightName || 'chevron-right'} size={scale(16)} color={'gray'} /> :
+            <View style={{ flex: 0.5 }} />
         }
       </TouchableOpacity>
     );
@@ -59,7 +60,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     backgroundColor: '#FAFAFA',
   },
-  textArea:{
+  textArea: {
     flex: 8,
     paddingLeft: scaleModerate(8),
     justifyContent: 'center'
@@ -69,7 +70,7 @@ const styles = StyleSheet.create({
     paddingLeft: scaleModerate(9),
   },
   subTitle: {
-    marginTop:scaleVertical(2),
+    marginTop: scaleVertical(2),
     fontSize: scale(12),
     color: 'gray',
   },

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, View, TextInput, TouchableOpacity, Dimensions, Keyboard } from 'react-native';
+import { Text, View, TextInput, TouchableOpacity, Dimensions, Keyboard, Image } from 'react-native';
 import { BOTTOM_TAB, HOME, REGISTER, FORGET_PASSWORD } from '../navigators/RouteName';
 import { scale, scaleVertical, scaleModerate } from '../constant/Scale';
 import { PRIMARY_COLOR, ERROR } from '../constant/Colors';
@@ -8,9 +8,12 @@ import { login } from '../fetchAPIs/AuthApi';
 import { getString } from '../res/values/String';
 import AsyncStorage from '@react-native-community/async-storage';
 import MessageDialog from '../components/common/MessageDialog';
+import Header from '../components/common/Header'
+import { statusBarHeight } from '../constant/Layout';
+import { connect } from 'react-redux';
+import { refreshStore } from '../actions/ActionRefresh';
 const containerW = Dimensions.get('window').width;
 const containerH = Dimensions.get('window').height;
-
 class LoginScreen extends React.Component {
   constructor(props) {
     super(props);
@@ -22,6 +25,9 @@ class LoginScreen extends React.Component {
       isLoading: false,
       responseError: null,
     };
+  }
+  componentDidMount() {
+    setTimeout(()=> this.props.refreshStore(), 2000)
   }
   async _loginFunction() {
     Keyboard.dismiss();
@@ -94,9 +100,13 @@ class LoginScreen extends React.Component {
     const inputErrorStylePass = [...inputStylePass, { borderWidth: 1, borderColor: ERROR }];
     return (
       <>
+        <View style={{ height: statusBarHeight, backgroundColor: PRIMARY_COLOR }}></View>
         <View style={{ flex: 8, alignItems: 'center', backgroundColor: 'white' }}>
-          <View style={{ width: '100%', height: '30%', backgroundColor: PRIMARY_COLOR }}>
-          </View>
+          <Image style={{ height: '30%', width: '100%' }}
+            source={{
+              uri: 'https://client.pay5s.com/assets/img/banner_default.jpg'
+            }}
+          />
           <View style={{ width: '100%', height: '5%' }} />
 
           <TextInput
@@ -137,13 +147,13 @@ class LoginScreen extends React.Component {
           </TouchableOpacity>
 
         </View>
-        <View style={{ flex: 1, backgroundColor: 'white',paddingBottom:scaleVertical(30) }}>
+        <View style={{ flex: 1, backgroundColor: 'white', paddingBottom: scaleVertical(30) }}>
           <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}>
             <View style={{ width: scale(60), height: scale(1), backgroundColor: 'gray' }}></View>
             <Text style={{ fontSize: scaleModerate(14) }}> HOẶC </Text>
             <View style={{ width: scale(60), height: scale(0.4), backgroundColor: 'gray' }}></View>
           </View>
-          <View style={{flex:1}}/>
+          <View style={{ flex: 1 }} />
           <View style={{ flex: 3, justifyContent: 'center', alignItems: 'center' }}>
             <TouchableOpacity
               onPress={() => this.props.navigation.navigate(REGISTER)}
@@ -178,4 +188,19 @@ class LoginScreen extends React.Component {
   }
 }
 
-export default LoginScreen;
+const mapStateToProps = (store) => {
+  return {
+
+  }
+}
+const mapDispatchToProps = (dispatch) => {
+  return {
+
+    refreshStore: () => {
+      dispatch(refreshStore())
+    },
+
+
+  }
+}
+export default connect(mapStateToProps, mapDispatchToProps)(LoginScreen);

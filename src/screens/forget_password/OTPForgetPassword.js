@@ -1,12 +1,13 @@
 import React from 'react';
-import { Text, View, StyleSheet, TextInput, TouchableOpacity, Dimensions } from 'react-native';
+import { Text, View, StyleSheet, TextInput, TouchableOpacity, Dimensions,Image } from 'react-native';
 import { scaleModerate, scale, scaleVertical } from '../../constant/Scale';
 import { PRIMARY_COLOR } from '../../constant/Colors';
 import Toast from 'react-native-simple-toast';
-import { getOTP,forgetPassword } from '../../fetchAPIs/AuthApi';
+import { getOTP, forgetPassword } from '../../fetchAPIs/AuthApi';
 import LoadingDialog from '../../components/common/LoadingDialog';
 import MessageDialog from '../../components/common/MessageDialog';
 import { LOGIN } from '../../navigators/RouteName';
+import { statusBarHeight } from '../../constant/Layout';
 class OTPForgetPassword extends React.Component {
 
     constructor(props) {
@@ -54,8 +55,13 @@ class OTPForgetPassword extends React.Component {
 
         return (
             <>
+                <View style={{ height: statusBarHeight, backgroundColor: PRIMARY_COLOR }}></View>
                 <View style={{ flex: 1, alignItems: 'center' }}>
-                    <View style={{ width: '100%', height: '40%', backgroundColor: PRIMARY_COLOR }}></View>
+                    <Image style={{ height: '30%', width: '100%' }}
+                        source={{
+                            uri: 'https://client.pay5s.com/assets/img/banner_default.jpg'
+                        }}
+                    />
                     <View style={{ width: '100%', height: '60%', alignItems: 'center', justifyContent: 'flex-start', paddingTop: scaleVertical(30) }}>
                         <TextInput
                             onChangeText={(otp) => this.setState({ otp })}
@@ -102,7 +108,7 @@ class OTPForgetPassword extends React.Component {
                     this.state.responseError !== null ? <MessageDialog
                         message={this.state.responseError.data.message}
                         close={() => {
-                            this.setState({ responseError: null }); 
+                            this.setState({ responseError: null });
                         }}
                     /> : null
                 }

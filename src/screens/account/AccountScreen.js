@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, View, Dimensions, StyleSheet, TouchableOpacity, Image, SectionList, ScrollView,RefreshControl, Linking } from 'react-native';
+import { Text, View, Dimensions, StyleSheet, TouchableOpacity, Image, SectionList, ScrollView, RefreshControl, Linking } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import { scale, scaleModerate, scaleVertical } from '../../constant/Scale';
 import { statusBarHeight } from '../../constant/Layout';
@@ -32,15 +32,8 @@ class AccountScreen extends React.Component {
     console.log('gioi thieu tham gia Pay5s');
   };
 
-  goToFanPage = () => {
-    Linking.canOpenURL('fb://profile/100006668479260').then( supported => {
-      console.log('supported = ',supported);
-      if (supported) {
-        Linking.openURL('fb://profile/100006668479260')
-      }else{
-        Linking.openURL('https://facebook.com')
-      }
-    })
+  goToFanPage = (url) => {
+    Linking.openURL(url)
   };
 
   showTermsAndAgreement = () => {
@@ -104,28 +97,29 @@ class AccountScreen extends React.Component {
           }],
         }, {
           section: 2,
-          data: [{
-            iconLeftName: 'facebook',
-            title: 'Fanpage',
-            subTitle: 'Facebook Fanpage chăm sóc khách hàng',
-            onPress: () => this.goToFanPage(),
-            iconLeftColor: COLOR.FACEBOOK,
-            canPress: true,
-          }, {
-            iconLeftName: 'handshake',
-            title: 'Điều khoản sử dụng',
-            subTitle: 'Điều khoản sử dụng',
-            onPress: () => this.showTermsAndAgreement(),
-            iconLeftColor: COLOR.PURPLE,
-            canPress: true,
-          }, {
-            iconLeftName: 'lock',
-            title: 'Bảo mật giao dịch',
-            subTitle: 'Quản lý mật khẩu giao dịch',
-            onPress: () => this.security(),
-            iconLeftColor: 'black',
-            canPress: true,
-          },],
+          data: [
+            {
+              iconLeftName: 'lock',
+              title: 'Bảo mật giao dịch',
+              subTitle: 'Quản lý mật khẩu giao dịch',
+              onPress: () => this.security(),
+              iconLeftColor: 'black',
+              canPress: true,
+            }, {
+              iconLeftName: 'facebook',
+              title: 'Fanpage',
+              subTitle: 'Facebook Fanpage chăm sóc khách hàng',
+              onPress: () => this.goToFanPage(commonConfigResponse.data.fanpage),
+              iconLeftColor: COLOR.FACEBOOK,
+              canPress: true,
+            }, {
+              iconLeftName: 'handshake',
+              title: 'Điều khoản sử dụng',
+              subTitle: 'Điều khoản sử dụng',
+              onPress: () => this.showTermsAndAgreement(),
+              iconLeftColor: COLOR.PURPLE,
+              canPress: true,
+            },],
         }, {
           section: 3,
           data: [
