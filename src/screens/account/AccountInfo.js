@@ -24,20 +24,24 @@ class AccountInfo extends React.Component {
         super(props);
         this.state = {
             isLoading: false,
-            responseError: null
+            responseError: null,
+            isTokenExpired: false,
         };
     }
     async logout() {
         this.setState({ isLoading: true });
         const token_user = await AsyncStorage.getItem('access_token')
-        console.log(token_user)
         const response = await logout(token_user);
-        console.log('response in screen = ', response);
         this.setState({ isLoading: false });
         if (!response) {
             this.setState({ responseError: { message: getString('UNKNOWN_ERROR') } });
         } else if (response.errorCode !== 200) {
-            this.setState({ responseError: response });
+            if (response.errorCode === 500) {
+                this.setState({
+                    ...this.state,
+                    isTokenExpired: true,
+                });
+            }
         } else {
             console.log(token_user)
             this._logoutSuccess();
@@ -82,7 +86,7 @@ class AccountInfo extends React.Component {
     render() {
         if (this.props.accountInfo) {
             const accountResponse = this.props.accountInfo
-            if (accountResponse.errorCode === 200) {
+            if (accountResponse.errorCode === 200 && this.state.isTokenExpired === false) {
                 let sex = 'null';
                 if (accountResponse.data.gender) {
                     let gender = accountResponse.data.gender
@@ -178,7 +182,7 @@ class AccountInfo extends React.Component {
                     </>
                 );
             }
-            else if (accountResponse.errorCode === 500) {
+            else if (accountResponse.errorCode === 500 || this.state.isTokenExpired === true) {
                 this.tokenInvalidFunction();
                 return null;
             }

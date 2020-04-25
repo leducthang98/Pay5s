@@ -34,7 +34,7 @@ class TransferMoney extends React.Component {
               maxLength={10}
               keyboardType="number-pad"
               style={styles.inputStyle}></TextInput>
-            <Text style={{ marginTop: scale(10), marginLeft: scale(1), color: COLOR.PRIMARY_COLOR, fontSize: scale(15) }}>{(this.state.amount) ? (formatMoney(this.state.amount) + ' VNĐ') : ''} </Text>
+            <Text style={{ marginTop: scale(10), marginLeft: scale(1), color: COLOR.FACEBOOK, fontSize: scale(15) }}>{(this.state.amount) ? (formatMoney(this.state.amount) + ' VNĐ') : '0 VNĐ'} </Text>
             <Text style={styles.textStyle}>Nhập mật khẩu giao dịch:</Text>
             <TextInput
               onChangeText={(transPassword) => this.setState({ transPassword })}

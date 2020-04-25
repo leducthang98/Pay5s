@@ -16,6 +16,8 @@ import { updateAccount } from '../../fetchAPIs/AuthApi'
 import { getAccountInfo } from '../../actions/ActionHomeScreen';
 import LoadingDialog from '../../components/common/LoadingDialog';
 import MessageDialog from '../../components/common/MessageDialog';
+import { CommonActions } from '@react-navigation/native';
+import { LOGIN } from '../../navigators/RouteName';
 class EditAccount extends React.Component {
     constructor(props) {
         super(props);
@@ -26,7 +28,8 @@ class EditAccount extends React.Component {
             email: '',
             address: '',
             isLoading: false,
-            responseError: null
+            responseError: null,
+            isTokenExpired: false
         };
     }
     validateGender() {
@@ -55,7 +58,12 @@ class EditAccount extends React.Component {
             if (!response) {
                 this.setState({ responseError: { message: getString('UNKNOWN_ERROR') } });
             } else if (response.errorCode !== 200) {
-                this.setState({ responseError: response });
+                if (response.errorCode === 500) {
+                    this.setState({
+                        ...this.state,
+                        isTokenExpired: true,
+                    })
+                }
             } else {
                 console.log(token_user)
                 this._updateSuccess(response);
@@ -69,112 +77,128 @@ class EditAccount extends React.Component {
         Toast.show('Thay đổi thông tin thành công.');
         this.props.navigation.pop();
     }
+    async tokenInvalidFunction() {
+        await AsyncStorage.clear();
+        Toast.show("Phiên đăng nhập đã hết hạn, bạn sẽ được quay trở về trang đăng nhập.")
+        this.props.navigation.dispatch(
+            CommonActions.reset({
+                index: 1,
+                routes: [{ name: LOGIN }],
+            })
+        );
+    }
     render() {
         if (this.props.accountInfo) {
-            let sex = 'null';
-            if (this.props.accountInfo.gender) {
-                let gender = this.props.accountInfo.gender
-                if (gender == 'M') {
-                    sex = 'Nam'
-                } else if (gender == 'F') {
-                    sex = 'Nữ'
-                } else {
-                    sex = 'Chưa có'
+            if (!this.state.isTokenExpired) {
+                let sex = 'null';
+                if (this.props.accountInfo.gender) {
+                    let gender = this.props.accountInfo.gender
+                    if (gender == 'M') {
+                        sex = 'Nam'
+                    } else if (gender == 'F') {
+                        sex = 'Nữ'
+                    } else {
+                        sex = 'Chưa có'
+                    }
                 }
+                return (
+                    <>
+                        <Header navigation={this.props.navigation} back={true} title={'Chỉnh sửa thông tin'} />
+                        <View style={{ alignItems: 'center' }}>
+                            <View style={{ flexDirection: 'row', height: scaleVertical(40), marginTop: scaleVertical(4), backgroundColor: 'white' }}>
+                                <View style={{ flex: 1.5, justifyContent: 'center', alignItems: 'flex-start' }}>
+                                    <Text style={{ color: 'gray', paddingLeft: scaleModerate(15), fontSize: scaleModerate(12) }}>Họ {"&"} tên</Text>
+                                </View>
+                                <View style={{ flex: 3, justifyContent: 'center', alignItems: 'flex-end' }}>
+                                    <TextInput
+                                        placeholder={(this.props.accountInfo.fullname) ? this.props.accountInfo.fullname : 'Chưa có'}
+                                        placeholderTextColor={'gray'}
+                                        onChangeText={(fullname) => this.setState({ fullname })}
+                                        style={{ fontSize: scaleModerate(12), paddingRight: scaleModerate(15), paddingVertical: scaleVertical(0) }}></TextInput>
+                                </View>
+                            </View>
+                            <View style={{ flexDirection: 'row', height: scaleVertical(40), marginTop: scaleVertical(1) }}>
+                                <View style={{ flex: 1.5, justifyContent: 'center', alignItems: 'flex-start' }}>
+                                    <Text style={{ color: 'gray', paddingLeft: scaleModerate(15), fontSize: scaleModerate(12) }}>Số điện thoại</Text>
+                                </View>
+                                <View style={{ flex: 3, justifyContent: 'center', alignItems: 'flex-end' }}>
+                                    <Text style={{ fontSize: scaleModerate(12), paddingRight: scaleModerate(15), color: 'gray' }}>{(this.props.accountInfo.mobile) ? 0 + this.props.accountInfo.mobile : 'Chưa có'}</Text>
+                                </View>
+                            </View>
+                            <View style={{ flexDirection: 'row', height: scaleVertical(40), marginTop: scaleVertical(8), backgroundColor: 'white' }}>
+                                <View style={{ flex: 1.5, justifyContent: 'center', alignItems: 'flex-start' }}>
+                                    <Text style={{ color: 'gray', paddingLeft: scaleModerate(15), fontSize: scaleModerate(12) }}>Ngày sinh</Text>
+                                </View>
+                                <View style={{ flex: 3, justifyContent: 'center', alignItems: 'flex-end' }}>
+                                    <TextInput
+                                        placeholder={(this.props.accountInfo.dob) ? this.props.accountInfo.dob : 'DD/MM/YYYY'}
+                                        placeholderTextColor={'gray'}
+                                        onChangeText={(dob) => this.setState({ dob })}
+                                        style={{ fontSize: scaleModerate(12), paddingRight: scaleModerate(15), paddingVertical: scaleVertical(0) }}></TextInput>
+                                </View>
+                            </View>
+                            <View style={{ flexDirection: 'row', height: scaleVertical(40), marginTop: scaleVertical(1), backgroundColor: 'white' }}>
+                                <View style={{ flex: 1.5, justifyContent: 'center', alignItems: 'flex-start' }}>
+                                    <Text style={{ color: 'gray', paddingLeft: scaleModerate(15), fontSize: scaleModerate(12) }}>Giới tính</Text>
+                                </View>
+                                <View style={{ flex: 3, justifyContent: 'center', alignItems: 'flex-end' }}>
+                                    <TextInput
+                                        placeholder={(this.props.accountInfo.gender) ? sex : 'Chưa có'}
+                                        placeholderTextColor={'gray'}
+                                        onChangeText={(gender) => this.setState({ gender })}
+                                        style={{ fontSize: scaleModerate(12), paddingRight: scaleModerate(15), paddingVertical: scaleVertical(0) }}></TextInput>
+                                </View>
+                            </View>
+                            <View style={{ flexDirection: 'row', height: scaleVertical(40), marginTop: scaleVertical(1), backgroundColor: 'white' }}>
+                                <View style={{ flex: 1.5, justifyContent: 'center', alignItems: 'flex-start' }}>
+                                    <Text style={{ color: 'gray', paddingLeft: scaleModerate(15), fontSize: scaleModerate(12) }}>Email</Text>
+                                </View>
+                                <View style={{ flex: 3, justifyContent: 'center', alignItems: 'flex-end' }}>
+                                    <TextInput
+                                        placeholder={(this.props.accountInfo.email) ? this.props.accountInfo.email : 'Chưa có'}
+                                        placeholderTextColor={'gray'}
+                                        onChangeText={(email) => this.setState({ email })}
+                                        style={{ fontSize: scaleModerate(12), paddingRight: scaleModerate(15), paddingVertical: scaleVertical(0) }}></TextInput>
+                                </View>
+                            </View>
+                            <View style={{ flexDirection: 'row', height: scaleVertical(40), marginTop: scaleVertical(10), backgroundColor: 'white' }}>
+                                <View style={{ flex: 1.5, justifyContent: 'center', alignItems: 'flex-start' }}>
+                                    <Text style={{ color: 'gray', paddingLeft: scaleModerate(15), fontSize: scaleModerate(12) }}>Địa chỉ</Text>
+                                </View>
+                                <View style={{ flex: 3, justifyContent: 'center', alignItems: 'flex-end' }}>
+                                    <TextInput
+                                        placeholder={(this.props.accountInfo.address) ? this.props.accountInfo.address : 'Chưa có'}
+                                        placeholderTextColor='gray'
+                                        onChangeText={(address) => this.setState({ address })}
+                                        style={{ fontSize: scaleModerate(12), paddingRight: scaleModerate(15), paddingVertical: scaleVertical(0) }}></TextInput>
+                                </View>
+                            </View>
+                        </View>
+                        <View style={{ flex: 1, justifyContent: 'flex-end', alignItems: 'center', paddingBottom: scale(25) }}>
+                            <TouchableOpacity style={{ width: '90%', height: scaleVertical(42), backgroundColor: PRIMARY_COLOR, borderRadius: scale(6), justifyContent: 'center', alignItems: 'center' }}
+                                onPress={() => this.editAccount(this.props.accountInfo.fullname, this.props.accountInfo.dob, this.props.accountInfo.gender, this.props.accountInfo.email, this.props.accountInfo.address)}
+                            >
+                                <Text style={{ fontSize: scale(13), color: 'white', fontWeight: 'bold' }}>LƯU THAY ĐỔI</Text>
+                            </TouchableOpacity>
+                        </View>
+                        {
+                            this.state.isLoading && <LoadingDialog />
+                        }
+                        {
+                            this.state.responseError !== null ? <MessageDialog
+                                message={"Có lỗi xảy ra"}
+                                close={() => {
+                                    this.setState({ responseError: null });
+                                }}
+                            /> : null
+                        }
+                    </>
+                );
             }
-            return (
-                <>
-                    <Header navigation={this.props.navigation} back={true} title={'Chỉnh sửa thông tin'} />
-                    <View style={{ alignItems: 'center' }}>
-                        <View style={{ flexDirection: 'row', height: scaleVertical(40), marginTop: scaleVertical(4), backgroundColor: 'white' }}>
-                            <View style={{ flex: 1.5, justifyContent: 'center', alignItems: 'flex-start' }}>
-                                <Text style={{ color: 'gray', paddingLeft: scaleModerate(15), fontSize: scaleModerate(12) }}>Họ {"&"} tên</Text>
-                            </View>
-                            <View style={{ flex: 3, justifyContent: 'center', alignItems: 'flex-end' }}>
-                                <TextInput
-                                    placeholder={(this.props.accountInfo.fullname) ? this.props.accountInfo.fullname : 'Chưa có'}
-                                    placeholderTextColor={'black'}
-                                    onChangeText={(fullname) => this.setState({ fullname })}
-                                    style={{ fontSize: scaleModerate(12), paddingRight: scaleModerate(15), paddingVertical: scaleVertical(0) }}></TextInput>
-                            </View>
-                        </View>
-                        <View style={{ flexDirection: 'row', height: scaleVertical(40), marginTop: scaleVertical(1) }}>
-                            <View style={{ flex: 1.5, justifyContent: 'center', alignItems: 'flex-start' }}>
-                                <Text style={{ color: 'gray', paddingLeft: scaleModerate(15), fontSize: scaleModerate(12) }}>Số điện thoại</Text>
-                            </View>
-                            <View style={{ flex: 3, justifyContent: 'center', alignItems: 'flex-end' }}>
-                                <Text style={{ fontSize: scaleModerate(12), paddingRight: scaleModerate(15) }}>{(this.props.accountInfo.mobile) ? 0 + this.props.accountInfo.mobile : 'Chưa có'}</Text>
-                            </View>
-                        </View>
-                        <View style={{ flexDirection: 'row', height: scaleVertical(40), marginTop: scaleVertical(8), backgroundColor: 'white' }}>
-                            <View style={{ flex: 1.5, justifyContent: 'center', alignItems: 'flex-start' }}>
-                                <Text style={{ color: 'gray', paddingLeft: scaleModerate(15), fontSize: scaleModerate(12) }}>Ngày sinh</Text>
-                            </View>
-                            <View style={{ flex: 3, justifyContent: 'center', alignItems: 'flex-end' }}>
-                                <TextInput
-                                    placeholder={(this.props.accountInfo.dob) ? this.props.accountInfo.dob : '0000-00-00'}
-                                    placeholderTextColor={'black'}
-                                    onChangeText={(dob) => this.setState({ dob })}
-                                    style={{ fontSize: scaleModerate(12), paddingRight: scaleModerate(15), paddingVertical: scaleVertical(0) }}></TextInput>
-                            </View>
-                        </View>
-                        <View style={{ flexDirection: 'row', height: scaleVertical(40), marginTop: scaleVertical(1), backgroundColor: 'white' }}>
-                            <View style={{ flex: 1.5, justifyContent: 'center', alignItems: 'flex-start' }}>
-                                <Text style={{ color: 'gray', paddingLeft: scaleModerate(15), fontSize: scaleModerate(12) }}>Giới tính</Text>
-                            </View>
-                            <View style={{ flex: 3, justifyContent: 'center', alignItems: 'flex-end' }}>
-                                <TextInput
-                                    placeholder={(this.props.accountInfo.gender) ? sex : 'Chưa có'}
-                                    placeholderTextColor={'black'}
-                                    onChangeText={(gender) => this.setState({ gender })}
-                                    style={{ fontSize: scaleModerate(12), paddingRight: scaleModerate(15), paddingVertical: scaleVertical(0) }}></TextInput>
-                            </View>
-                        </View>
-                        <View style={{ flexDirection: 'row', height: scaleVertical(40), marginTop: scaleVertical(1), backgroundColor: 'white' }}>
-                            <View style={{ flex: 1.5, justifyContent: 'center', alignItems: 'flex-start' }}>
-                                <Text style={{ color: 'gray', paddingLeft: scaleModerate(15), fontSize: scaleModerate(12) }}>Email</Text>
-                            </View>
-                            <View style={{ flex: 3, justifyContent: 'center', alignItems: 'flex-end' }}>
-                                <TextInput
-                                    placeholder={(this.props.accountInfo.email) ? this.props.accountInfo.email : 'Chưa có'}
-                                    placeholderTextColor={'black'}
-                                    onChangeText={(email) => this.setState({ email })}
-                                    style={{ fontSize: scaleModerate(12), paddingRight: scaleModerate(15), paddingVertical: scaleVertical(0) }}></TextInput>
-                            </View>
-                        </View>
-                        <View style={{ flexDirection: 'row', height: scaleVertical(40), marginTop: scaleVertical(10), backgroundColor: 'white' }}>
-                            <View style={{ flex: 1.5, justifyContent: 'center', alignItems: 'flex-start' }}>
-                                <Text style={{ color: 'gray', paddingLeft: scaleModerate(15), fontSize: scaleModerate(12) }}>Địa chỉ</Text>
-                            </View>
-                            <View style={{ flex: 3, justifyContent: 'center', alignItems: 'flex-end' }}>
-                                <TextInput
-                                    placeholder={(this.props.accountInfo.address) ? this.props.accountInfo.address : 'Chưa có'}
-                                    placeholderTextColor='black'
-                                    onChangeText={(address) => this.setState({ address })}
-                                    style={{ fontSize: scaleModerate(12), paddingRight: scaleModerate(15), paddingVertical: scaleVertical(0) }}></TextInput>
-                            </View>
-                        </View>
-                    </View>
-                    <View style={{ flex: 1, justifyContent: 'flex-end', alignItems: 'center', paddingBottom: scale(25) }}>
-                        <TouchableOpacity style={{ width: '90%', height: scaleVertical(42), backgroundColor: PRIMARY_COLOR, borderRadius: scale(6), justifyContent: 'center', alignItems: 'center' }}
-                            onPress={() => this.editAccount(this.props.accountInfo.fullname, this.props.accountInfo.dob, this.props.accountInfo.gender, this.props.accountInfo.email, this.props.accountInfo.address)}
-                        >
-                            <Text style={{ fontSize: scale(13), color: 'white', fontWeight: 'bold' }}>LƯU THAY ĐỔI</Text>
-                        </TouchableOpacity>
-                    </View>
-                    {
-                        this.state.isLoading && <LoadingDialog />
-                    }
-                    {
-                        this.state.responseError !== null ? <MessageDialog
-                            message={"Có lỗi xảy ra"}
-                            close={() => {
-                                this.setState({ responseError: null });
-                            }}
-                        /> : null
-                    }
-                </>
-            );
+            else if (this.state.isTokenExpired) {
+                this.tokenInvalidFunction();
+                return null;
+            }
         }
         else {
             return (
