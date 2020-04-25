@@ -12,6 +12,7 @@ import Header from '../../components/common/Header';
 import SearchBox from '../../components/recharge/SearchBox';
 import {scaleModerate} from '../../constant/Scale';
 import ContactItem from '../../components/recharge/ContactItem';
+import AsyncStorage from '@react-native-community/async-storage';
 
 export default class ContactList extends Component {
   constructor(props) {
@@ -49,8 +50,8 @@ export default class ContactList extends Component {
     );
   };
 
-  _chooseContact = phoneNumber => {
-    this.props.action.setPhoneNumberForRecharge(phoneNumber);
+  _chooseContact = async phoneNumber => {
+    await AsyncStorage.setItem('phone_number_selected', phoneNumber);
     this.props.navigation.pop()
   };
 
