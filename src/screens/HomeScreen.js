@@ -134,7 +134,7 @@ class HomeScreen extends React.Component {
       <Text style={{ fontSize: scale(11), paddingTop: scale(9), textAlign: 'center' }}>{label}</Text>
     </TouchableOpacity>
   );
-  _renderNotification = (img_preview, img_avatar, headline, published_date, author, content, description) => (
+  _renderNotification = (img_preview, img_avatar, headline, published_date, author, content, description, defaultImage) => (
     <TouchableOpacity
       style={{ height: scale(120) }}
       onPress={() => this.props.navigation.navigate(INITNOTIFICATION, {
@@ -145,7 +145,8 @@ class HomeScreen extends React.Component {
           author: author,
           content: content,
           description: description,
-          img_avatar: img_avatar
+          img_avatar: img_avatar,
+          defaultImage: defaultImage
         }
       })}
     >
@@ -157,7 +158,7 @@ class HomeScreen extends React.Component {
                 (img_avatar) ?
                   'https://scontent-sin6-1.xx.fbcdn.net/v/t1.0-9/p960x960/71949763_2522897797942478_4149955310162804736_o.jpg?_nc_cat=106&_nc_sid=85a577&_nc_ohc=zag8Z2YXtdMAX9BGZT4&_nc_ht=scontent-sin6-1.xx&_nc_tp=6&oh=081596cb6c9afc68b5bb83a069d5aa1a&oe=5EA9804A'
                   :
-                  'https://upload.wikimedia.org/wikipedia/commons/thumb/5/55/Huaraz-prairie.JPG/300px-Huaraz-prairie.JPG'
+                  defaultImage
             }}
           />
         </View>
@@ -287,7 +288,8 @@ class HomeScreen extends React.Component {
                         let content = item.content;
                         let description = item.description;
                         let img_avatar = item.img_avatar;
-                        return this._renderNotification(img_preview, img_avatar, headline, published_date, author, content, description)
+                        let defaultImage = commonResponse.data.banner.default
+                        return this._renderNotification(img_preview, img_avatar, headline, published_date, author, content, description, defaultImage)
                       })
                     }
                   </ScrollView>

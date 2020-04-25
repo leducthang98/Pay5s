@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, View, Dimensions, StyleSheet, TouchableOpacity, Image, SectionList, ScrollView, RefreshControl, Linking } from 'react-native';
+import { Text, View, Dimensions, StyleSheet, TouchableOpacity, Image, SectionList, ScrollView, RefreshControl, Linking, Alert } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import { scale, scaleModerate, scaleVertical } from '../../constant/Scale';
 import { statusBarHeight } from '../../constant/Layout';
@@ -29,7 +29,14 @@ class AccountScreen extends React.Component {
   }
 
   intro = () => {
-    console.log('gioi thieu tham gia Pay5s');
+    Alert.alert(
+      'Thông báo',
+      'Tính năng đang phát triển',
+      [
+        { text: 'Đóng', onPress: () => console.log('OK Pressed') },
+      ],
+      { cancelable: false },
+    );
   };
 
   goToFanPage = (url) => {
@@ -86,26 +93,17 @@ class AccountScreen extends React.Component {
             extraInfoColor: PRIMARY_COLOR,
             canPress: true,
           }, {
-            iconLeftName: 'comment-dots',
-            title: 'Mã giới thiệu: ',
-            extraInfo: 0 + accountResponse.data.mobile,
-            subTitle: 'Giới thiệu bạn tham gia Pay5s - App và nhận thưởng',
-            onPress: () => this.intro(),
-            iconLeftColor: COLOR.PURPLE,
-            extraInfoColor: COLOR.FACEBOOK,
+            iconLeftName: 'lock',
+            title: 'Bảo mật giao dịch',
+            subTitle: 'Quản lý mật khẩu giao dịch',
+            onPress: () => this.security(),
+            iconLeftColor: 'black',
             canPress: true,
-          }],
+          },],
         }, {
           section: 2,
           data: [
             {
-              iconLeftName: 'lock',
-              title: 'Bảo mật giao dịch',
-              subTitle: 'Quản lý mật khẩu giao dịch',
-              onPress: () => this.security(),
-              iconLeftColor: 'black',
-              canPress: true,
-            }, {
               iconLeftName: 'facebook',
               title: 'Fanpage',
               subTitle: 'Facebook Fanpage chăm sóc khách hàng',
@@ -113,13 +111,15 @@ class AccountScreen extends React.Component {
               iconLeftColor: COLOR.FACEBOOK,
               canPress: true,
             }, {
-              iconLeftName: 'handshake',
-              title: 'Điều khoản sử dụng',
-              subTitle: 'Điều khoản sử dụng',
-              onPress: () => this.showTermsAndAgreement(),
+              iconLeftName: 'comment-dots',
+              title: 'Mã giới thiệu: ',
+              extraInfo: 0 + accountResponse.data.mobile,
+              subTitle: 'Giới thiệu bạn tham gia Pay5s - App và nhận thưởng',
+              onPress: () => this.intro(),
               iconLeftColor: COLOR.PURPLE,
+              extraInfoColor: COLOR.FACEBOOK,
               canPress: true,
-            },],
+            }],
         }, {
           section: 3,
           data: [

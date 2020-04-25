@@ -25,7 +25,7 @@ class InitNotiScreen extends React.Component {
                                     (data.dataNotification.img_preview) ?
                                         'https://scontent-sin6-1.xx.fbcdn.net/v/t1.0-9/p960x960/71949763_2522897797942478_4149955310162804736_o.jpg?_nc_cat=106&_nc_sid=85a577&_nc_ohc=zag8Z2YXtdMAX9BGZT4&_nc_ht=scontent-sin6-1.xx&_nc_tp=6&oh=081596cb6c9afc68b5bb83a069d5aa1a&oe=5EA9804A'
                                         :
-                                        'https://upload.wikimedia.org/wikipedia/commons/thumb/5/55/Huaraz-prairie.JPG/300px-Huaraz-prairie.JPG'
+                                        data.dataNotification.defaultImage
                             }}
                         />
                     </View>

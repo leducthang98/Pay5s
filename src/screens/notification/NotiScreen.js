@@ -26,7 +26,7 @@ class NotiScreen extends React.Component {
       refreshing: false
     }
   }
-  _renderNotification = (img_preview, img_avatar, headline, published_date, author, content, description) => (
+  _renderNotification = (img_preview, img_avatar, headline, published_date, author, content, description, defaultImage) => (
     <TouchableOpacity
       onPress={() => this.props.navigation.navigate(INITNOTIFICATION, {
         dataNotification: {
@@ -36,7 +36,8 @@ class NotiScreen extends React.Component {
           author: author,
           content: content,
           description: description,
-          img_avatar: img_avatar
+          img_avatar: img_avatar,
+          defaultImage: defaultImage
         }
       })}
     >
@@ -48,7 +49,7 @@ class NotiScreen extends React.Component {
                 (img_avatar) ?
                   'https://scontent-sin6-1.xx.fbcdn.net/v/t1.0-9/p960x960/71949763_2522897797942478_4149955310162804736_o.jpg?_nc_cat=106&_nc_sid=85a577&_nc_ohc=zag8Z2YXtdMAX9BGZT4&_nc_ht=scontent-sin6-1.xx&_nc_tp=6&oh=081596cb6c9afc68b5bb83a069d5aa1a&oe=5EA9804A'
                   :
-                  'https://upload.wikimedia.org/wikipedia/commons/thumb/5/55/Huaraz-prairie.JPG/300px-Huaraz-prairie.JPG'
+                  defaultImage
             }}
           />
         </View>
@@ -96,9 +97,10 @@ class NotiScreen extends React.Component {
   }
 
   render() {
-    if (this.props.notiData) {
+    if (this.props.notiData && this.props.commonConfigData) {
       const notiResponse = this.props.notiData
-      if (notiResponse.errorCode === 200) {
+      const commonResponse = this.props.commonConfigData;
+      if (notiResponse.errorCode === 200 && commonResponse.errorCode === 200) {
         return (
           <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', }}>
             <Header navigation={this.props.navigation} back={false} title={'Tin tức'} />
@@ -115,13 +117,14 @@ class NotiScreen extends React.Component {
                   let content = item.content;
                   let description = item.description;
                   let img_avatar = item.img_avatar;
-                  return this._renderNotification(img_preview, img_avatar, headline, published_date, author, content, description)
+                  let defaultImage = commonResponse.data.banner.default
+                  return this._renderNotification(img_preview, img_avatar, headline, published_date, author, content, description, defaultImage)
                 })
               }
             </ScrollView>
           </View>
         );
-      } else if (notiResponse.errorCode === 500) {
+      } else if (notiResponse.errorCode === 500 || commonResponse.errorCode === 500) {
         this.tokenInvalidFunction();
         return null;
       }
@@ -136,7 +139,8 @@ const containerW = Dimensions.get('window').width;
 const containerH = Dimensions.get('window').height;
 const mapStateToProps = (store) => {
   return {
-    notiData: store.homeReducer.notiData
+    notiData: store.homeReducer.notiData,
+    commonConfigData: store.homeReducer.commonConfigData
   }
 }
 const mapDispatchToProps = (dispatch) => {
