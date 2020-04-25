@@ -25,6 +25,7 @@ class GetOTPForgetTransPassword extends React.Component {
         let mobile = 0 + this.props.route.params.mobile
         const token_user = await AsyncStorage.getItem('access_token');
         const response = await requestOtpTrans(token_user);
+        console.log(response)
         if (!response) {
             this.setState({ responseError: { message: getString('UNKNOWN_ERROR') } });
         } else if (response.errorCode !== 200) {
