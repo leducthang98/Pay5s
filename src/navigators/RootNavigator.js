@@ -28,6 +28,7 @@ import {
     FORGET_TRANS_PASSWORD,
     GETOTP_FORGET_TRANS_PASSWORD,
     COMMIT_TRANSFER,
+    ON_TRANSFER_SUCCESS,
 } from './RouteName';
 import CheckWallet from '../screens/check_wallet/CheckWallet';
 import RechargeMoney from '../screens/RechargeMoney';
@@ -49,6 +50,7 @@ import CreateTransPassword from '../screens/transaction_password/CreateTransPass
 import ForgetTransPassword from '../screens/transaction_password/ForgetTranPassword';
 import GetOTPForgetTransPassword from '../screens/transaction_password/GetOTPForgetTransPassword';
 import CommitTransferTransaction from '../screens/excute_transaction/CommitTransferTransaction';
+import OnTransferSuccess from '../screens/excute_transaction/OnTransferSuccess';
 
 const Stack = createStackNavigator();
 
@@ -78,6 +80,7 @@ function RootNavigator() {
                 <Stack.Screen name={FORGET_TRANS_PASSWORD} component={ForgetTransPassword} />
                 <Stack.Screen name={GETOTP_FORGET_TRANS_PASSWORD} component={GetOTPForgetTransPassword} />
                 <Stack.Screen name={COMMIT_TRANSFER} component={CommitTransferTransaction} />
+                <Stack.Screen name={ON_TRANSFER_SUCCESS} component={OnTransferSuccess} />
             </Stack.Navigator>
         </NavigationContainer >
     );
