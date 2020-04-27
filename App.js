@@ -19,7 +19,6 @@ const App = () => {
   return (
     <Provider store={store}>
       <View style={styles.container}>
-
         <StatusBar backgroundColor={'transparent'} translucent={true} barStyle={'light-content'} />
         <RootNavigator />
       </View>

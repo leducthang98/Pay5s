@@ -1,5 +1,5 @@
 import { callApiWithoutHeader, callApiWithRawBody, callPostApiWithoutHeader, callPostApiWthRawBody, callApiWithToken, callApiWithTokenAndRawBody } from './CommonApi';
-import { LOGIN_URL, OTP_GET, REGIST_URL, LOGOUT_URL, ACCOUNT_UPDATE, FORGET_PASSWORD, CREATE_TRANS_PASSWORD, REQUEST_OTP_TRANS, RESET_TRANS_KEY } from '../api/Api';
+import { LOGIN_URL, OTP_GET, REGIST_URL, LOGOUT_URL, ACCOUNT_UPDATE, FORGET_PASSWORD, CREATE_TRANS_PASSWORD, REQUEST_OTP_TRANS, RESET_TRANS_KEY, TRANSFER } from '../api/Api';
 
 export const login = async (username, password) => {
   const data = {
@@ -59,4 +59,14 @@ export const resetTransKey = async (otp, new_trans_key, token) => {
     otp: otp
   }
   return await callApiWithTokenAndRawBody('post', RESET_TRANS_KEY, token, data);
+};
+//transfer
+export const transfer = async (target, amount, time, signature, token) => {
+  const data = {
+   target:target,
+   amount:amount,
+   time:time,
+   signature:signature
+  }
+  return await callApiWithTokenAndRawBody('post', TRANSFER, token, data);
 };

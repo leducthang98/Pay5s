@@ -32,3 +32,5 @@ export const CREATE_TRANS_PASSWORD = 'https://client.pay5s.com/account/update_tr
 export const REQUEST_OTP_TRANS = 'https://client.pay5s.com/account/request_otp_trans.html';
 //reset trans key
 export const RESET_TRANS_KEY = 'https://client.pay5s.com/account/reset_trans_key.html';
+//transfer
+export const TRANSFER = 'https://client.pay5s.com/transfer/transfer.html';

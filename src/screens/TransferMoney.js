@@ -4,6 +4,7 @@ import Header from '../components/common/Header';
 import { scale, scaleModerate, scaleVertical } from '../constant/Scale';
 import * as COLOR from '../constant/Colors';
 import { formatMoney } from '../constant/CommonFormat';
+import Toast from 'react-native-simple-toast';
 import { TRANS_PASSWORD_SCREEN, COMMIT_TRANSFER } from '../navigators/RouteName';
 class TransferMoney extends React.Component {
   constructor(props) {
@@ -13,6 +14,28 @@ class TransferMoney extends React.Component {
       amount: '',
       transPassword: '',
     };
+  }
+  _navigateToCommitTransfer() {
+    var validatePhoneNumber = this.validatePhoneNumber(this.state.mobile);
+    if (validatePhoneNumber === 'OK') {
+      this.props.navigation.navigate(COMMIT_TRANSFER, {
+        dataTransfer: {
+          mobile: this.state.mobile,
+          amount: this.state.amount,
+          transPassword: this.state.transPassword
+        }
+      })
+    } else {
+      Toast.show(validatePhoneNumber)
+    }
+  }
+  validatePhoneNumber(mobile) {
+    var vnf_regex = /((09|03|07|08|05)+([0-9]{8})\b)/g;
+    if (vnf_regex.test(mobile)) {
+      return 'OK'
+    } else {
+      return 'Số điện thoại không hợp lệ.'
+    }
   }
   render() {
     return (
@@ -52,13 +75,7 @@ class TransferMoney extends React.Component {
               <Text style={{ fontSize: scale(15), color: 'white' }}>Hủy</Text>
             </TouchableOpacity>
             <TouchableOpacity
-              onPress={() => this.props.navigation.navigate(COMMIT_TRANSFER, {
-                dataTransfer: {
-                  mobile: this.state.mobile,
-                  amount: this.state.amount,
-                  transPassword: this.state.transPassword
-                }
-              })}
+              onPress={() => this._navigateToCommitTransfer()}
               disabled={(this.state.amount && this.state.mobile && this.state.transPassword) ? false : true}
               style={{ height: '70%', width: '43%', backgroundColor: COLOR.PRIMARY_COLOR, marginLeft: scale(10), borderRadius: scale(20), justifyContent: 'center', alignItems: 'center' }}>
               <Text style={{ fontSize: scale(15), color: (this.state.amount && this.state.mobile && this.state.transPassword) ? 'white' : '#C0C0C0' }}>Tiếp tục</Text>
