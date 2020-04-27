@@ -95,7 +95,7 @@ class CheckWallet extends React.Component {
                   </View>
                 </View>
               </View>
-              <AccountTabView />
+              <AccountTabView navigation={this.props.navigation} />
             </ScrollView>
           </View>
         );

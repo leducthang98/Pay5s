@@ -69,12 +69,12 @@ class CheckWalletHistory extends React.Component {
     this.props.refreshStore();
     await AsyncStorage.clear();
     Toast.show("Phiên đăng nhập đã hết hạn, vui lòng thoát ra và khởi động lại ứng dụng.")
-    // this.props.navigation.dispatch(
-    //   CommonActions.reset({
-    //     index: 1,
-    //     routes: [{ name: LOGIN }],
-    //   })
-    // );
+    this.props.route?.navigation?.dispatch(
+      CommonActions.reset({
+        index: 1,
+        routes: [{ name: LOGIN }],
+      })
+    );
   }
   render() {
     if (this.props.transferData) {

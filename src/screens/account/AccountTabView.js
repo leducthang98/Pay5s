@@ -13,11 +13,11 @@ import { PRIMARY_COLOR } from '../../constant/Colors'
 const initialLayout = { width: Dimensions.get('window').width };
 const { width, height } = Dimensions.get('window');
 
-export default function AccountTabView() {
+export default function AccountTabView(props) {
   const [index, setIndex] = React.useState(0);
   const [routes] = React.useState([
-    { key: 'history', title: 'Lịch sử' },
-    { key: 'info', title: 'Thông tin' },
+    { key: 'history', title: 'Lịch sử', navigation:props.navigation },
+    { key: 'info', title: 'Thông tin', navigation:props.navigation },
   ]);
 
   const renderScene = SceneMap({
