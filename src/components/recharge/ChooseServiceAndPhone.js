@@ -15,7 +15,7 @@ import { getString } from '../../res/values/String';
 import { texts } from '../../constant/CommonStyles';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { NETWORK } from '../../constant/NetworkIcon';
-import { CHECK_WALLET_HISTORY, CHECK_WALLET_INFO, HISTORY, CONTACT_LIST } from '../../navigators/RouteName';
+import { DEPOSIT, CONTACT_LIST } from '../../navigators/RouteName';
 
 
 const { width, height } = Layout.window;
@@ -27,7 +27,7 @@ export default class ChooseServiceAndPhone extends Component {
   }
 
   _moveToHistoryScreen = () => {
-    this.props.navigation.navigate(CHECK_WALLET_INFO)
+    this.props.navigation.navigate(DEPOSIT)
   };
 
   _moveToContactScreen = () => {
