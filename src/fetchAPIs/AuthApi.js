@@ -1,5 +1,5 @@
 import { callApiWithoutHeader, callApiWithRawBody, callPostApiWithoutHeader, callPostApiWthRawBody, callApiWithToken, callApiWithTokenAndRawBody } from './CommonApi';
-import { LOGIN_URL, OTP_GET, REGIST_URL, LOGOUT_URL, ACCOUNT_UPDATE, FORGET_PASSWORD, CREATE_TRANS_PASSWORD, REQUEST_OTP_TRANS, RESET_TRANS_KEY, TRANSFER } from '../api/Api';
+import { LOGIN_URL, OTP_GET, REGIST_URL, LOGOUT_URL, ACCOUNT_UPDATE, FORGET_PASSWORD, CREATE_TRANS_PASSWORD, REQUEST_OTP_TRANS, RESET_TRANS_KEY, TRANSFER, BILL_CREATE } from '../api/Api';
 
 export const login = async (username, password) => {
   const data = {
@@ -63,10 +63,21 @@ export const resetTransKey = async (otp, new_trans_key, token) => {
 //transfer
 export const transfer = async (target, amount, time, signature, token) => {
   const data = {
-   target:target,
-   amount:amount,
-   time:time,
-   signature:signature
+    target: target,
+    amount: amount,
+    time: time,
+    signature: signature
   }
   return await callApiWithTokenAndRawBody('post', TRANSFER, token, data);
+};
+export const createBill = async (mobile, service, telco, amount, time, signature, token) => {
+  const data = {
+    mobile: mobile,
+    service: service,
+    telco: telco,
+    amount: amount,
+    time: time,
+    signature: signature
+  }
+  return await callApiWithTokenAndRawBody('post', BILL_CREATE, token, data);
 };

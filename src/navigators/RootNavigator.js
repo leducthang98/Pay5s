@@ -29,6 +29,8 @@ import {
     GETOTP_FORGET_TRANS_PASSWORD,
     COMMIT_TRANSFER,
     ON_TRANSFER_SUCCESS,
+    CONFIRM_BILL_CREATE,
+    ON_BILL_CREATE_SUCCESS,
 } from './RouteName';
 import CheckWallet from '../screens/check_wallet/CheckWallet';
 import RechargeMoney from '../screens/RechargeMoney';
@@ -51,7 +53,8 @@ import ForgetTransPassword from '../screens/transaction_password/ForgetTranPassw
 import GetOTPForgetTransPassword from '../screens/transaction_password/GetOTPForgetTransPassword';
 import CommitTransferTransaction from '../screens/excute_transaction/CommitTransferTransaction';
 import OnTransferSuccess from '../screens/excute_transaction/OnTransferSuccess';
-
+import ConfirmTransaction from '../screens/bill_create_transaction/ConfirmTransaction'
+import OnBillCreateSuccess from '../screens/bill_create_transaction/OnBillCreateSuccess';
 const Stack = createStackNavigator();
 
 function RootNavigator() {
@@ -81,6 +84,8 @@ function RootNavigator() {
                 <Stack.Screen name={GETOTP_FORGET_TRANS_PASSWORD} component={GetOTPForgetTransPassword} />
                 <Stack.Screen name={COMMIT_TRANSFER} component={CommitTransferTransaction} />
                 <Stack.Screen name={ON_TRANSFER_SUCCESS} component={OnTransferSuccess} />
+                <Stack.Screen name={CONFIRM_BILL_CREATE} component={ConfirmTransaction} />
+                <Stack.Screen name={ON_BILL_CREATE_SUCCESS} component={OnBillCreateSuccess} />
             </Stack.Navigator>
         </NavigationContainer >
     );

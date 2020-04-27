@@ -102,9 +102,11 @@ class BillScreen extends React.Component {
                     let telco;
                     let status;
                     if (item.service == 'TT') {
-                      service = 'Bắn TK trả trước'
+                      service = 'Nạp thẻ trả trước'
                     } else if (item.service == 'TS') {
-                      service = 'Bắn TK trả sau'
+                      service = 'Nạp thẻ trả sau'
+                    }else if(item.service=='TKC'){
+                      service='Bắn TK trả trước'
                     }
 
                     if (item.status == 0) {

@@ -1,6 +1,5 @@
 export const BASE_URL = 'https://client.pay5s.com';
 //bill
-export const BILL_CREATE = BASE_URL + '/bill/';
 export const BILL_GET = BASE_URL + '/bill/list';
 export const BILL_STOP = BASE_URL + '/bill/stop';
 //account
@@ -34,3 +33,5 @@ export const REQUEST_OTP_TRANS = 'https://client.pay5s.com/account/request_otp_t
 export const RESET_TRANS_KEY = 'https://client.pay5s.com/account/reset_trans_key.html';
 //transfer
 export const TRANSFER = 'https://client.pay5s.com/transfer/transfer.html';
+//create bill
+export const BILL_CREATE = 'https://client.pay5s.com/bill/create.html';
