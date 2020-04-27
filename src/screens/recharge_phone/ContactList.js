@@ -13,8 +13,12 @@ import SearchBox from '../../components/recharge/SearchBox';
 import {scaleModerate} from '../../constant/Scale';
 import ContactItem from '../../components/recharge/ContactItem';
 import AsyncStorage from '@react-native-community/async-storage';
+import {getTransfer} from '../../actions/ActionHomeScreen';
+import {refreshStore} from '../../actions/ActionRefresh';
+import {connect} from 'react-redux';
+import {setPhoneNumberForRecharge} from '../../actions/ActionBillScreen';
 
-export default class ContactList extends Component {
+class ContactList extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -51,8 +55,8 @@ export default class ContactList extends Component {
   };
 
   _chooseContact = async phoneNumber => {
-    await AsyncStorage.setItem('phone_number_selected', phoneNumber);
-    this.props.navigation.pop()
+    this.props.setPhoneNumber(phoneNumber);
+    this.props.navigation.pop();
   };
 
   render() {
@@ -91,3 +95,16 @@ const styles = StyleSheet.create({
     width: '100%',
   },
 });
+const mapStateToProps = (store) => {
+  return {
+
+  };
+};
+const mapDispatchToProps = (dispatch) => {
+  return {
+    setPhoneNumber: (phoneNumber) => {
+      dispatch(setPhoneNumberForRecharge(phoneNumber))
+    },
+  };
+};
+export default connect(mapStateToProps, mapDispatchToProps)(ContactList);

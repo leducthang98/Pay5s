@@ -5,9 +5,9 @@ export function getBill(payload) {
     })
 }
 
-export function setPhoneNumberForRecharge(phoneNumber){
+export function setPhoneNumberForRecharge(payload){
     return ({
         type: 'SET_PHONE_NUMBER',
-        phoneNumber
+        payload
     })
 }

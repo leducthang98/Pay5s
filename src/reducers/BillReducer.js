@@ -1,5 +1,6 @@
 const DEFAULT_STATE = {
-    bills:null
+    bills:null,
+    phoneNumberForRecharge:null
 }
 export default (state = DEFAULT_STATE, action) => {
     switch (action.type) {
@@ -25,7 +26,7 @@ export default (state = DEFAULT_STATE, action) => {
         case 'SET_PHONE_NUMBER': {
             return {
                 ...state,
-                phoneNumberForRecharge: action.phoneNumber
+                phoneNumberForRecharge: action.payload
             }
         }
     }
