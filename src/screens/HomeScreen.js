@@ -16,7 +16,7 @@ import Icon from 'react-native-vector-icons/FontAwesome5';
 import { scale, scaleVertical } from '../constant/Scale';
 import { shadow } from '../constant/CommonStyles';
 import { statusBarHeight } from '../constant/Layout';
-import { WALLET, NOTIFICATION, RECHARGEMONEY, TRANSFERMONEY, RECHARGEPHONE, INITNOTIFICATION, LOGIN, BUY_CARD } from '../navigators/RouteName';
+import { WALLET, NOTIFICATION, RECHARGEMONEY, TRANSFERMONEY, RECHARGEPHONE, INITNOTIFICATION, LOGIN, BUY_CARD, INTERNET_VIETTEL } from '../navigators/RouteName';
 import AsyncStorage from '@react-native-community/async-storage';
 import { getAccountInfo, getCommonConfig, getNotification } from '../actions/ActionHomeScreen';
 import { formatMoney } from '../constant/CommonFormat';
@@ -57,14 +57,7 @@ class HomeScreen extends React.Component {
     this.props.getNotification(token_user);
   }
   internetViettel() {
-    Alert.alert(
-      'Thông báo',
-      'Tính năng đang phát triển',
-      [
-        { text: 'Đóng', onPress: () => console.log('OK Pressed') },
-      ],
-      { cancelable: false },
-    );
+    this.props.navigation.navigate(INTERNET_VIETTEL)
   }
   KPlus() {
     Alert.alert(
@@ -104,14 +97,6 @@ class HomeScreen extends React.Component {
   }
   rechargePhone() {
     this.props.navigation.navigate(RECHARGEPHONE)
-    // Alert.alert(
-    //   'Thông báo',
-    //   'Tính năng đang phát triển',
-    //   [
-    //     { text: 'Đóng', onPress: () => console.log('OK Pressed') },
-    //   ],
-    //   { cancelable: false },
-    // );
   }
   _renderMainService = (iconName, label, onPress) => (
     <TouchableOpacity style={{ flex: 1, alignItems: 'center', paddingTop: scale(7) }} onPress={onPress}>

@@ -24,7 +24,10 @@ import { isPhoneNumber } from '../../constant/Validate';
 import { setPhoneNumberForRecharge } from '../../actions/ActionBillScreen';
 import { connect } from 'react-redux';
 import { md5Signature } from '../../constant/Secure';
-import { CONFIRM_BILL_CREATE } from '../../navigators/RouteName';
+import { CONFIRM_BILL_CREATE, LOGIN } from '../../navigators/RouteName';
+import Toast from 'react-native-simple-toast';
+import AsyncStorage from '@react-native-community/async-storage';
+import { CommonActions } from '@react-navigation/native';
 
 
 const { width } = Layout.window;
@@ -70,6 +73,17 @@ class RechargePhoneContainer extends React.Component {
     this.props.setPhoneNumber('');
   }
 
+  _logout = async () => {
+    await AsyncStorage?.clear();
+    Toast.show("Phiên đăng nhập đã hết hạn, bạn sẽ được quay trở về trang đăng nhập.")
+    this.props.route?.navigation?.dispatch(
+      CommonActions?.reset({
+        index: 1,
+        routes: [{ name: LOGIN }],
+      })
+    );
+  }
+
   _fetchData = async () => {
     this.setState({ isLoading: true });
     const response = await getRechargePhoneServiceAPI();
@@ -77,7 +91,10 @@ class RechargePhoneContainer extends React.Component {
     // console.log('recharge in screen = ', response);
     if (!response || (response && response.errorCode !== 200 && !response.message)) {
       this.setState({ responseError: { message: getString('UNKNOWN_ERROR') } });
-    } else if (response && response.errorCode !== 200) {
+    } else if (response?.errorCode !== 200 && response?.message === 'InvalidToken') {
+      this._logout();
+    }
+    else if (response?.errorCode !== 200 && response?.message !== 'InvalidToken') {
       this.setState({ responseError: response });
     } else {
       this._findData(response.data);
@@ -293,7 +310,7 @@ class RechargePhoneContainer extends React.Component {
     } else if (data && (!data.allowTopup || !data.allowAddBill)) {
       return (
         <View style={[styles.container, { alignItems: 'center', justifyContent: 'center' }]}>
-          <Text style={texts.normal}>{getString('NOT_SUPPORT')}</Text>
+          <Text style={texts.placeholder}>{getString('SERVICE_IS_CLOSED_TEMPORARY')}</Text>
         </View>
       );
     }

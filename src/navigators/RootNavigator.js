@@ -32,6 +32,7 @@ import {
     CONFIRM_BILL_CREATE,
     ON_BILL_CREATE_SUCCESS,
     BUY_CARD,
+    INTERNET_VIETTEL,
 } from './RouteName';
 import CheckWallet from '../screens/check_wallet/CheckWallet';
 import RechargeMoney from '../screens/RechargeMoney';
@@ -57,6 +58,7 @@ import OnTransferSuccess from '../screens/excute_transaction/OnTransferSuccess';
 import ConfirmTransaction from '../screens/bill_create_transaction/ConfirmTransaction'
 import OnBillCreateSuccess from '../screens/bill_create_transaction/OnBillCreateSuccess';
 import BuyCard from '../screens/BuyCard';
+import InternetViettel from '../screens/InternetViettel';
 const Stack = createStackNavigator();
 
 function RootNavigator() {
@@ -89,6 +91,7 @@ function RootNavigator() {
                 <Stack.Screen name={CONFIRM_BILL_CREATE} component={ConfirmTransaction} />
                 <Stack.Screen name={ON_BILL_CREATE_SUCCESS} component={OnBillCreateSuccess} />
                 <Stack.Screen name={BUY_CARD} component={BuyCard} />
+                <Stack.Screen name={INTERNET_VIETTEL} component={InternetViettel} />
             </Stack.Navigator>
         </NavigationContainer >
     );

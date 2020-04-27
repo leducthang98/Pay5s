@@ -31,9 +31,10 @@ const vn = {
   CLOSE: 'Đóng',
   NOTIFICATION: 'Thông báo',
   NOT_SUPPORT: 'Không hỗ trợ',
-
+  SERVICE_IS_CLOSED_TEMPORARY: 'Dịch vụ tạm thời đóng',
   //dashboard
   BUY_CARD: 'Mua mã thẻ',
+  INTERNET_VIETTEL: 'Internet Viettel',
 };
 export const getString = (code) => {
   return vn[code];
