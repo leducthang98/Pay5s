@@ -16,7 +16,7 @@ import Icon from 'react-native-vector-icons/FontAwesome5';
 import { scale, scaleVertical } from '../constant/Scale';
 import { shadow } from '../constant/CommonStyles';
 import { statusBarHeight } from '../constant/Layout';
-import { WALLET, NOTIFICATION, RECHARGEMONEY, TRANSFERMONEY, RECHARGEPHONE, INITNOTIFICATION, LOGIN } from '../navigators/RouteName';
+import { WALLET, NOTIFICATION, RECHARGEMONEY, TRANSFERMONEY, RECHARGEPHONE, INITNOTIFICATION, LOGIN, BUY_CARD } from '../navigators/RouteName';
 import AsyncStorage from '@react-native-community/async-storage';
 import { getAccountInfo, getCommonConfig, getNotification } from '../actions/ActionHomeScreen';
 import { formatMoney } from '../constant/CommonFormat';
@@ -76,15 +76,8 @@ class HomeScreen extends React.Component {
       { cancelable: false },
     );
   }
-  buyCardID() {
-    Alert.alert(
-      'Thông báo',
-      'Tính năng đang phát triển',
-      [
-        { text: 'Đóng', onPress: () => console.log('OK Pressed') },
-      ],
-      { cancelable: false },
-    );
+  buyCardID(){
+    this.props.navigation.navigate(BUY_CARD)
   }
   support(hotline, fanpage) {
     Alert.alert(

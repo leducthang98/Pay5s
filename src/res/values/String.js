@@ -22,6 +22,7 @@ const vn = {
   DEPOSIT_NOW: 'Nạp ngay',
   YOU_NEED_TO_ENTER_PHONE_NUMBER: 'Bạn cần nhập số điện thoại',
   PHONE_NUMBER_IS_INCORRECT_TYPE: 'Số điện thoại không đúng định dạng',
+  
   //commons
   CONNECTING: 'Đang kết nối',
   FETCHING_DATA: 'Đang tải dữ liệu',
@@ -29,7 +30,10 @@ const vn = {
   CANCEL: 'Hủy bỏ',
   CLOSE: 'Đóng',
   NOTIFICATION: 'Thông báo',
-  NOT_SUPPORT: 'Không hỗ trợ'
+  NOT_SUPPORT: 'Không hỗ trợ',
+
+  //dashboard
+  BUY_CARD: 'Mua mã thẻ',
 };
 export const getString = (code) => {
   return vn[code];

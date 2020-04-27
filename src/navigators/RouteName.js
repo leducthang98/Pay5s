@@ -30,4 +30,5 @@ export const COMMIT_TRANSFER = 'CommitTransfer';
 export const ON_TRANSFER_SUCCESS = 'OnTransferSuccess';
 export const CONFIRM_BILL_CREATE = 'ConfirmBillCreate';
 export const ON_BILL_CREATE_SUCCESS = 'OnBillCreateSuccess';
+export const BUY_CARD = "BuyCard";
 

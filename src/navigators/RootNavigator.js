@@ -31,6 +31,7 @@ import {
     ON_TRANSFER_SUCCESS,
     CONFIRM_BILL_CREATE,
     ON_BILL_CREATE_SUCCESS,
+    BUY_CARD,
 } from './RouteName';
 import CheckWallet from '../screens/check_wallet/CheckWallet';
 import RechargeMoney from '../screens/RechargeMoney';
@@ -55,6 +56,7 @@ import CommitTransferTransaction from '../screens/excute_transaction/CommitTrans
 import OnTransferSuccess from '../screens/excute_transaction/OnTransferSuccess';
 import ConfirmTransaction from '../screens/bill_create_transaction/ConfirmTransaction'
 import OnBillCreateSuccess from '../screens/bill_create_transaction/OnBillCreateSuccess';
+import BuyCard from '../screens/BuyCard';
 const Stack = createStackNavigator();
 
 function RootNavigator() {
@@ -86,6 +88,7 @@ function RootNavigator() {
                 <Stack.Screen name={ON_TRANSFER_SUCCESS} component={OnTransferSuccess} />
                 <Stack.Screen name={CONFIRM_BILL_CREATE} component={ConfirmTransaction} />
                 <Stack.Screen name={ON_BILL_CREATE_SUCCESS} component={OnBillCreateSuccess} />
+                <Stack.Screen name={BUY_CARD} component={BuyCard} />
             </Stack.Navigator>
         </NavigationContainer >
     );
