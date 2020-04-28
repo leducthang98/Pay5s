@@ -112,18 +112,22 @@ class EditAccount extends React.Component {
                     <>
                         <Header navigation={this.props.navigation} back={true} title={'Chỉnh sửa thông tin'} />
                         <View style={{ alignItems: 'center' }}>
-                            <View style={{ flexDirection: 'row', height: scaleVertical(40), marginTop: scaleVertical(4), backgroundColor: 'white' }}>
+                            <TouchableOpacity
+                                activeOpacity={1}
+                                onPress={() => this.inputFullName.focus()}
+                                style={{ flexDirection: 'row', height: scaleVertical(40), marginTop: scaleVertical(4), backgroundColor: '#FFF' }}>
                                 <View style={{ flex: 1.5, justifyContent: 'center', alignItems: 'flex-start' }}>
                                     <Text style={{ color: 'gray', paddingLeft: scaleModerate(15), fontSize: scaleModerate(12) }}>Họ {"&"} tên</Text>
                                 </View>
                                 <View style={{ flex: 3, justifyContent: 'center', alignItems: 'flex-end' }}>
                                     <TextInput
+                                        ref={ref => this.inputFullName = ref}
                                         placeholder={(this.props.accountInfo.fullname) ? this.props.accountInfo.fullname : 'Chưa có'}
                                         placeholderTextColor={'gray'}
                                         onChangeText={(fullname) => this.setState({ fullname })}
                                         style={{ fontSize: scaleModerate(12), paddingRight: scaleModerate(15), paddingVertical: scaleVertical(0) }}></TextInput>
                                 </View>
-                            </View>
+                            </TouchableOpacity>
                             <View style={{ flexDirection: 'row', height: scaleVertical(40), marginTop: scaleVertical(1) }}>
                                 <View style={{ flex: 1.5, justifyContent: 'center', alignItems: 'flex-start' }}>
                                     <Text style={{ color: 'gray', paddingLeft: scaleModerate(15), fontSize: scaleModerate(12) }}>Số điện thoại</Text>
@@ -132,13 +136,16 @@ class EditAccount extends React.Component {
                                     <Text style={{ fontSize: scaleModerate(12), paddingRight: scaleModerate(15), color: 'gray' }}>{(this.props.accountInfo.mobile) ? 0 + this.props.accountInfo.mobile : 'Chưa có'}</Text>
                                 </View>
                             </View>
-                            <View style={{ flexDirection: 'row', height: scaleVertical(40), marginTop: scaleVertical(8), backgroundColor: 'white' }}>
+                            <TouchableOpacity
+                                activeOpacity={1}
+
+                                style={{ flexDirection: 'row', height: scaleVertical(40), marginTop: scaleVertical(8), backgroundColor: 'white' }}>
                                 <View style={{ flex: 1.5, justifyContent: 'center', alignItems: 'flex-start' }}>
                                     <Text style={{ color: 'gray', paddingLeft: scaleModerate(15), fontSize: scaleModerate(12) }}>Ngày sinh</Text>
                                 </View>
-                                <View style={{ flex: 3, justifyContent: 'center', alignItems: 'flex-end', flexDirection: 'row' }}>
+                                <View style={{ flex: 3, justifyContent: 'center', alignItems: 'flex-end', flexDirection: 'row', }}>
                                     <View style={{ flex: 5, width: '100%', height: '100%', alignItems: 'flex-end', justifyContent: 'center' }}>
-                                        <Text style={{color:'gray',fontSize:scaleModerate(12)}}>{(this.state.dob) ? this.state.dob : this.props.accountInfo.dob}</Text>
+                                        <Text style={{ color: 'gray', fontSize: scaleModerate(12) }}>{(this.state.dob) ? this.state.dob : this.props.accountInfo.dob}</Text>
                                     </View>
                                     <DatePicker
                                         style={{ alignItems: 'flex-end', flex: 1, height: '100%', justifyContent: 'center' }}
@@ -159,7 +166,7 @@ class EditAccount extends React.Component {
                                         onDateChange={(date) => { this.setState({ dob: date }) }}
                                     />
                                 </View>
-                            </View>
+                            </TouchableOpacity>
                             <View style={{ flexDirection: 'row', height: scaleVertical(40), marginTop: scaleVertical(1), backgroundColor: 'white' }}>
                                 <View style={{ flex: 1.5, justifyContent: 'center', alignItems: 'flex-start' }}>
                                     <Text style={{ color: 'gray', paddingLeft: scaleModerate(15), fontSize: scaleModerate(12) }}>Giới tính</Text>
@@ -178,30 +185,38 @@ class EditAccount extends React.Component {
                                     />
                                 </View>
                             </View>
-                            <View style={{ flexDirection: 'row', height: scaleVertical(40), marginTop: scaleVertical(1), backgroundColor: 'white' }}>
+                            <TouchableOpacity
+                                activeOpacity={1}
+                                onPress={() => this.inputEmail.focus()}
+                                style={{ flexDirection: 'row', height: scaleVertical(40), marginTop: scaleVertical(1), backgroundColor: 'white' }}>
                                 <View style={{ flex: 1.5, justifyContent: 'center', alignItems: 'flex-start' }}>
                                     <Text style={{ color: 'gray', paddingLeft: scaleModerate(15), fontSize: scaleModerate(12) }}>Email</Text>
                                 </View>
                                 <View style={{ flex: 3, justifyContent: 'center', alignItems: 'flex-end' }}>
                                     <TextInput
+                                        ref={ref => this.inputEmail = ref}
                                         placeholder={(this.props.accountInfo.email) ? this.props.accountInfo.email : 'Chưa có'}
                                         placeholderTextColor={'gray'}
                                         onChangeText={(email) => this.setState({ email })}
                                         style={{ fontSize: scaleModerate(12), paddingRight: scaleModerate(15), paddingVertical: scaleVertical(0) }}></TextInput>
                                 </View>
-                            </View>
-                            <View style={{ flexDirection: 'row', height: scaleVertical(40), marginTop: scaleVertical(10), backgroundColor: 'white' }}>
+                            </TouchableOpacity>
+                            <TouchableOpacity
+                                activeOpacity={1}
+                                onPress={()=>this.inputAddress.focus()}
+                                style={{ flexDirection: 'row', height: scaleVertical(40), marginTop: scaleVertical(10), backgroundColor: 'white' }}>
                                 <View style={{ flex: 1.5, justifyContent: 'center', alignItems: 'flex-start' }}>
                                     <Text style={{ color: 'gray', paddingLeft: scaleModerate(15), fontSize: scaleModerate(12) }}>Địa chỉ</Text>
                                 </View>
                                 <View style={{ flex: 3, justifyContent: 'center', alignItems: 'flex-end' }}>
                                     <TextInput
+                                        ref={ref => this.inputAddress = ref}
                                         placeholder={(this.props.accountInfo.address) ? this.props.accountInfo.address : 'Chưa có'}
                                         placeholderTextColor='gray'
                                         onChangeText={(address) => this.setState({ address })}
                                         style={{ fontSize: scaleModerate(12), paddingRight: scaleModerate(15), paddingVertical: scaleVertical(0) }}></TextInput>
                                 </View>
-                            </View>
+                            </TouchableOpacity>
                         </View>
                         <View style={{ flex: 1, justifyContent: 'flex-end', alignItems: 'center', paddingBottom: scale(25) }}>
                             <TouchableOpacity style={{ width: '90%', height: scaleVertical(42), backgroundColor: PRIMARY_COLOR, borderRadius: scale(6), justifyContent: 'center', alignItems: 'center' }}
