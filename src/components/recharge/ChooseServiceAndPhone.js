@@ -52,13 +52,15 @@ export default class ChooseServiceAndPhone extends Component {
               placeholder={getString('TYPE_PHONE_NUMBER')}
               keyboardType={'phone-pad'}
               onChangeText={phoneNumber => this.props.onTypingPhoneNumber(phoneNumber)}
-              onSubmitEditing={()=>this.props.checkValidPhoneNumber(phoneNumber)}
+              onSubmitEditing={() => this.props.checkValidPhoneNumber(phoneNumber)}
             />
-            <TouchableOpacity 
-            onPress={()=>this._moveToContactScreen()}
-            style={styles.contact}>
-              <Icon name={'account-circle'} color={COLOR.CONTACTS} size={scaleModerate(30)} />
-            </TouchableOpacity>
+            {
+              !this.props.notAllowSelectContact && <TouchableOpacity
+                onPress={() => this._moveToContactScreen()}
+                style={styles.contact}>
+                <Icon name={'account-circle'} color={COLOR.CONTACTS} size={scaleModerate(30)} />
+              </TouchableOpacity>
+            }
           </View>
           <TouchableOpacity
             onPress={() => this.props.openChooseNetwork()}
@@ -118,6 +120,7 @@ const styles = StyleSheet.create({
   },
   phone: {
     flex: 1,
+    height: networkHeight,
     paddingHorizontal: scaleModerate(10),
     justifyContent: 'center',
   },
