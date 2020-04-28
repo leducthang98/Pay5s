@@ -12,7 +12,7 @@ import { refreshStore } from '../../actions/ActionRefresh';
 import Toast from 'react-native-simple-toast';
 import AsyncStorage from '@react-native-community/async-storage';
 import { CommonActions } from '@react-navigation/native';
-import { LOGIN } from '../../navigators/RouteName';
+import { LOGIN, INIT_HISTORY_CHECKWALLET } from '../../navigators/RouteName';
 class CheckWalletHistory extends React.Component {
   constructor(props) {
     super(props);
@@ -48,7 +48,17 @@ class CheckWalletHistory extends React.Component {
     });
   };
   _renderTransfer = (id, amount, note, type, time, icon) => (
-    <TouchableOpacity onPress={() => this.openModalTransfer(id, amount, note, type, time)}>
+    <TouchableOpacity
+      //  onPress={() => this.openModalTransfer(id, amount, note,  type, time)}>
+      onPress={() => this.props.route?.navigation?.navigate(INIT_HISTORY_CHECKWALLET, {
+        initHistory: {
+          id: id,
+          amount: amount,
+          note: note,
+          type: type,
+          time: time
+        }
+      })}>
       <View style={{ width: containerW, height: scale(56), flexDirection: 'row', justifyContent: 'center', alignItems: 'center', borderBottomWidth: scale(0.4), borderColor: 'gray' }}>
         <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
           <Icon name={icon} size={scale(19)} color={"black"} />
@@ -68,7 +78,7 @@ class CheckWalletHistory extends React.Component {
   async tokenInvalidFunction() {
     this.props.refreshStore();
     await AsyncStorage.clear();
-    Toast.show("Phiên đăng nhập đã hết hạn, vui lòng thoát ra và khởi động lại ứng dụng.")
+    Toast.show("Phiên đăng nhập đã hết hạn, bạn sẽ được quay trở về trang đăng nhập.")
     this.props.route?.navigation?.dispatch(
       CommonActions.reset({
         index: 1,
@@ -83,7 +93,7 @@ class CheckWalletHistory extends React.Component {
         if (transferResponse.data.size != 0) {
           return (
             <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-              <Modal isVisible={this.state.isModalVisible} onBackdropPress={() => this.hideModal()} swipeDirection="up" onSwipeComplete={() => this.hideModal()} animationIn="slideInDown">
+              {/* <Modal isVisible={this.state.isModalVisible} onBackdropPress={() => this.hideModal()} swipeDirection="up" onSwipeComplete={() => this.hideModal()} animationIn="slideInDown">
                 <View style={{ width: "100%", height: "100%", backgroundColor: '#D3D3D3', borderRadius: scale(5) }}>
                   <View style={{ width: "100%", height: "7%", backgroundColor: PRIMARY_COLOR, justifyContent: 'center', alignItems: 'center' }}>
                     <Text style={texts.white_bold}>Tích điểm</Text>
@@ -121,7 +131,7 @@ class CheckWalletHistory extends React.Component {
                     </View>
                   </View>
                 </View>
-              </Modal>
+              </Modal> */}
               <ScrollView>
                 <View style={{ height: 10 }}></View>
                 {

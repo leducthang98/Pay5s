@@ -18,6 +18,8 @@ import LoadingDialog from '../../components/common/LoadingDialog';
 import MessageDialog from '../../components/common/MessageDialog';
 import { CommonActions } from '@react-navigation/native';
 import { LOGIN } from '../../navigators/RouteName';
+import DatePicker from 'react-native-datepicker';
+import RadioForm, { RadioButton, RadioButtonInput, RadioButtonLabel } from 'react-native-simple-radio-button';
 class EditAccount extends React.Component {
     constructor(props) {
         super(props);
@@ -32,6 +34,7 @@ class EditAccount extends React.Component {
             isTokenExpired: false
         };
     }
+
     validateGender() {
         let newGender = this.state.gender
         if (newGender == 'Nam') {
@@ -101,6 +104,10 @@ class EditAccount extends React.Component {
                         sex = 'Chưa có'
                     }
                 }
+                var radio_props = [
+                    { label: 'Nam   ', value: 'Nam' },
+                    { label: 'Nữ ', value: 'Nữ' }
+                ];
                 return (
                     <>
                         <Header navigation={this.props.navigation} back={true} title={'Chỉnh sửa thông tin'} />
@@ -129,24 +136,46 @@ class EditAccount extends React.Component {
                                 <View style={{ flex: 1.5, justifyContent: 'center', alignItems: 'flex-start' }}>
                                     <Text style={{ color: 'gray', paddingLeft: scaleModerate(15), fontSize: scaleModerate(12) }}>Ngày sinh</Text>
                                 </View>
-                                <View style={{ flex: 3, justifyContent: 'center', alignItems: 'flex-end' }}>
-                                    <TextInput
-                                        placeholder={(this.props.accountInfo.dob) ? this.props.accountInfo.dob : 'DD/MM/YYYY'}
-                                        placeholderTextColor={'gray'}
-                                        onChangeText={(dob) => this.setState({ dob })}
-                                        style={{ fontSize: scaleModerate(12), paddingRight: scaleModerate(15), paddingVertical: scaleVertical(0) }}></TextInput>
+                                <View style={{ flex: 3, justifyContent: 'center', alignItems: 'flex-end', flexDirection: 'row' }}>
+                                    <View style={{ flex: 5, width: '100%', height: '100%', alignItems: 'flex-end', justifyContent: 'center' }}>
+                                        <Text style={{color:'gray',fontSize:scaleModerate(12)}}>{(this.state.dob) ? this.state.dob : this.props.accountInfo.dob}</Text>
+                                    </View>
+                                    <DatePicker
+                                        style={{ alignItems: 'flex-end', flex: 1, height: '100%', justifyContent: 'center' }}
+                                        date={(this.props.accountInfo.dob) ? this.props.accountInfo.dob : '01/01/2000'}
+                                        mode="date"
+                                        format="DD/MM/YYYY"
+                                        minDate="01/01/1990"
+                                        maxDate="01/01/2100"
+                                        confirmBtnText="Confirm"
+                                        cancelBtnText="Cancel"
+                                        hideText={true}
+                                        customStyles={{
+                                            dateIcon: {
+                                                width: scale(30),
+                                                height: scale(30)
+                                            },
+                                        }}
+                                        onDateChange={(date) => { this.setState({ dob: date }) }}
+                                    />
                                 </View>
                             </View>
                             <View style={{ flexDirection: 'row', height: scaleVertical(40), marginTop: scaleVertical(1), backgroundColor: 'white' }}>
                                 <View style={{ flex: 1.5, justifyContent: 'center', alignItems: 'flex-start' }}>
                                     <Text style={{ color: 'gray', paddingLeft: scaleModerate(15), fontSize: scaleModerate(12) }}>Giới tính</Text>
                                 </View>
-                                <View style={{ flex: 3, justifyContent: 'center', alignItems: 'flex-end' }}>
-                                    <TextInput
-                                        placeholder={(this.props.accountInfo.gender) ? sex : 'Chưa có'}
-                                        placeholderTextColor={'gray'}
-                                        onChangeText={(gender) => this.setState({ gender })}
-                                        style={{ fontSize: scaleModerate(12), paddingRight: scaleModerate(15), paddingVertical: scaleVertical(0) }}></TextInput>
+                                <View style={{ flex: 3, justifyContent: 'center', alignItems: 'flex-end', paddingRight: scale(10), paddingTop: scale(5) }}>
+                                    <RadioForm
+                                        radio_props={radio_props}
+                                        initial={0}
+                                        formHorizontal={true}
+                                        animation={true}
+                                        buttonColor={'gray'}
+                                        buttonSize={scale(8)}
+                                        initial={(sex === 'Nam' ? 0 : 1)}
+                                        selectedButtonColor={PRIMARY_COLOR}
+                                        onPress={(value) => { this.setState({ gender: value }) }}
+                                    />
                                 </View>
                             </View>
                             <View style={{ flexDirection: 'row', height: scaleVertical(40), marginTop: scaleVertical(1), backgroundColor: 'white' }}>
