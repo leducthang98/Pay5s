@@ -26,11 +26,11 @@ class RechargeMoney extends React.Component {
         <Text style={{ fontWeight: 'bold', fontSize: scale(16), color: PRIMARY_COLOR }}>{name}</Text>
         <Icon name={'copy'} style={{ paddingLeft: scale(10), paddingTop: scale(3) }} size={scale(14)} color={PRIMARY_COLOR} />
       </TouchableOpacity>
-      <Text style={styles.textComponent}>- {bank}</Text>
-      <Text style={styles.textComponent}>- Số Momo: {acc_no}</Text>
-      <Text style={styles.textComponent}>- Chủ TK Momo: {acc_name}</Text>
-      <Text style={styles.textComponent}>- Lưu ý: {note}</Text>
-      <Text style={styles.textComponent}>- {syntax}</Text>
+      <Text style={styles.textComponent}>{bank}</Text>
+      <Text style={styles.textComponent}>{acc_no}</Text>
+      <Text style={styles.textComponent}>{acc_name}</Text>
+      <Text style={styles.textComponent}>{note}</Text>
+      <Text style={styles.textComponent}>{syntax}</Text>
     </View>
   );
   async tokenInvalidFunction() {
@@ -66,7 +66,7 @@ class RechargeMoney extends React.Component {
             </ScrollView>
           </View>
         );
-      }else if(commonConfigResponse.errorCode ===500){
+      } else if (commonConfigResponse.errorCode === 500) {
         this.tokenInvalidFunction();
         return null;
       }

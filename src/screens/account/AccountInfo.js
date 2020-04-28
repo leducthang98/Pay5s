@@ -61,7 +61,7 @@ class AccountInfo extends React.Component {
     logoutAlert = () =>
         Alert.alert(
             "Lưu ý",
-            "Bạn sẽ không nhận được thông báo khuyến mãi từ các cửa hàng của bạn cho đến khi đăng nhập lại.",
+            "Bạn sẽ không nhận được thông báo khuyến mãi cho đến khi đăng nhập lại.",
             [
                 {
                     text: "Hủy",

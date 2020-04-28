@@ -20,6 +20,7 @@ import { CommonActions } from '@react-navigation/native';
 import { LOGIN } from '../navigators/RouteName';
 import { refreshStore } from '../actions/ActionRefresh';
 import { PRIMARY_COLOR } from '../constant/Colors'
+import { NETWORK } from '../constant/NetworkIcon';
 class BillScreen extends React.Component {
   constructor(props) {
     super(props);
@@ -32,15 +33,14 @@ class BillScreen extends React.Component {
     console.log(token_user)
     this.props.getBill(token_user);
   }
-  _renderBill = (service, mobile, amount, modified, telco, status) => (
+  _renderBill = (service, mobile, amount, modified, telco, status, networkIcon) => (
     <View style={styles.component} >
       <View style={{ width: '92%', height: containerH / 9, borderWidth: scale(0.3), borderRadius: scale(7), borderColor: 'gray', justifyContent: 'center', alignItems: 'center' }}>
         <View style={{ flexDirection: 'row', width: containerW - scale(35), height: containerH / 11 }}>
           <View style={{ flex: 0.05, }}></View>
-          <View style={{ flex: 0.8 }}>
-            <View style={{ flex: 0.05, }}></View>
-            <Image style={{ flex: 0.85 }}
-              source={{ uri: 'https://cdn.itviec.com/employers/tct-vtnet-viettel/logo/social/uqLhUBEa5SCkKcMCQuicasqa/tct-vtnet-viettel-logo.png' }}
+          <View style={{ flex: 0.8,justifyContent:'center',alignItems:'center' }}>
+            <Image style={{ flex: 0.85, width: '100%', height: '100%' }}
+              source={networkIcon}
             />
           </View>
           <View style={{ flex: 0.05, }}></View>
@@ -101,12 +101,17 @@ class BillScreen extends React.Component {
                     let service;
                     let telco;
                     let status;
+                    let networkIcon;
                     if (item.service == 'TT') {
                       service = 'Nạp thẻ trả trước'
                     } else if (item.service == 'TS') {
                       service = 'Nạp thẻ trả sau'
-                    }else if(item.service=='TKC'){
-                      service='Bắn TK trả trước'
+                    } else if (item.service == 'TKC') {
+                      service = 'Bắn TK trả trước'
+                    } else if (item.service == 'EPIN') {
+                      service = 'Mua mã thẻ'
+                    } else if (item.service == 'FTTH') {
+                      service = 'Internet'
                     }
 
                     if (item.status == 0) {
@@ -118,17 +123,20 @@ class BillScreen extends React.Component {
                     switch (item.telco) {
                       case 'VTT':
                         telco = 'Viettel'
+                        networkIcon = NETWORK.VTT
                         break;
                       case 'VINA':
                         telco = 'Vinaphone'
+                        networkIcon = NETWORK.VINA
                         break;
                       case 'VMS':
                         telco = 'Mobiphone'
+                        networkIcon = NETWORK.VMS
                         break;
                     }
                     let mobile = '0' + item.mobile
                     let amount = formatMoney(item.amount) + 'đ'
-                    return this._renderBill(service, mobile, amount, item.modified, telco, status)
+                    return this._renderBill(service, mobile, amount, item.modified, telco, status, networkIcon)
                   })
                 }
               </ScrollView>

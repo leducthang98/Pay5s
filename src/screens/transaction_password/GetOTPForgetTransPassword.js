@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, View, TouchableOpacity, TextInput, Dimensions, StyleSheet,Image } from 'react-native';
+import { Text, View, TouchableOpacity, TextInput, Dimensions, StyleSheet, Image } from 'react-native';
 import { scaleVertical, scale, scaleModerate } from '../../constant/Scale';
 import AsyncStorage from '@react-native-community/async-storage';
 import Toast from 'react-native-simple-toast';
@@ -103,6 +103,7 @@ class GetOTPForgetTransPassword extends React.Component {
                                 style={styles.inputStyle} />
                             <TouchableOpacity
                                 onPress={() => this.commitResetTransPassword()}
+                                disabled={this.state.otp ? false : true}
                             >
                                 <View style={{
                                     width: containerW * 0.8,
@@ -113,7 +114,7 @@ class GetOTPForgetTransPassword extends React.Component {
                                     justifyContent: 'center',
                                     marginTop: scale(30)
                                 }}>
-                                    <Text style={{ color: 'white', fontWeight: 'bold', fontSize: scaleModerate(14) }}>Xác nhận</Text>
+                                    <Text style={{ color: (this.state.otp) ? 'white' : '#C4CACE', fontWeight: 'bold', fontSize: scaleModerate(14) }}>Xác nhận</Text>
                                 </View>
                             </TouchableOpacity>
                             <TouchableOpacity

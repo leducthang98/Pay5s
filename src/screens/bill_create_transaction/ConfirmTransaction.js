@@ -100,11 +100,11 @@ class CommitTransferTransaction extends React.Component {
                     <Header navigation={this.props.navigation} back={true} title={'Xác thực giao dịch'} />
                     <View style={{ width: '100%', height: '100%', justifyContent: 'flex-start', alignItems: 'center', paddingTop: scaleVertical(20) }}>
                         <View style={{ paddingLeft: scale(10), width: '90%', height: '55%', backgroundColor: 'white', borderRadius: scale(10) }}>
-                            <Text style={styles.textStyle}>Beneficiary phone number:</Text>
+                            <Text style={styles.textStyle}>Giao dịch tới tài khoản:</Text>
                             <Text style={styles.dataStyle}>0{data.phoneNumber}</Text>
-                            <Text style={styles.textStyle}>Service:</Text>
+                            <Text style={styles.textStyle}>Dịch vụ:</Text>
                             <Text style={styles.dataStyle}>{renderServiceType} {renderNetwork}</Text>
-                            <Text style={styles.textStyle}>Amount:</Text>
+                            <Text style={styles.textStyle}>Số tiền:</Text>
                             <Text style={styles.dataStyle}>{formatMoney(data.amount)}</Text>
                             <Text style={styles.textStyle}>Nhập mật khẩu giao dịch:</Text>
                             <TextInput
@@ -117,11 +117,6 @@ class CommitTransferTransaction extends React.Component {
                         </View>
 
                         <View style={{ flexDirection: 'row', width: '100%', height: '10%', marginTop: scale(10), justifyContent: 'center', alignItems: 'center' }}>
-                            <TouchableOpacity
-                                onPress={() => this.props.navigation.pop()}
-                                style={{ height: '70%', width: '43%', backgroundColor: '#C0C0C0', borderRadius: scale(20), justifyContent: 'center', alignItems: 'center' }}>
-                                <Text style={{ fontSize: scale(15), color: 'white' }}>Hủy</Text>
-                            </TouchableOpacity>
                             <TouchableOpacity
                                 disabled={(this.state.transPassword) ? false : true}
                                 onPress={() => this._onPressCommit()}

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, View, StyleSheet, TextInput, TouchableOpacity, Dimensions,Image } from 'react-native';
+import { Text, View, StyleSheet, TextInput, TouchableOpacity, Dimensions, Image } from 'react-native';
 import { scaleModerate, scale, scaleVertical } from '../../constant/Scale';
 import { PRIMARY_COLOR } from '../../constant/Colors';
 import Toast from 'react-native-simple-toast';
@@ -72,6 +72,7 @@ class OTPForgetPassword extends React.Component {
                             style={styles.inputStyle} />
                         <TouchableOpacity
                             onPress={() => this.commitForgetPassOTP()}
+                            disabled={this.state.otp ? false : true}
                         >
                             <View style={{
                                 width: containerW * 0.8,
@@ -82,7 +83,7 @@ class OTPForgetPassword extends React.Component {
                                 justifyContent: 'center',
                                 marginTop: scale(30)
                             }}>
-                                <Text style={{ color: 'white', fontWeight: 'bold', fontSize: scaleModerate(14) }}>Xác nhận</Text>
+                                <Text style={{ color: (this.state.otp) ? 'white' : '#C4CACE', fontWeight: 'bold', fontSize: scaleModerate(14) }}>Xác nhận</Text>
                             </View>
                         </TouchableOpacity>
                         <View style={{ flexDirection: 'row', marginTop: scale(20) }}>

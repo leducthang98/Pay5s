@@ -81,9 +81,11 @@ class CheckWallet extends React.Component {
                   <Icon name={'qrcode'} size={scale(23)} color={"black"} />
                   <Text style={{ fontSize: scale(11), paddingTop: scale(3) }}>Nạp số dư</Text>
                 </TouchableOpacity>
-                <TouchableOpacity style={{ flex: 1, backgroundColor: 'white', alignItems: 'center', justifyContent: 'center' }} onPress={() => this.transferMoney()}>
+                <TouchableOpacity style={{ flex: 1, backgroundColor: 'white', alignItems: 'center', justifyContent: 'center'}} onPress={() => this.transferMoney()}>
                   <Icon name={'minus-square'} size={scale(23)} color={"black"} />
-                  <Text style={{ fontSize: scale(11), paddingTop: scale(3) }}>Chuyển khoản</Text>
+                  <Text
+                    numberOfLines={1}
+                    style={{ fontSize: scale(11), paddingTop: scale(3) }}>Chuyển khoản</Text>
                 </TouchableOpacity>
                 <View style={{ flex: 2, backgroundColor: 'white' }}>
                   <View style={{ backgroundColor: 'white', flex: 1, flexDirection: 'row', alignItems: 'center' }}>
