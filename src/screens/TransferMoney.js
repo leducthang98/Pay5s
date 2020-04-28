@@ -46,14 +46,14 @@ class TransferMoney extends React.Component {
             <Text style={styles.textStyle}>Nạp đến:</Text>
             <TextInput
               onChangeText={(mobile) => this.setState({ mobile })}
-              placeholder={'Phone Number'}
+              placeholder={'Số điện thoại'}
               maxLength={12}
               keyboardType="number-pad"
               style={styles.inputStyle}></TextInput>
             <Text style={styles.textStyle}>Nhập số tiền:</Text>
             <TextInput
               onChangeText={(amount) => this.setState({ amount })}
-              placeholder={'Amount'}
+              placeholder={'Số tiền'}
               maxLength={10}
               keyboardType="number-pad"
               style={styles.inputStyle}></TextInput>
@@ -64,7 +64,7 @@ class TransferMoney extends React.Component {
               maxLength={4}
               secureTextEntry={true}
               keyboardType="number-pad"
-              placeholder={'Transaction Password'}
+              placeholder={'Mật khẩu giao dịch'}
               style={styles.inputStyle}></TextInput>
 
           </View>
