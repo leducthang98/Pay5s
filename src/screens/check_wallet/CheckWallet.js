@@ -77,15 +77,23 @@ class CheckWallet extends React.Component {
                 <RefreshControl refreshing={this.state.refreshing} onRefresh={() => this._onRefresh()} />}
             >
               <View style={styles.body}>
-                <TouchableOpacity style={{ flex: 1, backgroundColor: 'white', alignItems: 'center', justifyContent: 'center' }} onPress={() => this.rechargeMoney()}>
-                  <Icon name={'qrcode'} size={scale(23)} color={"black"} />
-                  <Text style={{ fontSize: scale(11), paddingTop: scale(3) }}>Nạp số dư</Text>
+                <TouchableOpacity style={{ flex: 1, backgroundColor: '#FFF', alignItems: 'center', justifyContent: 'center' }} onPress={() => this.transferMoney()}>
+                  <View style={{ flex: 1, alignItems: 'center', justifyContent: 'flex-end' }}>
+                    <Icon name={'qrcode'} size={scale(23)} color={"black"} />
+                  </View>
+                  <View style={{ flex: 1, alignItems: 'center', justifyContent: 'flex-start' }}>
+                    <Text style={{ fontSize: scale(11), paddingTop: scale(5), textAlign:'center' }}>Nạp số dư</Text>
+                  </View>
                 </TouchableOpacity>
-                <TouchableOpacity style={{ flex: 1, backgroundColor: 'white', alignItems: 'center', justifyContent: 'center'}} onPress={() => this.transferMoney()}>
-                  <Icon name={'minus-square'} size={scale(23)} color={"black"} />
-                  <Text
-                    numberOfLines={1}
-                    style={{ fontSize: scale(11), paddingTop: scale(3) }}>Chuyển khoản</Text>
+                <TouchableOpacity style={{ flex: 1, backgroundColor: '#FFF', alignItems: 'center', justifyContent: 'center' }} onPress={() => this.transferMoney()}>
+                  <View style={{ flex: 1, alignItems: 'center', justifyContent: 'flex-end' }}>
+                    <Icon name={'minus-square'} size={scale(23)} color={"black"} />
+                  </View>
+                  <View style={{ flex: 1, alignItems: 'center', justifyContent: 'flex-start' }}>
+                    <Text
+                      // numberOfLines={1}
+                      style={{ fontSize: scale(11), paddingTop: scale(5), textAlign: 'center' }}>Chuyển khoảnnnnnn</Text>
+                  </View>
                 </TouchableOpacity>
                 <View style={{ flex: 2, backgroundColor: 'white' }}>
                   <View style={{ backgroundColor: 'white', flex: 1, flexDirection: 'row', alignItems: 'center' }}>
