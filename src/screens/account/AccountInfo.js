@@ -124,7 +124,7 @@ class AccountInfo extends React.Component {
                                         <Text style={{ color: 'gray', paddingLeft: scaleModerate(15), fontSize: scaleModerate(12) }}>Ngày sinh</Text>
                                     </View>
                                     <View style={{ flex: 3, justifyContent: 'center', alignItems: 'flex-end' }}>
-                                        <Text style={{ fontSize: scaleModerate(12), paddingRight: scaleModerate(15) }}>{(accountResponse.data.dob) ? accountResponse.data.dob : '0000-00-00'}</Text>
+                                        <Text style={{ fontSize: scaleModerate(12), paddingRight: scaleModerate(15) }}>{(accountResponse.data.dob) ? accountResponse.data.dob : '00/00/0000'}</Text>
                                     </View>
                                 </View>
                                 <View style={{ flexDirection: 'row', height: scaleVertical(40), backgroundColor: 'white', marginTop: scaleVertical(1) }}>
