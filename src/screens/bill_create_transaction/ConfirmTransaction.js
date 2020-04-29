@@ -112,7 +112,7 @@ class CommitTransferTransaction extends React.Component {
                                 maxLength={4}
                                 secureTextEntry={true}
                                 keyboardType="number-pad"
-                                placeholder={'Enter password here'}
+                                placeholder={'Mật khẩu giao dịch'}
                                 style={styles.inputStyle}></TextInput>
                         </View>
 

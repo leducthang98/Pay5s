@@ -92,7 +92,7 @@ class CheckWallet extends React.Component {
                   <View style={{ flex: 1, alignItems: 'center', justifyContent: 'flex-start' }}>
                     <Text
                       // numberOfLines={1}
-                      style={{ fontSize: scale(11), paddingTop: scale(5), textAlign: 'center' }}>Chuyển khoảnnnnnn</Text>
+                      style={{ fontSize: scale(11), paddingTop: scale(5), textAlign: 'center' }}>Chuyển khoản</Text>
                   </View>
                 </TouchableOpacity>
                 <View style={{ flex: 2, backgroundColor: 'white' }}>
