@@ -6,7 +6,12 @@ import {getString} from '../res/values/String';
 const demoToken = 'ff0f2d93-006d-3aaa-94ec-05ee1a1ff2af';
 const NETWORK_ERROR = "network error";
 const TIMEOUT_ERROR = 'timeout';
-
+const TIME_OUT = 30000
+const AXIOS = axios.create({
+    timeout: TIME_OUT
+})
+const CancelToken = axios.CancelToken
+let cancel
 
 const _getHeader = async () => {
   const token = await AsyncStorage.getItem('access_token');
@@ -27,14 +32,20 @@ export const callApi = async (method, url, input) => {
     headers:headers,
     method: method,
     url: url,
-    data: input
+    data: input,
+    timeoutErrorMessage: TIMEOUT_ERROR,
+    cancelToken: new CancelToken(function executor(cancellation) {
+        cancel = cancellation;
+    })
   };
-  await axios(configs).then((response)=>{
+  AXIOS.defaults.timeout = TIME_OUT;
+  await AXIOS(configs).then((response)=>{
     result = _checkResponse(response)
   }).catch((error)=>{
     result = _checkError(error)
   });
-  return result;
+  clearTimeout(timeOut)
+  return result
 };
 
 const _checkResponse = async (response) => {
