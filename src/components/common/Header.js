@@ -54,7 +54,7 @@ export default class Header extends Component {
 const styles = StyleSheet.create({
   container: {
     width: width,
-    height: statusBarHeight * 1.5,
+    height: statusBarHeight * 2,
     // paddingTop: statusBarHeight,
     backgroundColor: COLOR.PRIMARY_COLOR,
   },
@@ -65,8 +65,8 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
   },
   buttonArea: {
-    height: statusBarHeight * 1.5,
-    width: statusBarHeight * 1.5,
+    height: statusBarHeight * 2,
+    width: statusBarHeight * 2,
     alignItems: 'center',
     justifyContent: 'center',
   },
