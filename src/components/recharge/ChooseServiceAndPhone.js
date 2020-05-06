@@ -35,7 +35,7 @@ export default class ChooseServiceAndPhone extends Component {
   }
 
   render() {
-    const { paddingHorizontal, note, networkCode, error, errorContent, phoneNumber } = this.props;
+    const { paddingHorizontal, note, networkCode, error, errorContent, phoneNumber, service } = this.props;
     return (
       <View style={paddingHorizontal ? [styles.container, { paddingHorizontal: paddingHorizontal }] : styles.container}>
         <View style={styles.historyArea}>
@@ -49,13 +49,13 @@ export default class ChooseServiceAndPhone extends Component {
             <TextInput
               value={phoneNumber}
               style={styles.phone}
-              placeholder={getString('TYPE_PHONE_NUMBER')}
+              placeholder={this.props.service === "FTTH" ? getString('ACCOUNT_CODE') : getString('TYPE_PHONE_NUMBER')}
               keyboardType={'phone-pad'}
               onChangeText={phoneNumber => this.props.onTypingPhoneNumber(phoneNumber)}
               onSubmitEditing={() => this.props.checkValidPhoneNumber(phoneNumber)}
             />
             {
-              !this.props.notAllowSelectContact && <TouchableOpacity
+              !(this.props.service === "FTTH") && <TouchableOpacity
                 onPress={() => this._moveToContactScreen()}
                 style={styles.contact}>
                 <Icon name={'account-circle'} color={COLOR.CONTACTS} size={scaleModerate(30)} />

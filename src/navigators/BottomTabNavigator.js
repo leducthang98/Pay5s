@@ -11,6 +11,7 @@ import Icon from 'react-native-vector-icons/FontAwesome5';
 import { scale, scaleVertical } from '../constant/Scale';
 import { ACCOUNT, DEPOSIT, HOME, NOTIFICATION } from './RouteName';
 import { Dimensions } from 'react-native';
+import { statusBarHeight } from '../constant/Layout';
 
 const Tab = createBottomTabNavigator();
 
@@ -47,11 +48,13 @@ export default function BottomTabNavigator() {
                     },
                     shadowOpacity: 0.20,
                     shadowRadius: 1.41,
-                    backgroundColor:COLOR.WHITE,
+                    backgroundColor: COLOR.WHITE,
                     elevation: 15,
-
+                    height: statusBarHeight * 3,
+                    paddingBottom: statusBarHeight
                 }
             }}
+
         >
             <Tab.Screen name={HOME} component={HomeScreen} options={{ tabBarLabel: 'Trang chủ' }} />
             <Tab.Screen name={NOTIFICATION} component={NotiScreen} options={{ tabBarLabel: 'Tin tức' }} />
