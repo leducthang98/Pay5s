@@ -265,7 +265,7 @@ class RechargePhoneContainer extends React.Component {
                 note={data?.note}
                 openChooseNetwork={() => this.setState({ isVisibleChooseNetwork: true })}
                 networkCode={srvTelcos[index]?.telco}
-                notAllowSelectContact={this.props.route?.service === 'FTTH'}
+                service={this.props.route?.service}
               />
               <View style={{ width, paddingHorizontal: scaleModerate(15) }}>
                 <Text style={[texts.l_h4, { fontWeight: 'bold' }]}>{getString('AMOUNT_TO_DEPOSIT')}</Text>
@@ -341,6 +341,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: scaleModerate(8),
+    marginBottom: Layout.statusBarHeight
   },
 });
 const mapStateToProps = (store) => {

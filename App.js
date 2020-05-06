@@ -56,7 +56,7 @@ export default class App extends Component {
     return (
       <Provider store={store}>
         <View style={styles.container}>
-          <StatusBar barStyle={'light-content'} />
+          {/* <StatusBar barStyle={'light-content'} /> */}
           <RootNavigator />
         </View>
       </Provider>

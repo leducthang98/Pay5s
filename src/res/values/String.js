@@ -22,6 +22,7 @@ const vn = {
   DEPOSIT_NOW: 'Nạp ngay',
   YOU_NEED_TO_ENTER_PHONE_NUMBER: 'Bạn cần nhập số điện thoại',
   PHONE_NUMBER_IS_INCORRECT_TYPE: 'Số điện thoại không đúng định dạng',
+  ACCOUNT_CODE: 'Mã tài khoản', 
   
   //commons
   CONNECTING: 'Đang kết nối',
@@ -35,6 +36,7 @@ const vn = {
   //dashboard
   BUY_CARD: 'Mua mã thẻ',
   INTERNET_VIETTEL: 'Internet Viettel',
+
 };
 export const getString = (code) => {
   return vn[code];

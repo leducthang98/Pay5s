@@ -1,39 +1,45 @@
-import React, {PureComponent} from 'react';
+import React, { PureComponent } from 'react';
 import {
   View,
   Text,
   TouchableOpacity,
-  StyleSheet
+  StyleSheet,
+  Modal
 } from 'react-native';
-import {shadow, texts} from '../../constant/CommonStyles';
-import {getString} from '../../res/values/String';
-import {scaleModerate, scaleVertical} from '../../constant/Scale';
+import { shadow, texts } from '../../constant/CommonStyles';
+import { getString } from '../../res/values/String';
+import { scaleModerate, scaleVertical } from '../../constant/Scale';
 import * as Layout from '../../constant/Layout';
 import * as COLOR from '../../constant/Colors';
 
 
-const {width, height} = Layout.window;
+const { width, height } = Layout.window;
 
 class MessageDialog extends PureComponent {
   render() {
-    const {title, message, textButton} = this.props;
-    return(
-      <View style={styles.container}>
-        <View style={[styles.messageArea, {paddingVertical:scaleVertical(15), paddingHorizontal:scaleModerate(15)}]}>
-          <Text style={texts.h3}>{title || getString('NOTIFICATION')}</Text>
-          <Text style={[texts.normal, {marginVertical:scaleVertical(10)}]}>{message || ''}</Text>
-          <TouchableOpacity style={styles.button}
-                            onPress={() => this.props.close()}>
-            <Text style={[texts.normal, {color:COLOR.WHITE}]}>{textButton || getString('OK')}</Text>
-          </TouchableOpacity>
+    const { title, message, textButton } = this.props;
+    return (
+      <Modal
+        animationType={'fade'}
+        visible={this.props.visible}
+        transparent={true}>
+        <View style={styles.container}>
+          <View style={[styles.messageArea, { paddingVertical: scaleVertical(15), paddingHorizontal: scaleModerate(15) }]}>
+            <Text style={texts.h3}>{title || getString('NOTIFICATION')}</Text>
+            <Text style={[texts.normal, { marginVertical: scaleVertical(10) }]}>{message || ''}</Text>
+            <TouchableOpacity style={styles.button}
+              onPress={() => this.props.close()}>
+              <Text style={[texts.normal, { color: COLOR.WHITE }]}>{textButton || getString('OK')}</Text>
+            </TouchableOpacity>
+          </View>
         </View>
-      </View>
+      </Modal>
     )
   }
 }
 
 const styles = StyleSheet.create({
-  container:{
+  container: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
