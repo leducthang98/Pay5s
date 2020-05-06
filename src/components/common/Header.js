@@ -54,8 +54,8 @@ export default class Header extends Component {
 const styles = StyleSheet.create({
   container: {
     width: width,
-    height: statusBarHeight * 2.5,
-    paddingTop: statusBarHeight,
+    height: statusBarHeight * 1.5,
+    // paddingTop: statusBarHeight,
     backgroundColor: COLOR.PRIMARY_COLOR,
   },
   headerContent: {

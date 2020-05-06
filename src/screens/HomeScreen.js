@@ -199,8 +199,8 @@ class HomeScreen extends React.Component {
               <RefreshControl refreshing={this.state.refreshing} onRefresh={() => this._onRefresh()} />}
             style={styles.container}>
             <View style={{ alignItems: 'center' }}>
-              <View style={[styles.header]}>
-                <View style={styles.insideHeader}>
+              <View style={[styles.header, {backgroundColor:'tomato'}]}>
+                <View style={[styles.insideHeader, {backgroundColor: '#0077CC'}]}>
                   <View style={{ flex: 14, flexDirection: 'row' }}>
                     <Text style={{ color: 'white', fontSize: scale(16) }}> Xin chào </Text>
                     <Text style={{ color: 'white', fontSize: scale(16), fontWeight: 'bold' }}>0{accountResponse.data.mobile}</Text>
@@ -316,15 +316,13 @@ const styles = StyleSheet.create({
     borderBottomLeftRadius: scale(27),
     borderBottomRightRadius: scale(27),
     alignItems: 'center',
-    paddingTop: statusBarHeight / 1.5,
-
   },
   insideHeader: {
     backgroundColor: PRIMARY_COLOR,
     width: containerW / 1.08,
     height: containerH / 10,
     flexDirection: 'row',
-    paddingTop: scale(14)
+    paddingTop: scaleVertical(4)
   },
   account: {
     backgroundColor: 'white',
