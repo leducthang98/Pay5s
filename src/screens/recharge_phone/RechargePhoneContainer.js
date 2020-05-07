@@ -177,7 +177,7 @@ class RechargePhoneContainer extends React.Component {
 
   _checkValidPhoneNumber = () => {
     const { phoneNumber } = this.state;
-    if (phoneNumber !== '' && !isPhoneNumber(phoneNumber)) {
+    if (phoneNumber !== '' && !isPhoneNumber(phoneNumber) && this.props.route?.service !== 'FTTH') {
       this.setState({
         phoneNumberError: true,
         phoneNumberErrorContent: getString('PHONE_NUMBER_IS_INCORRECT_TYPE'),
