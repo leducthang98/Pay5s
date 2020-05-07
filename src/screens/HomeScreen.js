@@ -202,22 +202,22 @@ class HomeScreen extends React.Component {
             <View style={{ alignItems: 'center' }}>
               <View style={[styles.header]}>
                 <View style={[styles.insideHeader]}>
-                  <View style={{ flex: 14, flexDirection: 'row' }}>
+                  <View style={{ flexDirection: 'row' }}>
                     <Text style={{ color: 'white', fontSize: scale(16) }}> Xin chào </Text>
                     <Text style={{ color: 'white', fontSize: scale(16), fontWeight: 'bold' }}>0{accountResponse.data.mobile}</Text>
                   </View>
-                  <TouchableOpacity
+                  {/* <TouchableOpacity
                     onPress={() => this.support(commonResponse.data.hotline, commonResponse.data.fanpage)}
                   >
                     <Icon style={{ flex: 1 }} name={'comments'} size={scale(23)} color={'white'} />
-                  </TouchableOpacity>
+                  </TouchableOpacity> */}
 
                 </View>
               </View>
               <View style={styles.account}>
                 <TouchableOpacity
                   onPress={() => this.checkWallet()}
-                  style={{ height: (containerH / 5.3) * 2 / 5, borderTopLeftRadius: scale(7), borderTopRightRadius: scale(7), flexDirection: 'row', alignItems: "center", borderBottomColor: 'black', borderBottomWidth: scale(0.4) }}
+                  style={{ height: (containerH / 5.3) * 2 / 5, borderTopLeftRadius: scale(7), borderTopRightRadius: scale(7), flexDirection: 'row', alignItems: "center", borderBottomColor: 'gray', borderBottomWidth: scale(0.5) }}
                 >
                   <Text
                     style={{ flex: 6, paddingLeft: scale(7), fontSize: scale(14) }}>Số dư</Text>
@@ -241,13 +241,31 @@ class HomeScreen extends React.Component {
                   })
                 }
               </View>
-              {/* <View style={styles.service2}>
-              {
+              <View style={styles.service2}>
+                {/* {
                 this.otherService2.map((item, index) => {
                   return this._renderOtherServices(item.iconName, item.label, item.onPress, item.color)
                 })
-              }
-            </View> */}
+              } */}
+                <TouchableOpacity style={{ flex: 1, alignItems: 'center', paddingTop: scale(12) }}
+                  onPress={() => this.support(commonResponse.data.hotline, commonResponse.data.fanpage)}
+                >
+                  <Icon name={'info-circle'} size={scale(30)} color={PRIMARY_COLOR} />
+                  <Text style={{ fontSize: scale(11), paddingTop: scale(9), textAlign: 'center' }}>Hỗ trợ</Text>
+                </TouchableOpacity>
+                <View style={{ flex: 1, alignItems: 'center', paddingTop: scale(12) }}
+                >
+
+                </View>
+                <View style={{ flex: 1, alignItems: 'center', paddingTop: scale(12) }}
+                >
+
+                </View>
+                <View style={{ flex: 1, alignItems: 'center', paddingTop: scale(12) }}
+                >
+
+                </View>
+              </View>
               <View style={styles.notification}>
                 <View style={{ flexDirection: 'row', height: scale(30), paddingLeft: scale(10), paddingRight: scale(10) }}>
                   <View style={{ alignItems: 'flex-start', justifyContent: 'flex-end', flex: 1 }}>
@@ -313,7 +331,7 @@ const styles = StyleSheet.create({
   header: {
     backgroundColor: PRIMARY_COLOR,
     width: containerW + scale(20),
-    height: containerH / 5,
+    height: containerH / 6,
     borderBottomLeftRadius: scale(27),
     borderBottomRightRadius: scale(27),
     alignItems: 'center',
@@ -323,14 +341,14 @@ const styles = StyleSheet.create({
     width: containerW / 1.08,
     height: containerH / 10,
     flexDirection: 'row',
-    paddingTop: statusBarHeight
+    paddingTop: statusBarHeight/2
   },
   account: {
     backgroundColor: 'white',
     width: containerW / 1.08,
     height: containerH / 5.3,
     borderRadius: scale(7),
-    marginTop: '-16%',
+    marginTop: -scale(50),
     flexDirection: 'column',
     shadowColor: "#000",
     shadowOffset: {
@@ -352,7 +370,7 @@ const styles = StyleSheet.create({
   },
   service2: {
     width: containerW,
-    height: containerH / 6.5,
+    height: containerH / 7,
     flexDirection: 'row',
     backgroundColor: 'white',
   },

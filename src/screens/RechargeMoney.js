@@ -4,7 +4,7 @@ import Header from '../components/common/Header'
 import { connect } from 'react-redux';
 import { ScrollView } from 'react-native-gesture-handler';
 import { scale } from '../constant/Scale';
-import { PRIMARY_COLOR } from '../constant/Colors'
+import { PRIMARY_COLOR,FACEBOOK } from '../constant/Colors'
 import Loading from '../components/common/Loading';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import Toast from 'react-native-simple-toast';
@@ -13,24 +13,30 @@ import AsyncStorage from '@react-native-community/async-storage';
 import { LOGIN } from '../navigators/RouteName';
 import { CommonActions } from '@react-navigation/native';
 class RechargeMoney extends React.Component {
-  writeToClipboard = async (acc_no) => {
-    await Clipboard.setString(acc_no);
+  writeToClipboard = async (data) => {
+    await Clipboard.setString(data);
     Toast.show('Đã sao chép');
   };
 
   _renderCommonData = (name, note, acc_name, acc_no, bank, syntax) => (
-    <View style={{ paddingLeft: scale(32), backgroundColor: 'white', paddingBottom: scale(15), paddingRight: scale(50) }}>
+    <View style={{ paddingLeft: scale(32), backgroundColor: 'white', paddingBottom: scale(15)}}>
+
+      <Text style={{ fontWeight: 'bold', fontSize: scale(16), color: FACEBOOK }}>{name}</Text>
+      <Text style={styles.textComponent}>{bank}</Text>
       <TouchableOpacity style={{ flexDirection: 'row' }}
         onPress={() => this.writeToClipboard(acc_no)}
       >
-        <Text style={{ fontWeight: 'bold', fontSize: scale(16), color: PRIMARY_COLOR }}>{name}</Text>
+        <Text style={styles.copyText}>{acc_no}</Text>
         <Icon name={'copy'} style={{ paddingLeft: scale(10), paddingTop: scale(3) }} size={scale(14)} color={PRIMARY_COLOR} />
       </TouchableOpacity>
-      <Text style={styles.textComponent}>{bank}</Text>
-      <Text style={styles.textComponent}>{acc_no}</Text>
       <Text style={styles.textComponent}>{acc_name}</Text>
       <Text style={styles.textComponent}>{note}</Text>
-      <Text style={styles.textComponent}>{syntax}</Text>
+      <TouchableOpacity style={{ flexDirection: 'column',width:'100%' }}
+        onPress={() => this.writeToClipboard(syntax)}
+      >
+        <Text style={styles.copyText}>{syntax}</Text>
+        <Icon name={'copy'} style={{ paddingTop: scale(3), }} size={scale(14)} color={PRIMARY_COLOR} />
+      </TouchableOpacity>
     </View>
   );
   async tokenInvalidFunction() {
@@ -84,6 +90,10 @@ const styles = StyleSheet.create({
   textComponent: {
     fontSize: scale(14),
     color: '#696969'
+  },
+  copyText:{
+    fontSize: scale(14),
+    color: PRIMARY_COLOR
   }
 
 })
