@@ -72,41 +72,41 @@ class CheckWallet extends React.Component {
         return (
           <View style={{ flex: 1 }}>
             <Header navigation={this.props.navigation} back={true} title={'Số dư'} />
-            <ScrollView
+            {/* <ScrollView
               refreshControl={
                 <RefreshControl refreshing={this.state.refreshing} onRefresh={() => this._onRefresh()} />}
-            >
-              <View style={styles.body}>
-                <TouchableOpacity style={{ flex: 1, backgroundColor: '#FFF', alignItems: 'center', justifyContent: 'center' }} onPress={() => this.transferMoney()}>
-                  <View style={{ flex: 1, alignItems: 'center', justifyContent: 'flex-end' }}>
-                    <Icon name={'qrcode'} size={scale(23)} color={"black"} />
-                  </View>
-                  <View style={{ flex: 1, alignItems: 'center', justifyContent: 'flex-start' }}>
-                    <Text style={{ fontSize: scale(11), paddingTop: scale(5), textAlign:'center' }}>Nạp số dư</Text>
-                  </View>
-                </TouchableOpacity>
-                <TouchableOpacity style={{ flex: 1, backgroundColor: '#FFF', alignItems: 'center', justifyContent: 'center' }} onPress={() => this.transferMoney()}>
-                  <View style={{ flex: 1, alignItems: 'center', justifyContent: 'flex-end' }}>
-                    <Icon name={'minus-square'} size={scale(23)} color={"black"} />
-                  </View>
-                  <View style={{ flex: 1, alignItems: 'center', justifyContent: 'flex-start' }}>
-                    <Text
-                      // numberOfLines={1}
-                      style={{ fontSize: scale(11), paddingTop: scale(5), textAlign: 'center' }}>Chuyển khoản</Text>
-                  </View>
-                </TouchableOpacity>
-                <View style={{ flex: 2, backgroundColor: 'white' }}>
-                  <View style={{ backgroundColor: 'white', flex: 1, flexDirection: 'row', alignItems: 'center' }}>
-                    <Icon style={{ paddingLeft: scale(5) }} name={'dollar-sign'} size={scale(15)} color={"purple"} />
-                    <Text style={{ fontSize: scale(12), paddingLeft: scale(5) }}>Số dư</Text>
-                  </View>
-                  <View style={{ backgroundColor: 'white', flex: 1, alignItems: 'flex-end', justifyContent: 'center' }}>
-                    <Text style={{ paddingBottom: scale(3), paddingRight: scale(5), fontWeight: 'bold', fontSize: scale(16), color: 'purple' }}>{formatMoney(accountResponse.data.balance)}đ</Text>
-                  </View>
+            > */}
+            <View style={styles.body}>
+              <TouchableOpacity style={{ flex: 1, backgroundColor: '#FFF', alignItems: 'center', justifyContent: 'center' }} onPress={() => this.rechargeMoney()}>
+                <View style={{ flex: 1, alignItems: 'center', justifyContent: 'flex-end' }}>
+                  <Icon name={'qrcode'} size={scale(23)} color={"black"} />
+                </View>
+                <View style={{ flex: 1, alignItems: 'center', justifyContent: 'flex-start' }}>
+                  <Text style={{ fontSize: scale(11), paddingTop: scale(5), textAlign: 'center' }}>Nạp số dư</Text>
+                </View>
+              </TouchableOpacity>
+              <TouchableOpacity style={{ flex: 1, backgroundColor: '#FFF', alignItems: 'center', justifyContent: 'center' }} onPress={() => this.transferMoney()}>
+                <View style={{ flex: 1, alignItems: 'center', justifyContent: 'flex-end' }}>
+                  <Icon name={'minus-square'} size={scale(23)} color={"black"} />
+                </View>
+                <View style={{ flex: 1, alignItems: 'center', justifyContent: 'flex-start' }}>
+                  <Text
+                    // numberOfLines={1}
+                    style={{ fontSize: scale(11), paddingTop: scale(5), textAlign: 'center' }}>Chuyển khoản</Text>
+                </View>
+              </TouchableOpacity>
+              <View style={{ flex: 2, backgroundColor: 'white' }}>
+                <View style={{ backgroundColor: 'white', flex: 1, flexDirection: 'row', alignItems: 'center' }}>
+                  <Icon style={{ paddingLeft: scale(5) }} name={'dollar-sign'} size={scale(15)} color={"purple"} />
+                  <Text style={{ fontSize: scale(12), paddingLeft: scale(5) }}>Số dư</Text>
+                </View>
+                <View style={{ backgroundColor: 'white', flex: 1, alignItems: 'flex-end', justifyContent: 'center' }}>
+                  <Text style={{ paddingBottom: scale(3), paddingRight: scale(5), fontWeight: 'bold', fontSize: scale(16), color: 'purple' }}>{formatMoney(accountResponse.data.balance)}đ</Text>
                 </View>
               </View>
-              <AccountTabView navigation={this.props.navigation} />
-            </ScrollView>
+            </View>
+            <AccountTabView navigation={this.props.navigation} />
+            {/* </ScrollView> */}
           </View>
         );
       }

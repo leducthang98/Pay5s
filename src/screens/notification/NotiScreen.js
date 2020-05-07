@@ -41,9 +41,10 @@ class NotiScreen extends React.Component {
         }
       })}
     >
-      <View style={{ width: containerW, height: scale(70), flexDirection: 'row', marginBottom: 5 }}>
+      <View style={{ width: containerW, height: scale(80), flexDirection: 'row', marginBottom: 5, borderBottomWidth: scale(0.4), borderColor: 'gray' }}>
         <View style={{ flex: 2, justifyContent: 'center', alignItems: 'center' }}>
-          <Image style={{ height: '75%', width: '80%' }}
+          <Image style={{ height: '90%', width: '90%' }}
+            resizeMode={'contain'}
             source={{
               uri:
                 (img_avatar) ?
@@ -53,7 +54,7 @@ class NotiScreen extends React.Component {
             }}
           />
         </View>
-        <View style={{ flex: 6, justifyContent: 'center' }}>
+        <View style={{ flex: 6, justifyContent: 'center', paddingTop: scale(5) }}>
           <View style={{ height: '85%' }}>
             <Text
               numberOfLines={1}

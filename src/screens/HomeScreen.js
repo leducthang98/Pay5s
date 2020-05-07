@@ -138,7 +138,8 @@ class HomeScreen extends React.Component {
     >
       <View style={{ width: containerW / 1.7, height: scale(110) }}>
         <View style={{ flex: 4, justifyContent: 'center', alignItems: 'center' }}>
-          <Image style={{ height: '90%', width: '80%' }}
+          <Image style={{ height: '90%', width: '90%' }}
+            resizeMode={'contain'}
             source={{
               uri:
                 (img_avatar) ?
