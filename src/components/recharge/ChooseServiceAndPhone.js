@@ -50,7 +50,7 @@ export default class ChooseServiceAndPhone extends Component {
               value={phoneNumber}
               style={styles.phone}
               placeholder={this.props.service === "FTTH" ? getString('ACCOUNT_CODE') : getString('TYPE_PHONE_NUMBER')}
-              keyboardType={'phone-pad'}
+              keyboardType={this.props.service === "FTTH" ? 'default': 'phone-pad'}
               onChangeText={phoneNumber => this.props.onTypingPhoneNumber(phoneNumber)}
               onSubmitEditing={() => this.props.checkValidPhoneNumber(phoneNumber)}
             />
