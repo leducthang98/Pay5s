@@ -28,11 +28,7 @@ export default class App extends Component {
     OneSignal.addEventListener('received', this.onReceived);
     OneSignal.addEventListener('opened', this.onOpened);
     OneSignal.addEventListener('ids', this.onIds);
-    // OneSignal.sendTags({
-    //   name: 'Thang',
-    //   age: 21,
-    // })
-    // OneSignal.deleteTag('name');
+    OneSignal.inFocusDisplaying(2);
   }
   componentWillUnmount() {
     OneSignal.removeEventListener('received', this.onReceived);
