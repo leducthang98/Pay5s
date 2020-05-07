@@ -135,7 +135,7 @@ class BillScreen extends React.Component {
                         networkIcon = NETWORK.VMS
                         break;
                     }
-                    let mobile = '0' + item.mobile
+                    let mobile = item.mobile
                     let amount = formatMoney(item.amount) + 'đ'
                     return this._renderBill(service, mobile, amount, item.modified, telco, status, networkIcon)
                   })

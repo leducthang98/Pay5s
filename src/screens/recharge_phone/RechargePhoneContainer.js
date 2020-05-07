@@ -216,9 +216,9 @@ class RechargePhoneContainer extends React.Component {
     const { phoneNumberError, error } = this.state;
     if (!phoneNumberError) {
       let phoneNumber = this.state.phoneNumber;
-      if (phoneNumber.startsWith('0')) {
-        phoneNumber = phoneNumber.slice(1, phoneNumber.length)
-      }
+      // if (phoneNumber.startsWith('0')) {
+      //   phoneNumber = phoneNumber.slice(1, phoneNumber.length)
+      // }
       const service = this.props.route?.service;
       const network = this.state.srvTelcos[this.state.index]?.telco;
       const indexSelectedAmount = this.state.moneyAmount?.findIndex(item => item.isSelected === true);

@@ -25,7 +25,8 @@ import { FACEBOOK } from '../constant/Colors';
 import { CommonActions } from '@react-navigation/native';
 import Toast from 'react-native-simple-toast';
 import { refreshStore } from '../actions/ActionRefresh';
-import { PRIMARY_COLOR } from '../constant/Colors'
+import { PRIMARY_COLOR } from '../constant/Colors';
+import OneSignal from 'react-native-onesignal';
 class HomeScreen extends React.Component {
   constructor(props) {
     super(props);
@@ -194,6 +195,9 @@ class HomeScreen extends React.Component {
       const notiResponse = this.props.notiData;
       const commonResponse = this.props.commonConfigData;
       if (accountResponse.errorCode === 200 && notiResponse.errorCode === 200 && commonResponse.errorCode === 200) {
+        OneSignal.sendTags({
+          mobile: accountResponse.data.mobile
+        })
         return (
           <ScrollView
             refreshControl={
@@ -341,7 +345,7 @@ const styles = StyleSheet.create({
     width: containerW / 1.08,
     height: containerH / 10,
     flexDirection: 'row',
-    paddingTop: statusBarHeight/2
+    paddingTop: statusBarHeight 
   },
   account: {
     backgroundColor: 'white',

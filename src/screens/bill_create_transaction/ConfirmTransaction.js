@@ -101,7 +101,7 @@ class CommitTransferTransaction extends React.Component {
                     <View style={{ width: '100%', height: '100%', justifyContent: 'flex-start', alignItems: 'center', paddingTop: scaleVertical(20) }}>
                         <View style={{ paddingLeft: scale(10), width: '90%', height: '55%', backgroundColor: 'white', borderRadius: scale(10) }}>
                             <Text style={styles.textStyle}>Giao dịch tới tài khoản:</Text>
-                            <Text style={styles.dataStyle}>0{data.phoneNumber}</Text>
+                            <Text style={styles.dataStyle}>{data.phoneNumber}</Text>
                             <Text style={styles.textStyle}>Dịch vụ:</Text>
                             <Text style={styles.dataStyle}>{renderServiceType} {renderNetwork}</Text>
                             <Text style={styles.textStyle}>Số tiền:</Text>

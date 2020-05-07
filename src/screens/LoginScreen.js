@@ -12,6 +12,7 @@ import Header from '../components/common/Header'
 import { statusBarHeight } from '../constant/Layout';
 import { connect } from 'react-redux';
 import { refreshStore } from '../actions/ActionRefresh';
+import OneSignal from 'react-native-onesignal';
 const containerW = Dimensions.get('window').width;
 const containerH = Dimensions.get('window').height;
 class LoginScreen extends React.Component {
@@ -25,6 +26,7 @@ class LoginScreen extends React.Component {
       isLoading: false,
       responseError: null,
     };
+    OneSignal.deleteTag('mobile')
   }
   componentDidMount() {
     setTimeout(() => this.props.refreshStore(), 2000)

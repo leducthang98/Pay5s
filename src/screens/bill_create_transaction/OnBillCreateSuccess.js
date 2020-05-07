@@ -32,7 +32,7 @@ class OnBillCreateSuccess extends React.Component {
                         <Icon name={'check-circle'} size={scaleModerate(60)} color={PRIMARY_COLOR} />
                     </View>
                     <View style={{ width: '100%', justifyContent: 'center', alignItems: 'center', paddingLeft: scale(20), paddingRight: scale(10) }}>
-                        <Text style={{ fontSize: scale(14) }}>Quý khách đã giao dịch thành công {<Text style={{ fontWeight: 'bold', fontSize: scale(14), color: PRIMARY_COLOR }}> {formatMoney(data.amount)} VNĐ</Text>} cho tài khoản {<Text style={{ fontWeight: 'bold', fontSize: scale(14), color: PRIMARY_COLOR }}>0{data.mobile}</Text>}.</Text>
+                        <Text style={{ fontSize: scale(14) }}>Quý khách đã giao dịch thành công {<Text style={{ fontWeight: 'bold', fontSize: scale(14), color: PRIMARY_COLOR }}> {formatMoney(data.amount)} VNĐ</Text>} cho tài khoản {<Text style={{ fontWeight: 'bold', fontSize: scale(14), color: PRIMARY_COLOR }}>{data.mobile}</Text>}.</Text>
                     </View>
                     <TouchableOpacity
                         style={{
