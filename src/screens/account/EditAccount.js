@@ -218,7 +218,7 @@ class EditAccount extends React.Component {
                                 </View>
                             </TouchableOpacity>
                         </View>
-                        <View style={{ flex: 1, justifyContent: 'flex-end', alignItems: 'center', paddingBottom: scale(25) }}>
+                        <View style={{ flex: 1, justifyContent: 'flex-end', alignItems: 'center', paddingBottom: scale(40) }}>
                             <TouchableOpacity style={{ width: '90%', height: scaleVertical(42), backgroundColor: PRIMARY_COLOR, borderRadius: scale(6), justifyContent: 'center', alignItems: 'center' }}
                                 onPress={() => this.editAccount(this.props.accountInfo.fullname, this.props.accountInfo.dob, this.props.accountInfo.gender, this.props.accountInfo.email, this.props.accountInfo.address)}
                             >

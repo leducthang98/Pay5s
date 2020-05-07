@@ -92,48 +92,9 @@ class CheckWalletHistory extends React.Component {
       if (transferResponse.errorCode === 200) {
         if (transferResponse.data.size != 0) {
           return (
-            <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-              {/* <Modal isVisible={this.state.isModalVisible} onBackdropPress={() => this.hideModal()} swipeDirection="up" onSwipeComplete={() => this.hideModal()} animationIn="slideInDown">
-                <View style={{ width: "100%", height: "100%", backgroundColor: '#D3D3D3', borderRadius: scale(5) }}>
-                  <View style={{ width: "100%", height: "7%", backgroundColor: PRIMARY_COLOR, justifyContent: 'center', alignItems: 'center' }}>
-                    <Text style={texts.white_bold}>Tích điểm</Text>
-                  </View>
-                  <View style={{ backgroundColor: 'white', width: "100%", height: "8%", borderBottomColor: 'gray', borderBottomWidth: scale(0.4), justifyContent: 'center', alignItems: 'center', flexDirection: 'row' }}>
-                    <View style={{ flex: 1, justifyContent: 'center', height: "100%", paddingLeft: scale(13) }}>
-                      <Text style={{ fontSize: scale(12), color: 'gray' }}>Mã giao dịch</Text>
-                    </View>
-                    <View style={{ flex: 3, justifyContent: 'center', alignItems: 'flex-end', height: "100%", paddingRight: scale(10) }}>
-                      <Text style={{ fontSize: scale(12.5), textAlign: 'right' }}>{this.state.initTransfer.id}</Text>
-                    </View>
-                  </View>
-                  <View style={{ backgroundColor: 'white', width: "100%", height: "8%", justifyContent: 'center', alignItems: 'center', flexDirection: 'row' }}>
-                    <View style={{ flex: 1, justifyContent: 'center', height: "100%", paddingLeft: scale(13) }}>
-                      <Text style={{ fontSize: scale(12), color: 'gray' }}>Thời gian</Text>
-                    </View>
-                    <View style={{ flex: 3, justifyContent: 'center', alignItems: 'flex-end', height: "100%", paddingRight: scale(10) }}>
-                      <Text style={{ fontSize: scale(12.5), textAlign: 'right' }}>{this.state.initTransfer.time}</Text>
-                    </View>
-                  </View>
-                  <View style={{ backgroundColor: 'white', width: "100%", height: "14%", justifyContent: 'center', alignItems: 'center', flexDirection: 'row', marginTop: scale(10) }}>
-                    <View style={{ flex: 1, justifyContent: 'center', height: "100%", paddingLeft: scale(13) }}>
-                      <Text style={{ fontSize: scale(12), color: 'gray' }} >Nội dung</Text>
-                    </View>
-                    <View style={{ flex: 3, justifyContent: 'center', alignItems: 'flex-end', height: "100%", paddingRight: scale(10) }}>
-                      <Text style={{ fontSize: scale(12.5), textAlign: 'right' }} numberOfLines={5}>{this.state.initTransfer.note}</Text>
-                    </View>
-                  </View>
-                  <View style={{ backgroundColor: 'white', width: "100%", height: "8%", justifyContent: 'center', alignItems: 'center', flexDirection: 'row', marginTop: scale(10) }}>
-                    <View style={{ flex: 1, justifyContent: 'center', height: "100%", paddingLeft: scale(13) }}>
-                      <Text style={{ fontSize: scale(12), color: 'gray' }}>Thay đổi</Text>
-                    </View>
-                    <View style={{ flex: 3, justifyContent: 'center', alignItems: 'flex-end', height: "100%", paddingRight: scale(10) }}>
-                      <Text style={{ fontSize: scale(12.5), textAlign: 'right' }}>{this.state.initTransfer.amount}</Text>
-                    </View>
-                  </View>
-                </View>
-              </Modal> */}
+            <>
               <ScrollView>
-                <View style={{ height: 10 }}></View>
+                <View style={{ height: scale(10) }}></View>
                 {
                   transferResponse.data.rows.map((item, index) => {
                     let amount = (item.amount > 0) ? '+' + formatMoney(item.amount) + 'đ' : formatMoney(item.amount) + 'đ';
@@ -148,7 +109,8 @@ class CheckWalletHistory extends React.Component {
                 }
 
               </ScrollView>
-            </View>
+              <View style={{ height: scale(30) }}></View>
+            </>
           );
         } else if (transferResponse.data.size == 0) {
           return (

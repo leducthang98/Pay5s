@@ -35,12 +35,13 @@ class BillScreen extends React.Component {
   }
   _renderBill = (service, mobile, amount, modified, telco, status, networkIcon) => (
     <View style={styles.component} >
-      <View style={{ width: '92%', height: containerH / 9, borderWidth: scale(0.3), borderRadius: scale(7), borderColor: 'gray', justifyContent: 'center', alignItems: 'center' }}>
+      <View style={{ width: '92%', height: containerH / 9, borderWidth: scale(0.3), borderRadius: scale(7), borderColor: 'gray', justifyContent: 'center', alignItems: 'center',backgroundColor:'white' }}>
         <View style={{ flexDirection: 'row', width: containerW - scale(35), height: containerH / 11 }}>
           <View style={{ flex: 0.05, }}></View>
           <View style={{ flex: 0.8,justifyContent:'center',alignItems:'center' }}>
             <Image style={{ flex: 0.85, width: '100%', height: '100%' }}
               source={networkIcon}
+              resizeMode={"contain"}
             />
           </View>
           <View style={{ flex: 0.05, }}></View>
@@ -95,7 +96,7 @@ class BillScreen extends React.Component {
               <ScrollView
                 refreshControl={
                   <RefreshControl refreshing={this.state.refreshing} onRefresh={() => this._onRefresh()} />}
-                style={{ marginTop: scale(5) }}>
+                style={{ marginTop: scale(5),marginBottom:scale(50) }}>
                 {
                   billData.map((item, index) => {
                     let service;
@@ -140,6 +141,7 @@ class BillScreen extends React.Component {
                   })
                 }
               </ScrollView>
+                
             </View>
           );
         } else if (billData.size == 0) {
@@ -201,8 +203,7 @@ const styles = StyleSheet.create({
     height: containerH / 8,
     alignItems: 'center',
     justifyContent: 'center',
-    marginTop: scale(4)
-
+    marginTop: scale(4),
   },
 
 });

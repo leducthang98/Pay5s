@@ -27,7 +27,7 @@ class LoginScreen extends React.Component {
     };
   }
   componentDidMount() {
-    setTimeout(()=> this.props.refreshStore(), 2000)
+    setTimeout(() => this.props.refreshStore(), 2000)
   }
   async _loginFunction() {
     Keyboard.dismiss();
@@ -100,13 +100,17 @@ class LoginScreen extends React.Component {
     const inputErrorStylePass = [...inputStylePass, { borderWidth: 1, borderColor: ERROR }];
     return (
       <>
-        <View style={{ height: statusBarHeight, backgroundColor: PRIMARY_COLOR }}></View>
-        <View style={{ flex: 8, alignItems: 'center', backgroundColor: 'white' }}>
-          <Image style={{ height: '30%', width: '100%' }}
-            source={{
-              uri: 'https://client.pay5s.com/assets/img/banner_default.jpg'
-            }}
-          />
+        {/* <View style={{ height: statusBarHeight, backgroundColor: PRIMARY_COLOR }}></View> */}
+        <View style={{ flex: 4, alignItems: 'center', backgroundColor: 'white' }}>
+          <View style={{ width: '100%', height: '30%' }}>
+            <Image
+              style={{ width: '100%', height: '100%' }}
+              resizeMode={'cover'}
+              source={{
+                uri: 'https://client.pay5s.com/assets/img/banner_default.jpg'
+              }}
+            />
+          </View>
           <View style={{ width: '100%', height: '5%' }} />
 
           <TextInput
@@ -149,7 +153,7 @@ class LoginScreen extends React.Component {
         </View>
         <View style={{ flex: 1, backgroundColor: 'white', paddingBottom: scaleVertical(30) }}>
           <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}>
-            <View style={{ width: scale(60), height: scale(1), backgroundColor: 'gray' }}></View>
+            <View style={{ width: scale(60), height: scale(0.4), backgroundColor: 'gray' }}></View>
             <Text style={{ fontSize: scaleModerate(14) }}> HOẶC </Text>
             <View style={{ width: scale(60), height: scale(0.4), backgroundColor: 'gray' }}></View>
           </View>
