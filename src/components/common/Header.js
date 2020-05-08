@@ -12,7 +12,7 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {scaleModerate} from '../../constant/Scale';
 import {texts} from '../../constant/CommonStyles';
 import {CommonActions} from '@react-navigation/native';
-
+import LinearGradient from 'react-native-linear-gradient';
 
 const {width, height} = Dimensions.get('window');
 
@@ -24,7 +24,11 @@ export default class Header extends Component {
   render() {
     const {back, title, rightIcon,screenPopUpFromRightIcon} = this.props;
     return (
-      <View style={styles.container}>
+       <LinearGradient
+      start={{ x: 0, y: 0.75 }} end={{ x: 1, y: 0.25 }}
+
+      colors={['#ff547c', '#c944f7']}
+       style={styles.container}>
         <View style={styles.headerContent}>
           {
             back ?
@@ -36,7 +40,7 @@ export default class Header extends Component {
               <View style={styles.buttonArea}/>
           }
 
-          <Text style={[texts.white_bold, {fontSize:scaleModerate(16)}]}>{title || 'Pay5s'}</Text>
+          <Text style={[texts.white_bold, {fontSize:scaleModerate(17)}]}>{title || 'Pay5s'}</Text>
           {
             rightIcon ?
               <TouchableOpacity style={styles.buttonArea}
@@ -46,7 +50,7 @@ export default class Header extends Component {
               <View style={styles.buttonArea}/>
           }
         </View>
-      </View>
+      </LinearGradient>
     );
   }
 }

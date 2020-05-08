@@ -35,26 +35,39 @@ class BillScreen extends React.Component {
   }
   _renderBill = (service, mobile, amount, modified, telco, status, networkIcon) => (
     <View style={styles.component} >
-      <View style={{ width: '92%', height: containerH / 9, borderWidth: scale(0.3), borderRadius: scale(7), borderColor: 'gray', justifyContent: 'center', alignItems: 'center',backgroundColor:'white' }}>
-        <View style={{ flexDirection: 'row', width: containerW - scale(35), height: containerH / 11 }}>
-          <View style={{ flex: 0.05, }}></View>
-          <View style={{ flex: 0.8,justifyContent:'center',alignItems:'center' }}>
+      <View style={{
+        width: '96%', height: containerH / 9, borderWidth: scale(0.3), borderColor: 'gray', justifyContent: 'center', backgroundColor: 'white', shadowColor: "#000",
+        shadowOffset: {
+          width: 0,
+          height: 1,
+        },
+        shadowOpacity: 0.20,
+        shadowRadius: 1.41,
+        elevation: 2,
+      }}>
+        <View style={{ flexDirection: 'row', width: containerW - scale(35), height: containerH / 11, paddingLeft: scale(5) }}>
+          <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
             <Image style={{ flex: 0.85, width: '100%', height: '100%' }}
               source={networkIcon}
               resizeMode={"contain"}
             />
           </View>
-          <View style={{ flex: 0.05, }}></View>
+          <View style={{ flex: 0.15, }}></View>
           <View style={{ flex: 2.2, flexDirection: 'column' }}>
             <View style={{ flex: 0.05, }}></View>
-            <Text style={{ fontSize: scale(12), fontWeight: 'bold' }}>{service} {telco}</Text>
-            <Text style={{ fontSize: scale(12), fontWeight: 'bold', color: PRIMARY_COLOR }}>{mobile}-{amount}</Text>
-            <Text style={{ fontSize: scale(10), color: 'gray' }}>{modified}</Text>
+            <Text
+              numberOfLines={1}
+              style={{ fontSize: scale(15), fontWeight: 'bold' }}>{service} {telco}</Text>
+            <Text
+              numberOfLines={1}
+              style={{ fontSize: scale(15), fontWeight: 'bold', color: '#6c37c0' }}>{mobile}-{amount}</Text>
+            <Text
+              numberOfLines={1}
+              style={{ fontSize: scale(13), color: '#616161' }}>{modified}</Text>
           </View>
-          <View style={{ flex: 0.8, justifyContent: 'flex-end', alignItems: 'flex-end', paddingRight: scale(3) }}>
-            <Text style={{ fontSize: scale(11), color: 'purple' }}>{status}</Text>
+          <View style={{ flex: 0.9, justifyContent: 'flex-end', alignItems: 'flex-end' }}>
+            <Text style={{ fontSize: scale(13), color: '#db49d1' }}>{status}</Text>
           </View>
-
         </View>
       </View>
     </View>
@@ -94,9 +107,10 @@ class BillScreen extends React.Component {
             <View>
               <Header navigation={this.props.navigation} back={false} title={'Danh sách đơn hàng'} />
               <ScrollView
+                showsVerticalScrollIndicator={false}
                 refreshControl={
                   <RefreshControl refreshing={this.state.refreshing} onRefresh={() => this._onRefresh()} />}
-                style={{ marginTop: scale(5),marginBottom:scale(50) }}>
+                style={{ marginTop: scale(5), marginBottom: scale(50) }}>
                 {
                   billData.map((item, index) => {
                     let service;
@@ -141,7 +155,6 @@ class BillScreen extends React.Component {
                   })
                 }
               </ScrollView>
-                
             </View>
           );
         } else if (billData.size == 0) {
@@ -156,7 +169,6 @@ class BillScreen extends React.Component {
         }
       } else if (billRespond.errorCode === 500) {
         //fail
-        console.log('500 executed')
         this.tokenInvalidFunction();
         return null;
       }
@@ -199,11 +211,10 @@ const styles = StyleSheet.create({
     marginLeft: 10,
   },
   component: {
-    width: containerW,
-    height: containerH / 8,
     alignItems: 'center',
     justifyContent: 'center',
-    marginTop: scale(4),
+    marginTop: scale(5),
+
   },
 
 });

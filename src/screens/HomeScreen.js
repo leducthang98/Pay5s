@@ -21,12 +21,12 @@ import AsyncStorage from '@react-native-community/async-storage';
 import { getAccountInfo, getCommonConfig, getNotification } from '../actions/ActionHomeScreen';
 import { formatMoney } from '../constant/CommonFormat';
 import Loading from '../components/common/Loading';
-import { FACEBOOK } from '../constant/Colors';
 import { CommonActions } from '@react-navigation/native';
 import Toast from 'react-native-simple-toast';
 import { refreshStore } from '../actions/ActionRefresh';
-import { PRIMARY_COLOR } from '../constant/Colors';
+import { PRIMARY_COLOR, PINK_FONTCOLOR, PURPLE_FONTCOLOR, GRAY_FONTCOLOR, FACEBOOK } from '../constant/Colors';
 import OneSignal from 'react-native-onesignal';
+import LinearGradient from 'react-native-linear-gradient';
 class HomeScreen extends React.Component {
   constructor(props) {
     super(props);
@@ -34,9 +34,9 @@ class HomeScreen extends React.Component {
       refreshing: false
     }
     this.mainService = [
-      { iconName: 'wallet', label: 'Nạp tiền', onPress: () => this.rechargeMoney() },
-      { iconName: 'hand-holding-usd', label: 'Chuyển tiền', onPress: () => this.transferMoney() },
-      { iconName: 'file-alt', label: 'Lịch sử', onPress: () => this.checkWallet() },
+      { src: "../res/images/common/RechargeMoney.png", label: 'Nạp tiền', onPress: () => this.rechargeMoney() },
+      { src: "../res/images/home/Transfer.png", label: 'Chuyển tiền', onPress: () => this.transferMoney() },
+      { src: "../res/images/home/History.png", label: 'Lịch sử', onPress: () => this.checkWallet() },
     ];
     this.otherService = [
       { iconName: 'mobile-alt', label: 'Nạp tiền điện thoại', onPress: () => this.rechargePhone(), color: "#EDE574" },
@@ -107,10 +107,16 @@ class HomeScreen extends React.Component {
   rechargePhone() {
     this.props.navigation.navigate(RECHARGEPHONE)
   }
-  _renderMainService = (iconName, label, onPress) => (
-    <TouchableOpacity style={{ flex: 1, alignItems: 'center', paddingTop: scale(7) }} onPress={onPress}>
-      <Icon name={iconName} size={scale(28)} color={"#F8b195"} />
-      <Text style={{ fontSize: scale(10), paddingTop: scale(10) }}>{label}</Text>
+  _renderMainService = (src, label, onPress) => (
+    <TouchableOpacity style={{ alignItems: 'center', justifyContent: 'center', height: '100%', width: '33.33333333%' }} onPress={onPress}>
+      <View style={{ width: '85%', height: '85%', justifyContent: 'center', alignItems: 'center' }}>
+        <View style={{ width: '100%', height: '70%', alignItems: "center", justifyContent: "center" }}>
+          <Icon name={'wallet'} size={scale(30)} color={PINK_FONTCOLOR} />
+        </View>
+        <View style={{ width: '100%', height: '30%', alignItems: "center", justifyContent: "flex-start" }}>
+          <Text style={{ fontSize: scale(13), color: PINK_FONTCOLOR }}>{label}</Text>
+        </View>
+      </View>
     </TouchableOpacity>
   );
   _renderOtherServices = (iconName, label, onPress, color) => (
@@ -118,8 +124,9 @@ class HomeScreen extends React.Component {
       onPress={onPress}
     >
       <Icon name={iconName} size={scale(30)} color={color} />
-      <Text style={{ fontSize: scale(11), paddingTop: scale(9), textAlign: 'center' }}>{label}</Text>
+      <Text style={{ fontSize: scale(13), paddingTop: scale(9), textAlign: 'center' }}>{label}</Text>
     </TouchableOpacity>
+    
   );
   _renderNotification = (img_preview, img_avatar, headline, published_date, author, content, description, defaultImage) => (
     <TouchableOpacity
@@ -204,28 +211,26 @@ class HomeScreen extends React.Component {
               <RefreshControl refreshing={this.state.refreshing} onRefresh={() => this._onRefresh()} />}
             style={styles.container}>
             <View style={{ alignItems: 'center' }}>
-              <View style={[styles.header]}>
+              <LinearGradient
+                start={{ x: 0, y: 0.75 }} end={{ x: 1, y: 0.25 }}
+
+                colors={['#ff547c', '#c944f7']}
+                style={[styles.header]}>
                 <View style={[styles.insideHeader]}>
                   <View style={{ flexDirection: 'row' }}>
-                    <Text style={{ color: 'white', fontSize: scale(16) }}> Xin chào </Text>
-                    <Text style={{ color: 'white', fontSize: scale(16), fontWeight: 'bold' }}>0{accountResponse.data.mobile}</Text>
+                    <Text style={{ color: 'white', fontSize: scale(18) }}> Xin chào </Text>
+                    <Text style={{ color: 'white', fontSize: scale(18), fontWeight: 'bold' }}>0{accountResponse.data.mobile}</Text>
                   </View>
-                  {/* <TouchableOpacity
-                    onPress={() => this.support(commonResponse.data.hotline, commonResponse.data.fanpage)}
-                  >
-                    <Icon style={{ flex: 1 }} name={'comments'} size={scale(23)} color={'white'} />
-                  </TouchableOpacity> */}
-
                 </View>
-              </View>
+              </LinearGradient>
               <View style={styles.account}>
                 <TouchableOpacity
                   onPress={() => this.checkWallet()}
-                  style={{ height: (containerH / 5.3) * 2 / 5, borderTopLeftRadius: scale(7), borderTopRightRadius: scale(7), flexDirection: 'row', alignItems: "center", borderBottomColor: 'gray', borderBottomWidth: scale(0.5) }}
+                  style={{ height: (containerH / 5.3) * 2 / 5, borderTopLeftRadius: scale(7), borderTopRightRadius: scale(7), flexDirection: 'row', alignItems: "center", borderBottomColor: GRAY_FONTCOLOR, borderBottomWidth: scale(0.5) }}
                 >
                   <Text
-                    style={{ flex: 6, paddingLeft: scale(7), fontSize: scale(14) }}>Số dư</Text>
-                  <Text style={{ flex: 3, fontSize: scale(15), fontWeight: 'bold', textAlign: 'right' }}>{formatMoney(accountResponse.data.balance)}đ</Text>
+                    style={{ flex: 6, paddingLeft: scale(7), fontSize: scale(15), color: GRAY_FONTCOLOR }}>Số dư</Text>
+                  <Text style={{ flex: 3, fontSize: scale(15), fontWeight: 'bold', textAlign: 'right', color: PURPLE_FONTCOLOR }}>{formatMoney(accountResponse.data.balance)}đ</Text>
                   <View style={{ flex: 0.2 }}></View>
                   <Icon style={{ flex: 1 }} name={'chevron-right'} size={scale(16)} color={"black"} />
                 </TouchableOpacity>
@@ -246,16 +251,11 @@ class HomeScreen extends React.Component {
                 }
               </View>
               <View style={styles.service2}>
-                {/* {
-                this.otherService2.map((item, index) => {
-                  return this._renderOtherServices(item.iconName, item.label, item.onPress, item.color)
-                })
-              } */}
                 <TouchableOpacity style={{ flex: 1, alignItems: 'center', paddingTop: scale(12) }}
                   onPress={() => this.support(commonResponse.data.hotline, commonResponse.data.fanpage)}
                 >
                   <Icon name={'info-circle'} size={scale(30)} color={PRIMARY_COLOR} />
-                  <Text style={{ fontSize: scale(11), paddingTop: scale(9), textAlign: 'center' }}>Hỗ trợ</Text>
+                  <Text style={{ fontSize: scale(13), paddingTop: scale(9), textAlign: 'center' }}>Hỗ trợ</Text>
                 </TouchableOpacity>
                 <View style={{ flex: 1, alignItems: 'center', paddingTop: scale(12) }}
                 >
@@ -273,13 +273,13 @@ class HomeScreen extends React.Component {
               <View style={styles.notification}>
                 <View style={{ flexDirection: 'row', height: scale(30), paddingLeft: scale(10), paddingRight: scale(10) }}>
                   <View style={{ alignItems: 'flex-start', justifyContent: 'flex-end', flex: 1 }}>
-                    <Text style={{ fontSize: scale(14), fontWeight: '600' }}>Tin tức</Text>
+                    <Text style={{ fontSize: scale(15), fontWeight: '600',color:GRAY_FONTCOLOR }}>Tin tức</Text>
                   </View>
                   <View style={{ alignItems: 'flex-end', justifyContent: 'flex-end', flex: 1 }}>
                     <TouchableOpacity
                       onPress={() => this.props.navigation.navigate(NOTIFICATION)}
                     >
-                      <Text style={{ color: FACEBOOK, fontSize: scale(14), fontWeight: '600' }}>Xem tất cả</Text>
+                      <Text style={{ color: FACEBOOK, fontSize: scale(15), fontWeight: '600',color:PURPLE_FONTCOLOR }}>Xem tất cả</Text>
                     </TouchableOpacity>
                   </View>
                 </View>
@@ -341,17 +341,16 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   insideHeader: {
-    backgroundColor: PRIMARY_COLOR,
     width: containerW / 1.08,
     height: containerH / 10,
     flexDirection: 'row',
-    paddingTop: statusBarHeight 
+    paddingTop: statusBarHeight-scale(10)
   },
   account: {
     backgroundColor: 'white',
     width: containerW / 1.08,
     height: containerH / 5.3,
-    borderRadius: scale(7),
+    borderRadius: scale(2),
     marginTop: -scale(50),
     flexDirection: 'column',
     shadowColor: "#000",
