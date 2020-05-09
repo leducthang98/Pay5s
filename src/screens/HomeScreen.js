@@ -11,11 +11,11 @@ import {
   RefreshControl,
   Linking,
 } from 'react-native';
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 import Icon from 'react-native-vector-icons/FontAwesome5';
-import {scale, scaleVertical} from '../constant/Scale';
-import {shadow, size} from '../constant/CommonStyles';
-import {statusBarHeight} from '../constant/Layout';
+import { scale, scaleVertical } from '../constant/Scale';
+import { shadow, size } from '../constant/CommonStyles';
+import { statusBarHeight } from '../constant/Layout';
 import {
   WALLET,
   NOTIFICATION,
@@ -28,16 +28,16 @@ import {
   INTERNET_VIETTEL,
 } from '../navigators/RouteName';
 import AsyncStorage from '@react-native-community/async-storage';
-import {getAccountInfo, getCommonConfig, getNotification} from '../actions/ActionHomeScreen';
-import {formatMoney} from '../constant/CommonFormat';
+import { getAccountInfo, getCommonConfig, getNotification } from '../actions/ActionHomeScreen';
+import { formatMoney } from '../constant/CommonFormat';
 import Loading from '../components/common/Loading';
-import {CommonActions} from '@react-navigation/native';
+import { CommonActions } from '@react-navigation/native';
 import Toast from 'react-native-simple-toast';
-import {refreshStore} from '../actions/ActionRefresh';
-import {PRIMARY_COLOR, PINK_FONTCOLOR, PURPLE_FONTCOLOR, GRAY_FONTCOLOR, FACEBOOK} from '../constant/Colors';
+import { refreshStore } from '../actions/ActionRefresh';
+import { PRIMARY_COLOR, PINK_FONTCOLOR, PURPLE_FONTCOLOR, GRAY_FONTCOLOR, FACEBOOK } from '../constant/Colors';
 import OneSignal from 'react-native-onesignal';
 import LinearGradient from 'react-native-linear-gradient';
-import {MAIN_SERVICE, NETWORK} from '../constant/Icon';
+import { MAIN_SERVICE, NETWORK } from '../constant/Icon';
 
 class HomeScreen extends React.Component {
   constructor(props) {
@@ -46,15 +46,15 @@ class HomeScreen extends React.Component {
       refreshing: false,
     };
     this.mainService = [
-      {name: 'DEPOSIT', label: 'Nạp tiền', onPress: () => this.rechargeMoney()},
-      {name: 'TRANSFER', label: 'Chuyển tiền', onPress: () => this.transferMoney()},
-      {name: 'HISTORY', label: 'Lịch sử', onPress: () => this.checkWallet()},
+      { name: 'DEPOSIT', label: 'Nạp tiền', onPress: () => this.rechargeMoney() },
+      { name: 'TRANSFER', label: 'Chuyển tiền', onPress: () => this.transferMoney() },
+      { name: 'HISTORY', label: 'Lịch sử', onPress: () => this.checkWallet() },
     ];
     this.otherService = [
-      {iconName: 'mobile-alt', label: 'Nạp tiền điện thoại', onPress: () => this.rechargePhone(), color: '#EDE574'},
-      {iconName: 'receipt', label: 'Mua mã thẻ', onPress: () => this.buyCardID(), color: '#2d5e57'},
-      {iconName: 'globe', label: 'Internet Viettel', onPress: () => this.internetViettel(), color: '#099FFF'},
-      {iconName: 'korvue', label: 'Gia hạn K+', onPress: () => this.KPlus(), color: '#00FF00'},
+      { iconName: 'mobile-alt', label: 'Nạp tiền điện thoại', onPress: () => this.rechargePhone(), color: '#EDE574' },
+      { iconName: 'receipt', label: 'Mua mã thẻ', onPress: () => this.buyCardID(), color: '#2d5e57' },
+      { iconName: 'globe', label: 'Internet Viettel', onPress: () => this.internetViettel(), color: '#099FFF' },
+      { iconName: 'korvue', label: 'Gia hạn K+', onPress: () => this.KPlus(), color: '#00FF00' },
     ];
     this.otherService2 = [
       {},
@@ -80,9 +80,9 @@ class HomeScreen extends React.Component {
       'Thông báo',
       'Tính năng đang phát triển',
       [
-        {text: 'Đóng', onPress: () => console.log('OK Pressed')},
+        { text: 'Đóng', onPress: () => console.log('OK Pressed') },
       ],
-      {cancelable: false},
+      { cancelable: false },
     );
   }
 
@@ -92,9 +92,9 @@ class HomeScreen extends React.Component {
       'Thông báo',
       'Tính năng đang phát triển',
       [
-        {text: 'Đóng', onPress: () => console.log('OK Pressed')},
+        { text: 'Đóng', onPress: () => console.log('OK Pressed') },
       ],
-      {cancelable: false},
+      { cancelable: false },
     );
   }
 
@@ -103,10 +103,10 @@ class HomeScreen extends React.Component {
       'Support',
       'Phương thức hỗ trợ dịch vụ App Pay5s',
       [
-        {text: 'Hotline', onPress: () => Linking.openURL('tel:' + hotline)},
-        {text: 'Facebook', onPress: () => Linking.openURL(fanpage)},
+        { text: 'Hotline', onPress: () => Linking.openURL('tel:' + hotline) },
+        { text: 'Facebook', onPress: () => Linking.openURL(fanpage) },
       ],
-      {cancelable: true},
+      { cancelable: true },
     );
   }
 
@@ -131,32 +131,38 @@ class HomeScreen extends React.Component {
   }
 
   _renderMainService = (name, label, onPress) => (
-    <TouchableOpacity style={{alignItems: 'center', justifyContent: 'center', height: '100%', width: '33.33333333%'}}
-                      onPress={onPress}>
-      <View style={{width: '85%', height: '85%', justifyContent: 'center', alignItems: 'center'}}>
-        <View style={{width: '100%', height: '70%', alignItems: 'center', justifyContent: 'center', backgroundColor:'#0077CC'}}>
+    <TouchableOpacity style={{ alignItems: 'center', justifyContent: 'center', height: '100%', width: '33.33333333%' }}
+      onPress={onPress}>
+      <View style={{ width: '85%', height: '85%', justifyContent: 'center', alignItems: 'center', backgroundColor: PURPLE_FONTCOLOR }}>
+        <View style={{ width: '100%', height: '70%', alignItems: 'center', justifyContent: 'center' }}>
           {/*<Icon name={'wallet'} size={scale(30)} color={PINK_FONTCOLOR}/>*/}
-          <Image source={MAIN_SERVICE[name || 'DEPOSIT']}  style={{ width: '100%', height: '100%' }} resizeMode={'contain'} />
+          <Image source={MAIN_SERVICE[name || 'DEPOSIT']} style={{ width: '100%', height: '100%' }} resizeMode={'contain'} />
           {console.log('source = ', MAIN_SERVICE[name])}
         </View>
-        <View style={{width: '100%', height: '30%', alignItems: 'center', justifyContent: 'flex-start'}}>
-          <Text style={{fontSize: scale(13), color: PINK_FONTCOLOR}}>{label}</Text>
+        <View style={{ width: '100%', height: '30%', alignItems: 'center', justifyContent: 'flex-start' }}>
+          <Text style={{ fontSize: scale(13), color: PINK_FONTCOLOR }}>{label}</Text>
         </View>
       </View>
     </TouchableOpacity>
   );
   _renderOtherServices = (iconName, label, onPress, color) => (
-    <TouchableOpacity style={{flex: 1, alignItems: 'center', paddingTop: scale(12)}}
-                      onPress={onPress}
+    <TouchableOpacity style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}
+      onPress={onPress}
     >
-      <Icon name={iconName} size={scale(30)} color={color}/>
-      <Text style={{fontSize: scale(13), paddingTop: scale(9), textAlign: 'center'}}>{label}</Text>
+      <View style={{ width: '90%', height: '70%', backgroundColor: PURPLE_FONTCOLOR, borderRadius: scale(5) }}>
+        <View style={{ width: '100%', height: '60%' }}>
+          <Image source={MAIN_SERVICE['DEPOSIT']} style={{ width: '100%', height: '100%' }} resizeMode={'contain'} />
+        </View>
+        <View style={{ width: '100%', height: '40%', justifyContent: 'center', alignItems: 'center', backgroundColor: 'red' }}>
+          <Text textAlign={'auto'}>{label}</Text>
+        </View>
+      </View>
     </TouchableOpacity>
 
   );
   _renderNotification = (img_preview, img_avatar, headline, published_date, author, content, description, defaultImage) => (
     <TouchableOpacity
-      style={{height: scale(120)}}
+      style={{ height: scale(120) }}
       onPress={() => this.props.navigation.navigate(INITNOTIFICATION, {
         dataNotification: {
           img_preview: img_preview,
@@ -170,24 +176,24 @@ class HomeScreen extends React.Component {
         },
       })}
     >
-      <View style={{width: containerW / 1.7, height: scale(110)}}>
-        <View style={{flex: 4, justifyContent: 'center', alignItems: 'center'}}>
-          <Image style={{height: '90%', width: '90%'}}
-                 resizeMode={'contain'}
-                 source={{
-                   uri:
-                     (img_avatar) ?
-                       'https://scontent-sin6-1.xx.fbcdn.net/v/t1.0-9/p960x960/71949763_2522897797942478_4149955310162804736_o.jpg?_nc_cat=106&_nc_sid=85a577&_nc_ohc=zag8Z2YXtdMAX9BGZT4&_nc_ht=scontent-sin6-1.xx&_nc_tp=6&oh=081596cb6c9afc68b5bb83a069d5aa1a&oe=5EA9804A'
-                       :
-                       defaultImage,
-                 }}
+      <View style={{ width: containerW / 1.7, height: scale(110) }}>
+        <View style={{ flex: 4, justifyContent: 'center', alignItems: 'center' }}>
+          <Image style={{ height: '90%', width: '90%' }}
+            resizeMode={'contain'}
+            source={{
+              uri:
+                (img_avatar) ?
+                  'https://scontent-sin6-1.xx.fbcdn.net/v/t1.0-9/p960x960/71949763_2522897797942478_4149955310162804736_o.jpg?_nc_cat=106&_nc_sid=85a577&_nc_ohc=zag8Z2YXtdMAX9BGZT4&_nc_ht=scontent-sin6-1.xx&_nc_tp=6&oh=081596cb6c9afc68b5bb83a069d5aa1a&oe=5EA9804A'
+                  :
+                  defaultImage,
+            }}
           />
         </View>
-        <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-          <View style={{width: '80%', height: '100%'}}>
+        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+          <View style={{ width: '80%', height: '100%' }}>
             <Text
               numberOfLines={2}
-              style={{fontSize: scale(11), position: 'absolute', fontWeight: 'bold'}}
+              style={{ fontSize: scale(11), position: 'absolute', fontWeight: 'bold' }}
             >{headline}</Text>
           </View>
         </View>
@@ -202,7 +208,7 @@ class HomeScreen extends React.Component {
     this.props.navigation.dispatch(
       CommonActions.reset({
         index: 1,
-        routes: [{name: LOGIN}],
+        routes: [{ name: LOGIN }],
       }),
     );
   }
@@ -235,17 +241,17 @@ class HomeScreen extends React.Component {
         return (
           <ScrollView
             refreshControl={
-              <RefreshControl refreshing={this.state.refreshing} onRefresh={() => this._onRefresh()}/>}
+              <RefreshControl refreshing={this.state.refreshing} onRefresh={() => this._onRefresh()} />}
             style={styles.container}>
-            <View style={{alignItems: 'center'}}>
+            <View style={{ alignItems: 'center' }}>
               <LinearGradient
-                start={{x: 0, y: 0.75}} end={{x: 1, y: 0.25}}
+                start={{ x: 0, y: 0.75 }} end={{ x: 1, y: 0.25 }}
 
                 colors={['#ff547c', '#c944f7']}
                 style={[styles.header]}>
                 <View style={[styles.insideHeader]}>
-                  <View style={{flexDirection: 'row'}}>
-                    <Text style={{color: 'white', fontSize: scale(18)}}> Xin chào </Text>
+                  <View style={{ flexDirection: 'row' }}>
+                    <Text style={{ color: 'white', fontSize: scale(18) }}> Xin chào </Text>
                     <Text style={{
                       color: 'white',
                       fontSize: scale(18),
@@ -267,7 +273,7 @@ class HomeScreen extends React.Component {
                     borderBottomWidth: scale(0.5),
                   }}>
                   <Text
-                    style={{flex: 6, paddingLeft: scale(7), fontSize: scale(15), color: GRAY_FONTCOLOR}}>Số dư</Text>
+                    style={{ flex: 6, paddingLeft: scale(7), fontSize: scale(15), color: GRAY_FONTCOLOR }}>Số dư</Text>
                   <Text style={{
                     flex: 3,
                     fontSize: scale(15),
@@ -275,8 +281,8 @@ class HomeScreen extends React.Component {
                     textAlign: 'right',
                     color: PURPLE_FONTCOLOR,
                   }}>{formatMoney(accountResponse.data.balance)}đ</Text>
-                  <View style={{flex: 0.2}}></View>
-                  <Icon style={{flex: 1}} name={'chevron-right'} size={scale(16)} color={'black'}/>
+                  <View style={{ flex: 0.2 }}></View>
+                  <Icon style={{ flex: 1 }} name={'chevron-right'} size={scale(16)} color={'black'} />
                 </TouchableOpacity>
                 <View style={{
                   height: (containerH / 5.3) * 3 / 5,
@@ -301,38 +307,38 @@ class HomeScreen extends React.Component {
                   })
                 }
               </View>
-              <View style={styles.service2}>
-                <TouchableOpacity style={{flex: 1, alignItems: 'center', paddingTop: scale(12)}}
-                                  onPress={() => this.support(commonResponse.data.hotline, commonResponse.data.fanpage)}>
-                  <Icon name={'info-circle'} size={scale(30)} color={PRIMARY_COLOR}/>
-                  <Text style={{fontSize: scale(13), paddingTop: scale(9), textAlign: 'center'}}>Hỗ trợ</Text>
+              {/* <View style={styles.service2}>
+                <TouchableOpacity style={{ flex: 1, alignItems: 'center', paddingTop: scale(12) }}
+                  onPress={() => this.support(commonResponse.data.hotline, commonResponse.data.fanpage)}>
+                  <Icon name={'info-circle'} size={scale(30)} color={PRIMARY_COLOR} />
+                  <Text style={{ fontSize: scale(13), paddingTop: scale(9), textAlign: 'center' }}>Hỗ trợ</Text>
                 </TouchableOpacity>
-                <View style={{flex: 1, alignItems: 'center', paddingTop: scale(12)}}>
+                <View style={{ flex: 1, alignItems: 'center', paddingTop: scale(12) }}>
 
                 </View>
-                <View style={{flex: 1, alignItems: 'center', paddingTop: scale(12)}}>
+                <View style={{ flex: 1, alignItems: 'center', paddingTop: scale(12) }}>
 
                 </View>
-                <View style={{flex: 1, alignItems: 'center', paddingTop: scale(12)}}>
+                <View style={{ flex: 1, alignItems: 'center', paddingTop: scale(12) }}>
 
                 </View>
-              </View>
+              </View> */}
               <View style={styles.notification}>
                 <View
-                  style={{flexDirection: 'row', height: scale(30), paddingLeft: scale(10), paddingRight: scale(10)}}>
-                  <View style={{alignItems: 'flex-start', justifyContent: 'flex-end', flex: 1}}>
-                    <Text style={{fontSize: scale(15), fontWeight: '600', color: GRAY_FONTCOLOR}}>Tin tức</Text>
+                  style={{ flexDirection: 'row', height: scale(30), paddingLeft: scale(10), paddingRight: scale(10) }}>
+                  <View style={{ alignItems: 'flex-start', justifyContent: 'flex-end', flex: 1 }}>
+                    <Text style={{ fontSize: scale(15), fontWeight: '600', color: GRAY_FONTCOLOR }}>Tin tức</Text>
                   </View>
-                  <View style={{alignItems: 'flex-end', justifyContent: 'flex-end', flex: 1}}>
+                  <View style={{ alignItems: 'flex-end', justifyContent: 'flex-end', flex: 1 }}>
                     <TouchableOpacity
                       onPress={() => this.props.navigation.navigate(NOTIFICATION)}>
-                      <Text style={{fontSize: scale(15), fontWeight: '600', color: PURPLE_FONTCOLOR}}>Xem
+                      <Text style={{ fontSize: scale(15), fontWeight: '600', color: PURPLE_FONTCOLOR }}>Xem
                         tất cả</Text>
                     </TouchableOpacity>
                   </View>
                 </View>
-                <View style={{height: scale(150)}}>
-                  <ScrollView horizontal={true} showsHorizontalScrollIndicator={false} style={{paddingTop: scale(10)}}>
+                <View style={{ height: scale(150) }}>
+                  <ScrollView horizontal={true} showsHorizontalScrollIndicator={false} style={{ paddingTop: scale(10) }}>
                     {
                       notiResponse.data.rows.map((item, index) => {
                         if (index > 2) {
@@ -414,15 +420,16 @@ const styles = StyleSheet.create({
   },
   service1: {
     width: containerW,
-    height: containerH / 7,
+    height: containerH / 6.5,
     flexDirection: 'row',
     marginTop: '3%',
     backgroundColor: 'white',
+    paddingLeft: scale(7)
 
   },
   service2: {
     width: containerW,
-    height: containerH / 7,
+    height: containerH / 6.5,
     flexDirection: 'row',
     backgroundColor: 'white',
   },
