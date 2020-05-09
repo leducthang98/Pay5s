@@ -20,7 +20,7 @@ import { CommonActions } from '@react-navigation/native';
 import { LOGIN } from '../navigators/RouteName';
 import { refreshStore } from '../actions/ActionRefresh';
 import { PRIMARY_COLOR } from '../constant/Colors'
-import { NETWORK } from '../constant/NetworkIcon';
+import { NETWORK } from '../constant/Icon';
 class BillScreen extends React.Component {
   constructor(props) {
     super(props);

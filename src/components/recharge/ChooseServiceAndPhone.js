@@ -14,7 +14,7 @@ import { scaleModerate, scaleVertical } from '../../constant/Scale';
 import { getString } from '../../res/values/String';
 import { texts } from '../../constant/CommonStyles';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import { NETWORK } from '../../constant/NetworkIcon';
+import { NETWORK } from '../../constant/Icon';
 import { DEPOSIT, CONTACT_LIST } from '../../navigators/RouteName';
 
 
