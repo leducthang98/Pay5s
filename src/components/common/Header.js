@@ -9,12 +9,14 @@ import {
 import {statusBarHeight} from '../../constant/Layout';
 import * as COLOR from '../../constant/Colors';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import {scaleModerate} from '../../constant/Scale';
+import {scaleModerate, scaleVertical} from '../../constant/Scale';
 import {texts} from '../../constant/CommonStyles';
 import {CommonActions} from '@react-navigation/native';
 import LinearGradient from 'react-native-linear-gradient';
 
 const {width, height} = Dimensions.get('window');
+const headerHeight = scaleVertical(50)
+
 
 export default class Header extends Component {
   constructor(props) {
@@ -58,7 +60,7 @@ export default class Header extends Component {
 const styles = StyleSheet.create({
   container: {
     width: width,
-    height: statusBarHeight * 2,
+    height: headerHeight,
     // paddingTop: statusBarHeight,
     backgroundColor: COLOR.PRIMARY_COLOR,
   },
@@ -69,8 +71,8 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
   },
   buttonArea: {
-    height: statusBarHeight * 2,
-    width: statusBarHeight * 2,
+    height: headerHeight,
+    width: headerHeight,
     alignItems: 'center',
     justifyContent: 'center',
   },

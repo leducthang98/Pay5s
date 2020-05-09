@@ -9,7 +9,7 @@ import {
 import * as Layout from '../../constant/Layout'
 import * as COLOR from '../../constant/Colors'
 import { scaleModerate, scaleVertical } from '../../constant/Scale';
-import { NETWORK } from '../../constant/NetworkIcon';
+import { NETWORK } from '../../constant/Icon';
 import { size, texts } from '../../constant/CommonStyles';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { getString } from '../../res/values/String';
