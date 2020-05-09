@@ -50,12 +50,14 @@ export default function BottomTabNavigator() {
                     shadowRadius: 1.41,
                     backgroundColor: COLOR.WHITE,
                     elevation: 15,
+                
                     height: statusBarHeight * 3,
                     paddingBottom: statusBarHeight
-                }
-            }}
-
-        >
+                },
+                labelPosition:'below-icon',
+                showLabel: true,
+                showIcon:true
+            }}>
             <Tab.Screen name={HOME} component={HomeScreen} options={{ tabBarLabel: 'Trang chủ' }} />
             <Tab.Screen name={NOTIFICATION} component={NotiScreen} options={{ tabBarLabel: 'Tin tức' }} />
             <Tab.Screen name={DEPOSIT} component={BillScreen} options={{ tabBarLabel: 'Đơn hàng' }} />
