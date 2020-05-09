@@ -74,8 +74,6 @@ class LoginScreen extends React.Component {
       borderBottomWidth: scale(0.5),
       borderColor: GRAY_FONTCOLOR,
       width: '80%',
-      paddingVertical: scaleVertical(10),
-      paddingHorizontal: scaleModerate(15),
       justifyContent: 'center',
       fontSize: scaleModerate(13),
     }];
@@ -83,8 +81,6 @@ class LoginScreen extends React.Component {
       borderBottomWidth: scale(0.5),
       borderColor: GRAY_FONTCOLOR,
       width: '80%',
-      paddingVertical: scaleVertical(10),
-      paddingHorizontal: scaleModerate(15),
       justifyContent: 'center',
       fontSize: scaleModerate(13),
     }];
