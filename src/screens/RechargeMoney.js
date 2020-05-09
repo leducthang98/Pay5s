@@ -4,7 +4,7 @@ import Header from '../components/common/Header'
 import { connect } from 'react-redux';
 import { ScrollView } from 'react-native-gesture-handler';
 import { scale } from '../constant/Scale';
-import { PRIMARY_COLOR,FACEBOOK } from '../constant/Colors'
+import { PRIMARY_COLOR, FACEBOOK, PURPLE_FONTCOLOR, PINK_FONTCOLOR } from '../constant/Colors'
 import Loading from '../components/common/Loading';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import Toast from 'react-native-simple-toast';
@@ -19,23 +19,23 @@ class RechargeMoney extends React.Component {
   };
 
   _renderCommonData = (name, note, acc_name, acc_no, bank, syntax) => (
-    <View style={{ paddingLeft: scale(32), backgroundColor: 'white', paddingBottom: scale(15)}}>
+    <View style={{ paddingLeft: scale(32), backgroundColor: 'white', paddingBottom: scale(15) }}>
 
-      <Text style={{ fontWeight: 'bold', fontSize: scale(16), color: FACEBOOK }}>{name}</Text>
+      <Text style={{ fontWeight: 'bold', fontSize: scale(16), color: PINK_FONTCOLOR }}>{name}</Text>
       <Text style={styles.textComponent}>{bank}</Text>
       <TouchableOpacity style={{ flexDirection: 'row' }}
         onPress={() => this.writeToClipboard(acc_no)}
       >
         <Text style={styles.copyText}>{acc_no}</Text>
-        <Icon name={'copy'} style={{ paddingLeft: scale(10), paddingTop: scale(3) }} size={scale(14)} color={PRIMARY_COLOR} />
+        <Icon name={'copy'} style={{ paddingLeft: scale(10), paddingTop: scale(3) }} size={scale(14)} color={PURPLE_FONTCOLOR} />
       </TouchableOpacity>
       <Text style={styles.textComponent}>{acc_name}</Text>
       <Text style={styles.textComponent}>{note}</Text>
-      <TouchableOpacity style={{ flexDirection: 'column',width:'100%' }}
+      <TouchableOpacity style={{ flexDirection: 'column', width: '100%' }}
         onPress={() => this.writeToClipboard(syntax)}
       >
         <Text style={styles.copyText}>{syntax}</Text>
-        <Icon name={'copy'} style={{ paddingTop: scale(3), }} size={scale(14)} color={PRIMARY_COLOR} />
+        <Icon name={'copy'} style={{ paddingTop: scale(3), }} size={scale(14)} color={PURPLE_FONTCOLOR} />
       </TouchableOpacity>
     </View>
   );
@@ -59,7 +59,7 @@ class RechargeMoney extends React.Component {
             <Header navigation={this.props.navigation} back={true} title={'Nạp số dư tài khoản'} />
             <ScrollView>
               <View style={{ paddingLeft: scale(10), backgroundColor: 'white', paddingTop: scale(8) }}>
-                <Text style={{ paddingBottom: scale(10), backgroundColor: 'white', fontSize: scale(16) }}>Chọn hình thức Nạp số dư tài khoản</Text>
+                <Text style={{ paddingBottom: scale(10), backgroundColor: 'white', fontSize: scale(17),fontWeight:'700',color:'#616161' }}>Chọn hình thức Nạp số dư tài khoản</Text>
               </View>
               {
                 commonConfigResponse.data.topup_channel.map((item, index) => {
@@ -91,9 +91,9 @@ const styles = StyleSheet.create({
     fontSize: scale(14),
     color: '#696969'
   },
-  copyText:{
+  copyText: {
     fontSize: scale(14),
-    color: PRIMARY_COLOR
+    color: PURPLE_FONTCOLOR
   }
 
 })

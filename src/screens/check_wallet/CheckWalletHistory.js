@@ -6,7 +6,7 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import { formatMoney } from '../../constant/CommonFormat';
 import Modal from 'react-native-modal';
-import { PRIMARY_COLOR } from '../../constant/Colors';
+import { PRIMARY_COLOR,PURPLE_FONTCOLOR,GRAY_FONTCOLOR,PINK_FONTCOLOR } from '../../constant/Colors';
 import { texts } from '../../constant/CommonStyles';
 import { refreshStore } from '../../actions/ActionRefresh';
 import Toast from 'react-native-simple-toast';
@@ -59,17 +59,17 @@ class CheckWalletHistory extends React.Component {
           time: time
         }
       })}>
-      <View style={{ width: containerW, height: scale(56), flexDirection: 'row', justifyContent: 'center', alignItems: 'center', borderBottomWidth: scale(0.4), borderColor: 'gray' }}>
+      <View style={{ width: containerW, height: scale(60), flexDirection: 'row', justifyContent: 'center', alignItems: 'center', borderBottomWidth: scale(0.4), borderColor: 'gray' }}>
         <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
           <Icon name={icon} size={scale(19)} color={"black"} />
         </View>
-        <View style={{ flex: 5.5, height: scale(56), paddingTop: scale(5) }}>
-          <Text numberOfLines={1} style={{ fontSize: scale(12.5) }}>{note}</Text>
-          <Text numberOfLines={1} style={{ fontSize: scale(10.5), color: 'gray' }}>{time}</Text>
-          <Text numberOfLines={1} style={{ fontSize: scale(10.5), color: 'gray' }}>Txid: {id}</Text>
+        <View style={{ flex: 5.5, height: scale(56) }}>
+          <Text numberOfLines={1} style={{ fontSize: scale(14),color:'black' }}>{note}</Text>
+          <Text numberOfLines={1} style={{ fontSize: scale(13), color: GRAY_FONTCOLOR }}>{time}</Text>
+          <Text numberOfLines={1} style={{ fontSize: scale(13), color: GRAY_FONTCOLOR }}>Txid: {id}</Text>
         </View>
         <View style={{ flex: 2.5, height: scale(56), justifyContent: 'flex-end', alignItems: 'flex-end', paddingRight: scale(10), paddingBottom: scale(5) }}>
-          <Text style={{ fontSize: scale(13), fontWeight: 'bold' }}>{amount}</Text>
+          <Text style={{ fontSize: scale(13), fontWeight: 'bold',color:PURPLE_FONTCOLOR }}>{amount}</Text>
           {/* <Text numberOfLines={1} style={{ fontSize: scale(10.5), color: '#FDA50F' }}>Trước đó: {originAmount}</Text> */}
         </View>
       </View>

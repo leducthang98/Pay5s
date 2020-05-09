@@ -6,6 +6,7 @@ import {
   ScrollView,
   StyleSheet,
   Dimensions,
+  Image,
   RefreshControl
 } from 'react-native';
 import { scale } from '../../constant/Scale';
@@ -24,6 +25,7 @@ import { getTransfer } from '../../actions/ActionHomeScreen';
 import { formatMoney } from '../../constant/CommonFormat';
 import { refreshStore } from '../../actions/ActionRefresh';
 import Toast from 'react-native-simple-toast';
+import { PURPLE_FONTCOLOR, PINK_FONTCOLOR, GRAY_FONTCOLOR } from '../../constant/Colors';
 import { CommonActions } from '@react-navigation/native';
 class CheckWallet extends React.Component {
   constructor(props) {
@@ -78,30 +80,40 @@ class CheckWallet extends React.Component {
             > */}
             <View style={styles.body}>
               <TouchableOpacity style={{ flex: 1, backgroundColor: '#FFF', alignItems: 'center', justifyContent: 'center' }} onPress={() => this.rechargeMoney()}>
-                <View style={{ flex: 1, alignItems: 'center', justifyContent: 'flex-end' }}>
-                  <Icon name={'qrcode'} size={scale(23)} color={"black"} />
+                <View style={{ alignItems: 'center', justifyContent: 'center' }}>
+                  <View>
+                    <Image
+                      source={require('../../res/images/check_wallet/ic_recharge.png')}
+                      resizeMode={'cover'}
+                    ></Image>
+                  </View>
                 </View>
-                <View style={{ flex: 1, alignItems: 'center', justifyContent: 'flex-start' }}>
-                  <Text style={{ fontSize: scale(11), paddingTop: scale(5), textAlign: 'center' }}>Nạp số dư</Text>
+                <View style={{ alignItems: 'center', justifyContent: 'flex-start' }}>
+                  <Text style={{ fontSize: scale(13), textAlign: 'center', color: PINK_FONTCOLOR }}>Nạp số dư</Text>
                 </View>
               </TouchableOpacity>
-              <TouchableOpacity style={{ flex: 1, backgroundColor: '#FFF', alignItems: 'center', justifyContent: 'center' }} onPress={() => this.transferMoney()}>
-                <View style={{ flex: 1, alignItems: 'center', justifyContent: 'flex-end' }}>
-                  <Icon name={'minus-square'} size={scale(23)} color={"black"} />
+              <TouchableOpacity style={{ flex: 1, backgroundColor: '#FFF', alignItems: 'center', justifyContent: 'center' }} onPress={() => this.rechargeMoney()}>
+                <View style={{ alignItems: 'center', justifyContent: 'center' }}>
+                  <Image
+                    source={require('../../res/images/check_wallet/ic_transfer.png')}
+                    resizeMode={'contain'}
+                  ></Image>
+
                 </View>
-                <View style={{ flex: 1, alignItems: 'center', justifyContent: 'flex-start' }}>
-                  <Text
-                    // numberOfLines={1}
-                    style={{ fontSize: scale(11), paddingTop: scale(5), textAlign: 'center' }}>Chuyển khoản</Text>
+                <View style={{ alignItems: 'center', justifyContent: 'flex-start' }}>
+                  <Text style={{ fontSize: scale(13), textAlign: 'center', color: PINK_FONTCOLOR }}>Chuyển khoản</Text>
                 </View>
               </TouchableOpacity>
               <View style={{ flex: 2, backgroundColor: 'white' }}>
                 <View style={{ backgroundColor: 'white', flex: 1, flexDirection: 'row', alignItems: 'center' }}>
-                  <Icon style={{ paddingLeft: scale(5) }} name={'dollar-sign'} size={scale(15)} color={"purple"} />
-                  <Text style={{ fontSize: scale(12), paddingLeft: scale(5) }}>Số dư</Text>
+                <Image
+                    source={require('../../res/images/check_wallet/ic_money.png')}
+                    resizeMode={'contain'}
+                  ></Image>
+                  <Text style={{ fontSize: scale(13), paddingLeft: scale(5), color: PINK_FONTCOLOR }}>Số dư</Text>
                 </View>
                 <View style={{ backgroundColor: 'white', flex: 1, alignItems: 'flex-end', justifyContent: 'center' }}>
-                  <Text style={{ paddingBottom: scale(3), paddingRight: scale(5), fontWeight: 'bold', fontSize: scale(16), color: 'purple' }}>{formatMoney(accountResponse.data.balance)}đ</Text>
+                  <Text style={{ paddingBottom: scale(3), paddingRight: scale(5), fontWeight: 'bold', fontSize: scale(16), color: PURPLE_FONTCOLOR }}>{formatMoney(accountResponse.data.balance)}đ</Text>
                 </View>
               </View>
             </View>

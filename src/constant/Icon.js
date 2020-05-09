@@ -9,3 +9,11 @@ export const MAIN_SERVICE = {
   TRANSFER: require('../res/images/home/Transfer.png'),
   HISTORY: require('../res/images/home/History.png'),
 };
+
+export const OTHER_SERVICE = {
+  RECHARGE_PHONE: require('../res/images/home/RechargePhone.png'),
+  BUY_CARD_ID: require('../res/images/home/BuyCardID.png'),
+  INTERNET_VIETTEL: require('../res/images/home/InternetVT.png'),
+  KPLUS: require('../res/images/home/KPlus.png'),
+  SUPPORT: require('../res/images/home/Support.png'),
+};

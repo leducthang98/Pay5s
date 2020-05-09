@@ -14,13 +14,14 @@ import {
 } from 'react-native';
 import Header from '../../components/common/Header'
 import { scale, scaleModerate, scaleVertical } from '../../constant/Scale';
-import { FACEBOOK, PRIMARY_COLOR } from '../../constant/Colors'
+import { FACEBOOK, PRIMARY_COLOR, GRAY_FONTCOLOR } from '../../constant/Colors'
 import { connect } from 'react-redux';
 import { refreshStore } from '../../actions/ActionRefresh';
 import Loading from '../../components/common/Loading';
 import AsyncStorage from '@react-native-community/async-storage';
 import Toast from 'react-native-simple-toast';
 import { CommonActions } from '@react-navigation/native';
+import LinearGradient from 'react-native-linear-gradient';
 import { LOGIN, CREATE_TRANS_PASSWORD, FORGET_TRANS_PASSWORD } from '../../navigators/RouteName';
 class TransPasswordScreen extends React.Component {
     constructor(props) {
@@ -52,11 +53,21 @@ class TransPasswordScreen extends React.Component {
             return (
                 <View style={{ alignItems: 'center', marginTop: scale(70) }}>
                     <TouchableOpacity style={styles.buttons}
-                        onPress={() => this.forgetTransPassword(mobile)}
+                        onPress={() => this.forgetTransPassword()}
                     >
-                        <View>
+                        <LinearGradient
+                            start={{ x: 0, y: 0.75 }} end={{ x: 1, y: 0.25 }}
+
+                            colors={['#ff547c', '#c944f7']}
+                            style={{
+                                width: containerW * 0.7,
+                                height: scale(40),
+                                borderRadius: scaleModerate(30),
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                            }}>
                             <Text style={{ color: 'white', fontSize: scale(14), fontWeight: 'bold' }} >Quên mật khẩu giao dịch</Text>
-                        </View>
+                        </LinearGradient>
                     </TouchableOpacity>
                 </View>
             );
@@ -67,17 +78,37 @@ class TransPasswordScreen extends React.Component {
                     <TouchableOpacity style={styles.buttons}
                         onPress={() => this.createTransPassword()}
                     >
-                        <View>
+                        <LinearGradient
+                            start={{ x: 0, y: 0.75 }} end={{ x: 1, y: 0.25 }}
+
+                            colors={['#ff547c', '#c944f7']}
+                            style={{
+                                width: containerW * 0.7,
+                                height: scale(40),
+                                borderRadius: scaleModerate(30),
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                            }}>
                             <Text style={{ color: 'white', fontSize: scale(14), fontWeight: 'bold' }}>Tạo mật khẩu giao dịch</Text>
-                        </View>
+                        </LinearGradient>
                     </TouchableOpacity>
 
                     <TouchableOpacity style={styles.buttons}
                         onPress={() => this.forgetTransPassword()}
                     >
-                        <View>
+                        <LinearGradient
+                            start={{ x: 0, y: 0.75 }} end={{ x: 1, y: 0.25 }}
+
+                            colors={['#ff547c', '#c944f7']}
+                            style={{
+                                width: containerW * 0.7,
+                                height: scale(40),
+                                borderRadius: scaleModerate(30),
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                            }}>
                             <Text style={{ color: 'white', fontSize: scale(14), fontWeight: 'bold' }} >Quên mật khẩu giao dịch</Text>
-                        </View>
+                        </LinearGradient>
                     </TouchableOpacity>
                 </View>
             );
@@ -91,7 +122,7 @@ class TransPasswordScreen extends React.Component {
                     <View>
                         <Header title={'Mật khẩu giao dịch'} back={true} navigation={this.props.navigation} />
                         <View style={{ paddingTop: scale(10), paddingLeft: scale(10) }}>
-                            <Text style={{ fontWeight: 'bold', color: FACEBOOK, fontSize: scaleModerate(15) }}>HƯỚNG DẪN:</Text>
+                            <Text style={{ fontWeight: 'bold', color: GRAY_FONTCOLOR, fontSize: scaleModerate(15) }}>HƯỚNG DẪN:</Text>
                             <Text style={{ fontSize: scale(14), color: '#696969' }}>- Mật khẩu giao dịch được dùng trong khi giao dịch(vd: thanh toán hóa đơn, chuyển khoản,...).</Text>
                             <Text style={{ fontSize: scale(14), color: '#696969' }}>- Mật khẩu giao dịch gồm 4 chữ số.</Text>
                             <Text style={{ fontSize: scale(14), color: '#696969' }}>- Vì an toàn cá nhân, tuyệt đối không cho người khác biết mật khẩu giao dịch của bạn.</Text>
@@ -112,9 +143,10 @@ class TransPasswordScreen extends React.Component {
         }
     }
 }
+const containerW = Dimensions.get('window').width;
 const styles = StyleSheet.create({
     buttons: {
-        backgroundColor: PRIMARY_COLOR,
+
         width: '80%',
         height: scale(40),
         marginTop: scaleVertical(15),

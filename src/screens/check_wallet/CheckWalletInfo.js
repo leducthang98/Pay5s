@@ -25,7 +25,8 @@ class CheckWalletInfo extends React.Component {
 }
 const styles = StyleSheet.create({
   textStyle: {
-    fontSize: scale(12.5)
+    fontSize: scale(14),
+    color:'#616161'
   }
 })
 export default CheckWalletInfo;

@@ -6,6 +6,7 @@ import * as COLOR from '../constant/Colors';
 import { formatMoney } from '../constant/CommonFormat';
 import Toast from 'react-native-simple-toast';
 import { TRANS_PASSWORD_SCREEN, COMMIT_TRANSFER } from '../navigators/RouteName';
+import LinearGradient from 'react-native-linear-gradient';
 class TransferMoney extends React.Component {
   constructor(props) {
     super(props);
@@ -57,7 +58,7 @@ class TransferMoney extends React.Component {
               maxLength={10}
               keyboardType="number-pad"
               style={styles.inputStyle}></TextInput>
-            <Text style={{ marginTop: scale(10), marginLeft: scale(1), color: COLOR.FACEBOOK, fontSize: scale(15) }}>{(this.state.amount) ? (formatMoney(this.state.amount) + ' VNĐ') : '0 VNĐ'} </Text>
+            <Text style={{ marginTop: scale(10), marginLeft: scale(1), color: COLOR.PURPLE_FONTCOLOR, fontSize: scale(15) }}>{(this.state.amount) ? (formatMoney(this.state.amount) + ' VNĐ') : '0 VNĐ'} </Text>
             <Text style={styles.textStyle}>Nhập mật khẩu giao dịch:</Text>
             <TextInput
               onChangeText={(transPassword) => this.setState({ transPassword })}
@@ -70,15 +71,52 @@ class TransferMoney extends React.Component {
           </View>
           <View style={{ flexDirection: 'row', width: '100%', height: '10%', marginTop: scale(10), justifyContent: 'center', alignItems: 'center' }}>
             <TouchableOpacity
-              onPress={() => this.props.navigation.pop()}
-              style={{ height: '70%', width: '43%', backgroundColor: '#C0C0C0', borderRadius: scale(20), justifyContent: 'center', alignItems: 'center' }}>
-              <Text style={{ fontSize: scale(15), color: 'white' }}>Hủy</Text>
+              
+              onPress={() => this.props.navigation.pop()}>
+              
+             <LinearGradient
+                start={{ x: 0, y: 0.75 }} end={{ x: 1, y: 0.25 }}
+
+                colors={['#ff547c', '#c944f7']}
+                style={{
+                  width: containerW * 0.45,
+                  height: scale(40),
+                  borderRadius: scaleModerate(30),
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                }}>
+                <View
+                  style={{
+                    width: '98%',
+                    height: '90%',
+                    borderRadius: scaleModerate(9999),
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    backgroundColor: 'white'
+                  }}>
+
+              <Text style={{ fontSize: scale(15), color: COLOR.GRAY_FONTCOLOR }}>Hủy</Text>
+              </View>
+              </LinearGradient>
             </TouchableOpacity>
+            <View style={{width:scale(10)}}></View>
             <TouchableOpacity
               onPress={() => this._navigateToCommitTransfer()}
               disabled={(this.state.amount && this.state.mobile && this.state.transPassword) ? false : true}
-              style={{ height: '70%', width: '43%', backgroundColor: COLOR.PRIMARY_COLOR, marginLeft: scale(10), borderRadius: scale(20), justifyContent: 'center', alignItems: 'center' }}>
-              <Text style={{ fontSize: scale(15), color: (this.state.amount && this.state.mobile && this.state.transPassword) ? 'white' : '#C0C0C0' }}>Tiếp tục</Text>
+            >
+              <LinearGradient
+                start={{ x: 0, y: 0.75 }} end={{ x: 1, y: 0.25 }}
+
+                colors={['#ff547c', '#c944f7']}
+                style={{
+                  width: containerW * 0.45,
+                  height: scale(40),
+                  borderRadius: scaleModerate(30),
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                }}>
+                <Text style={{ fontSize: scale(15), color: (this.state.amount && this.state.mobile && this.state.transPassword) ? 'white' : '#C0C0C0' }}>Tiếp tục</Text>
+              </LinearGradient>
             </TouchableOpacity>
           </View>
           <TouchableOpacity

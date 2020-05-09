@@ -37,7 +37,7 @@ import { refreshStore } from '../actions/ActionRefresh';
 import { PRIMARY_COLOR, PINK_FONTCOLOR, PURPLE_FONTCOLOR, GRAY_FONTCOLOR, FACEBOOK } from '../constant/Colors';
 import OneSignal from 'react-native-onesignal';
 import LinearGradient from 'react-native-linear-gradient';
-import { MAIN_SERVICE, NETWORK } from '../constant/Icon';
+import { MAIN_SERVICE, NETWORK, OTHER_SERVICE } from '../constant/Icon';
 
 class HomeScreen extends React.Component {
   constructor(props) {
@@ -51,10 +51,10 @@ class HomeScreen extends React.Component {
       { name: 'HISTORY', label: 'Lịch sử', onPress: () => this.checkWallet() },
     ];
     this.otherService = [
-      { iconName: 'mobile-alt', label: 'Nạp tiền điện thoại', onPress: () => this.rechargePhone(), color: '#EDE574' },
-      { iconName: 'receipt', label: 'Mua mã thẻ', onPress: () => this.buyCardID(), color: '#2d5e57' },
-      { iconName: 'globe', label: 'Internet Viettel', onPress: () => this.internetViettel(), color: '#099FFF' },
-      { iconName: 'korvue', label: 'Gia hạn K+', onPress: () => this.KPlus(), color: '#00FF00' },
+      { iconName: 'RECHARGE_PHONE', label: 'Nạp tiền điện thoại', onPress: () => this.rechargePhone(), color: '#5557d2' },
+      { iconName: 'BUY_CARD_ID', label: 'Mua mã thẻ', onPress: () => this.buyCardID(), color: '#6c38c1' },
+      { iconName: 'INTERNET_VIETTEL', label: 'Internet Viettel', onPress: () => this.internetViettel(), color: '#5a4fca' },
+      { iconName: 'KPLUS', label: 'Gia hạn K+', onPress: () => this.KPlus(), color: '#ce42bd' },
     ];
     this.otherService2 = [
       {},
@@ -133,9 +133,8 @@ class HomeScreen extends React.Component {
   _renderMainService = (name, label, onPress) => (
     <TouchableOpacity style={{ alignItems: 'center', justifyContent: 'center', height: '100%', width: '33.33333333%' }}
       onPress={onPress}>
-      <View style={{ width: '85%', height: '85%', justifyContent: 'center', alignItems: 'center', backgroundColor: PURPLE_FONTCOLOR }}>
+      <View style={{ width: '85%', height: '85%', justifyContent: 'center', alignItems: 'center' }}>
         <View style={{ width: '100%', height: '70%', alignItems: 'center', justifyContent: 'center' }}>
-          {/*<Icon name={'wallet'} size={scale(30)} color={PINK_FONTCOLOR}/>*/}
           <Image source={MAIN_SERVICE[name || 'DEPOSIT']} style={{ width: '100%', height: '100%' }} resizeMode={'contain'} />
           {console.log('source = ', MAIN_SERVICE[name])}
         </View>
@@ -149,12 +148,12 @@ class HomeScreen extends React.Component {
     <TouchableOpacity style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}
       onPress={onPress}
     >
-      <View style={{ width: '90%', height: '70%', backgroundColor: PURPLE_FONTCOLOR, borderRadius: scale(5) }}>
+      <View style={{ width: '90%', height: '70%', backgroundColor: color, borderRadius: scale(5),paddingTop:scale(5) }}>
         <View style={{ width: '100%', height: '60%' }}>
-          <Image source={MAIN_SERVICE['DEPOSIT']} style={{ width: '100%', height: '100%' }} resizeMode={'contain'} />
+          <Image source={OTHER_SERVICE[iconName || 'RECHARGEPHONE']} style={{ width: '100%', height: '100%' }} resizeMode={'contain'} />
         </View>
-        <View style={{ width: '100%', height: '40%', justifyContent: 'center', alignItems: 'center', backgroundColor: 'red' }}>
-          <Text textAlign={'auto'}>{label}</Text>
+        <View style={{ width: '100%', height: '40%', justifyContent: 'center', alignItems: 'center' }}>
+          <Text textAlign={'auto'} style={{ fontSize: scale(13), color: 'white' }} numberOfLines={1}>{label}</Text>
         </View>
       </View>
     </TouchableOpacity>
@@ -307,11 +306,17 @@ class HomeScreen extends React.Component {
                   })
                 }
               </View>
-              {/* <View style={styles.service2}>
+              <View style={styles.service2}>
                 <TouchableOpacity style={{ flex: 1, alignItems: 'center', paddingTop: scale(12) }}
                   onPress={() => this.support(commonResponse.data.hotline, commonResponse.data.fanpage)}>
-                  <Icon name={'info-circle'} size={scale(30)} color={PRIMARY_COLOR} />
-                  <Text style={{ fontSize: scale(13), paddingTop: scale(9), textAlign: 'center' }}>Hỗ trợ</Text>
+                  <View style={{ width: '90%', height: '70%', backgroundColor: '#e34a80', borderRadius: scale(5),paddingTop:scale(5)  }}>
+                    <View style={{ width: '100%', height: '60%' }}>
+                      <Image source={OTHER_SERVICE['SUPPORT']} style={{ width: '100%', height: '100%' }} resizeMode={'contain'} />
+                    </View>
+                    <View style={{ width: '100%', height: '40%', justifyContent: 'center', alignItems: 'center' }}>
+                    <Text textAlign={'auto'} style={{ fontSize: scale(13), color: 'white' }} numberOfLines={1}>Hỗ trợ</Text>
+                    </View>
+                  </View>
                 </TouchableOpacity>
                 <View style={{ flex: 1, alignItems: 'center', paddingTop: scale(12) }}>
 
@@ -322,7 +327,7 @@ class HomeScreen extends React.Component {
                 <View style={{ flex: 1, alignItems: 'center', paddingTop: scale(12) }}>
 
                 </View>
-              </View> */}
+              </View>
               <View style={styles.notification}>
                 <View
                   style={{ flexDirection: 'row', height: scale(30), paddingLeft: scale(10), paddingRight: scale(10) }}>
@@ -332,7 +337,7 @@ class HomeScreen extends React.Component {
                   <View style={{ alignItems: 'flex-end', justifyContent: 'flex-end', flex: 1 }}>
                     <TouchableOpacity
                       onPress={() => this.props.navigation.navigate(NOTIFICATION)}>
-                      <Text style={{ fontSize: scale(15), fontWeight: '600', color: PURPLE_FONTCOLOR }}>Xem
+                      <Text style={{ fontSize: scale(15), fontWeight: '600', color: PINK_FONTCOLOR }}>Xem
                         tất cả</Text>
                     </TouchableOpacity>
                   </View>
@@ -432,6 +437,7 @@ const styles = StyleSheet.create({
     height: containerH / 6.5,
     flexDirection: 'row',
     backgroundColor: 'white',
+    paddingLeft: scale(7)
   },
 
 });

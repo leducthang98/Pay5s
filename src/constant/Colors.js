@@ -8,7 +8,7 @@ module.exports = {
   GOLD: '#ffd700',
   FACEBOOK: '#0077CC',
   QUESTION: '#58dbdd',
-  PRIMARY_COLOR: '#C71585',
+  PRIMARY_COLOR: '#db49d1',
   BACKGROUND_COLOR: '#FAFAFA',
   WHITE: '#FFF',
   SEPARATE_LINE: '#D3D3D3',
