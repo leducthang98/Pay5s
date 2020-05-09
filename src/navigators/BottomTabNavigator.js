@@ -38,8 +38,8 @@ export default function BottomTabNavigator() {
                 },
             })}
             tabBarOptions={{
-                activeTintColor: COLOR.PRIMARY_COLOR,
-                inactiveTintColor: 'gray',
+                inactiveTintColor: COLOR.GRAY_FONTCOLOR,
+                activeTintColor: COLOR.PINK_FONTCOLOR,
                 style: {
                     shadowColor: "#000",
                     shadowOffset: {
@@ -50,7 +50,7 @@ export default function BottomTabNavigator() {
                     shadowRadius: 1.41,
                     backgroundColor: COLOR.WHITE,
                     elevation: 15,
-                    height: statusBarHeight * 3,
+                    height: statusBarHeight * 3.3,
                     paddingBottom: statusBarHeight
                 }
             }}

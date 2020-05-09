@@ -14,7 +14,7 @@ import AsyncStorage from '@react-native-community/async-storage';
 import Toast from 'react-native-simple-toast';
 import { CommonActions } from '@react-navigation/native';
 import { refreshStore } from '../../actions/ActionRefresh';
-import { PRIMARY_COLOR } from '../../constant/Colors'
+import { PRIMARY_COLOR,PURPLE_FONTCOLOR,GRAY_FONTCOLOR,PINK_FONTCOLOR } from '../../constant/Colors'
 import { getAccountInfo, getCommonConfig } from '../../actions/ActionHomeScreen';
 class AccountScreen extends React.Component {
   constructor(props) {
@@ -90,7 +90,7 @@ class AccountScreen extends React.Component {
             extraInfo: formatMoney(accountResponse.data.balance) + 'đ',
             onPress: () => this.checkWallet(),
             iconLeftColor: COLOR.GOLD,
-            extraInfoColor: PRIMARY_COLOR,
+            extraInfoColor: PURPLE_FONTCOLOR,
             canPress: true,
           }, {
             iconLeftName: 'lock',
@@ -117,7 +117,7 @@ class AccountScreen extends React.Component {
               subTitle: 'Giới thiệu bạn tham gia Pay5s - App và nhận thưởng',
               onPress: () => this.intro(),
               iconLeftColor: COLOR.PURPLE,
-              extraInfoColor: COLOR.FACEBOOK,
+              extraInfoColor: COLOR.PINK_FONTCOLOR,
               canPress: true,
             }],
         }, {
@@ -154,8 +154,8 @@ class AccountScreen extends React.Component {
                   onPress={() => this.props.navigation.navigate(ACCOUNTINFO)}
                 >
                   <View style={{ flex: 8, justifyContent: 'flex-start', flexDirection: 'column' }}>
-                    <Text style={{ fontSize: scale(18) }}>{accountResponse.data.fullname}</Text>
-                    <Text style={{ fontSize: scale(12), color: 'gray' }}>0{accountResponse.data.mobile}</Text>
+                    <Text style={{ fontSize: scale(20) }}>{accountResponse.data.fullname}</Text>
+                    <Text style={{ fontSize: scale(15), color:PURPLE_FONTCOLOR,fontWeight:'700'}}>0{accountResponse.data.mobile}</Text>
                   </View>
                   <Icon style={{ flex: 0.6 }} name={'chevron-right'} size={scale(16)} color={'gray'} />
                 </TouchableOpacity>

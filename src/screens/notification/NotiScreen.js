@@ -18,6 +18,7 @@ import { CommonActions } from '@react-navigation/native';
 import AsyncStorage from '@react-native-community/async-storage';
 import Toast from 'react-native-simple-toast';
 import { refreshStore } from '../../actions/ActionRefresh';
+import {GRAY_FONTCOLOR} from '../../constant/Colors';
 import { getNotification } from '../../actions/ActionHomeScreen';
 class NotiScreen extends React.Component {
   constructor(props) {
@@ -40,8 +41,9 @@ class NotiScreen extends React.Component {
           defaultImage: defaultImage
         }
       })}
+      style={{ width: containerW, height: scale(97), borderBottomWidth: scale(0.5), borderColor: 'gray',backgroundColor:'white' }}
     >
-      <View style={{ width: containerW, height: scale(80), flexDirection: 'row', marginBottom: 5, borderBottomWidth: scale(0.4), borderColor: 'gray' }}>
+      <View style={{ flexDirection: 'row', width: '100%', height: '100%' }}>
         <View style={{ flex: 2, justifyContent: 'center', alignItems: 'center' }}>
           <Image style={{ height: '90%', width: '90%' }}
             resizeMode={'contain'}
@@ -55,18 +57,18 @@ class NotiScreen extends React.Component {
           />
         </View>
         <View style={{ flex: 6, justifyContent: 'center', paddingTop: scale(5) }}>
-          <View style={{ height: '85%' }}>
+          <View style={{ height: '100%' }}>
             <Text
-              numberOfLines={1}
-              style={{ fontSize: scale(11.5), fontWeight: 'bold' }}
+              numberOfLines={2}
+              style={{ fontSize: scale(15), fontWeight: 'bold' }}
             >{headline}</Text>
             <View style={{ flexDirection: 'row' }}>
-              <Text style={{ color: 'gray', fontSize: scale(9) }}>Pay5s - App</Text>
-              <Text style={{ color: 'gray', fontSize: scale(9), paddingLeft: scale(10) }}>{published_date}</Text>
+              <Text style={{ color: GRAY_FONTCOLOR, fontSize: scale(11) }}>Pay5s - App</Text>
+              <Text style={{ color: GRAY_FONTCOLOR, fontSize: scale(11), paddingLeft: scale(10) }}>{published_date}</Text>
             </View>
             <Text
               numberOfLines={2}
-              style={{ fontSize: scale(11), paddingTop: scale(2) }}
+              style={{ fontSize: scale(12), paddingTop: scale(2) }}
             >- {description}</Text>
           </View>
         </View>
