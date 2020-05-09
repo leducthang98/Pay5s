@@ -1,8 +1,8 @@
 import React from 'react';
-import { Text, View, TextInput, TouchableOpacity, Dimensions, Keyboard, Image } from 'react-native';
+import { Text, View, TextInput, TouchableOpacity, Dimensions, Keyboard, Image, StyleSheet } from 'react-native';
 import { BOTTOM_TAB, HOME, REGISTER, FORGET_PASSWORD } from '../navigators/RouteName';
 import { scale, scaleVertical, scaleModerate } from '../constant/Scale';
-import { PRIMARY_COLOR, ERROR } from '../constant/Colors';
+import { PRIMARY_COLOR, ERROR, GRAY_FONTCOLOR } from '../constant/Colors';
 import LoadingDialog from '../components/common/LoadingDialog';
 import { login } from '../fetchAPIs/AuthApi';
 import { getString } from '../res/values/String';
@@ -13,8 +13,7 @@ import { statusBarHeight } from '../constant/Layout';
 import { connect } from 'react-redux';
 import { refreshStore } from '../actions/ActionRefresh';
 import OneSignal from 'react-native-onesignal';
-const containerW = Dimensions.get('window').width;
-const containerH = Dimensions.get('window').height;
+import LinearGradient from 'react-native-linear-gradient';
 class LoginScreen extends React.Component {
   constructor(props) {
     super(props);
@@ -72,34 +71,21 @@ class LoginScreen extends React.Component {
 
   render() {
     const inputStyleUser = [{
-      borderTopLeftRadius: scale(3),
-      borderTopRightRadius: scale(3),
-      borderLeftWidth: scale(0.7),
-      borderTopWidth: scale(0.7),
-      borderRightWidth: scale(0.7),
-      borderBottomWidth: scale(0.7),
-      borderColor: 'gray',
-      width: '90%',
-      paddingVertical: scaleVertical(10),
-      paddingHorizontal: scaleModerate(15),
+      borderBottomWidth: scale(0.5),
+      borderColor: GRAY_FONTCOLOR,
+      width: '80%',
       justifyContent: 'center',
-      fontSize: scaleModerate(14),
+      fontSize: scaleModerate(13),
     }];
     const inputStylePass = [{
-      borderBottomLeftRadius: scale(3),
-      borderBottomRightRadius: scale(3),
-      borderLeftWidth: scale(0.7),
-      borderRightWidth: scale(0.7),
-      borderBottomWidth: scale(0.7),
-      borderColor: 'gray',
-      width: '90%',
-      paddingVertical: scaleVertical(10),
-      paddingHorizontal: scaleModerate(15),
+      borderBottomWidth: scale(0.5),
+      borderColor: GRAY_FONTCOLOR,
+      width: '80%',
       justifyContent: 'center',
-      fontSize: scaleModerate(14),
+      fontSize: scaleModerate(13),
     }];
-    const inputErrorStyleUser = [...inputStyleUser, { borderWidth: 1, borderColor: ERROR }];
-    const inputErrorStylePass = [...inputStylePass, { borderWidth: 1, borderColor: ERROR }];
+    const inputErrorStyleUser = [...inputStyleUser, { borderColor: ERROR }];
+    const inputErrorStylePass = [...inputStylePass, { borderColor: ERROR }];
     return (
       <>
         {/* <View style={{ height: statusBarHeight, backgroundColor: PRIMARY_COLOR }}></View> */}
@@ -108,13 +94,11 @@ class LoginScreen extends React.Component {
             <Image
               style={{ width: '100%', height: '100%' }}
               resizeMode={'cover'}
-              source={{
-                uri: 'https://client.pay5s.com/assets/img/banner_default.jpg'
-              }}
+              source={require('../res/images/common/login.png')}
             />
           </View>
-          <View style={{ width: '100%', height: '5%' }} />
-
+          <Text style={styles.largeText}>Đăng nhập</Text>
+          <View style={{ width: '100%', height: '4%' }} />
           <TextInput
             onChangeText={(username) => this._processUsername(username)}
             placeholder="Số điện thoại"
@@ -127,52 +111,68 @@ class LoginScreen extends React.Component {
             textAlign='left'
             secureTextEntry={true}
             style={this.state.passwordError ? inputErrorStylePass : inputStylePass} />
-          <View style={{ width: '100%', height: '2%' }} />
+          <View style={{ width: '100%', height: '5%' }} />
           <TouchableOpacity
             onPress={async () => this._loginFunction()}
             disabled={(!this.state.username) ? true : false}
           >
-            <View style={{
-              width: containerW * 0.9,
-              height: scale(45),
-              backgroundColor: PRIMARY_COLOR,
-              borderRadius: scaleModerate(8),
-              alignItems: 'center',
-              justifyContent: 'center',
-            }}>
-              <Text style={{ color: ((!this.state.username) ? '#DCDCDC' : 'white'), fontWeight: 'bold', fontSize: scaleModerate(14) }}>Đăng nhập</Text>
-            </View>
+            <LinearGradient
+              start={{ x: 0, y: 0.75 }} end={{ x: 1, y: 0.25 }}
+
+              colors={['#ff547c', '#c944f7']}
+              style={{
+                width: containerW * 0.6,
+                height: scale(45),
+                backgroundColor: PRIMARY_COLOR,
+                borderRadius: scaleModerate(40),
+                alignItems: 'center',
+                justifyContent: 'center',
+              }}>
+              <Text style={{ color: ((!this.state.username) ? '#DCDCDC' : 'white'), fontWeight: 'bold', fontSize: scaleModerate(16) }}>Đăng nhập</Text>
+            </LinearGradient>
           </TouchableOpacity>
-          <View style={{ width: '100%', height: '2%' }} />
+          <View style={{ width: '100%', height: '3%' }} />
           <TouchableOpacity
             onPress={() => this.props.navigation.navigate(FORGET_PASSWORD)}
           >
 
-            <Text style={{ color: PRIMARY_COLOR, fontWeight: 'bold', fontSize: scaleModerate(14) }}>Quên mật khẩu?</Text>
+            <Text style={{ color: GRAY_FONTCOLOR, fontWeight: 'normal', fontSize: scaleModerate(14) }}>Quên mật khẩu?</Text>
 
           </TouchableOpacity>
 
         </View>
         <View style={{ flex: 1, backgroundColor: 'white', paddingBottom: scaleVertical(30) }}>
-          <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}>
-            <View style={{ width: scale(60), height: scale(0.4), backgroundColor: 'gray' }}></View>
-            <Text style={{ fontSize: scaleModerate(14) }}> HOẶC </Text>
-            <View style={{ width: scale(60), height: scale(0.4), backgroundColor: 'gray' }}></View>
+          <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}>
+            <Text style={{ fontSize: scaleModerate(16), color: GRAY_FONTCOLOR }}> HOẶC </Text>
           </View>
-          <View style={{ flex: 3, justifyContent: 'center', alignItems: 'center' }}>
+          <View style={{ justifyContent: 'center', alignItems: 'center', paddingTop: scale(15) }}>
             <TouchableOpacity
               onPress={() => this.props.navigation.navigate(REGISTER)}
             >
-              <View style={{
-                width: containerW * 0.9,
-                height: scale(45),
-                backgroundColor: '#DCDCDC',
-                borderRadius: scaleModerate(4),
-                alignItems: 'center',
-                justifyContent: 'center',
-              }}>
-                <Text style={{ color: PRIMARY_COLOR, fontWeight: 'bold', fontSize: scaleModerate(14) }}>Tạo tài khoản mới</Text>
-              </View>
+              <LinearGradient
+                start={{ x: 0, y: 0.75 }} end={{ x: 1, y: 0.25 }}
+
+                colors={['#ff547c', '#c944f7']}
+                style={{
+                  width: containerW * 0.6,
+                  height: scale(40),
+                  borderRadius: scaleModerate(30),
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                }}>
+                <View
+                  style={{
+                    width: '98%',
+                    height: '90%',
+                    borderRadius: scaleModerate(9999),
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    backgroundColor: 'white'
+                  }}>
+
+                  <Text style={{ color: GRAY_FONTCOLOR, fontWeight: 'normal', fontSize: scaleModerate(14) }}>Tạo tài khoản mới</Text>
+                </View>
+              </LinearGradient>
             </TouchableOpacity>
           </View>
 
@@ -192,7 +192,30 @@ class LoginScreen extends React.Component {
     );
   }
 }
+const containerW = Dimensions.get('window').width;
+const containerH = Dimensions.get('window').height;
+const styles = StyleSheet.create({
+  largeText: {
+    color: GRAY_FONTCOLOR,
+    fontSize: scale(16)
 
+  },
+  linearGradient: {
+    flex: 1,
+    paddingLeft: 15,
+    paddingRight: 15,
+    borderRadius: 5
+  },
+  buttonText: {
+    fontSize: 18,
+    fontFamily: 'Gill Sans',
+    textAlign: 'center',
+    margin: 10,
+    color: '#ffffff',
+    backgroundColor: 'transparent',
+  },
+
+});
 const mapStateToProps = (store) => {
   return {
 

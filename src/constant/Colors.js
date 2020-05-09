@@ -19,5 +19,8 @@ module.exports = {
   MODAL_BACKGROUND_DARK: 'rgba(0, 0, 0, 0.8)',
   MODAL_BACKGROUND_MEDIUM: 'rgba(0, 0, 0, 0.6)',
   MODAL_BACKGROUND_LIGHT: 'rgba(0, 0, 0, 0.4)',
-  NETWORK_SELECTED: 'rgba(0,0,255, 0.1)'
+  NETWORK_SELECTED: 'rgba(0,0,255, 0.1)',
+  GRAY_FONTCOLOR: '#616161',
+  PURPLE_FONTCOLOR: '#6c37c0',
+  PINK_FONTCOLOR: '#db49d1'
 };
