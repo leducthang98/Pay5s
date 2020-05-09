@@ -13,7 +13,7 @@ import {
 } from 'react-native';
 import { connect } from 'react-redux';
 import Icon from 'react-native-vector-icons/FontAwesome5';
-import { scale, scaleVertical } from '../constant/Scale';
+import { scale, scaleVertical, scaleModerate } from '../constant/Scale';
 import { shadow, size } from '../constant/CommonStyles';
 import { statusBarHeight } from '../constant/Layout';
 import {
@@ -148,15 +148,16 @@ class HomeScreen extends React.Component {
     <TouchableOpacity style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}
       onPress={onPress}
     >
-      <View style={{ width: '90%', height: '70%', backgroundColor: color, borderRadius: scale(5),paddingTop:scale(5) }}>
-        <View style={{ width: '100%', height: '60%' }}>
-          <Image source={OTHER_SERVICE[iconName || 'RECHARGEPHONE']} style={{ width: '100%', height: '100%' }} resizeMode={'contain'} />
+      <View style={{ width: '90%', height: scaleVertical(100),backgroundColor: color, borderRadius: scale(5), paddingTop: scale(5) }}>
+        <View style={{ width: '100%', height: '60%', alignItems:'center', justifyContent:'center' }}>
+          <Image source={OTHER_SERVICE[iconName || 'RECHARGEPHONE']} style={{ width: '80%', height: '80%' }} resizeMode={'contain'} />
         </View>
         <View style={{ width: '100%', height: '40%', justifyContent: 'center', alignItems: 'center' }}>
-          <Text textAlign={'auto'} style={{ fontSize: scale(13), color: 'white' }} numberOfLines={1}>{label}</Text>
+          <Text style={{ fontSize: scale(12), color: 'white', textAlign: 'center' }}>{label}</Text>
         </View>
       </View>
     </TouchableOpacity>
+
 
   );
   _renderNotification = (img_preview, img_avatar, headline, published_date, author, content, description, defaultImage) => (
@@ -309,12 +310,12 @@ class HomeScreen extends React.Component {
               <View style={styles.service2}>
                 <TouchableOpacity style={{ flex: 1, alignItems: 'center', paddingTop: scale(12) }}
                   onPress={() => this.support(commonResponse.data.hotline, commonResponse.data.fanpage)}>
-                  <View style={{ width: '90%', height: '70%', backgroundColor: '#e34a80', borderRadius: scale(5),paddingTop:scale(5)  }}>
+                  <View style={{ width: '90%', height: '70%', backgroundColor: '#e34a80', borderRadius: scale(5), paddingTop: scale(5) }}>
                     <View style={{ width: '100%', height: '60%' }}>
                       <Image source={OTHER_SERVICE['SUPPORT']} style={{ width: '100%', height: '100%' }} resizeMode={'contain'} />
                     </View>
                     <View style={{ width: '100%', height: '40%', justifyContent: 'center', alignItems: 'center' }}>
-                    <Text textAlign={'auto'} style={{ fontSize: scale(13), color: 'white' }} numberOfLines={1}>Hỗ trợ</Text>
+                      <Text textAlign={'auto'} style={{ fontSize: scale(13), color: 'white' }} numberOfLines={1}>Hỗ trợ</Text>
                     </View>
                   </View>
                 </TouchableOpacity>
@@ -425,19 +426,18 @@ const styles = StyleSheet.create({
   },
   service1: {
     width: containerW,
-    height: containerH / 6.5,
     flexDirection: 'row',
-    marginTop: '3%',
-    backgroundColor: 'white',
-    paddingLeft: scale(7)
-
+    marginTop: scaleVertical(10),
+    backgroundColor: '#FFF',
+    paddingHorizontal:scaleModerate(7),
+    paddingVertical:scaleVertical(10),
   },
   service2: {
     width: containerW,
     height: containerH / 6.5,
     flexDirection: 'row',
     backgroundColor: 'white',
-    paddingLeft: scale(7)
+    paddingHorizontal:scaleModerate(7),
   },
 
 });

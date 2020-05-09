@@ -14,6 +14,7 @@ import { scaleModerate, scaleVertical } from '../../constant/Scale';
 import { getString } from '../../res/values/String';
 import { texts } from '../../constant/CommonStyles';
 import ItemNetwork from './ItemNetwork';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 const { width, height } = Layout.window;
 
@@ -37,13 +38,13 @@ export default class ChooseNetwork extends Component {
           <TouchableOpacity activeOpacity={1} onPress={() => this._close()} style={styles.container}>
             <TouchableOpacity activeOpacity={1} style={styles.contentArea}>
               <View style={styles.header}>
-                <TouchableOpacity style={styles.closeButton} onPress={() => this._close()}>
-                  <Text style={[texts.placeholder, { fontWeight: 'bold' }]}>{getString('CLOSE')}</Text>
-                </TouchableOpacity>
-                <Text style={texts.bold}>{getString('CHANGE_NETWORK')}</Text>
                 <View style={styles.closeButton}>
                   <Text style={[texts.placeholder, { color: 'transparent' }]}>{getString('CLOSE')}</Text>
                 </View>
+                <Text style={texts.bold}>{getString('CHANGE_NETWORK')}</Text>
+                <TouchableOpacity onPress={()=> this._close()} style={styles.closeButton}>
+                  <Icon name={'close'} size={scaleModerate(16)} color={COLOR.PLACEHOLDER_TEXT}/>
+                </TouchableOpacity>
               </View>
               <View style={styles.separateLine} />
               <View style={styles.note}>

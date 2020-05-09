@@ -27,6 +27,7 @@ import { refreshStore } from '../../actions/ActionRefresh';
 import Toast from 'react-native-simple-toast';
 import { PURPLE_FONTCOLOR, PINK_FONTCOLOR, GRAY_FONTCOLOR } from '../../constant/Colors';
 import { CommonActions } from '@react-navigation/native';
+import { size } from '../../constant/CommonStyles';
 class CheckWallet extends React.Component {
   constructor(props) {
     super(props);
@@ -85,7 +86,7 @@ class CheckWallet extends React.Component {
                     <Image
                       source={require('../../res/images/check_wallet/ic_recharge.png')}
                       resizeMode={'cover'}
-                    ></Image>
+                      style={size.sm} />
                   </View>
                 </View>
                 <View style={{ alignItems: 'center', justifyContent: 'flex-start' }}>
@@ -97,8 +98,7 @@ class CheckWallet extends React.Component {
                   <Image
                     source={require('../../res/images/check_wallet/ic_transfer.png')}
                     resizeMode={'contain'}
-                  ></Image>
-
+                    style={size.sm} />
                 </View>
                 <View style={{ alignItems: 'center', justifyContent: 'flex-start' }}>
                   <Text style={{ fontSize: scale(13), textAlign: 'center', color: PINK_FONTCOLOR }}>Chuyển khoản</Text>
@@ -106,10 +106,11 @@ class CheckWallet extends React.Component {
               </TouchableOpacity>
               <View style={{ flex: 2, backgroundColor: 'white' }}>
                 <View style={{ backgroundColor: 'white', flex: 1, flexDirection: 'row', alignItems: 'center' }}>
-                <Image
+                  <Image
                     source={require('../../res/images/check_wallet/ic_money.png')}
-                    resizeMode={'contain'}
-                  ></Image>
+                    resizeMode={'contain'} 
+                    style={size.sm}
+                    />
                   <Text style={{ fontSize: scale(13), paddingLeft: scale(5), color: PINK_FONTCOLOR }}>Số dư</Text>
                 </View>
                 <View style={{ backgroundColor: 'white', flex: 1, alignItems: 'flex-end', justifyContent: 'center' }}>

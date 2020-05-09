@@ -32,7 +32,7 @@ export default class ItemNetwork extends Component {
           <Image source={NETWORK[telco || 'VTT']} style={styles.image} resizeMode={'contain'} />
         </View>
         <View style={styles.contentArea}>
-          <Text style={[texts.h5]}>{name || "Viettel"}</Text>
+          <Text style={[texts.normal, {fontSize: scaleModerate(13)}]}>{name || "Viettel"}</Text>
           <Text style={[texts.sm_placeholder]}>{getString('DISCOUNT')}: {discount || 0}%</Text>
         </View>
         <Icon name={'check'} size={scaleModerate(20)} color={isSelected ? COLOR.SUCCESS : 'transparent'} />
@@ -62,10 +62,10 @@ const styles = StyleSheet.create({
     height: height / 15,
   },
   contentArea: {
-    height: itemHeight,
+    height: height/13,
     flex: 1,
     paddingLeft: scaleModerate(10),
-    justifyContent: 'center',
+    justifyContent: 'flex-end',
     alignItems: 'flex-start'
   }
 });

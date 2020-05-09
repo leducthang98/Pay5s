@@ -50,7 +50,7 @@ export default class ItemRechargeList extends Component {
         onPress={() => this.props.onPress()}
         style={[!data?.isSelected  ? styles.container : styles.selectedContainer]}>
         <View style={styles.totalAmount}>
-          <Text style={[texts.h4, {fontWeight: 'bold', color: data?.isSelected ? COLOR.PRIMARY_COLOR : COLOR.TEXT_LABEL}]}>
+          <Text style={[texts.h4, {fontWeight: 'bold', color: data?.isSelected ? COLOR.PINK_FONTCOLOR : COLOR.TEXT_LABEL}]}>
             {formatMoney(data?.amount || 10000) + 'đ'}
           </Text>
         </View>
@@ -67,7 +67,7 @@ export default class ItemRechargeList extends Component {
 const styles = StyleSheet.create({
   container: {
     width: width / 3.5,
-    height: scaleVertical(90),
+    height: scaleVertical(100),
     borderRadius: scaleModerate(8),
     backgroundColor: COLOR.BACKGROUND_COLOR,
     alignItems: 'center',
@@ -78,17 +78,17 @@ const styles = StyleSheet.create({
   },
   selectedContainer: {
     width: width / 3.5,
-    height: scaleVertical(90),
+    height: scaleVertical(100),
     borderRadius: scaleModerate(8),
     backgroundColor: COLOR.BACKGROUND_COLOR,
     alignItems: 'center',
     borderWidth: 2,
-    borderColor: COLOR.PRIMARY_COLOR,
+    borderColor: COLOR.PINK_FONTCOLOR,
     marginHorizontal: scaleModerate(5),
     marginVertical: scaleVertical(10),
   },
   totalAmount: {
-    flex: 3,
+    flex: 5,
     alignItems: 'center',
     justifyContent: 'center',
   },
@@ -98,9 +98,9 @@ const styles = StyleSheet.create({
     backgroundColor: COLOR.SEPARATE_LINE,
   },
   discountAmount: {
-    flex: 1,
+    flex: 2,
     flexDirection: 'row',
     justifyContent: 'flex-start',
-    alignItems:'flex-start'
+    alignItems:'center'
   },
 });
