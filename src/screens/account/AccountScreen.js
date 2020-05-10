@@ -85,7 +85,7 @@ class AccountScreen extends React.Component {
         const itemList = [{
           section: 1,
           data: [{
-            iconLeftName: 'coins',
+            iconLeftName: require('../../res/images/account_screen/amount.png'),
             title: 'Số dư: ',
             extraInfo: formatMoney(accountResponse.data.balance) + 'đ',
             onPress: () => this.checkWallet(),
@@ -93,7 +93,7 @@ class AccountScreen extends React.Component {
             extraInfoColor: PURPLE_FONTCOLOR,
             canPress: true,
           }, {
-            iconLeftName: 'lock',
+            iconLeftName: require('../../res/images/account_screen/secure.png'),
             title: 'Bảo mật giao dịch',
             subTitle: 'Quản lý mật khẩu giao dịch',
             onPress: () => this.security(),
@@ -104,14 +104,14 @@ class AccountScreen extends React.Component {
           section: 2,
           data: [
             {
-              iconLeftName: 'facebook',
+              iconLeftName: require('../../res/images/account_screen/fanpage.png'),
               title: 'Fanpage',
               subTitle: 'Facebook Fanpage chăm sóc khách hàng',
               onPress: () => this.goToFanPage(commonConfigResponse.data.fanpage),
               iconLeftColor: COLOR.FACEBOOK,
               canPress: true,
             }, {
-              iconLeftName: 'comment-dots',
+              iconLeftName: require('../../res/images/account_screen/id.png'),
               title: 'Mã giới thiệu: ',
               extraInfo: 0 + accountResponse.data.mobile,
               subTitle: 'Giới thiệu bạn tham gia Pay5s - App và nhận thưởng',
@@ -124,7 +124,7 @@ class AccountScreen extends React.Component {
           section: 3,
           data: [
             {
-              iconLeftName: 'question-circle',
+              iconLeftName: require('../../res/images/account_screen/info.png'),
               title: 'Thông tin ứng dụng',
               subTitle: 'Sản phẩm của Pay5s - Phiên bản hiện tại: 1.0.2',
               onPress: () => this.showApplicationInfo(),
@@ -145,8 +145,8 @@ class AccountScreen extends React.Component {
               <View style={styles.body1}>
                 <TouchableOpacity style={{ flex: 2.5, justifyContent: 'center', alignItems: 'center', paddingLeft: scale(7) }}>
                   <View style={{ width: containerH / 8, height: containerH / 8, justifyContent: 'center', alignItems: 'center' }}>
-                    <Image style={{ height: '80%', width: '80%', borderRadius: scale(999) }}
-                      source={{ uri: commonConfigResponse.data.banner.default }}
+                    <Image style={{ height: '80%', width: '80%' }}
+                      source={require('../../res/images/account_screen/logo.png')}
                     />
                   </View>
                 </TouchableOpacity>
@@ -157,7 +157,7 @@ class AccountScreen extends React.Component {
                     <Text style={{ fontSize: scale(20) }}>{accountResponse.data.fullname}</Text>
                     <Text style={{ fontSize: scale(15), color:PURPLE_FONTCOLOR,fontWeight:'700'}}>0{accountResponse.data.mobile}</Text>
                   </View>
-                  <Icon style={{ flex: 0.6 }} name={'chevron-right'} size={scale(16)} color={'gray'} />
+                  <Icon style={{ flex: 0.6 }} name={'chevron-right'} size={scale(18)} color={PINK_FONTCOLOR} />
                 </TouchableOpacity>
               </View>
               <SectionList

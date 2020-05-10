@@ -5,10 +5,11 @@ import {
   Dimensions,
   TouchableOpacity,
   StyleSheet,
+  Image
 } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import { scale, scaleModerate, scaleVertical } from '../../constant/Scale';
-import { texts } from '../../constant/CommonStyles';
+import { texts, size } from '../../constant/CommonStyles';
 import * as COLOR from '../../constant/Colors';
 
 const { width, height } = Dimensions.get('window');
@@ -25,8 +26,13 @@ export default class ItemAccount extends Component {
         disabled={!canPress}
         onPress={canPress ? () => this.props.onPress() : () => { }}
         style={styles.container}>
-        <Icon style={iconStyle ? iconStyle : styles.icon} name={iconLeftName} size={scale(28)}
-          color={iconLeftColor || 'gray'} />
+        {/* <Icon style={iconStyle ? iconStyle : styles.icon} name={iconLeftName} size={scale(28)}
+          color={iconLeftColor || 'gray'} /> */}
+        <Image
+        resizeMode={'contain'}
+          style={styles.icon,size.smd}
+          source={iconLeftName}
+        />
         <View style={styles.textArea}>
           {
             extraInfo ? <View style={styles.title}>
@@ -41,7 +47,7 @@ export default class ItemAccount extends Component {
         </View>
         {
           canPress ?
-            <Icon style={{ flex: 0.5 }} name={iconRightName || 'chevron-right'} size={scale(16)} color={'gray'} /> :
+            <Icon style={{ flex: 0.5 }} name={iconRightName || 'chevron-right'} size={scale(18)} color={COLOR.PINK_FONTCOLOR} /> :
             <View style={{ flex: 0.5 }} />
         }
       </TouchableOpacity>
@@ -59,6 +65,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     backgroundColor: '#FAFAFA',
+    marginBottom:scale(2),
+    paddingLeft:scale(5),
   },
   textArea: {
     flex: 8,

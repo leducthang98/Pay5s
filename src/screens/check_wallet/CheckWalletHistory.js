@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, View, ScrollView, Dimensions, Button } from 'react-native';
+import { Text, View, ScrollView, Dimensions } from 'react-native';
 import { connect } from 'react-redux';
 import { scale } from '../../constant/Scale';
 import { TouchableOpacity } from 'react-native-gesture-handler';
@@ -61,7 +61,7 @@ class CheckWalletHistory extends React.Component {
       })}>
       <View style={{ width: containerW, height: scale(60), flexDirection: 'row', justifyContent: 'center', alignItems: 'center', borderBottomWidth: scale(0.4), borderColor: 'gray' }}>
         <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-          <Icon name={icon} size={scale(19)} color={"black"} />
+          <Icon name={icon} size={scale(19)} color={PURPLE_FONTCOLOR} />
         </View>
         <View style={{ flex: 5.5, height: scale(56) }}>
           <Text numberOfLines={1} style={{ fontSize: scale(14.5),color:GRAY_FONTCOLOR,fontWeight:"700" }}>{note}</Text>

@@ -152,7 +152,7 @@ class HomeScreen extends React.Component {
         <View style={{ width: '100%', height: '60%', alignItems: 'center', justifyContent: 'center' }}>
           <Image source={OTHER_SERVICE[iconName || 'RECHARGEPHONE']} style={{ width: '80%', height: '80%' }} resizeMode={'contain'} />
         </View>
-        <View style={{ width: '100%', height: '40%', justifyContent: 'center', alignItems: 'center',paddingBottom:scale(5) }}>
+        <View style={{ width: '100%', height: '40%', justifyContent: 'center', alignItems: 'center', paddingBottom: scale(5) }}>
           <Text style={{ fontSize: scale(12), color: 'white', textAlign: 'center' }}>{label}</Text>
         </View>
       </View>
@@ -282,7 +282,7 @@ class HomeScreen extends React.Component {
                     color: PURPLE_FONTCOLOR,
                   }}>{formatMoney(accountResponse.data.balance)}đ</Text>
                   <View style={{ flex: 0.2 }}></View>
-                  <Icon style={{ flex: 1 }} name={'chevron-right'} size={scale(16)} color={'black'} />
+                  <Icon style={{ flex: 1 }} name={'chevron-circle-right'} size={scale(17)} color={PINK_FONTCOLOR} />
                 </TouchableOpacity>
                 <View style={{
                   height: (containerH / 5.3) * 3 / 5,
@@ -314,7 +314,7 @@ class HomeScreen extends React.Component {
                     <View style={{ width: '100%', height: '60%', alignItems: 'center', justifyContent: 'center' }}>
                       <Image source={OTHER_SERVICE['SUPPORT']} style={{ width: '80%', height: '80%' }} resizeMode={'contain'} />
                     </View>
-                    <View style={{ width: '100%', height: '40%', justifyContent: 'center', alignItems: 'center',paddingBottom:scale(5) }}>
+                    <View style={{ width: '100%', height: '40%', justifyContent: 'center', alignItems: 'center', paddingBottom: scale(5) }}>
                       <Text style={{ fontSize: scale(12), color: 'white', textAlign: 'center' }}>Hỗ trợ</Text>
                     </View>
                   </View>
