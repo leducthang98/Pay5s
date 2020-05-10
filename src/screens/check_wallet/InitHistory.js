@@ -16,34 +16,34 @@ class InitHistory extends React.Component {
                 <View style={{ width: "100%", height: "100%", backgroundColor: '#D3D3D3', borderRadius: scale(5) }}>
                     <View style={{ backgroundColor: 'white', width: "100%", height: "6%", borderBottomColor: 'gray', borderBottomWidth: scale(0.4), justifyContent: 'center', alignItems: 'center', flexDirection: 'row' }}>
                         <View style={{ flex: 1, justifyContent: 'center', height: "100%", paddingLeft: scale(13) }}>
-                            <Text style={{ fontSize: scale(12), color: 'gray' }}>Mã giao dịch</Text>
+                            <Text style={{ fontSize: scale(14), color: 'gray' }}>Mã giao dịch</Text>
                         </View>
                         <View style={{ flex: 3, justifyContent: 'center', alignItems: 'flex-end', height: "100%", paddingRight: scale(10) }}>
-                            <Text style={{ fontSize: scale(12.5), textAlign: 'right' }}>{data.id}</Text>
+                            <Text style={{ fontSize: scale(14.5), textAlign: 'right' }}>{data.id}</Text>
                         </View>
                     </View>
                     <View style={{ backgroundColor: 'white', width: "100%", height: "6%", justifyContent: 'center', alignItems: 'center', flexDirection: 'row' }}>
                         <View style={{ flex: 1, justifyContent: 'center', height: "100%", paddingLeft: scale(13) }}>
-                            <Text style={{ fontSize: scale(12), color: 'gray' }}>Thời gian</Text>
+                            <Text style={{ fontSize: scale(14), color: 'gray' }}>Thời gian</Text>
                         </View>
                         <View style={{ flex: 3, justifyContent: 'center', alignItems: 'flex-end', height: "100%", paddingRight: scale(10) }}>
-                            <Text style={{ fontSize: scale(12.5), textAlign: 'right' }}>{data.time}</Text>
+                            <Text style={{ fontSize: scale(14.5), textAlign: 'right' }}>{data.time}</Text>
                         </View>
                     </View>
                     <View style={{ backgroundColor: 'white', width: "100%", height: "14%", justifyContent: 'center', alignItems: 'center', flexDirection: 'row', marginTop: scale(6) }}>
                         <View style={{ flex: 1, justifyContent: 'center', height: "100%", paddingLeft: scale(13) }}>
-                            <Text style={{ fontSize: scale(12), color: 'gray' }} >Nội dung</Text>
+                            <Text style={{ fontSize: scale(14), color: 'gray' }} >Nội dung</Text>
                         </View>
                         <View style={{ flex: 3, justifyContent: 'center', alignItems: 'flex-end', height: "100%", paddingRight: scale(10) }}>
-                            <Text style={{ fontSize: scale(12.5), textAlign: 'right' }} numberOfLines={5}>{data.note}</Text>
+                            <Text style={{ fontSize: scale(14.5), textAlign: 'right' }} numberOfLines={5}>{data.note}</Text>
                         </View>
                     </View>
                     <View style={{ backgroundColor: 'white', width: "100%", height: "6%", justifyContent: 'center', alignItems: 'center', flexDirection: 'row', marginTop: scale(6) }}>
                         <View style={{ flex: 1, justifyContent: 'center', height: "100%", paddingLeft: scale(13) }}>
-                            <Text style={{ fontSize: scale(12), color: 'gray' }}>Thay đổi</Text>
+                            <Text style={{ fontSize: scale(14), color: 'gray' }}>Thay đổi</Text>
                         </View>
                         <View style={{ flex: 3, justifyContent: 'center', alignItems: 'flex-end', height: "100%", paddingRight: scale(10) }}>
-                            <Text style={{ fontSize: scale(12.5), textAlign: 'right' }}>{data.amount}</Text>
+                            <Text style={{ fontSize: scale(14.5), textAlign: 'right' }}>{data.amount}</Text>
                         </View>
                     </View>
                 </View>

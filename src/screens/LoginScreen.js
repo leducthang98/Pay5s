@@ -75,14 +75,17 @@ class LoginScreen extends React.Component {
       borderColor: GRAY_FONTCOLOR,
       width: '80%',
       justifyContent: 'center',
-      fontSize: scaleModerate(13),
+      fontSize: scaleModerate(15),
+      textAlign: 'center'
     }];
     const inputStylePass = [{
       borderBottomWidth: scale(0.5),
       borderColor: GRAY_FONTCOLOR,
       width: '80%',
       justifyContent: 'center',
-      fontSize: scaleModerate(13),
+      fontSize: scaleModerate(15),
+      textAlign: 'center',
+      marginTop: scale(10)
     }];
     const inputErrorStyleUser = [...inputStyleUser, { borderColor: ERROR }];
     const inputErrorStylePass = [...inputStylePass, { borderColor: ERROR }];
@@ -182,7 +185,7 @@ class LoginScreen extends React.Component {
         }
         {
           this.state.responseError !== null ? <MessageDialog
-            message={this.state.responseError.data?.descripiton}
+            message={this.state.responseError.data?.descripiton ? this.state.responseError.data?.descripiton : this.state.responseError.data.message}
             close={() => {
               this.setState({ responseError: null });
             }}

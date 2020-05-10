@@ -64,7 +64,7 @@ class CheckWalletHistory extends React.Component {
           <Icon name={icon} size={scale(19)} color={"black"} />
         </View>
         <View style={{ flex: 5.5, height: scale(56) }}>
-          <Text numberOfLines={1} style={{ fontSize: scale(14),color:'black' }}>{note}</Text>
+          <Text numberOfLines={1} style={{ fontSize: scale(14.5),color:GRAY_FONTCOLOR,fontWeight:"700" }}>{note}</Text>
           <Text numberOfLines={1} style={{ fontSize: scale(13), color: GRAY_FONTCOLOR }}>{time}</Text>
           <Text numberOfLines={1} style={{ fontSize: scale(13), color: GRAY_FONTCOLOR }}>Txid: {id}</Text>
         </View>

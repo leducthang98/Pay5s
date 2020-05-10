@@ -1,10 +1,11 @@
 import React from 'react';
 import { Text, View, StyleSheet, TextInput, TouchableOpacity, Dimensions } from 'react-native';
 import Header from '../components/common/Header';
-import { PRIMARY_COLOR } from '../constant/Colors';
+import { PRIMARY_COLOR, GRAY_FONTCOLOR } from '../constant/Colors';
 import { scaleVertical, scale, scaleModerate } from '../constant/Scale';
 import { OTP } from '../navigators/RouteName';
 import Toast from 'react-native-simple-toast';
+import LinearGradient from 'react-native-linear-gradient';
 class RegisterScreen extends React.Component {
     constructor(props) {
         super(props);
@@ -80,16 +81,18 @@ class RegisterScreen extends React.Component {
                         <TouchableOpacity
                             onPress={() => this.registFunction()}
                         >
-                            <View style={{
-                                width: containerW * 0.4,
-                                height: scale(45),
-                                backgroundColor: PRIMARY_COLOR,
-                                borderRadius: scaleModerate(10),
-                                alignItems: 'center',
-                                justifyContent: 'center',
-                            }}>
-                                <Text style={{ color: 'white', fontWeight: 'bold',fontSize:scaleModerate(14) }}>Đăng ký</Text>
-                            </View>
+                            <LinearGradient
+                                start={{ x: 0, y: 0.75 }} end={{ x: 1, y: 0.25 }}
+                                colors={['#ff547c', '#c944f7']}
+                                style={{
+                                    width: containerW * 0.6,
+                                    height: scale(40),
+                                    borderRadius: scaleModerate(30),
+                                    alignItems: 'center',
+                                    justifyContent: 'center',
+                                }}>
+                                <Text style={{ color: 'white', fontWeight: 'bold', fontSize: scaleModerate(14) }}>Đăng ký</Text>
+                            </LinearGradient>
                         </TouchableOpacity>
                         <TouchableOpacity
                             onPress={() => this.props.navigation.pop()}
@@ -106,21 +109,14 @@ const containerW = Dimensions.get('window').width;
 const containerH = Dimensions.get('window').height;
 const styles = StyleSheet.create({
     inputStyle: {
-        marginTop: scaleVertical(20),
-        borderColor: 'black',
+        borderBottomWidth: scale(0.5),
+        borderColor: GRAY_FONTCOLOR,
         width: '80%',
-        paddingVertical: scaleVertical(10),
-        paddingHorizontal: scaleModerate(0),
         justifyContent: 'center',
-        fontSize: scaleModerate(15),
-        borderRadius:scale(10),
-        borderLeftWidth: scale(0.7),
-        borderTopWidth: scale(0.7),
-        borderRightWidth: scale(0.7),
-        borderBottomWidth: scale(0.7),
-        borderColor: 'gray',
-        paddingLeft:scale(10)
+        fontSize: scaleModerate(13),
+        marginBottom: scale(15)
     }
+
 
 })
 export default RegisterScreen;

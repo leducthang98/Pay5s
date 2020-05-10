@@ -41,7 +41,7 @@ class ForgetTransPassword extends React.Component {
             <>
                 <Header title={'Quên mật khẩu giao dịch'} back={true} navigation={this.props.navigation} />
                 <View style={{ flex: 1 }}></View>
-                <View style={{ flex: 3.5, alignItems: "center", justifyContent: 'flex-start' }}>
+                <View style={{ flex: 3.5, alignItems: "center", justifyContent: 'center' }}>
                     <TextInput
                         onChangeText={(password) => this.setState({ password })}
                         style={styles.inputStyle}

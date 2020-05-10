@@ -51,7 +51,7 @@ export default function BottomTabNavigator() {
                     backgroundColor: COLOR.WHITE,
                     elevation: 15,
                 
-                    height: statusBarHeight * 3,
+                    height: statusBarHeight * 3.3,
                     paddingBottom: statusBarHeight
                 },
                 labelPosition:'below-icon',

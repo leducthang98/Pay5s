@@ -148,8 +148,8 @@ class HomeScreen extends React.Component {
     <TouchableOpacity style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}
       onPress={onPress}
     >
-      <View style={{ width: '90%', height: scaleVertical(100),backgroundColor: color, borderRadius: scale(5), paddingTop: scale(5) }}>
-        <View style={{ width: '100%', height: '60%', alignItems:'center', justifyContent:'center' }}>
+      <View style={{ width: '90%', height: scaleVertical(75), backgroundColor: color, borderRadius: scale(5), paddingTop: scale(5) }}>
+        <View style={{ width: '100%', height: '60%', alignItems: 'center', justifyContent: 'center' }}>
           <Image source={OTHER_SERVICE[iconName || 'RECHARGEPHONE']} style={{ width: '80%', height: '80%' }} resizeMode={'contain'} />
         </View>
         <View style={{ width: '100%', height: '40%', justifyContent: 'center', alignItems: 'center' }}>
@@ -179,11 +179,11 @@ class HomeScreen extends React.Component {
       <View style={{ width: containerW / 1.7, height: scale(110) }}>
         <View style={{ flex: 4, justifyContent: 'center', alignItems: 'center' }}>
           <Image style={{ height: '90%', width: '90%' }}
-            resizeMode={'contain'}
+            resizeMode={'cover'}
             source={{
               uri:
                 (img_avatar) ?
-                  'https://scontent-sin6-1.xx.fbcdn.net/v/t1.0-9/p960x960/71949763_2522897797942478_4149955310162804736_o.jpg?_nc_cat=106&_nc_sid=85a577&_nc_ohc=zag8Z2YXtdMAX9BGZT4&_nc_ht=scontent-sin6-1.xx&_nc_tp=6&oh=081596cb6c9afc68b5bb83a069d5aa1a&oe=5EA9804A'
+                  img_avatar
                   :
                   defaultImage,
             }}
@@ -308,14 +308,14 @@ class HomeScreen extends React.Component {
                 }
               </View>
               <View style={styles.service2}>
-                <TouchableOpacity style={{ flex: 1, alignItems: 'center', paddingTop: scale(12) }}
+                <TouchableOpacity style={{ flex: 1, alignItems: 'center', justifyContent: 'flex-start' }}
                   onPress={() => this.support(commonResponse.data.hotline, commonResponse.data.fanpage)}>
-                  <View style={{ width: '90%', height: '70%', backgroundColor: '#e34a80', borderRadius: scale(5), paddingTop: scale(5) }}>
-                    <View style={{ width: '100%', height: '60%' }}>
-                      <Image source={OTHER_SERVICE['SUPPORT']} style={{ width: '100%', height: '100%' }} resizeMode={'contain'} />
+                  <View style={{ width: '90%', height: scaleVertical(75), backgroundColor: '#e34a80', borderRadius: scale(5) }}>
+                    <View style={{ width: '100%', height: '60%', alignItems: 'center', justifyContent: 'center' }}>
+                      <Image source={OTHER_SERVICE['SUPPORT']} style={{ width: '80%', height: '80%' }} resizeMode={'contain'} />
                     </View>
                     <View style={{ width: '100%', height: '40%', justifyContent: 'center', alignItems: 'center' }}>
-                      <Text textAlign={'auto'} style={{ fontSize: scale(13), color: 'white' }} numberOfLines={1}>Hỗ trợ</Text>
+                      <Text style={{ fontSize: scale(12), color: 'white', textAlign: 'center' }}>Hỗ trợ</Text>
                     </View>
                   </View>
                 </TouchableOpacity>
@@ -329,6 +329,7 @@ class HomeScreen extends React.Component {
 
                 </View>
               </View>
+
               <View style={styles.notification}>
                 <View
                   style={{ flexDirection: 'row', height: scale(30), paddingLeft: scale(10), paddingRight: scale(10) }}>
@@ -429,15 +430,17 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     marginTop: scaleVertical(10),
     backgroundColor: '#FFF',
-    paddingHorizontal:scaleModerate(7),
-    paddingVertical:scaleVertical(10),
+    paddingHorizontal: scaleModerate(7),
+    paddingVertical: scaleVertical(20),
+
   },
   service2: {
     width: containerW,
-    height: containerH / 6.5,
+    height: containerH / 7.5,
     flexDirection: 'row',
     backgroundColor: 'white',
-    paddingHorizontal:scaleModerate(7),
+    paddingHorizontal: scaleModerate(7),
+
   },
 
 });

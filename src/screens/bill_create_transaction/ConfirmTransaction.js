@@ -13,6 +13,7 @@ import MessageDialog from '../../components/common/MessageDialog';
 import Toast from 'react-native-simple-toast';
 import { Alert } from 'react-native';
 import { CommonActions } from '@react-navigation/native';
+import LinearGradient from 'react-native-linear-gradient';
 class CommitTransferTransaction extends React.Component {
     constructor(props) {
         super(props);
@@ -120,8 +121,20 @@ class CommitTransferTransaction extends React.Component {
                             <TouchableOpacity
                                 disabled={(this.state.transPassword) ? false : true}
                                 onPress={() => this._onPressCommit()}
-                                style={{ height: '70%', width: '43%', backgroundColor: COLOR.PRIMARY_COLOR, marginLeft: scale(10), borderRadius: scale(20), justifyContent: 'center', alignItems: 'center' }}>
-                                <Text style={{ fontSize: scale(15), color: (this.state.transPassword) ? 'white' : '#C0C0C0' }}>Xác nhận</Text>
+                                style={{ borderRadius: scaleModerate(30), }}>
+                                <LinearGradient
+                                    start={{ x: 0, y: 0.75 }} end={{ x: 1, y: 0.25 }}
+
+                                    colors={['#ff547c', '#c944f7']}
+                                    style={{
+                                        width: containerW * 0.6,
+                                        height: scale(40),
+                                        borderRadius: scaleModerate(30),
+                                        alignItems: 'center',
+                                        justifyContent: 'center',
+                                    }}>
+                                    <Text style={{ fontSize: scale(15), color: (this.state.transPassword) ? 'white' : '#C0C0C0' }}>Xác nhận</Text>
+                                </LinearGradient>
                             </TouchableOpacity>
                         </View>
                         <TouchableOpacity

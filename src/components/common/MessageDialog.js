@@ -4,14 +4,15 @@ import {
   Text,
   TouchableOpacity,
   StyleSheet,
-  Modal
+  Modal,
+  Dimensions
 } from 'react-native';
 import { shadow, texts } from '../../constant/CommonStyles';
 import { getString } from '../../res/values/String';
-import { scaleModerate, scaleVertical } from '../../constant/Scale';
+import { scaleModerate, scaleVertical, scale } from '../../constant/Scale';
 import * as Layout from '../../constant/Layout';
 import * as COLOR from '../../constant/Colors';
-
+import LinearGradient from 'react-native-linear-gradient';
 
 const { width, height } = Layout.window;
 
@@ -24,12 +25,24 @@ class MessageDialog extends PureComponent {
         visible={this.props.visible}
         transparent={true}>
         <View style={styles.container}>
-          <View style={[styles.messageArea, { paddingVertical: scaleVertical(15), paddingHorizontal: scaleModerate(15) }]}>
+          <View style={[styles.messageArea, { paddingVertical: scaleVertical(20), paddingHorizontal: scaleModerate(15) }]}>
             <Text style={texts.h3}>{title || getString('NOTIFICATION')}</Text>
             <Text style={[texts.normal, { marginVertical: scaleVertical(10) }]}>{message || ''}</Text>
-            <TouchableOpacity style={styles.button}
+            <TouchableOpacity 
               onPress={() => this.props.close()}>
-              <Text style={[texts.normal, { color: COLOR.WHITE }]}>{textButton || getString('OK')}</Text>
+              <LinearGradient
+                start={{ x: 0, y: 0.75 }} end={{ x: 1, y: 0.25 }}
+
+                colors={['#ff547c', '#c944f7']}
+                style={{
+                  width: containerW * 0.7,
+                  height: scale(45),
+                  borderRadius: scaleModerate(40),
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                }}>
+                <Text style={[texts.normal, { color: COLOR.WHITE }]}>{textButton || getString('OK')}</Text>
+              </LinearGradient>
             </TouchableOpacity>
           </View>
         </View>
@@ -37,7 +50,8 @@ class MessageDialog extends PureComponent {
     )
   }
 }
-
+const containerW = Dimensions.get('window').width;
+const containerH = Dimensions.get('window').height;
 const styles = StyleSheet.create({
   container: {
     flex: 1,

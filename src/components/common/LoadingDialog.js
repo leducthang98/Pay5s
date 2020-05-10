@@ -24,7 +24,7 @@ class LoadingDialog extends PureComponent {
         transparent={true}>
         <View style={styles.container}>
           <View style={[styles.loadingArea, { paddingVertical: scaleVertical(15), paddingHorizontal: scaleModerate(15) }]}>
-            <ActivityIndicator color={COLOR.PRIMARY_COLOR} size={"large"} />
+            <ActivityIndicator color={COLOR.PURPLE_FONTCOLOR} size={"large"} />
             <Text style={[texts.normal, {
               flex: 1,
               alignItems: 'center',

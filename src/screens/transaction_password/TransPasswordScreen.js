@@ -92,24 +92,6 @@ class TransPasswordScreen extends React.Component {
                             <Text style={{ color: 'white', fontSize: scale(14), fontWeight: 'bold' }}>Tạo mật khẩu giao dịch</Text>
                         </LinearGradient>
                     </TouchableOpacity>
-
-                    <TouchableOpacity style={styles.buttons}
-                        onPress={() => this.forgetTransPassword()}
-                    >
-                        <LinearGradient
-                            start={{ x: 0, y: 0.75 }} end={{ x: 1, y: 0.25 }}
-
-                            colors={['#ff547c', '#c944f7']}
-                            style={{
-                                width: containerW * 0.7,
-                                height: scale(40),
-                                borderRadius: scaleModerate(30),
-                                alignItems: 'center',
-                                justifyContent: 'center',
-                            }}>
-                            <Text style={{ color: 'white', fontSize: scale(14), fontWeight: 'bold' }} >Quên mật khẩu giao dịch</Text>
-                        </LinearGradient>
-                    </TouchableOpacity>
                 </View>
             );
         }

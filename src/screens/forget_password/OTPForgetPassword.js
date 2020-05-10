@@ -8,6 +8,7 @@ import LoadingDialog from '../../components/common/LoadingDialog';
 import MessageDialog from '../../components/common/MessageDialog';
 import { LOGIN } from '../../navigators/RouteName';
 import { statusBarHeight } from '../../constant/Layout';
+import LinearGradient from 'react-native-linear-gradient';
 class OTPForgetPassword extends React.Component {
 
     constructor(props) {
@@ -57,11 +58,13 @@ class OTPForgetPassword extends React.Component {
             <>
                 <View style={{ height: statusBarHeight, backgroundColor: PRIMARY_COLOR }}></View>
                 <View style={{ flex: 1, alignItems: 'center' }}>
-                    <Image style={{ height: '30%', width: '100%' }}
-                        source={{
-                            uri: 'https://client.pay5s.com/assets/img/banner_default.jpg'
-                        }}
-                    />
+                    <View style={{ width: '100%', height: '30%' }}>
+                        <Image
+                            style={{ width: '100%', height: '100%' }}
+                            resizeMode={'cover'}
+                            source={require('../../res/images/common/login.png')}
+                        />
+                    </View>
                     <View style={{ width: '100%', height: '60%', alignItems: 'center', justifyContent: 'flex-start', paddingTop: scaleVertical(30) }}>
                         <TextInput
                             onChangeText={(otp) => this.setState({ otp })}
@@ -73,18 +76,21 @@ class OTPForgetPassword extends React.Component {
                         <TouchableOpacity
                             onPress={() => this.commitForgetPassOTP()}
                             disabled={this.state.otp ? false : true}
+                            style={{ marginTop: scale(30)}}
                         >
-                            <View style={{
-                                width: containerW * 0.8,
-                                height: scale(45),
-                                backgroundColor: PRIMARY_COLOR,
-                                borderRadius: scaleModerate(4),
-                                alignItems: 'center',
-                                justifyContent: 'center',
-                                marginTop: scale(30)
-                            }}>
+                             <LinearGradient
+                                    start={{ x: 0, y: 0.75 }} end={{ x: 1, y: 0.25 }}
+                                    colors={['#ff547c', '#c944f7']}
+                                    style={{
+                                        width: containerW * 0.7,
+                                        height: scale(45),
+                                        backgroundColor: PRIMARY_COLOR,
+                                        borderRadius: scaleModerate(40),
+                                        alignItems: 'center',
+                                        justifyContent: 'center',
+                                    }}>
                                 <Text style={{ color: (this.state.otp) ? 'white' : '#C4CACE', fontWeight: 'bold', fontSize: scaleModerate(14) }}>Xác nhận</Text>
-                            </View>
+                            </LinearGradient>
                         </TouchableOpacity>
                         <View style={{ flexDirection: 'row', marginTop: scale(20) }}>
                             <Text style={{ color: "black", fontWeight: 'bold', fontSize: scale(15) }}>Chưa nhận được mã OTP? </Text>
@@ -122,7 +128,7 @@ const containerH = Dimensions.get('window').height;
 const styles = StyleSheet.create({
     inputStyle: {
         marginTop: scale(10),
-        borderWidth: scale(0.5),
+        borderBottomWidth: scale(0.5),
         borderColor: 'gray',
         borderRadius: scaleModerate(10),
         width: '80%',
@@ -131,7 +137,6 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         fontSize: scaleModerate(15),
         textAlign: 'center',
-
     }
 
 })

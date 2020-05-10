@@ -86,21 +86,21 @@ class CheckWallet extends React.Component {
                     <Image
                       source={require('../../res/images/check_wallet/ic_recharge.png')}
                       resizeMode={'cover'}
-                      style={size.sm} />
+                      style={size.xsm} />
                   </View>
                 </View>
                 <View style={{ alignItems: 'center', justifyContent: 'flex-start' }}>
-                  <Text style={{ fontSize: scale(13), textAlign: 'center', color: PINK_FONTCOLOR }}>Nạp số dư</Text>
+                  <Text style={{ fontSize: scale(13), textAlign: 'center', color: PINK_FONTCOLOR, paddingTop: scale(3) }}>Nạp số dư</Text>
                 </View>
               </TouchableOpacity>
-              <TouchableOpacity style={{ flex: 1, backgroundColor: '#FFF', alignItems: 'center', justifyContent: 'center' }} onPress={() => this.rechargeMoney()}>
+              <TouchableOpacity style={{ flex: 1, backgroundColor: '#FFF', alignItems: 'center', justifyContent: 'center' }} onPress={() => this.transferMoney()}>
                 <View style={{ alignItems: 'center', justifyContent: 'center' }}>
                   <Image
                     source={require('../../res/images/check_wallet/ic_transfer.png')}
                     resizeMode={'contain'}
-                    style={size.sm} />
+                    style={size.xsm} />
                 </View>
-                <View style={{ alignItems: 'center', justifyContent: 'flex-start' }}>
+                <View style={{ alignItems: 'center', justifyContent: 'flex-start', paddingTop: scale(3) }}>
                   <Text style={{ fontSize: scale(13), textAlign: 'center', color: PINK_FONTCOLOR }}>Chuyển khoản</Text>
                 </View>
               </TouchableOpacity>
@@ -108,10 +108,10 @@ class CheckWallet extends React.Component {
                 <View style={{ backgroundColor: 'white', flex: 1, flexDirection: 'row', alignItems: 'center' }}>
                   <Image
                     source={require('../../res/images/check_wallet/ic_money.png')}
-                    resizeMode={'contain'} 
+                    resizeMode={'contain'}
                     style={size.sm}
-                    />
-                  <Text style={{ fontSize: scale(13), paddingLeft: scale(5), color: PINK_FONTCOLOR }}>Số dư</Text>
+                  />
+                  <Text style={{ fontSize: scale(13), color: PINK_FONTCOLOR }}>Số dư</Text>
                 </View>
                 <View style={{ backgroundColor: 'white', flex: 1, alignItems: 'flex-end', justifyContent: 'center' }}>
                   <Text style={{ paddingBottom: scale(3), paddingRight: scale(5), fontWeight: 'bold', fontSize: scale(16), color: PURPLE_FONTCOLOR }}>{formatMoney(accountResponse.data.balance)}đ</Text>

@@ -12,6 +12,7 @@ import LoadingDialog from '../../components/common/LoadingDialog';
 import MessageDialog from '../../components/common/MessageDialog';
 import Toast from 'react-native-simple-toast';
 import { CommonActions } from '@react-navigation/native';
+import LinearGradient from 'react-native-linear-gradient';
 class CommitTransferTransaction extends React.Component {
     constructor(props) {
         super(props);
@@ -48,12 +49,12 @@ class CommitTransferTransaction extends React.Component {
             }
 
         } else {
-           this.props.navigation.navigate(ON_TRANSFER_SUCCESS,{
-               dataTransferSuccess:{
-                   mobile:targetFull,
-                   amount:amount
-               }
-           });
+            this.props.navigation.navigate(ON_TRANSFER_SUCCESS, {
+                dataTransferSuccess: {
+                    mobile: targetFull,
+                    amount: amount
+                }
+            });
         }
     }
     async tokenInvalidFunction() {
@@ -82,8 +83,21 @@ class CommitTransferTransaction extends React.Component {
                         <View style={{ flexDirection: 'row', width: '100%', height: '10%', marginTop: scale(10), justifyContent: 'center', alignItems: 'center' }}>
                             <TouchableOpacity
                                 onPress={() => this._executeTransfer()}
-                                style={{ height: '70%', width: '43%', backgroundColor: COLOR.PRIMARY_COLOR, marginLeft: scale(10), borderRadius: scale(20), justifyContent: 'center', alignItems: 'center' }}>
-                                <Text style={{ fontSize: scale(15), color: 'white' }}>Xác nhận</Text>
+                                style={{ borderRadius: scaleModerate(30) }}
+                            >
+                                <LinearGradient
+                                    start={{ x: 0, y: 0.75 }} end={{ x: 1, y: 0.25 }}
+
+                                    colors={['#ff547c', '#c944f7']}
+                                    style={{
+                                        width: containerW * 0.6,
+                                        height: scale(40),
+                                        borderRadius: scaleModerate(30),
+                                        alignItems: 'center',
+                                        justifyContent: 'center',
+                                    }}>
+                                    <Text style={{ fontSize: scale(15), color: 'white' }}>Xác nhận</Text>
+                                </LinearGradient>
                             </TouchableOpacity>
                         </View>
 
@@ -102,7 +116,7 @@ class CommitTransferTransaction extends React.Component {
                     }
                 </>
             );
-        }else{
+        } else {
             this.tokenInvalidFunction()
             return null;
         }

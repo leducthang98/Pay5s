@@ -22,7 +22,7 @@ export default class App extends Component {
     //Remove this method to stop OneSignal Debugging 
     OneSignal.setLogLevel(6, 0);
     // Replace 'YOUR_ONESIGNAL_APP_ID' with your OneSignal App ID.
-    OneSignal.init("c0fe714a-8af1-400d-b1ea-e02df45ca66a", { kOSSettingsKeyAutoPrompt: false, kOSSettingsKeyInAppLaunchURL: false, kOSSettingsKeyInFocusDisplayOption: 2 });
+    OneSignal.init("d4ffe850-f047-4f05-a3e2-d71ab16241e4", { kOSSettingsKeyAutoPrompt: false, kOSSettingsKeyInAppLaunchURL: false, kOSSettingsKeyInFocusDisplayOption: 2 });
     // The promptForPushNotifications function code will show the iOS push notification prompt. We recommend removing the following code and instead using an In-App Message to prompt for notification permission (See step below)
     OneSignal.promptForPushNotificationsWithUserResponse(myiOSPromptCallback);
     OneSignal.addEventListener('received', this.onReceived);

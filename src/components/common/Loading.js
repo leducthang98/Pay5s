@@ -9,7 +9,7 @@ export default function Loading(props) {
     return (
         <View style={styles.container}>
             <View style={styles.loadingContainer}>
-                <ActivityIndicator size={'large'} color={COLOR.ENABLED_COLOR} />
+                <ActivityIndicator size={'large'} color={COLOR.PURPLE_FONTCOLOR} />
                 <Text style={styles.textLoading}>Loading</Text>
             </View>
         </View>

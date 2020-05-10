@@ -3,7 +3,8 @@ import {
     View,
     Text,
     TextInput,
-    TouchableOpacity
+    TouchableOpacity,
+    Dimensions
 } from 'react-native';
 import Header from '../../components/common/Header';
 import { scaleVertical, scaleModerate, scale } from '../../constant/Scale';
@@ -19,7 +20,9 @@ import MessageDialog from '../../components/common/MessageDialog';
 import { CommonActions } from '@react-navigation/native';
 import { LOGIN } from '../../navigators/RouteName';
 import DatePicker from 'react-native-datepicker';
+import LinearGradient from 'react-native-linear-gradient';
 import RadioForm, { RadioButton, RadioButtonInput, RadioButtonLabel } from 'react-native-simple-radio-button';
+const containerW = Dimensions.get('window').width;
 class EditAccount extends React.Component {
     constructor(props) {
         super(props);
@@ -203,7 +206,7 @@ class EditAccount extends React.Component {
                             </TouchableOpacity>
                             <TouchableOpacity
                                 activeOpacity={1}
-                                onPress={()=>this.inputAddress.focus()}
+                                onPress={() => this.inputAddress.focus()}
                                 style={{ flexDirection: 'row', height: scaleVertical(40), marginTop: scaleVertical(10), backgroundColor: 'white' }}>
                                 <View style={{ flex: 1.5, justifyContent: 'center', alignItems: 'flex-start' }}>
                                     <Text style={{ color: 'gray', paddingLeft: scaleModerate(15), fontSize: scaleModerate(12) }}>Địa chỉ</Text>
@@ -219,10 +222,23 @@ class EditAccount extends React.Component {
                             </TouchableOpacity>
                         </View>
                         <View style={{ flex: 1, justifyContent: 'flex-end', alignItems: 'center', paddingBottom: scale(40) }}>
-                            <TouchableOpacity style={{ width: '90%', height: scaleVertical(42), backgroundColor: PRIMARY_COLOR, borderRadius: scale(6), justifyContent: 'center', alignItems: 'center' }}
+                            <TouchableOpacity style={{borderRadius: scaleModerate(40),marginBottom:scale(10) }}
                                 onPress={() => this.editAccount(this.props.accountInfo.fullname, this.props.accountInfo.dob, this.props.accountInfo.gender, this.props.accountInfo.email, this.props.accountInfo.address)}
                             >
-                                <Text style={{ fontSize: scale(13), color: 'white', fontWeight: 'bold' }}>LƯU THAY ĐỔI</Text>
+                                <LinearGradient
+                                    start={{ x: 0, y: 0.75 }} end={{ x: 1, y: 0.25 }}
+
+                                    colors={['#ff547c', '#c944f7']}
+                                    style={{
+                                        width: containerW * 0.9,
+                                        height: scale(45),
+                                        backgroundColor: PRIMARY_COLOR,
+                                        borderRadius: scaleModerate(40),
+                                        alignItems: 'center',
+                                        justifyContent: 'center',
+                                    }}>
+                                    <Text style={{ fontSize: scale(13), color: 'white', fontWeight: 'bold' }}>LƯU THAY ĐỔI</Text>
+                                </LinearGradient>
                             </TouchableOpacity>
                         </View>
                         {
