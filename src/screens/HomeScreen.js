@@ -148,11 +148,11 @@ class HomeScreen extends React.Component {
     <TouchableOpacity style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}
       onPress={onPress}
     >
-      <View style={{ width: '90%', height: scaleVertical(75), backgroundColor: color, borderRadius: scale(5), paddingTop: scale(5) }}>
+      <View style={{ width: '90%', height: scaleVertical(80), backgroundColor: color, borderRadius: scale(5), paddingTop: scale(5) }}>
         <View style={{ width: '100%', height: '60%', alignItems: 'center', justifyContent: 'center' }}>
           <Image source={OTHER_SERVICE[iconName || 'RECHARGEPHONE']} style={{ width: '80%', height: '80%' }} resizeMode={'contain'} />
         </View>
-        <View style={{ width: '100%', height: '40%', justifyContent: 'center', alignItems: 'center' }}>
+        <View style={{ width: '100%', height: '40%', justifyContent: 'center', alignItems: 'center',paddingBottom:scale(5) }}>
           <Text style={{ fontSize: scale(12), color: 'white', textAlign: 'center' }}>{label}</Text>
         </View>
       </View>
@@ -310,11 +310,11 @@ class HomeScreen extends React.Component {
               <View style={styles.service2}>
                 <TouchableOpacity style={{ flex: 1, alignItems: 'center', justifyContent: 'flex-start' }}
                   onPress={() => this.support(commonResponse.data.hotline, commonResponse.data.fanpage)}>
-                  <View style={{ width: '90%', height: scaleVertical(75), backgroundColor: '#e34a80', borderRadius: scale(5) }}>
+                  <View style={{ width: '90%', height: scaleVertical(80), backgroundColor: '#e34a80', borderRadius: scale(5) }}>
                     <View style={{ width: '100%', height: '60%', alignItems: 'center', justifyContent: 'center' }}>
                       <Image source={OTHER_SERVICE['SUPPORT']} style={{ width: '80%', height: '80%' }} resizeMode={'contain'} />
                     </View>
-                    <View style={{ width: '100%', height: '40%', justifyContent: 'center', alignItems: 'center' }}>
+                    <View style={{ width: '100%', height: '40%', justifyContent: 'center', alignItems: 'center',paddingBottom:scale(5) }}>
                       <Text style={{ fontSize: scale(12), color: 'white', textAlign: 'center' }}>Hỗ trợ</Text>
                     </View>
                   </View>
