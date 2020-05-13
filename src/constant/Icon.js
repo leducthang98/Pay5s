@@ -16,4 +16,5 @@ export const OTHER_SERVICE = {
   INTERNET_VIETTEL: require('../res/images/home/InternetVT.png'),
   KPLUS: require('../res/images/home/KPlus.png'),
   SUPPORT: require('../res/images/home/Support.png'),
+  HOTLINE: require('../res/images/home/Hotline.png')
 };

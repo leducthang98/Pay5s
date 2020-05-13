@@ -98,12 +98,22 @@ class HomeScreen extends React.Component {
     );
   }
 
-  support(hotline, fanpage) {
+  hotline(hotline) {
     Alert.alert(
-      'Support',
-      'Phương thức hỗ trợ dịch vụ App Pay5s',
+      'Hotline',
+      'Hotline hỗ trợ CSKH: ' + hotline,
       [
-        { text: 'Hotline', onPress: () => Linking.openURL('tel:' + hotline) },
+        { text: 'Gọi', onPress: () => Linking.openURL('tel:' + hotline) },
+      ],
+      { cancelable: true },
+    );
+  }
+  chatSupport(telegram, fanpage) {
+    Alert.alert(
+      'Chat hỗ trợ',
+      'Chọn phương thức chat hỗ trợ CSKH:',
+      [
+        { text: 'Telegram', onPress: () => Linking.openURL(telegram) },
         { text: 'Facebook', onPress: () => Linking.openURL(fanpage) },
       ],
       { cancelable: true },
@@ -309,19 +319,27 @@ class HomeScreen extends React.Component {
               </View>
               <View style={styles.service2}>
                 <TouchableOpacity style={{ flex: 1, alignItems: 'center', justifyContent: 'flex-start' }}
-                  onPress={() => this.support(commonResponse.data.hotline, commonResponse.data.fanpage)}>
+                  onPress={() => this.chatSupport(commonResponse.data.telegram, commonResponse.data.fanpage)}>
                   <View style={{ width: '90%', height: scaleVertical(80), backgroundColor: '#e34a80', borderRadius: scale(5) }}>
                     <View style={{ width: '100%', height: '60%', alignItems: 'center', justifyContent: 'center' }}>
                       <Image source={OTHER_SERVICE['SUPPORT']} style={{ width: '80%', height: '80%' }} resizeMode={'contain'} />
                     </View>
                     <View style={{ width: '100%', height: '40%', justifyContent: 'center', alignItems: 'center', paddingBottom: scale(5) }}>
-                      <Text style={{ fontSize: scale(12), color: 'white', textAlign: 'center' }}>Hỗ trợ</Text>
+                      <Text style={{ fontSize: scale(12), color: 'white', textAlign: 'center' }}>Chat hỗ trợ</Text>
                     </View>
                   </View>
                 </TouchableOpacity>
-                <View style={{ flex: 1, alignItems: 'center', paddingTop: scale(12) }}>
-
-                </View>
+                <TouchableOpacity style={{ flex: 1, alignItems: 'center', justifyContent: 'flex-start' }}
+                  onPress={() => this.hotline(commonResponse.data.hotline)}>
+                  <View style={{ width: '90%', height: scaleVertical(80), backgroundColor: '#a30960', borderRadius: scale(5) }}>
+                    <View style={{ width: '100%', height: '60%', alignItems: 'center', justifyContent: 'center' }}>
+                      <Image source={OTHER_SERVICE['HOTLINE']} style={{ width: '80%', height: '80%' }} resizeMode={'contain'} />
+                    </View>
+                    <View style={{ width: '100%', height: '40%', justifyContent: 'center', alignItems: 'center', paddingBottom: scale(5) }}>
+                      <Text style={{ fontSize: scale(12), color: 'white', textAlign: 'center' }}>Hotline</Text>
+                    </View>
+                  </View>
+                </TouchableOpacity>
                 <View style={{ flex: 1, alignItems: 'center', paddingTop: scale(12) }}>
 
                 </View>
