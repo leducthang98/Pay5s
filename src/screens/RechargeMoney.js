@@ -20,7 +20,7 @@ class RechargeMoney extends React.Component {
   };
 
   _onClickMomo() {
-    let urlMomo =  Platform.OS === 'ios' ? 'https://apps.apple.com/us/app/v%C3%AD-momo-n%E1%BA%A1p-ti%E1%BB%81n-thanh-to%C3%A1n/id918751511' : 'https://play.google.com/store/apps/details?id=com.mservice.momotransfer&hl=vi'
+    let urlMomo = Platform.OS === 'ios' ? 'https://apps.apple.com/us/app/v%C3%AD-momo-n%E1%BA%A1p-ti%E1%BB%81n-thanh-to%C3%A1n/id918751511' : 'https://play.google.com/store/apps/details?id=com.mservice.momotransfer&hl=vi'
     Linking.openURL(urlMomo)
   }
   _renderCommonData = (name, note, acc_name, acc_no, bank, syntax) => (
@@ -46,7 +46,7 @@ class RechargeMoney extends React.Component {
       </View>
       <View style={{ justifyContent: 'center', alignItems: 'center', backgroundColor: 'white' }}>
         {
-          name == 'Nạp qua MoMo' ?
+          name.includes('MoMo') ?
             <TouchableOpacity
               onPress={() => this._onClickMomo()}
             >
