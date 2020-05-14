@@ -84,7 +84,10 @@ class CommitTransferTransaction extends React.Component {
                 renderServiceType = 'Nạp thẻ trả trước'
             } else if (type === 'TS') {
                 renderServiceType = 'Nạp thẻ trả sau'
-            } else {
+            }else if (type==='FTTH'){
+                renderServiceType = 'Internet'
+            } 
+            else  {
                 renderServiceType = 'Mua mã thẻ'
             }
             let network = data.network
