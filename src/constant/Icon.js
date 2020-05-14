@@ -3,6 +3,11 @@ export const NETWORK = {
   VMS: require('../res/images/recharge/logo_mobifone.png'),
   VINA: require('../res/images/recharge/logo_vinaphone.png'),
 };
+export const NETWORK_SQUARE = {
+  VTT: require('../res/images/recharge/logovt2.png'),
+  VMS: require('../res/images/recharge/logomobi2.png'),
+  VINA: require('../res/images/recharge/logovina2.png'),
+};
 
 export const MAIN_SERVICE = {
   DEPOSIT: require('../res/images/home/RechargeMoney.png'),

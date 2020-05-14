@@ -51,10 +51,10 @@ class HomeScreen extends React.Component {
       { name: 'HISTORY', label: 'Lịch sử', onPress: () => this.checkWallet() },
     ];
     this.otherService = [
-      { iconName: 'RECHARGE_PHONE', label: 'Nạp tiền điện thoại', onPress: () => this.rechargePhone(), color: '#5557d2' },
-      { iconName: 'BUY_CARD_ID', label: 'Mua mã thẻ', onPress: () => this.buyCardID(), color: '#6c38c1' },
-      { iconName: 'INTERNET_VIETTEL', label: 'Internet Viettel', onPress: () => this.internetViettel(), color: '#5a4fca' },
-      { iconName: 'KPLUS', label: 'Gia hạn K+', onPress: () => this.KPlus(), color: '#ce42bd' },
+      { iconName: 'RECHARGE_PHONE', label: 'Nạp tiền điện thoại', onPress: () => this.rechargePhone(), color: '#475382' },
+      { iconName: 'BUY_CARD_ID', label: 'Mua mã thẻ', onPress: () => this.buyCardID(), color: '#644992' },
+      { iconName: 'INTERNET_VIETTEL', label: 'Internet Viettel', onPress: () => this.internetViettel(), color: '#393470' },
+      { iconName: 'KPLUS', label: 'Gia hạn K+', onPress: () => this.KPlus(), color: '#6e3570' },
     ];
     this.otherService2 = [
       {},
@@ -320,7 +320,7 @@ class HomeScreen extends React.Component {
               <View style={styles.service2}>
                 <TouchableOpacity style={{ flex: 1, alignItems: 'center', justifyContent: 'flex-start' }}
                   onPress={() => this.chatSupport(commonResponse.data.telegram, commonResponse.data.fanpage)}>
-                  <View style={{ width: '90%', height: scaleVertical(80), backgroundColor: '#e34a80', borderRadius: scale(5) }}>
+                  <View style={{ width: '90%', height: scaleVertical(80), backgroundColor: '#9a3e7a', borderRadius: scale(5) }}>
                     <View style={{ width: '100%', height: '60%', alignItems: 'center', justifyContent: 'center' }}>
                       <Image source={OTHER_SERVICE['SUPPORT']} style={{ width: '80%', height: '80%' }} resizeMode={'contain'} />
                     </View>
@@ -331,9 +331,9 @@ class HomeScreen extends React.Component {
                 </TouchableOpacity>
                 <TouchableOpacity style={{ flex: 1, alignItems: 'center', justifyContent: 'flex-start' }}
                   onPress={() => this.hotline(commonResponse.data.hotline)}>
-                  <View style={{ width: '90%', height: scaleVertical(80), backgroundColor: '#a30960', borderRadius: scale(5) }}>
+                  <View style={{ width: '90%', height: scaleVertical(80), backgroundColor: '#b93f76', borderRadius: scale(5) }}>
                     <View style={{ width: '100%', height: '60%', alignItems: 'center', justifyContent: 'center' }}>
-                      <Image source={OTHER_SERVICE['HOTLINE']} style={{ width: '80%', height: '80%' }} resizeMode={'contain'} />
+                      <Image source={OTHER_SERVICE['HOTLINE']} style={{ width: '70%', height: '70%' }} resizeMode={'contain'} />
                     </View>
                     <View style={{ width: '100%', height: '40%', justifyContent: 'center', alignItems: 'center', paddingBottom: scale(5) }}>
                       <Text style={{ fontSize: scale(12), color: 'white', textAlign: 'center' }}>Hotline</Text>

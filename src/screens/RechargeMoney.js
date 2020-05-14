@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, View, StyleSheet, Dimensions, TouchableOpacity, Clipboard } from 'react-native';
+import { Text, View, StyleSheet, Dimensions, TouchableOpacity, Clipboard, Platform, Linking } from 'react-native';
 import Header from '../components/common/Header'
 import { connect } from 'react-redux';
 import { ScrollView } from 'react-native-gesture-handler';
@@ -19,8 +19,12 @@ class RechargeMoney extends React.Component {
     Toast.show('Đã sao chép');
   };
 
+  _onClickMomo() {
+    let urlMomo =  Platform.OS === 'ios' ? 'https://apps.apple.com/us/app/v%C3%AD-momo-n%E1%BA%A1p-ti%E1%BB%81n-thanh-to%C3%A1n/id918751511' : 'https://play.google.com/store/apps/details?id=com.mservice.momotransfer&hl=vi'
+    Linking.openURL(urlMomo)
+  }
   _renderCommonData = (name, note, acc_name, acc_no, bank, syntax) => (
-    <View style={{ borderBottomWidth: scale(0.5),paddingBottom:scale(10),borderBottomColor:'#616161' }} >
+    <View style={{ borderBottomWidth: scale(0.5), paddingBottom: scale(10), borderBottomColor: '#616161' }} >
       <View style={{ paddingLeft: scale(32), backgroundColor: 'white', marginTop: scale(10) }}>
 
         <Text style={{ fontWeight: 'bold', fontSize: scale(16), color: PINK_FONTCOLOR }}>{name}</Text>
@@ -44,6 +48,7 @@ class RechargeMoney extends React.Component {
         {
           name == 'Nạp qua MoMo' ?
             <TouchableOpacity
+              onPress={() => this._onClickMomo()}
             >
               <LinearGradient
                 start={{ x: 0, y: 0.75 }} end={{ x: 1, y: 0.25 }}
@@ -52,7 +57,7 @@ class RechargeMoney extends React.Component {
                 style={{
                   width: containerW * 0.5,
                   height: scale(40),
-                  borderRadius: scaleModerate(8),
+                  borderRadius: scaleModerate(999),
                   alignItems: 'center',
                   justifyContent: 'center',
                 }}>

@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import {
   View,
   FlatList,
@@ -10,13 +10,13 @@ import Contacts from 'react-native-contacts';
 import * as COLOR from '../../constant/Colors';
 import Header from '../../components/common/Header';
 import SearchBox from '../../components/recharge/SearchBox';
-import {scaleModerate} from '../../constant/Scale';
+import { scaleModerate } from '../../constant/Scale';
 import ContactItem from '../../components/recharge/ContactItem';
 import AsyncStorage from '@react-native-community/async-storage';
-import {getTransfer} from '../../actions/ActionHomeScreen';
-import {refreshStore} from '../../actions/ActionRefresh';
-import {connect} from 'react-redux';
-import {setPhoneNumberForRecharge} from '../../actions/ActionBillScreen';
+import { getTransfer } from '../../actions/ActionHomeScreen';
+import { refreshStore } from '../../actions/ActionRefresh';
+import { connect } from 'react-redux';
+import { setPhoneNumberForRecharge } from '../../actions/ActionBillScreen';
 
 class ContactList extends Component {
   constructor(props) {
@@ -38,7 +38,7 @@ class ContactList extends Component {
       if (error === 'denied') {
         console.error('error when get contact = ', error);
       } else {
-        this.setState({contacts});
+        this.setState({ contacts });
       }
     });
   };
@@ -60,17 +60,17 @@ class ContactList extends Component {
   };
 
   render() {
-    const {contacts} = this.state;
+    const { contacts } = this.state;
     console.log('contact list = ', contacts);
     return (
       <View style={styles.container}>
-        <Header back={true} title={'Danh sách liên lạc'}/>
-        <SearchBox/>
+        <Header back={true} title={'Danh sách liên lạc'} navigation={this.props.navigation} />
+        <SearchBox />
         <FlatList
           style={styles.list}
           data={contacts}
           keyExtractor={item => item?.rawContactId}
-          renderItem={({item, index}) =>
+          renderItem={({ item, index }) =>
             <ContactItem
               fullName={item?.displayName}
               givenName={item?.givenName}

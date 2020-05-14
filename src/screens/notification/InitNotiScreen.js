@@ -32,7 +32,7 @@ class InitNotiScreen extends React.Component {
                             }}
                         />
                     </View>
-                    <View style={{ width: containerW, marginTop: scaleVertical(30) }}>
+                    <View style={{ width: containerW, marginTop: scaleVertical(30),paddingLeft:scale(10),paddingRight:scale(10) }}>
                         <Text style={{ fontSize: scale(20), fontWeight: 'bold', color: FACEBOOK }}>{data.dataNotification.headline}</Text>
                         <View style={{ flexDirection: 'row', marginTop: scale(10) }}>
                             <Text style={{ color: 'gray', fontSize: scaleModerate(12) }}>{data.dataNotification.published_date}</Text>
@@ -45,7 +45,10 @@ class InitNotiScreen extends React.Component {
                         {/* <WebView style={{width:containerW,height:scale(1000)}} source={{ html:data.dataNotification.content }} /> */}
                         </View>
                         <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center', marginTop: scaleVertical(30) }}>
-                            <Text style={{ fontSize: scaleModerate(14), fontWeight: 'bold' }}> {data.dataNotification.author} </Text>
+                            <Text style={{ fontSize: scale(16), fontWeight: 'normal' }}> {data.dataNotification.content} </Text>
+                        </View>
+                        <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center', marginTop: scaleVertical(30) }}>
+                            <Text style={{ fontSize: scaleModerate(16), fontWeight: 'bold' }}> {data.dataNotification.author} </Text>
                         </View>
                         <View style={{ marginTop: scaleVertical(20), height: scale(10) }}>
 

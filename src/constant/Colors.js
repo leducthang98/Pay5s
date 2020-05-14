@@ -6,7 +6,7 @@ module.exports = {
   ERROR: "#f73232",
   PURPLE: '#800080',
   GOLD: '#ffd700',
-  FACEBOOK: '#0077CC',
+  FACEBOOK: '#6c37c0',
   QUESTION: '#58dbdd',
   PRIMARY_COLOR: '#db49d1',
   BACKGROUND_COLOR: '#FAFAFA',

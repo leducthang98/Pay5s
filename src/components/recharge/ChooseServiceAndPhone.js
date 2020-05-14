@@ -12,9 +12,9 @@ import * as COLOR from '../../constant/Colors';
 import * as Layout from '../../constant/Layout';
 import { scaleModerate, scaleVertical } from '../../constant/Scale';
 import { getString } from '../../res/values/String';
-import { texts } from '../../constant/CommonStyles';
+import { texts, size } from '../../constant/CommonStyles';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import { NETWORK } from '../../constant/Icon';
+import { NETWORK, NETWORK_SQUARE } from '../../constant/Icon';
 import { DEPOSIT, CONTACT_LIST } from '../../navigators/RouteName';
 
 
@@ -58,7 +58,10 @@ export default class ChooseServiceAndPhone extends Component {
               !(this.props.service === "FTTH") && <TouchableOpacity
                 onPress={() => this._moveToContactScreen()}
                 style={styles.contact}>
-                <Icon name={'account-circle'} color={COLOR.CONTACTS} size={scaleModerate(30)} />
+                <Image
+                source={require('../../res/images/recharge/contact.png')}
+                style={size.smd}
+                />
               </TouchableOpacity>
             }
           </View>
@@ -68,7 +71,7 @@ export default class ChooseServiceAndPhone extends Component {
             <Image
               style={{ width: '100%', height: '100%' }}
               resizeMode={'contain'}
-              source={NETWORK[networkCode || 'VINA']} />
+              source={NETWORK_SQUARE[networkCode || 'VINA']} />
           </TouchableOpacity>
         </View>
         {
@@ -133,8 +136,8 @@ const styles = StyleSheet.create({
   network: {
     width: networkHeight,
     height: networkHeight,
-    borderWidth: 0.6,
-    borderColor: COLOR.BORDER,
+    // borderWidth: 0.6,
+    // borderColor: COLOR.BORDER,
     borderRadius: scaleModerate(8),
   },
 });
