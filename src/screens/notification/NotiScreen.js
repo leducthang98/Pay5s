@@ -117,7 +117,8 @@ class NotiScreen extends React.Component {
                   let headline = item.headline;
                   let published_date = item.published_date;
                   let author = item.author;
-                  let content = item.content;
+                  let content = item.link;
+                  console.log('Noti link:' + content)
                   let description = item.description;
                   let img_avatar = item.img_avatar;
                   let defaultImage = commonResponse.data.banner.default

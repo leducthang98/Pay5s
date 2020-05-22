@@ -266,7 +266,7 @@ class HomeScreen extends React.Component {
                       color: 'white',
                       fontSize: scale(18),
                       fontWeight: 'bold',
-                    }}>0{accountResponse.data.mobile}</Text>
+                    }}>{accountResponse.data.mobile}</Text>
                   </View>
                 </View>
               </LinearGradient>
@@ -373,7 +373,7 @@ class HomeScreen extends React.Component {
                         let headline = item.headline;
                         let published_date = item.published_date;
                         let author = item.author;
-                        let content = item.content;
+                        let content = item.link;
                         let description = item.description;
                         let img_avatar = item.img_avatar;
 

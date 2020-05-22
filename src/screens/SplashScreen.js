@@ -1,7 +1,8 @@
 import React from 'react';
 import {
     View,
-    Text
+    Text, 
+    Image
 } from 'react-native';
 import { BOTTOM_TAB, LOGIN } from '../navigators/RouteName';
 import AsyncStorage from '@react-native-community/async-storage';
@@ -17,8 +18,11 @@ class SplashScreen extends React.Component {
     }
     render() {
         return (
-            <View style={{ flex: 1}}>
-
+            <View style={{ flex: 1,justifyContent:'center',alignItems:'center' }}>
+                <Image
+                resizeMode={'contain'}
+                source={require('../res/images/common/splass.jpg')}
+                ></Image>
             </View>
         );
     }
