@@ -243,9 +243,11 @@ class RechargePhoneContainer extends React.Component {
   };
 
   _increaseCardNumber = () => {
-    this.setState({
-      cardNumber: ++this.state.cardNumber,
-    });
+    if (this.state.cardNumber < 10){
+      this.setState({
+        cardNumber: ++this.state.cardNumber,
+      });
+    }
   };
 
   _decreaseCardNumber = () => {
