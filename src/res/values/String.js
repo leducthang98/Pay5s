@@ -22,8 +22,9 @@ const vn = {
   DEPOSIT_NOW: 'Nạp ngay',
   YOU_NEED_TO_ENTER_PHONE_NUMBER: 'Bạn cần nhập số điện thoại',
   PHONE_NUMBER_IS_INCORRECT_TYPE: 'Số điện thoại không đúng định dạng',
-  ACCOUNT_CODE: 'Mã tài khoản', 
-  
+  ACCOUNT_CODE: 'Mã tài khoản',
+  CHOOSE_NETWORK: 'Chọn nhà mạng',
+
   //commons
   CONNECTING: 'Đang kết nối',
   FETCHING_DATA: 'Đang tải dữ liệu',
@@ -33,6 +34,8 @@ const vn = {
   NOTIFICATION: 'Thông báo',
   NOT_SUPPORT: 'Không hỗ trợ',
   SERVICE_IS_CLOSED_TEMPORARY: 'Dịch vụ tạm thời đóng',
+  AMOUNT: 'Số lượng',
+
   //dashboard
   BUY_CARD: 'Mua mã thẻ',
   INTERNET_VIETTEL: 'Internet Viettel',

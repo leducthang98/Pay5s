@@ -87,15 +87,15 @@ class HomeScreen extends React.Component {
   }
 
   buyCardID() {
-    // this.props.navigation.navigate(BUY_CARD)
-    Alert.alert(
-      'Thông báo',
-      'Tính năng đang phát triển',
-      [
-        { text: 'Đóng', onPress: () => console.log('OK Pressed') },
-      ],
-      { cancelable: false },
-    );
+    this.props.navigation.navigate(BUY_CARD)
+    // Alert.alert(
+    //   'Thông báo',
+    //   'Tính năng đang phát triển',
+    //   [
+    //     { text: 'Đóng', onPress: () => console.log('OK Pressed') },
+    //   ],
+    //   { cancelable: false },
+    // );
   }
 
   hotline(hotline) {

@@ -2,7 +2,6 @@ import { ACCOUNT_GET } from "../api/Api";
 
 export default function GetAccountInfoAPI(token_user) {
   return new Promise((resolve, reject) => {
-
     const url = ACCOUNT_GET
     fetch(url, {
       method: "GET",

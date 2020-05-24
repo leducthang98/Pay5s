@@ -29,7 +29,8 @@ import Toast from 'react-native-simple-toast';
 import AsyncStorage from '@react-native-community/async-storage';
 import {CommonActions} from '@react-navigation/native';
 import LinearButton from '../../components/common/LinearButton';
-import LinearGradient from "react-native-linear-gradient";
+import LinearGradient from 'react-native-linear-gradient';
+import ChooseEPINService from '../../components/recharge/ChooseEPINService';
 
 
 const {width} = Layout.window;
@@ -50,6 +51,9 @@ class RechargePhoneContainer extends React.Component {
       phoneNumber: this.props.billReducer?.phoneNumberForRecharge,
       phoneNumberError: false,
       phoneNumberErrorContent: '',
+
+      //number of cards
+      cardNumber: 0,
     };
   }
 
@@ -89,6 +93,7 @@ class RechargePhoneContainer extends React.Component {
   _fetchData = async () => {
     this.setState({isLoading: true});
     const response = await getRechargePhoneServiceAPI();
+    console.log('response = ', response);
     this.setState({isLoading: false});
     // console.log('recharge in screen = ', response);
     if (!response || (response && response.errorCode !== 200 && !response.message)) {
@@ -237,10 +242,45 @@ class RechargePhoneContainer extends React.Component {
     }
   };
 
+  _increaseCardNumber = () => {
+    this.setState({
+      cardNumber: ++this.state.cardNumber,
+    });
+  };
+
+  _decreaseCardNumber = () => {
+    if (this.state.cardNumber > 0) {
+      this.setState({
+        cardNumber: --this.state.cardNumber,
+      });
+    }
+  };
+
+  _renderChooseCardNumber = () => {
+    return (
+      <View style={styles.chooseCardNumberArea}>
+        <Text style={[texts.l_h4, {fontWeight: 'bold'}]}>
+          {getString('AMOUNT')}
+        </Text>
+        <View style={{flexDirection: 'row', flex: 1, justifyContent: 'flex-end', alignItems: 'center'}}>
+          <TouchableOpacity style={styles.buttonAddMinus} onPress={() => this._decreaseCardNumber()}>
+            <Text style={styles.whiteBoldText}>-</Text>
+          </TouchableOpacity>
+          <View style={styles.inputNumber}>
+            <Text style={texts.normal}>{this.state.cardNumber}</Text>
+          </View>
+          <TouchableOpacity style={styles.buttonAddMinus} onPress={() => this._increaseCardNumber()}>
+            <Text style={styles.whiteBoldText}>+</Text>
+          </TouchableOpacity>
+        </View>
+      </View>
+    );
+  };
 
   render() {
     const {isLoading, error, data, moneyAmount, srvTelcos, index} = this.state;
     const {phoneNumberError, phoneNumberErrorContent} = this.state;
+    const {service} = this.props.route;
     if (isLoading) {
       return (
         <View style={[styles.container, {alignItems: 'center', justifyContent: 'center'}]}>
@@ -256,18 +296,24 @@ class RechargePhoneContainer extends React.Component {
             <ScrollView
               keyboardShouldPersistTaps={'always'}
               contentContainerStyle={styles.center}>
-              <ChooseServiceAndPhone
-                error={phoneNumberError}
-                errorContent={phoneNumberErrorContent}
-                onTypingPhoneNumber={phoneNumber => this._onTypingPhoneNumber(phoneNumber)}
-                checkValidPhoneNumber={phoneNumber => this._checkValidPhoneNumber(phoneNumber)}
-                phoneNumber={this.state.phoneNumber}
-                navigation={this.props.route?.navigation}
-                note={data?.note}
-                openChooseNetwork={() => this.setState({isVisibleChooseNetwork: true})}
-                networkCode={srvTelcos[index]?.telco}
-                service={this.props.route?.service}
-              />
+              {
+                this.props.route?.service !== 'EPIN' ? <ChooseServiceAndPhone
+                  error={phoneNumberError}
+                  errorContent={phoneNumberErrorContent}
+                  onTypingPhoneNumber={phoneNumber => this._onTypingPhoneNumber(phoneNumber)}
+                  checkValidPhoneNumber={phoneNumber => this._checkValidPhoneNumber(phoneNumber)}
+                  phoneNumber={this.state.phoneNumber}
+                  navigation={this.props.route?.navigation}
+                  note={data?.note}
+                  openChooseNetwork={() => this.setState({isVisibleChooseNetwork: true})}
+                  networkCode={srvTelcos[index]?.telco}
+                  service={this.props.route?.service}
+                /> : <ChooseEPINService
+                  networkCode={srvTelcos[index]?.telco}
+                  selectNetwork={telco => this._selectNetwork(telco)}
+                  srvTelcos={this.state.srvTelcos}
+                />
+              }
               <View style={{width, paddingHorizontal: scaleModerate(15)}}>
                 <Text style={[texts.l_h4, {fontWeight: 'bold'}]}>{getString('AMOUNT_TO_DEPOSIT')}</Text>
               </View>
@@ -298,13 +344,17 @@ class RechargePhoneContainer extends React.Component {
                   close={() => this.setState({isVisibleChooseNetwork: false})}
                 />
               }
+              {
+                this.props.route?.service === 'EPIN' && this._renderChooseCardNumber()
+              }
+
             </ScrollView>
             <View style={styles.buttonArea}>
               <TouchableOpacity
-                onPress={()=>this._onPressDeposit()}>
+                onPress={() => this._onPressDeposit()}>
                 <LinearGradient
                   start={{x: 0, y: 0.75}} end={{x: 1, y: 0.25}}
-                  colors={['#ff547c','#c944f7']}
+                  colors={['#ff547c', '#c944f7']}
                   style={styles.button}>
                   <Text style={texts.white_bold}>{getString('DEPOSIT_NOW').toUpperCase()}</Text>
                 </LinearGradient>
@@ -347,6 +397,39 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     borderRadius: 999,
     marginBottom: Layout.statusBarHeight,
+  },
+  chooseCardNumberArea: {
+    width: '100%',
+    paddingHorizontal: scaleModerate(15),
+    paddingVertical: scaleVertical(10),
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+  row: {
+    flexDirection: 'row',
+  },
+  buttonAddMinus: {
+    width: scaleModerate(25),
+    height: scaleModerate(25),
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: scaleModerate(20),
+    backgroundColor: '#8f919e',
+    marginLeft: scaleModerate(5),
+  },
+  inputNumber: {
+    height: scaleModerate(30),
+    paddingHorizontal: scaleModerate(10),
+    borderRadius: scaleModerate(3),
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: '#dde1e4',
+    marginLeft: scaleModerate(5),
+  },
+  whiteBoldText: {
+    fontWeight: 'bold',
+    color: COLOR.WHITE,
   },
 });
 const mapStateToProps = (store) => {
