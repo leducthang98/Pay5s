@@ -118,7 +118,9 @@ const styles = StyleSheet.create({
         width: '80%',
         justifyContent: 'center',
         fontSize: scaleModerate(13),
-        marginBottom: scale(15)
+        marginBottom: scale(15),
+        paddingVertical: scaleVertical(10),
+        paddingHorizontal: scaleModerate(0),
     }
 })
 export default ForgetPassword;

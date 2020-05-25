@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, View, TextInput, TouchableOpacity, Dimensions, Keyboard, Image, StyleSheet } from 'react-native';
+import { Text, View, TextInput, TouchableOpacity, Dimensions, Keyboard, Image, StyleSheet,Platform,SafeAreaView } from 'react-native';
 import { BOTTOM_TAB, HOME, REGISTER, FORGET_PASSWORD } from '../navigators/RouteName';
 import { scale, scaleVertical, scaleModerate } from '../constant/Scale';
 import { PRIMARY_COLOR, ERROR, GRAY_FONTCOLOR } from '../constant/Colors';
@@ -14,6 +14,7 @@ import { connect } from 'react-redux';
 import { refreshStore } from '../actions/ActionRefresh';
 import OneSignal from 'react-native-onesignal';
 import LinearGradient from 'react-native-linear-gradient';
+
 class LoginScreen extends React.Component {
   constructor(props) {
     super(props);
@@ -76,7 +77,10 @@ class LoginScreen extends React.Component {
       width: '80%',
       justifyContent: 'center',
       fontSize: scaleModerate(15),
-      textAlign: 'center'
+      textAlign: 'center',
+      paddingVertical: scaleVertical(10),
+      paddingHorizontal: scaleModerate(0),
+      
     }];
     const inputStylePass = [{
       borderBottomWidth: scale(0.5),
@@ -85,13 +89,19 @@ class LoginScreen extends React.Component {
       justifyContent: 'center',
       fontSize: scaleModerate(15),
       textAlign: 'center',
-      marginTop: scale(10)
+      marginTop: scale(10),
+      paddingVertical: scaleVertical(10),
+      paddingHorizontal: scaleModerate(0),
     }];
     const inputErrorStyleUser = [...inputStyleUser, { borderColor: ERROR }];
     const inputErrorStylePass = [...inputStylePass, { borderColor: ERROR }];
     return (
-      <>
+      <SafeAreaView style={{flex:1}}>
         {/* <View style={{ height: statusBarHeight, backgroundColor: PRIMARY_COLOR }}></View> */}
+        {/* {
+          Platform.OS ==='ios'?<View 
+          style={{width:containerW,height:statusBarHeight}}/>:null
+        } */}
         <View style={{ flex: 4, alignItems: 'center', backgroundColor: 'white' }}>
           <View style={{ width: '100%', height: '30%' }}>
             <Image
@@ -191,7 +201,7 @@ class LoginScreen extends React.Component {
             }}
           /> : null
         }
-      </>
+      </SafeAreaView>
     );
   }
 }

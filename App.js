@@ -12,6 +12,7 @@ import {
   View,
   Dimensions,
   StatusBar,
+  SafeAreaView
 } from 'react-native';
 const sagaMiddleware = createSagaMiddleware()
 const store = createStore(rootReducer, applyMiddleware(sagaMiddleware, logger))
@@ -54,10 +55,12 @@ export default class App extends Component {
   render() {
     return (
       <Provider store={store}>
+      {/* <SafeAreaView> */}
         <View style={styles.container}>
           {/* <StatusBar barStyle={'light-content'} /> */}
           <RootNavigator />
         </View>
+        {/* </SafeAreaView> */}
       </Provider>
     );
   }

@@ -5,6 +5,7 @@ import {
   StyleSheet,
   Dimensions,
   TouchableOpacity,
+  Platform
 } from 'react-native';
 import {statusBarHeight} from '../../constant/Layout';
 import * as COLOR from '../../constant/Colors';
@@ -61,8 +62,8 @@ const styles = StyleSheet.create({
   container: {
     width: width,
     height: headerHeight,
-    // paddingTop: statusBarHeight,
     backgroundColor: COLOR.PRIMARY_COLOR,
+    marginTop:Platform.OS === 'ios' ? statusBarHeight : 0
   },
   headerContent: {
     flex: 1,

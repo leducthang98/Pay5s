@@ -10,6 +10,8 @@ import {
   Alert,
   RefreshControl,
   Linking,
+  Platform,
+  SafeAreaView
 } from 'react-native';
 import { connect } from 'react-redux';
 import Icon from 'react-native-vector-icons/FontAwesome5';
@@ -163,7 +165,8 @@ class HomeScreen extends React.Component {
           <Image source={OTHER_SERVICE[iconName || 'RECHARGEPHONE']} style={{ width: '80%', height: '80%' }} resizeMode={'contain'} />
         </View>
         <View style={{ width: '100%', height: '40%', justifyContent: 'center', alignItems: 'center', paddingBottom: scale(5) }}>
-          <Text style={{ fontSize: scale(12), color: 'white', textAlign: 'center' }}>{label}</Text>
+          <Text 
+          style={{ fontSize: scale(12), color: 'white', textAlign: 'center',position:'absolute', }}>{label}</Text>
         </View>
       </View>
     </TouchableOpacity>
@@ -249,14 +252,14 @@ class HomeScreen extends React.Component {
           mobile: accountResponse.data.mobile,
         });
         return (
-          <ScrollView
+          <SafeAreaView>
+             <ScrollView
             refreshControl={
               <RefreshControl refreshing={this.state.refreshing} onRefresh={() => this._onRefresh()} />}
             style={styles.container}>
             <View style={{ alignItems: 'center' }}>
               <LinearGradient
                 start={{ x: 0, y: 0.75 }} end={{ x: 1, y: 0.25 }}
-
                 colors={['#ff547c', '#c944f7']}
                 style={[styles.header]}>
                 <View style={[styles.insideHeader]}>
@@ -386,7 +389,7 @@ class HomeScreen extends React.Component {
               </View>
             </View>
           </ScrollView>
-
+          </SafeAreaView>
         );
       } else if (accountResponse.errorCode === 500 || notiResponse.errorCode === 500 || commonResponse.errorCode === 500) {
         this.tokenInvalidFunction();

@@ -1,7 +1,8 @@
 import * as React from 'react';
 import {
     Image,
-    View
+    View,
+    Platform
 } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import HomeScreen from '../screens/HomeScreen';
@@ -45,6 +46,7 @@ export default function BottomTabNavigator() {
                                 source={(focused ? iconName : iconNameGray)}
                                 resizeMode={'contain'}
                                 style={focused?size.smd:size.sm} />
+                            
                         </View>
                     );
                 },
@@ -63,7 +65,7 @@ export default function BottomTabNavigator() {
                     backgroundColor: COLOR.WHITE,
                     elevation: 15,
                     height: statusBarHeight * 3.3,
-                    paddingBottom: statusBarHeight,
+                    paddingBottom: Platform.OS ==='ios' ? 0 : statusBarHeight,
 
                 },
                 labelPosition: 'below-icon',
