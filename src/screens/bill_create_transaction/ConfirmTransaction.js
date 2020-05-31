@@ -4,10 +4,10 @@ import Header from '../../components/common/Header';
 import { scale, scaleModerate, scaleVertical } from '../../constant/Scale';
 import * as COLOR from '../../constant/Colors';
 import { formatMoney } from '../../constant/CommonFormat';
-import { TRANS_PASSWORD_SCREEN, COMMIT_TRANSFER, LOGIN, ON_TRANSFER_SUCCESS, ON_BILL_CREATE_SUCCESS, } from '../../navigators/RouteName';
+import { TRANS_PASSWORD_SCREEN, COMMIT_TRANSFER, LOGIN, ON_TRANSFER_SUCCESS, ON_BILL_CREATE_SUCCESS, EPIN_SUCCESS, } from '../../navigators/RouteName';
 import AsyncStorage from '@react-native-community/async-storage';
 import { getCurrentTime, md5Signature } from '../../constant/Secure'
-import { transfer, createBill } from '../../fetchAPIs/AuthApi';
+import { transfer, createBill, createEpin } from '../../fetchAPIs/AuthApi';
 import LoadingDialog from '../../components/common/LoadingDialog';
 import MessageDialog from '../../components/common/MessageDialog';
 import Toast from 'react-native-simple-toast';
@@ -62,6 +62,44 @@ class CommitTransferTransaction extends React.Component {
         }
     }
 
+    async _onPressEpinCommit() {
+        this.setState({ isLoading: true });
+        let token_user = await AsyncStorage.getItem('access_token');
+        let data = this.props.route.params.dataBillCreate;
+        let telco = data.network
+        let amount = data.amount
+        let number = data.number
+        let time = getCurrentTime()
+        let dataSign = telco + '*' + amount + '*' + number + '*' + time + '*' + this.state.transPassword
+        console.log(dataSign)
+        let signature = md5Signature(dataSign)
+        // const response = await createBill(mobile, service, telco, amount, time, signature, token_user)
+        const response = await createEpin(telco, amount, number, signature, token_user, time)
+        console.log(response)
+        this.setState({ isLoading: false });
+        if (!response) {
+            this.setState({ responseError: { message: getString('UNKNOWN_ERROR') } });
+        } else if (response.errorCode !== 200) {
+            if (response.message === 'InvalidToken') {
+                this.setState({
+                    isTokenExpired: true,
+                })
+            } else {
+                this.setState({
+                    responseError: response
+                })
+            }
+        } else {
+            this.props.navigation.navigate(EPIN_SUCCESS, {
+                data: {
+                    dataEpin: response.data,
+                    network: telco,
+                    amount: amount
+                }
+            });
+        }
+
+    }
     async tokenInvalidFunction() {
         await AsyncStorage.clear();
         Toast.show("Phiên đăng nhập đã hết hạn, bạn sẽ được quay trở về trang đăng nhập.")
@@ -84,10 +122,10 @@ class CommitTransferTransaction extends React.Component {
                 renderServiceType = 'Nạp thẻ trả trước'
             } else if (type === 'TS') {
                 renderServiceType = 'Nạp thẻ trả sau'
-            }else if (type==='FTTH'){
+            } else if (type === 'FTTH') {
                 renderServiceType = 'Internet'
-            } 
-            else  {
+            }
+            else {
                 renderServiceType = 'Mua mã thẻ'
             }
             let network = data.network
@@ -104,12 +142,26 @@ class CommitTransferTransaction extends React.Component {
                     <Header navigation={this.props.navigation} back={true} title={'Xác thực giao dịch'} />
                     <View style={{ width: '100%', height: '100%', justifyContent: 'flex-start', alignItems: 'center', paddingTop: scaleVertical(20) }}>
                         <View style={{ paddingLeft: scale(10), width: '90%', height: '55%', backgroundColor: 'white', borderRadius: scale(10) }}>
-                            <Text style={styles.textStyle}>Giao dịch tới tài khoản:</Text>
-                            <Text style={styles.dataStyle}>{data.phoneNumber}</Text>
+                            {
+                                type !== 'EPIN' ?
+                                    <>
+                                        <Text style={styles.textStyle}>Giao dịch tới tài khoản:</Text>
+                                        <Text style={styles.dataStyle}>{data.phoneNumber}</Text>
+                                    </> : null
+                            }
+
                             <Text style={styles.textStyle}>Dịch vụ:</Text>
                             <Text style={styles.dataStyle}>{renderServiceType} {renderNetwork}</Text>
                             <Text style={styles.textStyle}>Số tiền:</Text>
                             <Text style={styles.dataStyle}>{formatMoney(data.amount)}</Text>
+                            {
+                                type === 'EPIN' ?
+                                    <>
+                                        <Text style={styles.textStyle}>Số lượng:</Text>
+                                        <Text style={styles.dataStyle}>{data.number}</Text>
+                                    </>
+                                    : null
+                            }
                             <Text style={styles.textStyle}>Nhập mật khẩu giao dịch:</Text>
                             <TextInput
                                 onChangeText={(transPassword) => this.setState({ transPassword })}
@@ -123,7 +175,7 @@ class CommitTransferTransaction extends React.Component {
                         <View style={{ flexDirection: 'row', width: '100%', height: '10%', marginTop: scale(10), justifyContent: 'center', alignItems: 'center' }}>
                             <TouchableOpacity
                                 disabled={(this.state.transPassword) ? false : true}
-                                onPress={() => this._onPressCommit()}
+                                onPress={() => (type === 'EPIN' ? this._onPressEpinCommit() : this._onPressCommit())}
                                 style={{ borderRadius: scaleModerate(30), }}>
                                 <LinearGradient
                                     start={{ x: 0, y: 0.75 }} end={{ x: 1, y: 0.25 }}

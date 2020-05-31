@@ -35,3 +35,5 @@ export const RESET_TRANS_KEY = 'https://client.pay5s.com/account/reset_trans_key
 export const TRANSFER = 'https://client.pay5s.com/transfer/transfer.html';
 //create bill
 export const BILL_CREATE = 'https://client.pay5s.com/bill/create.html';
+//epin
+export const EPIN_CREATE = 'https://client.pay5s.com/epin/create.html';

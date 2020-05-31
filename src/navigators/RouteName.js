@@ -33,4 +33,5 @@ export const ON_BILL_CREATE_SUCCESS = 'OnBillCreateSuccess';
 export const BUY_CARD = "BuyCard";
 export const INTERNET_VIETTEL = "InternetViettel";
 export const INIT_HISTORY_CHECKWALLET = "InitHistoryCheckWallet";
+export const EPIN_SUCCESS = "EpinSuccess";
 
