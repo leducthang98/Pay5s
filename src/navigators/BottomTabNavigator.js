@@ -69,12 +69,13 @@ export default function BottomTabNavigator() {
             shadowRadius: 1.41,
             backgroundColor: COLOR.WHITE,
             elevation: 15,
-            height: scaleVertical(70),
+            height: scaleVertical(67),
             paddingBottom: Platform.OS ==='ios' ? 0 : scaleVertical(10),
+            
 
         },
         labelPosition: 'below-icon',
-        showLabel: true,
+        showLabel: false,
         showIcon: true,
 
       }}>
