@@ -6,7 +6,7 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import { formatMoney } from '../../constant/CommonFormat';
 import Modal from 'react-native-modal';
-import { PRIMARY_COLOR,PURPLE_FONTCOLOR,GRAY_FONTCOLOR,PINK_FONTCOLOR } from '../../constant/Colors';
+import { PRIMARY_COLOR, PURPLE_FONTCOLOR, GRAY_FONTCOLOR, PINK_FONTCOLOR } from '../../constant/Colors';
 import { texts } from '../../constant/CommonStyles';
 import { refreshStore } from '../../actions/ActionRefresh';
 import Toast from 'react-native-simple-toast';
@@ -47,7 +47,7 @@ class CheckWalletHistory extends React.Component {
 
     });
   };
-  _renderTransfer = (id, amount, note, type, time, icon) => (
+  _renderTransfer = (id, amount, note, type, time, icon,card) => (
     <TouchableOpacity
       //  onPress={() => this.openModalTransfer(id, amount, note,  type, time)}>
       onPress={() => this.props.route?.navigation?.navigate(INIT_HISTORY_CHECKWALLET, {
@@ -56,7 +56,8 @@ class CheckWalletHistory extends React.Component {
           amount: amount,
           note: note,
           type: type,
-          time: time
+          time: time,
+          card:card
         }
       })}>
       <View style={{ width: containerW, height: scale(60), flexDirection: 'row', justifyContent: 'center', alignItems: 'center', borderBottomWidth: scale(0.4), borderColor: 'gray' }}>
@@ -64,12 +65,12 @@ class CheckWalletHistory extends React.Component {
           <Icon name={icon} size={scale(19)} color={PURPLE_FONTCOLOR} />
         </View>
         <View style={{ flex: 5.5, height: scale(56) }}>
-          <Text numberOfLines={1} style={{ fontSize: scale(14.5),color:GRAY_FONTCOLOR,fontWeight:"700" }}>{note}</Text>
+          <Text numberOfLines={1} style={{ fontSize: scale(14.5), color: GRAY_FONTCOLOR, fontWeight: "700" }}>{note}</Text>
           <Text numberOfLines={1} style={{ fontSize: scale(13), color: GRAY_FONTCOLOR }}>{time}</Text>
           <Text numberOfLines={1} style={{ fontSize: scale(13), color: GRAY_FONTCOLOR }}>Txid: {id}</Text>
         </View>
         <View style={{ flex: 2.5, height: scale(56), justifyContent: 'flex-end', alignItems: 'flex-end', paddingRight: scale(10), paddingBottom: scale(5) }}>
-          <Text style={{ fontSize: scale(13), fontWeight: 'bold',color:PURPLE_FONTCOLOR }}>{amount}</Text>
+          <Text style={{ fontSize: scale(13), fontWeight: 'bold', color: PURPLE_FONTCOLOR }}>{amount}</Text>
           {/* <Text numberOfLines={1} style={{ fontSize: scale(10.5), color: '#FDA50F' }}>Trước đó: {originAmount}</Text> */}
         </View>
       </View>
@@ -99,12 +100,18 @@ class CheckWalletHistory extends React.Component {
                   transferResponse.data.rows.map((item, index) => {
                     let amount = (item.amount > 0) ? '+' + formatMoney(item.amount) + 'đ' : formatMoney(item.amount) + 'đ';
                     let icon;
+
+                    let card = 'not supported';
+                    if (item.cards) {
+                      card = item.cards
+                    }
+
                     if (item.amount < 0) {
                       icon = 'chevron-circle-left'
                     } else {
                       icon = 'chevron-circle-right'
                     }
-                    return this._renderTransfer(item.id, amount, item.note, item.type, item.time, icon)
+                    return this._renderTransfer(item.id, amount, item.note, item.type, item.time, icon,card)
                   })
                 }
 

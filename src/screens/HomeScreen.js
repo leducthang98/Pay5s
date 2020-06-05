@@ -56,7 +56,7 @@ class HomeScreen extends React.Component {
       { iconName: 'RECHARGE_PHONE', label: 'Nạp tiền điện thoại', onPress: () => this.rechargePhone(), color: '#475382' },
       { iconName: 'BUY_CARD_ID', label: 'Mua mã thẻ', onPress: () => this.buyCardID(), color: '#644992' },
       { iconName: 'INTERNET_VIETTEL', label: 'Internet Viettel', onPress: () => this.internetViettel(), color: '#393470' },
-      { iconName: 'KPLUS', label: 'Gia hạn K+', onPress: () => this.KPlus(), color: '#6e3570' },
+    //  { iconName: 'KPLUS', label: 'Gia hạn K+', onPress: () => this.KPlus(), color: '#6e3570' },
     ];
     this.otherService2 = [
       {},
@@ -319,9 +319,7 @@ class HomeScreen extends React.Component {
                     return this._renderOtherServices(item.iconName, item.label, item.onPress, item.color);
                   })
                 }
-              </View>
-              <View style={styles.service2}>
-                <TouchableOpacity style={{ flex: 1, alignItems: 'center', justifyContent: 'flex-start' }}
+                  <TouchableOpacity style={{ flex: 1, alignItems: 'center', justifyContent: 'flex-start' }}
                   onPress={() => this.chatSupport(commonResponse.data.telegram, commonResponse.data.fanpage)}>
                   <View style={{ width: '90%', height: scaleVertical(80), backgroundColor: '#9a3e7a', borderRadius: scale(5) }}>
                     <View style={{ width: '100%', height: '60%', alignItems: 'center', justifyContent: 'center' }}>
@@ -332,6 +330,9 @@ class HomeScreen extends React.Component {
                     </View>
                   </View>
                 </TouchableOpacity>
+              </View>
+              <View style={styles.service2}>
+              
                 <TouchableOpacity style={{ flex: 1, alignItems: 'center', justifyContent: 'flex-start' }}
                   onPress={() => this.hotline(commonResponse.data.hotline)}>
                   <View style={{ width: '90%', height: scaleVertical(80), backgroundColor: '#b93f76', borderRadius: scale(5) }}>
@@ -343,6 +344,9 @@ class HomeScreen extends React.Component {
                     </View>
                   </View>
                 </TouchableOpacity>
+                <View style={{ flex: 1, alignItems: 'center', paddingTop: scale(12) }}>
+
+                </View>
                 <View style={{ flex: 1, alignItems: 'center', paddingTop: scale(12) }}>
 
                 </View>
