@@ -1,7 +1,9 @@
 import React, {Component} from 'react';
 import {
   View,
-  StyleSheet
+  StyleSheet,
+  Dimensions,
+  SafeAreaView
 } from 'react-native';
 
 import Header from '../components/common/Header';
@@ -10,7 +12,7 @@ import * as COLOR from '../constant/Colors';
 import * as Layout from '../constant/Layout';
 import { getString } from '../res/values/String';
 
-const {width, height} = Layout.window;
+const {width, height} = Dimensions.get('screen');
 const service = 'EPIN';
 
 
@@ -22,18 +24,17 @@ export default class BuyCard extends Component{
   render(){
     const route = {service: service, navigation:this.props.navigation};
     return(
-      <View style={styles.container}>
+      <SafeAreaView style={styles.container}>
         <Header back={true} navigation={this.props.navigation} title={getString('BUY_CARD')}/>
         <RechargePhoneContainer route={route}/>
-      </View>
+      </SafeAreaView>
     )
   }
 }
 
 const styles = StyleSheet.create({
   container:{
-    width: width,
-    height:height,
+    flex:1,
     backgroundColor:COLOR.BACKGROUND_COLOR
   }
 })

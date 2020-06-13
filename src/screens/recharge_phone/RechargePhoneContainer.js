@@ -8,6 +8,7 @@ import {
   Text,
   TouchableOpacity,
   View,
+  Dimensions,
 } from 'react-native';
 import ItemRechargeList from '../../components/recharge/ItemRechargeList';
 import ChooseServiceAndPhone from '../../components/recharge/ChooseServiceAndPhone';
@@ -33,7 +34,7 @@ import LinearGradient from 'react-native-linear-gradient';
 import ChooseEPINService from '../../components/recharge/ChooseEPINService';
 
 
-const {width} = Layout.window;
+const {width, height} = Dimensions.get('screen');
 
 class RechargePhoneContainer extends React.Component {
   constructor(props) {
@@ -307,6 +308,7 @@ class RechargePhoneContainer extends React.Component {
     const {isLoading, error, data, moneyAmount, srvTelcos, index} = this.state;
     const {phoneNumberError, phoneNumberErrorContent} = this.state;
     const {service} = this.props.route;
+    const isEPIN = this.props.route?.service === 'EPIN';
     if (isLoading) {
       return (
         <View style={[styles.container, {alignItems: 'center', justifyContent: 'center'}]}>
@@ -316,77 +318,82 @@ class RechargePhoneContainer extends React.Component {
     } else if (data && data.allowTopup && data.allowAddBill) {
       return (
         <View style={[styles.container]}>
-          <KeyboardAvoidingView
-            style={{flex: 1, alignItems: 'center', backgroundColor: COLOR.BACKGROUND_COLOR}}
-            behavior={'height'}>
-            <ScrollView
-              keyboardShouldPersistTaps={'always'}
-              contentContainerStyle={styles.center}>
-              {
-                this.props.route?.service !== 'EPIN' ? <ChooseServiceAndPhone
-                  error={phoneNumberError}
-                  errorContent={phoneNumberErrorContent}
-                  onTypingPhoneNumber={phoneNumber => this._onTypingPhoneNumber(phoneNumber)}
-                  checkValidPhoneNumber={phoneNumber => this._checkValidPhoneNumber(phoneNumber)}
-                  phoneNumber={this.state.phoneNumber}
-                  navigation={this.props.route?.navigation}
-                  note={data?.note}
-                  openChooseNetwork={() => this.setState({isVisibleChooseNetwork: true})}
-                  networkCode={srvTelcos[index]?.telco}
-                  service={this.props.route?.service}
-                /> : <ChooseEPINService
-                  networkCode={srvTelcos[index]?.telco}
-                  selectNetwork={telco => this._selectNetwork(telco)}
-                  srvTelcos={this.state.srvTelcos}
-                />
-              }
-              <View style={{width, paddingHorizontal: scaleModerate(15)}}>
-                <Text style={[texts.l_h4, {fontWeight: 'bold'}]}>{getString('AMOUNT_TO_DEPOSIT')}</Text>
-              </View>
-
-              <FlatList
-                style={{marginTop: scaleVertical(5)}}
-                numColumns={3}
-                data={moneyAmount}
-                extraData={this.state}
-                keyExtractor={(item, index) => index}
-                renderItem={({item, index}) => <ItemRechargeList
-                  data={item}
-                  onPress={() => this._selectItem(item, index)}/>}
+          {/*<KeyboardAvoidingView*/}
+          {/*  contentContainerStyle={{flex: 1, alignItems: 'center', backgroundColor: COLOR.BACKGROUND_COLOR}}*/}
+          {/*  behavior={'padding'}>*/}
+          <ScrollView
+            keyboardShouldPersistTaps={'always'}
+            // style={{width}}
+            nestedScrollEnabled={true}
+            contentContainerStyle={{alignItems: 'center'}}>
+            {
+              this.props.route?.service !== 'EPIN' ? <ChooseServiceAndPhone
+                error={phoneNumberError}
+                errorContent={phoneNumberErrorContent}
+                onTypingPhoneNumber={phoneNumber => this._onTypingPhoneNumber(phoneNumber)}
+                checkValidPhoneNumber={phoneNumber => this._checkValidPhoneNumber(phoneNumber)}
+                phoneNumber={this.state.phoneNumber}
+                navigation={this.props.route?.navigation}
+                note={data?.note}
+                openChooseNetwork={() => this.setState({isVisibleChooseNetwork: true})}
+                networkCode={srvTelcos[index]?.telco}
+                service={this.props.route?.service}
+              /> : <ChooseEPINService
+                networkCode={srvTelcos[index]?.telco}
+                selectNetwork={telco => this._selectNetwork(telco)}
+                srvTelcos={this.state.srvTelcos}
               />
-              {isLoading && <LoadingDialog/>}
-              {
-                error !== null && <MessageDialog
-                  message={error.message}
-                  close={() => this.setState({error: null})}
-                />
-              }
-              {
-                this.state.isVisibleChooseNetwork && <ChooseNetwork
-                  selectNetwork={telco => this._selectNetwork(telco)}
-                  srvTelcos={this.state.srvTelcos}
-                  indexSelected={this.state.index}
-                  visible={true}
-                  close={() => this.setState({isVisibleChooseNetwork: false})}
-                />
-              }
-              {
-                this.props.route?.service === 'EPIN' && this._renderChooseCardNumber()
-              }
-
-            </ScrollView>
-            <View style={styles.buttonArea}>
-              <TouchableOpacity
-                onPress={() => this._onPressDeposit()}>
-                <LinearGradient
-                  start={{x: 0, y: 0.75}} end={{x: 1, y: 0.25}}
-                  colors={['#ff547c', '#c944f7']}
-                  style={styles.button}>
-                  <Text style={texts.white_bold}>{getString('DEPOSIT_NOW').toUpperCase()}</Text>
-                </LinearGradient>
-              </TouchableOpacity>
+            }
+            <View style={{width, paddingHorizontal: scaleModerate(15)}}>
+              <Text style={[texts.l_h4, {fontWeight: 'bold'}]}>{getString('AMOUNT_TO_DEPOSIT')}</Text>
             </View>
-          </KeyboardAvoidingView>
+            <FlatList
+              style={{marginTop: scaleVertical(5)}}
+              numColumns={3}
+              data={moneyAmount}
+              nestedScrollEnabled={true}
+              extraData={this.state}
+              keyExtractor={(item, index) => index}
+              renderItem={({item, index}) => <ItemRechargeList
+                data={item}
+                onPress={() => this._selectItem(item, index)}/>}
+            />
+            {isLoading && <LoadingDialog/>}
+            {
+              error !== null && <MessageDialog
+                message={error.message}
+                close={() => this.setState({error: null})}
+              />
+            }
+            {
+              this.state.isVisibleChooseNetwork && <ChooseNetwork
+                selectNetwork={telco => this._selectNetwork(telco)}
+                srvTelcos={this.state.srvTelcos}
+                indexSelected={this.state.index}
+                visible={true}
+                close={() => this.setState({isVisibleChooseNetwork: false})}
+              />
+            }
+            {
+              isEPIN && this._renderChooseCardNumber()
+            }
+
+          </ScrollView>
+          {/*</KeyboardAvoidingView>*/}
+          <View style={[styles.buttonArea]}>
+            <TouchableOpacity
+              // style={styles.button}
+              style={{width: '100%', height: scaleVertical(50)}}
+              onPress={() => this._onPressDeposit()}>
+              <LinearGradient
+                start={{x: 0, y: 0.75}} end={{x: 1, y: 0.25}}
+                colors={['#ff547c', '#c944f7']}
+                style={styles.button}
+              >
+                <Text style={texts.white_bold}>{getString('DEPOSIT_NOW').toUpperCase()}</Text>
+              </LinearGradient>
+            </TouchableOpacity>
+          </View>
         </View>
       );
     } else if (data && (!data.allowTopup || !data.allowAddBill)) {
@@ -411,9 +418,12 @@ const styles = StyleSheet.create({
     paddingBottom: scaleVertical(10),
   },
   buttonArea: {
-    width,
-    paddingHorizontal: scaleModerate(60),
-    paddingVertical: scaleVertical(10),
+    // backgroundColor: '#0077CC',
+    paddingHorizontal: scaleModerate(15),
+    flex: 1,
+    // paddingTop: scaleVertical(10)
+    justifyContent: 'flex-end',
+    paddingBottom: scaleVertical(15),
   },
   button: {
     height: scaleVertical(45),
@@ -422,7 +432,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 999,
-    marginBottom: Layout.statusBarHeight,
+    // marginBottom: Layout.statusBarHeight * 2,
   },
   chooseCardNumberArea: {
     width: '100%',

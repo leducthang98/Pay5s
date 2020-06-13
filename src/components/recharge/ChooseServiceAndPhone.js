@@ -69,7 +69,7 @@ export default class ChooseServiceAndPhone extends Component {
             onPress={() => this.props.openChooseNetwork()}
             style={styles.network}>
             <Image
-              style={{ width: '100%', height: '100%' }}
+              style={{ width: '100%', height: '100%', borderRadius: scaleModerate(8) }}
               resizeMode={'contain'}
               source={NETWORK_SQUARE[networkCode || 'VINA']} />
           </TouchableOpacity>

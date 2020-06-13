@@ -20,7 +20,7 @@ sagaMiddleware.run(rootSaga)
 export default class App extends Component {
   constructor(props) {
     super(props);
-    //Remove this method to stop OneSignal Debugging 
+    //Remove this method to stop OneSignal Debugging
     OneSignal.setLogLevel(6, 0);
     // Replace 'YOUR_ONESIGNAL_APP_ID' with your OneSignal App ID.
     OneSignal.init("d4ffe850-f047-4f05-a3e2-d71ab16241e4", { kOSSettingsKeyAutoPrompt: false, kOSSettingsKeyInAppLaunchURL: false, kOSSettingsKeyInFocusDisplayOption: 2 });
@@ -56,10 +56,10 @@ export default class App extends Component {
     return (
       <Provider store={store}>
       {/* <SafeAreaView> */}
-        <View style={styles.container}>
+      {/*  <View style={styles.container}>*/}
           {/* <StatusBar barStyle={'light-content'} /> */}
           <RootNavigator />
-        </View>
+        {/*</View>*/}
         {/* </SafeAreaView> */}
       </Provider>
     );
@@ -71,8 +71,8 @@ const styles = StyleSheet.create({
   container: {
     width: containerW,
     height: containerH,
-    alignItems: 'center',
-    flexDirection: 'row',
+    // alignItems: 'center',
+    // flexDirection: 'row',
     backgroundColor: '#FAFAFA',
   },
 });

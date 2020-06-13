@@ -44,7 +44,7 @@ export default class ItemRechargeList extends Component {
   // }
 
   render() {
-    const {data} = this.props;
+    const {data, key} = this.props;
     return (
       <TouchableOpacity
         onPress={() => this.props.onPress()}
