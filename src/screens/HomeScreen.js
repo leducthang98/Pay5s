@@ -56,7 +56,7 @@ class HomeScreen extends React.Component {
       { iconName: 'RECHARGE_PHONE', label: 'Nạp tiền điện thoại', onPress: () => this.rechargePhone(), color: '#475382' },
       { iconName: 'BUY_CARD_ID', label: 'Mua mã thẻ', onPress: () => this.buyCardID(), color: '#644992' },
       { iconName: 'INTERNET_VIETTEL', label: 'Internet Viettel', onPress: () => this.internetViettel(), color: '#393470' },
-    //  { iconName: 'KPLUS', label: 'Gia hạn K+', onPress: () => this.KPlus(), color: '#6e3570' },
+      //  { iconName: 'KPLUS', label: 'Gia hạn K+', onPress: () => this.KPlus(), color: '#6e3570' },
     ];
     this.otherService2 = [
       {},
@@ -100,12 +100,21 @@ class HomeScreen extends React.Component {
     // );
   }
 
+  dialCall(number) {
+    let phoneNumber = '';
+    if (Platform.OS === 'android') {
+      phoneNumber = "tel:" + number;
+    } else {
+      phoneNumber = "telprompt:" + number;
+    }
+    Linking.openURL(phoneNumber);
+  }
   hotline(hotline) {
     Alert.alert(
       'Hotline',
       'Hotline hỗ trợ CSKH: ' + hotline,
       [
-        { text: 'Gọi', onPress: () => Linking.openURL('tel:' + hotline) },
+        { text: 'Gọi', onPress: () => this.dialCall(hotline) },
       ],
       { cancelable: true },
     );
@@ -165,8 +174,8 @@ class HomeScreen extends React.Component {
           <Image source={OTHER_SERVICE[iconName || 'RECHARGEPHONE']} style={{ width: '80%', height: '80%' }} resizeMode={'contain'} />
         </View>
         <View style={{ width: '100%', height: '40%', justifyContent: 'center', alignItems: 'center', paddingBottom: scale(5) }}>
-          <Text 
-          style={{ fontSize: scale(12), color: 'white', textAlign: 'center',position:'absolute', }}>{label}</Text>
+          <Text
+            style={{ fontSize: scale(12), color: 'white', textAlign: 'center', position: 'absolute', }}>{label}</Text>
         </View>
       </View>
     </TouchableOpacity>
@@ -253,146 +262,146 @@ class HomeScreen extends React.Component {
         });
         return (
           <SafeAreaView>
-             <ScrollView
-            refreshControl={
-              <RefreshControl refreshing={this.state.refreshing} onRefresh={() => this._onRefresh()} />}
-            style={styles.container}>
-            <View style={{ alignItems: 'center' }}>
-              <LinearGradient
-                start={{ x: 0, y: 0.75 }} end={{ x: 1, y: 0.25 }}
-                colors={['#ff547c', '#c944f7']}
-                style={[styles.header]}>
-                <View style={[styles.insideHeader]}>
-                  <View style={{ flexDirection: 'row' }}>
-                    <Text style={{ color: 'white', fontSize: scale(18) }}> Xin chào </Text>
-                    <Text style={{
-                      color: 'white',
-                      fontSize: scale(18),
-                      fontWeight: 'bold',
-                    }}>{accountResponse.data.mobile}</Text>
+            <ScrollView
+              refreshControl={
+                <RefreshControl refreshing={this.state.refreshing} onRefresh={() => this._onRefresh()} />}
+              style={styles.container}>
+              <View style={{ alignItems: 'center' }}>
+                <LinearGradient
+                  start={{ x: 0, y: 0.75 }} end={{ x: 1, y: 0.25 }}
+                  colors={['#ff547c', '#c944f7']}
+                  style={[styles.header]}>
+                  <View style={[styles.insideHeader]}>
+                    <View style={{ flexDirection: 'row' }}>
+                      <Text style={{ color: 'white', fontSize: scale(18) }}> Xin chào </Text>
+                      <Text style={{
+                        color: 'white',
+                        fontSize: scale(18),
+                        fontWeight: 'bold',
+                      }}>{accountResponse.data.mobile}</Text>
+                    </View>
                   </View>
-                </View>
-              </LinearGradient>
-              <View style={styles.account}>
-                <TouchableOpacity
-                  onPress={() => this.checkWallet()}
-                  style={{
-                    height: (containerH / 5.3) * 2 / 5,
-                    borderTopLeftRadius: scale(7),
-                    borderTopRightRadius: scale(7),
+                </LinearGradient>
+                <View style={styles.account}>
+                  <TouchableOpacity
+                    onPress={() => this.checkWallet()}
+                    style={{
+                      height: (containerH / 5.3) * 2 / 5,
+                      borderTopLeftRadius: scale(7),
+                      borderTopRightRadius: scale(7),
+                      flexDirection: 'row',
+                      alignItems: 'center',
+                      borderBottomColor: GRAY_FONTCOLOR,
+                      borderBottomWidth: scale(0.5),
+                    }}>
+                    <Text
+                      style={{ flex: 6, paddingLeft: scale(7), fontSize: scale(15), color: GRAY_FONTCOLOR }}>Số dư</Text>
+                    <Text style={{
+                      flex: 3,
+                      fontSize: scale(15),
+                      fontWeight: 'bold',
+                      textAlign: 'right',
+                      color: PURPLE_FONTCOLOR,
+                    }}>{formatMoney(accountResponse.data.balance)}đ</Text>
+                    <View style={{ flex: 0.2 }}></View>
+                    <Icon style={{ flex: 1 }} name={'chevron-circle-right'} size={scale(17)} color={PINK_FONTCOLOR} />
+                  </TouchableOpacity>
+                  <View style={{
+                    height: (containerH / 5.3) * 3 / 5,
+                    borderBottomLeftRadius: scale(7),
+                    borderBottomRightRadius: scale(7),
                     flexDirection: 'row',
                     alignItems: 'center',
-                    borderBottomColor: GRAY_FONTCOLOR,
-                    borderBottomWidth: scale(0.5),
+                    justifyContent: 'center',
                   }}>
-                  <Text
-                    style={{ flex: 6, paddingLeft: scale(7), fontSize: scale(15), color: GRAY_FONTCOLOR }}>Số dư</Text>
-                  <Text style={{
-                    flex: 3,
-                    fontSize: scale(15),
-                    fontWeight: 'bold',
-                    textAlign: 'right',
-                    color: PURPLE_FONTCOLOR,
-                  }}>{formatMoney(accountResponse.data.balance)}đ</Text>
-                  <View style={{ flex: 0.2 }}></View>
-                  <Icon style={{ flex: 1 }} name={'chevron-circle-right'} size={scale(17)} color={PINK_FONTCOLOR} />
-                </TouchableOpacity>
-                <View style={{
-                  height: (containerH / 5.3) * 3 / 5,
-                  borderBottomLeftRadius: scale(7),
-                  borderBottomRightRadius: scale(7),
-                  flexDirection: 'row',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                }}>
-                  {
-                    this.mainService.map((item, index) => {
-                      return this._renderMainService(item.name, item.label, item.onPress);
-                    })
-                  }
-                </View>
-              </View>
-
-              <View style={styles.service1}>
-                {
-                  this.otherService.map((item, index) => {
-                    return this._renderOtherServices(item.iconName, item.label, item.onPress, item.color);
-                  })
-                }
-                  <TouchableOpacity style={{ flex: 1, alignItems: 'center', justifyContent: 'flex-start' }}
-                  onPress={() => this.chatSupport(commonResponse.data.telegram, commonResponse.data.fanpage)}>
-                  <View style={{ width: '90%', height: scaleVertical(80), backgroundColor: '#9a3e7a', borderRadius: scale(5) }}>
-                    <View style={{ width: '100%', height: '60%', alignItems: 'center', justifyContent: 'center' }}>
-                      <Image source={OTHER_SERVICE['SUPPORT']} style={{ width: '80%', height: '80%' }} resizeMode={'contain'} />
-                    </View>
-                    <View style={{ width: '100%', height: '40%', justifyContent: 'center', alignItems: 'center', paddingBottom: scale(5) }}>
-                      <Text style={{ fontSize: scale(12), color: 'white', textAlign: 'center' }}>Chat hỗ trợ</Text>
-                    </View>
-                  </View>
-                </TouchableOpacity>
-              </View>
-              <View style={styles.service2}>
-              
-                <TouchableOpacity style={{ flex: 1, alignItems: 'center', justifyContent: 'flex-start' }}
-                  onPress={() => this.hotline(commonResponse.data.hotline)}>
-                  <View style={{ width: '90%', height: scaleVertical(80), backgroundColor: '#b93f76', borderRadius: scale(5) }}>
-                    <View style={{ width: '100%', height: '60%', alignItems: 'center', justifyContent: 'center' }}>
-                      <Image source={OTHER_SERVICE['HOTLINE']} style={{ width: '70%', height: '70%' }} resizeMode={'contain'} />
-                    </View>
-                    <View style={{ width: '100%', height: '40%', justifyContent: 'center', alignItems: 'center', paddingBottom: scale(5) }}>
-                      <Text style={{ fontSize: scale(12), color: 'white', textAlign: 'center' }}>Hotline</Text>
-                    </View>
-                  </View>
-                </TouchableOpacity>
-                <View style={{ flex: 1, alignItems: 'center', paddingTop: scale(12) }}>
-
-                </View>
-                <View style={{ flex: 1, alignItems: 'center', paddingTop: scale(12) }}>
-
-                </View>
-                <View style={{ flex: 1, alignItems: 'center', paddingTop: scale(12) }}>
-
-                </View>
-              </View>
-
-              <View style={styles.notification}>
-                <View
-                  style={{ flexDirection: 'row', height: scale(30), paddingLeft: scale(10), paddingRight: scale(10) }}>
-                  <View style={{ alignItems: 'flex-start', justifyContent: 'flex-end', flex: 1 }}>
-                    <Text style={{ fontSize: scale(15), fontWeight: '600', color: GRAY_FONTCOLOR }}>Tin tức</Text>
-                  </View>
-                  <View style={{ alignItems: 'flex-end', justifyContent: 'flex-end', flex: 1 }}>
-                    <TouchableOpacity
-                      onPress={() => this.props.navigation.navigate(NOTIFICATION)}>
-                      <Text style={{ fontSize: scale(15), fontWeight: '600', color: PINK_FONTCOLOR }}>Xem
-                        tất cả</Text>
-                    </TouchableOpacity>
-                  </View>
-                </View>
-                <View style={{ height: scale(150) }}>
-                  <ScrollView horizontal={true} showsHorizontalScrollIndicator={false} style={{ paddingTop: scale(10) }}>
                     {
-                      notiResponse.data.rows.map((item, index) => {
-                        if (index > 2) {
-                          return null;
-                        }
-                        let img_preview = item.img_preview;
-                        let headline = item.headline;
-                        let published_date = item.published_date;
-                        let author = item.author;
-                        let content = item.link;
-                        let description = item.description;
-                        let img_avatar = item.img_avatar;
-
-                        let defaultImage = commonResponse.data.banner.default;
-                        return this._renderNotification(img_preview, img_avatar, headline, published_date, author, content, description, defaultImage);
+                      this.mainService.map((item, index) => {
+                        return this._renderMainService(item.name, item.label, item.onPress);
                       })
                     }
-                  </ScrollView>
+                  </View>
+                </View>
+
+                <View style={styles.service1}>
+                  {
+                    this.otherService.map((item, index) => {
+                      return this._renderOtherServices(item.iconName, item.label, item.onPress, item.color);
+                    })
+                  }
+                  <TouchableOpacity style={{ flex: 1, alignItems: 'center', justifyContent: 'flex-start' }}
+                    onPress={() => this.chatSupport(commonResponse.data.telegram, commonResponse.data.fanpage)}>
+                    <View style={{ width: '90%', height: scaleVertical(80), backgroundColor: '#9a3e7a', borderRadius: scale(5) }}>
+                      <View style={{ width: '100%', height: '60%', alignItems: 'center', justifyContent: 'center' }}>
+                        <Image source={OTHER_SERVICE['SUPPORT']} style={{ width: '80%', height: '80%' }} resizeMode={'contain'} />
+                      </View>
+                      <View style={{ width: '100%', height: '40%', justifyContent: 'center', alignItems: 'center', paddingBottom: scale(5) }}>
+                        <Text style={{ fontSize: scale(12), color: 'white', textAlign: 'center' }}>Chat hỗ trợ</Text>
+                      </View>
+                    </View>
+                  </TouchableOpacity>
+                </View>
+                <View style={styles.service2}>
+
+                  <TouchableOpacity style={{ flex: 1, alignItems: 'center', justifyContent: 'flex-start' }}
+                    onPress={() => this.hotline(commonResponse.data.hotline)}>
+                    <View style={{ width: '90%', height: scaleVertical(80), backgroundColor: '#b93f76', borderRadius: scale(5) }}>
+                      <View style={{ width: '100%', height: '60%', alignItems: 'center', justifyContent: 'center' }}>
+                        <Image source={OTHER_SERVICE['HOTLINE']} style={{ width: '70%', height: '70%' }} resizeMode={'contain'} />
+                      </View>
+                      <View style={{ width: '100%', height: '40%', justifyContent: 'center', alignItems: 'center', paddingBottom: scale(5) }}>
+                        <Text style={{ fontSize: scale(12), color: 'white', textAlign: 'center' }}>Hotline</Text>
+                      </View>
+                    </View>
+                  </TouchableOpacity>
+                  <View style={{ flex: 1, alignItems: 'center', paddingTop: scale(12) }}>
+
+                  </View>
+                  <View style={{ flex: 1, alignItems: 'center', paddingTop: scale(12) }}>
+
+                  </View>
+                  <View style={{ flex: 1, alignItems: 'center', paddingTop: scale(12) }}>
+
+                  </View>
+                </View>
+
+                <View style={styles.notification}>
+                  <View
+                    style={{ flexDirection: 'row', height: scale(30), paddingLeft: scale(10), paddingRight: scale(10) }}>
+                    <View style={{ alignItems: 'flex-start', justifyContent: 'flex-end', flex: 1 }}>
+                      <Text style={{ fontSize: scale(15), fontWeight: '600', color: GRAY_FONTCOLOR }}>Tin tức</Text>
+                    </View>
+                    <View style={{ alignItems: 'flex-end', justifyContent: 'flex-end', flex: 1 }}>
+                      <TouchableOpacity
+                        onPress={() => this.props.navigation.navigate(NOTIFICATION)}>
+                        <Text style={{ fontSize: scale(15), fontWeight: '600', color: PINK_FONTCOLOR }}>Xem
+                        tất cả</Text>
+                      </TouchableOpacity>
+                    </View>
+                  </View>
+                  <View style={{ height: scale(150) }}>
+                    <ScrollView horizontal={true} showsHorizontalScrollIndicator={false} style={{ paddingTop: scale(10) }}>
+                      {
+                        notiResponse.data.rows.map((item, index) => {
+                          if (index > 2) {
+                            return null;
+                          }
+                          let img_preview = item.img_preview;
+                          let headline = item.headline;
+                          let published_date = item.published_date;
+                          let author = item.author;
+                          let content = item.link;
+                          let description = item.description;
+                          let img_avatar = item.img_avatar;
+
+                          let defaultImage = commonResponse.data.banner.default;
+                          return this._renderNotification(img_preview, img_avatar, headline, published_date, author, content, description, defaultImage);
+                        })
+                      }
+                    </ScrollView>
+                  </View>
                 </View>
               </View>
-            </View>
-          </ScrollView>
+            </ScrollView>
           </SafeAreaView>
         );
       } else if (accountResponse.errorCode === 500 || notiResponse.errorCode === 500 || commonResponse.errorCode === 500) {
