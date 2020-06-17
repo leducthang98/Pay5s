@@ -10,7 +10,7 @@ import {
 import { statusBarHeight } from '../../constant/Layout';
 import * as COLOR from '../../constant/Colors';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import { scaleModerate, scaleVertical } from '../../constant/Scale';
+import { scaleModerate, scaleVertical, scale } from '../../constant/Scale';
 import { texts } from '../../constant/CommonStyles';
 import { CommonActions } from '@react-navigation/native';
 import LinearGradient from 'react-native-linear-gradient';
@@ -61,7 +61,7 @@ export default class Header extends Component {
 const styles = StyleSheet.create({
   container: {
     width: width,
-    height: headerHeight,
+    height: Platform.OS === 'ios' ? headerHeight + scale(10) : headerHeight,
     backgroundColor: COLOR.PRIMARY_COLOR,
     paddingTop: Platform.OS === 'ios' ? statusBarHeight : 0
   },

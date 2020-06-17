@@ -55,12 +55,12 @@ export default class App extends Component {
   render() {
     return (
       <Provider store={store}>
-      {/* <SafeAreaView> */}
+ 
       {/*  <View style={styles.container}>*/}
           {/* <StatusBar barStyle={'light-content'} /> */}
           <RootNavigator />
         {/*</View>*/}
-        {/* </SafeAreaView> */}
+      
       </Provider>
     );
   }

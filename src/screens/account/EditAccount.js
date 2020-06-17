@@ -4,7 +4,8 @@ import {
     Text,
     TextInput,
     TouchableOpacity,
-    Dimensions
+    Dimensions,
+    Platform
 } from 'react-native';
 import Header from '../../components/common/Header';
 import { scaleVertical, scaleModerate, scale } from '../../constant/Scale';
@@ -222,7 +223,7 @@ class EditAccount extends React.Component {
                             </TouchableOpacity>
                         </View>
                         <View style={{ flex: 1, justifyContent: 'flex-end', alignItems: 'center', paddingBottom: scale(40) }}>
-                            <TouchableOpacity style={{borderRadius: scaleModerate(40),marginBottom:scale(10) }}
+                            <TouchableOpacity style={{ borderRadius: scaleModerate(40), marginBottom: Platform.OS === 'ios' ? 0 : scale(10) }}
                                 onPress={() => this.editAccount(this.props.accountInfo.fullname, this.props.accountInfo.dob, this.props.accountInfo.gender, this.props.accountInfo.email, this.props.accountInfo.address)}
                             >
                                 <LinearGradient
