@@ -19,7 +19,7 @@ import { DEPOSIT, CONTACT_LIST } from '../../navigators/RouteName';
 
 
 const { width, height } = Layout.window;
-const networkHeight = height / 14;
+const networkHeight = height / 16;
 
 export default class ChooseServiceAndPhone extends Component {
   constructor(props) {
@@ -60,7 +60,7 @@ export default class ChooseServiceAndPhone extends Component {
                 style={styles.contact}>
                 <Image
                 source={require('../../res/images/recharge/contact.png')}
-                style={size.smd}
+                style={size.sm}
                 />
               </TouchableOpacity>
             }
@@ -90,7 +90,7 @@ const styles = StyleSheet.create({
     width: width,
     backgroundColor: COLOR.BACKGROUND_COLOR,
     paddingHorizontal: scaleModerate(15),
-    paddingVertical: scaleVertical(30),
+    paddingVertical: scaleVertical(10),
   },
   historyArea: {
     flexDirection: 'row',

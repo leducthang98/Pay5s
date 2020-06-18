@@ -22,7 +22,6 @@ class SplashScreen extends React.Component {
     return (
       <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
         <Image
-          resizeMode={'contain'}
           source={require('../res/images/common/splass.jpg')}
         />
       </View>

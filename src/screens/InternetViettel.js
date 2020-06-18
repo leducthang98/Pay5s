@@ -32,8 +32,7 @@ export default class InternetViettel extends Component{
 
 const styles = StyleSheet.create({
   container:{
-    width: width,
-    height:height,
+    flex:1,
     backgroundColor:COLOR.BACKGROUND_COLOR
   }
 })

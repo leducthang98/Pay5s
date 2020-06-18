@@ -67,7 +67,7 @@ export default class ItemRechargeList extends Component {
 const styles = StyleSheet.create({
   container: {
     width: width / 3.5,
-    height: scaleVertical(100),
+    height: scaleVertical(90),
     borderRadius: scaleModerate(8),
     backgroundColor: COLOR.BACKGROUND_COLOR,
     alignItems: 'center',
@@ -78,7 +78,7 @@ const styles = StyleSheet.create({
   },
   selectedContainer: {
     width: width / 3.5,
-    height: scaleVertical(100),
+    height: scaleVertical(90),
     borderRadius: scaleModerate(8),
     backgroundColor: COLOR.BACKGROUND_COLOR,
     alignItems: 'center',

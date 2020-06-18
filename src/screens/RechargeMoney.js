@@ -69,7 +69,7 @@ class RechargeMoney extends React.Component {
                   alignItems: 'center',
                   justifyContent: 'center',
                 }}>
-                <Text style={{ color: GRAY_FONTCOLOR, fontWeight: 'bold', fontSize: scaleModerate(14), color: 'white' }}>Momo</Text>
+                <Text style={{fontWeight: 'bold', fontSize: scaleModerate(14), color: 'white' }}>Momo</Text>
 
               </LinearGradient>
             </TouchableOpacity> : null
