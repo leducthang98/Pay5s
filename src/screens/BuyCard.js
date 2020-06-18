@@ -24,10 +24,10 @@ export default class BuyCard extends Component{
   render(){
     const route = {service: service, navigation:this.props.navigation};
     return(
-      <SafeAreaView style={styles.container}>
+      <View style={styles.container}>
         <Header back={true} navigation={this.props.navigation} title={getString('BUY_CARD')}/>
         <RechargePhoneContainer route={route}/>
-      </SafeAreaView>
+      </View>
     )
   }
 }
