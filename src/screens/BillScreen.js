@@ -6,7 +6,8 @@ import {
   ScrollView,
   Dimensions,
   Image,
-  RefreshControl
+  RefreshControl,
+  Platform
 } from 'react-native';
 import Header from '../components/common/Header';
 import { connect } from 'react-redux';
@@ -110,7 +111,7 @@ class BillScreen extends React.Component {
                 showsVerticalScrollIndicator={false}
                 refreshControl={
                   <RefreshControl refreshing={this.state.refreshing} onRefresh={() => this._onRefresh()} />}
-                style={{ marginTop: scale(5), marginBottom: scale(50) }}>
+                style={{ marginTop: scale(5), marginBottom: Platform.OS === 'ios' ? scale(70) : scale(50) }}>
                 {
                   billData.map((item, index) => {
                     let service;

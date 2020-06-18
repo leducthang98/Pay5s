@@ -61,7 +61,7 @@ export default class Header extends Component {
 const styles = StyleSheet.create({
   container: {
     width: width,
-    height: Platform.OS === 'ios' ? headerHeight + scale(10) : headerHeight,
+    height: Platform.OS === 'ios' ? headerHeight + scale(20) : headerHeight,
     backgroundColor: COLOR.PRIMARY_COLOR,
     paddingTop: Platform.OS === 'ios' ? statusBarHeight : 0
   },
