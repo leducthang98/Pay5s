@@ -31,7 +31,7 @@ class AccountScreen extends React.Component {
   intro = () => {
     Alert.alert(
       'Thông báo',
-      'Tính năng đang phát triển',
+      'Coming soon',
       [
         { text: 'Đóng', onPress: () => console.log('OK Pressed') },
       ],
