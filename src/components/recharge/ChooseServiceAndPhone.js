@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import {
   View,
   Text,
@@ -6,19 +6,20 @@ import {
   StyleSheet,
   TouchableOpacity,
   TextInput,
-  FlatList
+  FlatList,
+  Platform,
 } from 'react-native';
 import * as COLOR from '../../constant/Colors';
 import * as Layout from '../../constant/Layout';
-import { scaleModerate, scaleVertical } from '../../constant/Scale';
-import { getString } from '../../res/values/String';
-import { texts, size } from '../../constant/CommonStyles';
+import {scaleModerate, scaleVertical} from '../../constant/Scale';
+import {getString} from '../../res/values/String';
+import {texts, size} from '../../constant/CommonStyles';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import { NETWORK, NETWORK_SQUARE } from '../../constant/Icon';
-import { DEPOSIT, CONTACT_LIST } from '../../navigators/RouteName';
+import {NETWORK, NETWORK_SQUARE} from '../../constant/Icon';
+import {DEPOSIT, CONTACT_LIST} from '../../navigators/RouteName';
 
 
-const { width, height } = Layout.window;
+const {width, height} = Layout.window;
 const networkHeight = height / 16;
 
 export default class ChooseServiceAndPhone extends Component {
@@ -27,21 +28,21 @@ export default class ChooseServiceAndPhone extends Component {
   }
 
   _moveToHistoryScreen = () => {
-    this.props.navigation.navigate(DEPOSIT)
+    this.props.navigation.navigate(DEPOSIT);
   };
 
   _moveToContactScreen = () => {
-    this.props.navigation.navigate(CONTACT_LIST)
-  }
+    this.props.navigation.navigate(CONTACT_LIST);
+  };
 
   render() {
-    const { paddingHorizontal, note, networkCode, error, errorContent, phoneNumber, service } = this.props;
+    const {paddingHorizontal, note, networkCode, error, errorContent, phoneNumber, service} = this.props;
     return (
-      <View style={paddingHorizontal ? [styles.container, { paddingHorizontal: paddingHorizontal }] : styles.container}>
+      <View style={paddingHorizontal ? [styles.container, {paddingHorizontal: paddingHorizontal}] : styles.container}>
         <View style={styles.historyArea}>
-          <Text style={[texts.h4, { fontWeight: 'bold' }]}>{getString('DEPOSIT_TO')}</Text>
+          <Text style={[texts.h4, {fontWeight: 'bold'}]}>{getString('DEPOSIT_TO')}</Text>
           <TouchableOpacity onPress={() => this._moveToHistoryScreen()}>
-            <Text style={[texts.normal, { color: COLOR.FACEBOOK }]}>{getString('WATCH_HISTORY')}</Text>
+            <Text style={[texts.normal, {color: COLOR.FACEBOOK}]}>{getString('WATCH_HISTORY')}</Text>
           </TouchableOpacity>
         </View>
         <View style={styles.selectPhoneAndService}>
@@ -49,18 +50,18 @@ export default class ChooseServiceAndPhone extends Component {
             <TextInput
               value={phoneNumber}
               style={styles.phone}
-              placeholder={this.props.service === "FTTH" ? getString('ACCOUNT_CODE') : getString('TYPE_PHONE_NUMBER')}
-              keyboardType={this.props.service === "FTTH" ? 'default': 'phone-pad'}
+              placeholder={this.props.service === 'FTTH' ? getString('ACCOUNT_CODE') : getString('TYPE_PHONE_NUMBER')}
+              keyboardType={this.props.service === 'FTTH' ? 'default' : 'phone-pad'}
               onChangeText={phoneNumber => this.props.onTypingPhoneNumber(phoneNumber)}
               onSubmitEditing={() => this.props.checkValidPhoneNumber(phoneNumber)}
             />
             {
-              !(this.props.service === "FTTH") && <TouchableOpacity
+              !(this.props.service === 'FTTH' && Platform.OS === 'ios') && <TouchableOpacity
                 onPress={() => this._moveToContactScreen()}
                 style={styles.contact}>
                 <Image
-                source={require('../../res/images/recharge/contact.png')}
-                style={size.sm}
+                  source={require('../../res/images/recharge/contact.png')}
+                  style={size.sm}
                 />
               </TouchableOpacity>
             }
@@ -69,16 +70,17 @@ export default class ChooseServiceAndPhone extends Component {
             onPress={() => this.props.openChooseNetwork()}
             style={styles.network}>
             <Image
-              style={{ width: '100%', height: '100%', borderRadius: scaleModerate(8) }}
+              style={{width: '100%', height: '100%', borderRadius: scaleModerate(8)}}
               resizeMode={'contain'}
-              source={NETWORK_SQUARE[networkCode || 'VINA']} />
+              source={NETWORK_SQUARE[networkCode || 'VINA']}/>
           </TouchableOpacity>
         </View>
         {
-          (errorContent && errorContent !== '') ? <Text style={[texts.l_sm, { marginTop: scaleVertical(5), color: COLOR.ERROR }]}>{errorContent}</Text> : null
+          (errorContent && errorContent !== '') ?
+            <Text style={[texts.l_sm, {marginTop: scaleVertical(5), color: COLOR.ERROR}]}>{errorContent}</Text> : null
         }
         {
-          note && <Text style={[texts.l_normal, { marginTop: scaleVertical(15) }]}>{note}</Text>
+          note && <Text style={[texts.l_normal, {marginTop: scaleVertical(15)}]}>{note}</Text>
         }
       </View>
     );
