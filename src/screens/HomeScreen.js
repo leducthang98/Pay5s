@@ -28,6 +28,7 @@ import {
   LOGIN,
   BUY_CARD,
   INTERNET_VIETTEL,
+  K_PLUS,
 } from '../navigators/RouteName';
 import AsyncStorage from '@react-native-community/async-storage';
 import { getAccountInfo, getCommonConfig, getNotification } from '../actions/ActionHomeScreen';
@@ -56,7 +57,7 @@ class HomeScreen extends React.Component {
       { iconName: 'RECHARGE_PHONE', label: 'Nạp tiền điện thoại', onPress: () => this.rechargePhone(), color: '#475382' },
       { iconName: 'BUY_CARD_ID', label: 'Mua mã thẻ', onPress: () => this.buyCardID(), color: '#644992' },
       { iconName: 'INTERNET_VIETTEL', label: 'Internet Viettel', onPress: () => this.internetViettel(), color: '#393470' },
-      //  { iconName: 'KPLUS', label: 'Gia hạn K+', onPress: () => this.KPlus(), color: '#6e3570' },
+       { iconName: 'KPLUS', label: 'Gia hạn K+', onPress: () => this.KPlus(), color: '#6e3570' },
     ];
     this.otherService2 = [
       {},
@@ -78,14 +79,7 @@ class HomeScreen extends React.Component {
   }
 
   KPlus() {
-    Alert.alert(
-      'Thông báo',
-      'Tính năng đang phát triển',
-      [
-        { text: 'Đóng', onPress: () => console.log('OK Pressed') },
-      ],
-      { cancelable: false },
-    );
+    this.props.navigation.navigate(K_PLUS)
   }
 
   buyCardID() {
@@ -328,17 +322,7 @@ class HomeScreen extends React.Component {
                     return this._renderOtherServices(item.iconName, item.label, item.onPress, item.color);
                   })
                 }
-                <TouchableOpacity style={{ flex: 1, alignItems: 'center', justifyContent: 'flex-start' }}
-                  onPress={() => this.chatSupport(commonResponse.data.telegram, commonResponse.data.fanpage)}>
-                  <View style={{ width: '90%', height: scaleVertical(80), backgroundColor: '#9a3e7a', borderRadius: scale(5) }}>
-                    <View style={{ width: '100%', height: '60%', alignItems: 'center', justifyContent: 'center' }}>
-                      <Image source={OTHER_SERVICE['SUPPORT']} style={{ width: '80%', height: '80%' }} resizeMode={'contain'} />
-                    </View>
-                    <View style={{ width: '100%', height: '40%', justifyContent: 'center', alignItems: 'center', paddingBottom: scale(5) }}>
-                      <Text style={{ fontSize: scale(12), color: 'white', textAlign: 'center' }}>Chat hỗ trợ</Text>
-                    </View>
-                  </View>
-                </TouchableOpacity>
+              
               </View>
               <View style={styles.service2}>
 
@@ -353,9 +337,18 @@ class HomeScreen extends React.Component {
                     </View>
                   </View>
                 </TouchableOpacity>
-                <View style={{ flex: 1, alignItems: 'center', paddingTop: scale(12) }}>
-
-                </View>
+                <TouchableOpacity style={{ flex: 1, alignItems: 'center', justifyContent: 'flex-start' }}
+                  onPress={() => this.chatSupport(commonResponse.data.telegram, commonResponse.data.fanpage)}>
+                  <View style={{ width: '90%', height: scaleVertical(80), backgroundColor: '#9a3e7a', borderRadius: scale(5) }}>
+                    <View style={{ width: '100%', height: '60%', alignItems: 'center', justifyContent: 'center' }}>
+                      <Image source={OTHER_SERVICE['SUPPORT']} style={{ width: '80%', height: '80%' }} resizeMode={'contain'} />
+                    </View>
+                    <View style={{ width: '100%', height: '40%', justifyContent: 'center', alignItems: 'center', paddingBottom: scale(5) }}>
+                      <Text style={{ fontSize: scale(12), color: 'white', textAlign: 'center' }}>Chat hỗ trợ</Text>
+                    </View>
+                  </View>
+                </TouchableOpacity>
+                
                 <View style={{ flex: 1, alignItems: 'center', paddingTop: scale(12) }}>
 
                 </View>

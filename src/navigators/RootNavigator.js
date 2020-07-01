@@ -35,6 +35,7 @@ import {
     INTERNET_VIETTEL,
     INIT_HISTORY_CHECKWALLET,
     EPIN_SUCCESS,
+    K_PLUS,
 } from './RouteName';
 import CheckWallet from '../screens/check_wallet/CheckWallet';
 import RechargeMoney from '../screens/RechargeMoney';
@@ -63,6 +64,7 @@ import BuyCard from '../screens/BuyCard';
 import InitHistory from '../screens/check_wallet/InitHistory';
 import InternetViettel from '../screens/InternetViettel';
 import EpinCreateSuccess from '../screens/bill_create_transaction/EpinCreateSuccess';
+import KPlus from '../screens/k_plus/KPlus';
 const Stack = createStackNavigator();
 
 function RootNavigator() {
@@ -98,6 +100,7 @@ function RootNavigator() {
                 <Stack.Screen name={INTERNET_VIETTEL} component={InternetViettel} />
                 <Stack.Screen name={INIT_HISTORY_CHECKWALLET} component={InitHistory} />
                 <Stack.Screen name={EPIN_SUCCESS} component={EpinCreateSuccess} />
+                <Stack.Screen name={K_PLUS} component={KPlus} />
             </Stack.Navigator>
         </NavigationContainer >
     );

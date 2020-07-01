@@ -39,6 +39,8 @@
 	</dict>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string></string>
+	<key>NSContactsUsageDescription</key>
+	<string>App need to access your contact to suggest</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>AntDesign.ttf</string>

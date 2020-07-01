@@ -37,3 +37,4 @@ export const TRANSFER = 'https://client.pay5s.com/transfer/transfer.html';
 export const BILL_CREATE = 'https://client.pay5s.com/bill/create.html';
 //epin
 export const EPIN_CREATE = 'https://client.pay5s.com/epin/create.html';
+export const K_PLUS_API = BASE_URL + '/kplus'

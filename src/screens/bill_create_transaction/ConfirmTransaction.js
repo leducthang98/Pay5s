@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, View, TouchableOpacity, TextInput, Dimensions, StyleSheet } from 'react-native';
+import { Text, View, TouchableOpacity, TextInput, Dimensions, StyleSheet, Keyboard } from 'react-native';
 import Header from '../../components/common/Header';
 import { scale, scaleModerate, scaleVertical } from '../../constant/Scale';
 import * as COLOR from '../../constant/Colors';
@@ -140,7 +140,10 @@ class CommitTransferTransaction extends React.Component {
             return (
                 <>
                     <Header navigation={this.props.navigation} back={true} title={'Xác thực giao dịch'} />
-                    <View style={{ width: '100%', height: '100%', justifyContent: 'flex-start', alignItems: 'center', paddingTop: scaleVertical(20) }}>
+                    <TouchableOpacity
+                        activeOpacity={1}
+                        onPress={() => Keyboard.dismiss()}
+                        style={{ width: '100%', height: '100%', justifyContent: 'flex-start', alignItems: 'center', paddingTop: scaleVertical(20) }}>
                         <View style={{ paddingLeft: scale(10), width: '90%', height: '55%', backgroundColor: 'white', borderRadius: scale(10) }}>
                             {
                                 type !== 'EPIN' ?
@@ -197,7 +200,7 @@ class CommitTransferTransaction extends React.Component {
                             <Text style={{ fontSize: scale(15), marginTop: scaleVertical(20), textDecorationLine: 'underline', fontWeight: 'bold', color: COLOR.PRIMARY_COLOR }}>Quản lý mật khẩu giao dịch</Text>
                         </TouchableOpacity>
 
-                    </View>
+                    </TouchableOpacity>
                     {
                         this.state.isLoading && <LoadingDialog />
                     }
