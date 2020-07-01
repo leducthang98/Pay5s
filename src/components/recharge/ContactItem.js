@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import {
   View,
   Text,
@@ -7,11 +7,11 @@ import {
 } from 'react-native';
 import * as Layout from '../../constant/Layout';
 import * as COLOR from '../../constant/Colors';
-import {scaleModerate, scaleVertical} from '../../constant/Scale';
-import {texts} from '../../constant/CommonStyles';
-import {formatPhoneNumber} from '../../constant/CommonFormat';
+import { scaleModerate, scaleVertical } from '../../constant/Scale';
+import { texts } from '../../constant/CommonStyles';
+import { formatPhoneNumber } from '../../constant/CommonFormat';
 
-const {width, height} = Layout.window;
+const { width, height } = Layout.window;
 
 export default class ContactItem extends Component {
   constructor(props) {
@@ -21,14 +21,15 @@ export default class ContactItem extends Component {
   _chooseContact = () => this.props.chooseContact(this.props.phoneNumber);
 
   render() {
+    const { fullName, familyName, givenName } = this.props;
     return (
       <TouchableOpacity onPress={() => this._chooseContact()} style={styles.container}>
         <View style={styles.imageArea}>
           <Text style={texts.h2}>{this.props.givenName && this.props.givenName[0] || 'H'}</Text>
         </View>
         <View style={styles.contentArea}>
-          <Text style={texts.l_h4}>{this.props.fullName || 'Lê Đức Thắng'}</Text>
-          <Text style={texts.l_placeholder}>{formatPhoneNumber(this.props.phoneNumber || '0394827798')}</Text>
+          <Text style={texts.l_h4}>{fullName || familyName + ' ' + givenName}</Text>
+          <Text style={texts.l_placeholder}>{formatPhoneNumber(this.props.phoneNumber || '')}</Text>
         </View>
       </TouchableOpacity>
 

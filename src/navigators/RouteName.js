@@ -34,4 +34,5 @@ export const BUY_CARD = "BuyCard";
 export const INTERNET_VIETTEL = "InternetViettel";
 export const INIT_HISTORY_CHECKWALLET = "InitHistoryCheckWallet";
 export const EPIN_SUCCESS = "EpinSuccess";
+export const K_PLUS = "Kplus"
 

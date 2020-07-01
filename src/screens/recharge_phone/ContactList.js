@@ -23,14 +23,15 @@ class ContactList extends Component {
     super(props);
     this.state = {
       contacts: [],
+      searchResult: []
     };
   }
 
   async componentDidMount() {
     if (Platform.OS === 'android') {
       await this._getPermissionAndroid();
-      await this._getAllContact();
     }
+    await this._getAllContact();
   }
 
   _getAllContact = async () => {
@@ -38,6 +39,8 @@ class ContactList extends Component {
       if (error === 'denied') {
         console.error('error when get contact = ', error);
       } else {
+        console.log('contact = ', contacts);
+
         this.setState({ contacts });
       }
     });
@@ -59,13 +62,27 @@ class ContactList extends Component {
     this.props.navigation.pop();
   };
 
+  // _search = (list, searchValue) => {
+  //   if (searchValue === '') {
+  //     this.setState({ searchResult: [] });
+  //     return;
+  //   }
+  //   const availableItems = [];
+  //   list.map((item, index) => {
+  //     if (item.includes(searchValue)) {
+  //       availableItems.push(item)
+  //     }
+  //   })
+  //   this.setState({ searchResult: availableItems })
+  // }
+
   render() {
-    const { contacts } = this.state;
+    const { contacts, searchResult } = this.state;
     console.log('contact list = ', contacts);
     return (
       <View style={styles.container}>
         <Header back={true} title={'Danh sách liên lạc'} navigation={this.props.navigation} />
-        <SearchBox />
+        {/* <SearchBox /> */}
         <FlatList
           style={styles.list}
           data={contacts}
@@ -73,6 +90,7 @@ class ContactList extends Component {
           renderItem={({ item, index }) =>
             <ContactItem
               fullName={item?.displayName}
+              familyName={item?.familyName}
               givenName={item?.givenName}
               phoneNumber={item?.phoneNumbers[0]?.number}
               chooseContact={phoneNumber => this._chooseContact(phoneNumber)}
