@@ -67,14 +67,14 @@ export default class ChooseServiceAndPhone extends Component {
               onSubmitEditing={() => this.props.checkValidPhoneNumber(phoneNumber)}
             />
             {
-              !this.props.service === 'FTTH' && !kPlusService && <TouchableOpacity
+              (this.props.service !== 'FTTH' && !kPlusService) ? <TouchableOpacity
                 onPress={() => this._moveToContactScreen()}
                 style={styles.contact}>
                 <Image
                   source={require('../../res/images/recharge/contact.png')}
                   style={size.sm}
                 />
-              </TouchableOpacity>
+              </TouchableOpacity> : null
             }
           </View>
           {kPlusService ?
