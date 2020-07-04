@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, View, TouchableOpacity, TextInput, Dimensions, StyleSheet, Image } from 'react-native';
+import { Text, View, TouchableOpacity, TextInput, Dimensions, StyleSheet, Image, Keyboard } from 'react-native';
 import { scaleVertical, scale, scaleModerate } from '../../constant/Scale';
 import AsyncStorage from '@react-native-community/async-storage';
 import Toast from 'react-native-simple-toast';
@@ -86,7 +86,9 @@ class GetOTPForgetTransPassword extends React.Component {
     render() {
         if (!this.state.isTokenExpired) {
             return (
-                <>
+                <TouchableOpacity style={{ width: '100%', height: '100%' }}
+                    activeOpacity={1}
+                    onPress={() => Keyboard.dismiss()}>
                     <View style={{ flex: 1, alignItems: 'center' }}>
                         <View style={{ width: '100%', height: '30%' }}>
                             <Image
@@ -142,7 +144,7 @@ class GetOTPForgetTransPassword extends React.Component {
                             }}
                         /> : null
                     }
-                </>
+                </TouchableOpacity>
             );
         } else {
             this.tokenInvalidFunction()

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, View, StyleSheet, TextInput, TouchableOpacity, Dimensions, Image } from 'react-native';
+import { Text, View, StyleSheet, TextInput, TouchableOpacity, Dimensions, Image, Keyboard } from 'react-native';
 import { REGISTER, OTP, LOGIN } from '../navigators/RouteName';
 import { scaleModerate, scale, scaleVertical } from '../constant/Scale';
 import { PRIMARY_COLOR } from '../constant/Colors';
@@ -53,7 +53,9 @@ class OTPScreen extends React.Component {
         return (
             <>
                 <View style={{ height: statusBarHeight, backgroundColor: PRIMARY_COLOR }}></View>
-                <View style={{ flex: 1, alignItems: 'center' }}>
+                <TouchableOpacity style={{ flex: 1, alignItems: 'center' }}
+                    activeOpacity={1}
+                    onPress={() => Keyboard.dismiss()}>
                     <View style={{ width: '100%', height: '30%' }}>
                         <Image
                             style={{ width: '100%', height: '100%' }}
@@ -102,7 +104,7 @@ class OTPScreen extends React.Component {
                             <Text style={{ color: PRIMARY_COLOR, fontWeight: 'bold', marginTop: scaleVertical(10), fontSize: scale(15) }}>Quay lại</Text>
                         </TouchableOpacity>
                     </View>
-                </View>
+                </TouchableOpacity>
                 {
                     this.state.isLoading && <LoadingDialog />
                 }

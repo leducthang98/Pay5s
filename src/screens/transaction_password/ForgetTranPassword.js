@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, View, TouchableOpacity, TextInput, Dimensions, StyleSheet } from 'react-native';
+import { Text, View, TouchableOpacity, TextInput, Dimensions, StyleSheet, Keyboard } from 'react-native';
 import Header from '../../components/common/Header'
 import { scaleVertical, scale, scaleModerate } from '../../constant/Scale';
 import Toast from 'react-native-simple-toast';
@@ -38,7 +38,9 @@ class ForgetTransPassword extends React.Component {
     }
     render() {
         return (
-            <>
+            <TouchableOpacity style={{ width: '100%', height: '100%' }}
+            activeOpacity={1}
+            onPress={() => Keyboard.dismiss()}>
                 <Header title={'Quên mật khẩu giao dịch'} back={true} navigation={this.props.navigation} />
                 <View style={{ flex: 1 }}></View>
                 <View style={{ flex: 3.5, alignItems: "center", justifyContent: 'center' }}>
@@ -78,7 +80,7 @@ class ForgetTransPassword extends React.Component {
                         </LinearGradient>
                     </TouchableOpacity>
                 </View>
-            </>
+            </TouchableOpacity>
         );
     }
 

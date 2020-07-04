@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, View, StyleSheet, TextInput, TouchableOpacity, Dimensions } from 'react-native';
+import { Text, View, StyleSheet, TextInput, TouchableOpacity, Dimensions, Keyboard } from 'react-native';
 import Header from '../components/common/Header';
 import { PRIMARY_COLOR, GRAY_FONTCOLOR } from '../constant/Colors';
 import { scaleVertical, scale, scaleModerate } from '../constant/Scale';
@@ -57,50 +57,55 @@ class RegisterScreen extends React.Component {
         return (
             <View style={{ flex: 1 }}>
                 <Header navigation={this.props.navigation} back={false} title={'Đăng ký tài khoản'} />
-                <View style={{ width: '100%', height: '100%', alignItems: 'center' }}>
-                    <View style={{ flex: 1 }}></View>
-                    <View style={{ flex: 3.5, width: "100%", alignItems: 'center' }}>
-                        <TextInput
-                            onChangeText={(mobile) => this.setState({ mobile })}
-                            placeholder="Nhập số điện thoại"
-                            keyboardType="number-pad"
-                            style={styles.inputStyle} />
+                <TouchableOpacity style={{ width: '100%', height: '100%' }}
+                    activeOpacity={1}
+                    onPress={() => Keyboard.dismiss()}>
+                    <View style={{ width: '100%', height: '100%', alignItems: 'center' }}>
+                        <View style={{ flex: 1 }}></View>
+                        <View style={{ flex: 3.5, width: "100%", alignItems: 'center' }}>
+                            <TextInput
+                            
+                                onChangeText={(mobile) => this.setState({ mobile })}
+                                placeholder="Nhập số điện thoại"
+                                keyboardType="number-pad"
+                                style={styles.inputStyle} />
 
-                        <TextInput
-                            onChangeText={(password) => this.setState({ password })}
-                            placeholder="Nhập mật khẩu"
-                            secureTextEntry={true}
-                            style={styles.inputStyle}></TextInput>
-                        <TextInput
-                            onChangeText={(repeatPassword) => this.setState({ repeatPassword })}
-                            secureTextEntry={true}
-                            placeholder="Xác nhận mật khẩu"
-                            style={styles.inputStyle}></TextInput>
+                            <TextInput
+                                onChangeText={(password) => this.setState({ password })}
+                                placeholder="Nhập mật khẩu"
+                                secureTextEntry={true}
+                                style={styles.inputStyle}></TextInput>
+                            <TextInput
+                                onChangeText={(repeatPassword) => this.setState({ repeatPassword })}
+                                secureTextEntry={true}
+                                placeholder="Xác nhận mật khẩu"
+                                style={styles.inputStyle}></TextInput>
+                        </View>
+                        <View style={{ flex: 5, width: '100%', alignItems: 'center' }}>
+                            <TouchableOpacity
+                                onPress={() => this.registFunction()}
+                            >
+                                <LinearGradient
+                                    start={{ x: 0, y: 0.75 }} end={{ x: 1, y: 0.25 }}
+                                    colors={['#ff547c', '#c944f7']}
+                                    style={{
+                                        width: containerW * 0.6,
+                                        height: scale(40),
+                                        borderRadius: scaleModerate(30),
+                                        alignItems: 'center',
+                                        justifyContent: 'center',
+                                    }}>
+                                    <Text style={{ color: 'white', fontWeight: 'bold', fontSize: scaleModerate(14) }}>Đăng ký</Text>
+                                </LinearGradient>
+                            </TouchableOpacity>
+                            <TouchableOpacity
+                                onPress={() => this.props.navigation.pop()}
+                            >
+                                <Text style={{ color: PRIMARY_COLOR, fontWeight: 'bold', marginTop: scaleVertical(25), fontSize: scale(14) }}>Quay lại</Text>
+                            </TouchableOpacity>
+                        </View>
                     </View>
-                    <View style={{ flex: 5, width: '100%', alignItems: 'center' }}>
-                        <TouchableOpacity
-                            onPress={() => this.registFunction()}
-                        >
-                            <LinearGradient
-                                start={{ x: 0, y: 0.75 }} end={{ x: 1, y: 0.25 }}
-                                colors={['#ff547c', '#c944f7']}
-                                style={{
-                                    width: containerW * 0.6,
-                                    height: scale(40),
-                                    borderRadius: scaleModerate(30),
-                                    alignItems: 'center',
-                                    justifyContent: 'center',
-                                }}>
-                                <Text style={{ color: 'white', fontWeight: 'bold', fontSize: scaleModerate(14) }}>Đăng ký</Text>
-                            </LinearGradient>
-                        </TouchableOpacity>
-                        <TouchableOpacity
-                            onPress={() => this.props.navigation.pop()}
-                        >
-                            <Text style={{ color: PRIMARY_COLOR, fontWeight: 'bold', marginTop: scaleVertical(25), fontSize: scale(14) }}>Quay lại</Text>
-                        </TouchableOpacity>
-                    </View>
-                </View>
+                </TouchableOpacity>
             </View>
         );
     }

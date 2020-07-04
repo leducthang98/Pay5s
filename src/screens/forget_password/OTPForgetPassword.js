@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, View, StyleSheet, TextInput, TouchableOpacity, Dimensions, Image } from 'react-native';
+import { Text, View, StyleSheet, TextInput, TouchableOpacity, Dimensions, Image, Keyboard } from 'react-native';
 import { scaleModerate, scale, scaleVertical } from '../../constant/Scale';
 import { PRIMARY_COLOR } from '../../constant/Colors';
 import Toast from 'react-native-simple-toast';
@@ -55,7 +55,11 @@ class OTPForgetPassword extends React.Component {
 
 
         return (
-            <>
+            <TouchableOpacity
+            style={{width:'100%',height:'100%'}}
+            activeOpacity={1}
+            onPress={()=>Keyboard.dismiss()}
+            >
                 <View style={{ height: statusBarHeight, backgroundColor: PRIMARY_COLOR }}></View>
                 <View style={{ flex: 1, alignItems: 'center' }}>
                     <View style={{ width: '100%', height: '30%' }}>
@@ -119,7 +123,7 @@ class OTPForgetPassword extends React.Component {
                         }}
                     /> : null
                 }
-            </>
+            </TouchableOpacity>
         );
     }
 }

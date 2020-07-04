@@ -5,7 +5,8 @@ import {
     TextInput,
     TouchableOpacity,
     Dimensions,
-    Platform
+    Platform,
+    Keyboard
 } from 'react-native';
 import Header from '../../components/common/Header';
 import { scaleVertical, scaleModerate, scale } from '../../constant/Scale';
@@ -113,7 +114,9 @@ class EditAccount extends React.Component {
                     { label: 'Nữ ', value: 'Nữ' }
                 ];
                 return (
-                    <>
+                    <TouchableOpacity style={{ width: '100%', height: '100%' }}
+                    activeOpacity={1}
+                    onPress={() => Keyboard.dismiss()}>
                         <Header navigation={this.props.navigation} back={true} title={'Chỉnh sửa thông tin'} />
                         <View style={{ alignItems: 'center' }}>
                             <TouchableOpacity
@@ -253,7 +256,7 @@ class EditAccount extends React.Component {
                                 }}
                             /> : null
                         }
-                    </>
+                    </TouchableOpacity>
                 );
             }
             else if (this.state.isTokenExpired) {

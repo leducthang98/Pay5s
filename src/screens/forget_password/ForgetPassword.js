@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, View, TouchableOpacity, TextInput, Dimensions, StyleSheet } from 'react-native';
+import { Text, View, TouchableOpacity, TextInput, Dimensions, StyleSheet, Keyboard } from 'react-native';
 import Header from '../../components/common/Header';
 import { scaleVertical, scaleModerate, scale } from '../../constant/Scale';
 import { PRIMARY_COLOR, GRAY_FONTCOLOR } from '../../constant/Colors';
@@ -58,7 +58,11 @@ class ForgetPassword extends React.Component {
     }
     render() {
         return (
-            <>
+            <TouchableOpacity
+            style={{width:'100%',height:'100%'}}
+            activeOpacity={1}
+            onPress={()=>Keyboard.dismiss()}
+            >
                 <Header navigation={this.props.navigation} back={false} title={'Quên mật khẩu'} />
                 <View style={{ flex: 3.5, alignItems: "center", justifyContent: 'center' }}>
                     <TextInput
@@ -105,7 +109,7 @@ class ForgetPassword extends React.Component {
                         <Text style={{ color: PRIMARY_COLOR, fontWeight: 'bold', fontSize: scale(15) }}>Quay lại</Text>
                     </TouchableOpacity>
                 </View>
-            </>
+            </TouchableOpacity>
         );
     }
 }

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, View, TouchableOpacity, TextInput, Dimensions, StyleSheet } from 'react-native';
+import { Text, View, TouchableOpacity, TextInput, Dimensions, StyleSheet, Keyboard } from 'react-native';
 import Header from '../components/common/Header';
 import { scale, scaleModerate, scaleVertical } from '../constant/Scale';
 import * as COLOR from '../constant/Colors';
@@ -40,7 +40,9 @@ class TransferMoney extends React.Component {
   }
   render() {
     return (
-      <>
+      <TouchableOpacity style={{ width: '100%', height: '100%' }}
+      activeOpacity={1}
+      onPress={() => Keyboard.dismiss()}>
         <Header navigation={this.props.navigation} back={true} title={'Chuyển khoản'} />
         <View style={{ width: '100%', height: '100%', justifyContent: 'flex-start', alignItems: 'center', paddingTop: scaleVertical(20) }}>
           <View style={{ paddingTop: scale(20), paddingLeft: scale(10), width: '90%', height: '60%', backgroundColor: 'white', borderRadius: scale(10) }}>
@@ -125,7 +127,7 @@ class TransferMoney extends React.Component {
           </TouchableOpacity>
         </View>
 
-      </>
+      </TouchableOpacity>
     );
   }
 }

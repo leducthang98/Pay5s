@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, View, StyleSheet, TextInput, TouchableOpacity, Dimensions } from 'react-native';
+import { Text, View, StyleSheet, TextInput, TouchableOpacity, Dimensions, Keyboard } from 'react-native';
 import { PRIMARY_COLOR, GRAY_FONTCOLOR } from '../../constant/Colors';
 import Header from '../../components/common/Header';
 import { scale, scaleVertical, scaleModerate } from '../../constant/Scale';
@@ -83,7 +83,9 @@ class CreateTransPassword extends React.Component {
     render() {
         if (!this.state.isTokenExpired) {
             return (
-                <>
+                <TouchableOpacity style={{ width: '100%', height: '100%' }}
+                activeOpacity={1}
+                onPress={() => Keyboard.dismiss()}>
                     <Header title={'Tạo mật khẩu giao dịch'} back={true} navigation={this.props.navigation} />
                     <View style={{ flex: 1 }}></View>
                     <View style={{ flex: 3.5, justifyContent: 'center', alignItems: 'center' }}>
@@ -134,7 +136,7 @@ class CreateTransPassword extends React.Component {
                             }}
                         /> : null
                     }
-                </>
+                </TouchableOpacity>
             );
         }
         else if (this.state.isTokenExpired) {
