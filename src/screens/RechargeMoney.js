@@ -128,7 +128,7 @@ class RechargeMoney extends React.Component {
       }
     } else {
       return (
-        <Loading></Loading>
+        <Loading />
       );
     }
 

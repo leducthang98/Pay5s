@@ -13,30 +13,41 @@ import {
 } from 'react-native';
 import ItemRechargeList from '../../components/recharge/ItemRechargeList';
 import ChooseServiceAndPhone from '../../components/recharge/ChooseServiceAndPhone';
-import { getString } from '../../res/values/String';
+import {getString} from '../../res/values/String';
 import * as COLOR from '../../constant/Colors';
-import { texts } from '../../constant/CommonStyles';
-import { scale, scaleModerate, scaleVertical } from '../../constant/Scale';
+import {texts} from '../../constant/CommonStyles';
+import {scale, scaleModerate, scaleVertical} from '../../constant/Scale';
 import * as Layout from '../../constant/Layout';
-import { getRechargePhoneServiceAPI } from '../../fetchAPIs/getRechargePhoneServiceAPI';
+import {getRechargePhoneServiceAPI} from '../../fetchAPIs/getRechargePhoneServiceAPI';
 import LoadingDialog from '../../components/common/LoadingDialog';
 import MessageDialog from '../../components/common/MessageDialog';
 import ChooseNetwork from '../../components/recharge/ChooseNetwork';
-import { isPhoneNumber } from '../../constant/Validate';
-import { setPhoneNumberForRecharge } from '../../actions/ActionBillScreen';
-import { connect } from 'react-redux';
-import { md5Signature } from '../../constant/Secure';
-import { CONFIRM_BILL_CREATE, LOGIN } from '../../navigators/RouteName';
+import {isPhoneNumber} from '../../constant/Validate';
+import {setPhoneNumberForRecharge} from '../../actions/ActionBillScreen';
+import {connect} from 'react-redux';
+import {md5Signature} from '../../constant/Secure';
+import {CONFIRM_BILL_CREATE, LOGIN} from '../../navigators/RouteName';
 import Toast from 'react-native-simple-toast';
 import AsyncStorage from '@react-native-community/async-storage';
-import { CommonActions } from '@react-navigation/native';
+import {CommonActions} from '@react-navigation/native';
 import LinearButton from '../../components/common/LinearButton';
 import LinearGradient from 'react-native-linear-gradient';
 import ChooseEPINService from '../../components/recharge/ChooseEPINService';
-import { getKPlusService } from '../../fetchAPIs/KPlusApi';
-import Header from '../../components/common/Header'
+import {getKPlusService} from '../../fetchAPIs/KPlusApi';
+import Header from '../../components/common/Header';
+import ItemKPlus from '../../components/recharge/ItemKPlus';
+import ItemAdditionPrice from '../../components/recharge/ItemAdditionPrice';
+import {formatMoney} from '../../constant/CommonFormat';
 
-const { width, height } = Dimensions.get('screen');
+const {width, height} = Dimensions.get('screen');
+const additionCard = [
+  {value: 0, isSelected: true},
+  {value: 1, isSelected: false},
+  {value: 2, isSelected: false},
+  // {value: 4, isSelected: false},
+  // {value: 5, isSelected: false},
+  // {value: 6, isSelected: false},
+];
 
 class KPlus extends React.Component {
   constructor(props) {
@@ -45,35 +56,39 @@ class KPlus extends React.Component {
       isLoading: true,
       data: [],
       error: null,
-      srvTelcos: [],
-      moneyAmount: [],
-      index: 0,
+      months: [],
+      additionCard: additionCard,
       isVisibleChooseNetwork: false,
 
-      //mã hợp đồng
-      contractId: '', 
-      contractError:false,
+      //hợp đồng
+      contractIndex: 0,
+      contractId: '',
+      contractError: false,
+      contractErrorContent: '',
 
       //number of cards
       cardNumber: 0,
+      totalAmount: 0,
     };
   }
 
   async componentDidMount() {
     await this._fetchData();
-    const { data } = this.state;
+    const {data} = this.state;
     if (data) {
-      const { srvTelcos } = data;
-      const parsedSrvTelcos = this._addSelectedPropsToService(srvTelcos);
-      this.setState({ srvTelcos: parsedSrvTelcos });
-      console.log('srv Telcos = ', this.state.srvTelcos);
+      const {months} = data;
+      const parsedMonths = this._addSelectedProps(months);
+      this.setState({months: parsedMonths});
     }
     this._calculateDiscountAmount();
+    this._processAdditionPrice();
+    this._calculateTotalAmount();
+    console.log('months = ', this.state.months);
   }
 
   UNSAFE_componentWillReceiveProps(props) {
     if (props.billReducer !== this.props.billReducer) {
-      this.setState({ phoneNumber: props.billReducer?.phoneNumberForRecharge });
+      this.setState({phoneNumber: props.billReducer?.phoneNumberForRecharge});
     }
   }
 
@@ -87,61 +102,60 @@ class KPlus extends React.Component {
     this.props.route?.navigation?.dispatch(
       CommonActions?.reset({
         index: 1,
-        routes: [{ name: LOGIN }],
+        routes: [{name: LOGIN}],
       }),
     );
   };
 
   _fetchData = async () => {
-    this.setState({ isLoading: true });
+    this.setState({isLoading: true});
     const response = await getKPlusService();
-    this.setState({ isLoading: false });
-    console.log('response = ', response)
+    this.setState({isLoading: false});
+    const data = response?.data;
+    this.setState({data});
+    this.setState({months: data?.months});
   };
 
-  _findData = data => {
-    const index = data.findIndex(item => item.service === this.props.route?.service);
-    this.setState({ data: data[index] });
-    // console.log('data viettel = ', data[index].srvTelcos[0].amounts);
-    const moneyAmount = this._addSelectedPropsToMoney(data[index].srvTelcos[0].amounts);
-    // console.log('money amount = ',moneyAmount)
-    this.setState({ moneyAmount });
-  };
-
-  _addSelectedPropsToMoney = amounts => {
-    let newArray = [];
-    amounts?.map((item, index) => {
-      let newItem = null;
-      if (index === 0) {
-        newItem = { amount: item, isSelected: true };
-      } else {
-        newItem = { amount: item, isSelected: false };
-      }
-      newArray.push(newItem);
-    });
-    return newArray;
-  };
-
-  _selectItem = (selectedItem, selectedIndex) => {
-    const { moneyAmount } = this.state;
+  _selectItemKPlus = (selectedItem, selectedIndex) => {
+    const {months} = this.state;
     selectedItem.isSelected = true;
-    moneyAmount?.map((item, index) => {
+    months?.map((item, index) => {
       if (item.isSelected && index !== selectedIndex) {
         item.isSelected = false;
       }
     });
-    moneyAmount[selectedIndex] = selectedItem;
-    this.setState({ moneyAmount });
+    months[selectedIndex] = selectedItem;
+    this.setState({months});
+    this._calculateTotalAmount();
   };
 
-  _addSelectedPropsToService = data => {
+  _selectItemAdditionCard = (selectedItem, selectedIndex) => {
+    const {additionCard} = this.state;
+    selectedItem.isSelected = true;
+    additionCard?.map((item, index) => {
+      if (item.isSelected && index !== selectedIndex) {
+        item.isSelected = false;
+      }
+    });
+    additionCard[selectedIndex] = selectedItem;
+    this.setState({additionCard});
+    this._calculateTotalAmount();
+  };
+
+  _processAdditionPrice = () => {
+    const {addition_cnt} = this.state.data;
+    let {additionCard} = this.state;
+
+  };
+
+  _addSelectedProps = data => {
     let newData = [];
     data?.map((item, index) => {
       if (index === 0) {
-        const newItem = Object.assign(item, { isSelectedMethod: true });
+        const newItem = Object.assign(item, {isSelected: true});
         newData.push(newItem);
       } else {
-        const newItem = Object.assign(item, { isSelectedMethod: false });
+        const newItem = Object.assign(item, {isSelected: false});
         newData.push(newItem);
       }
     });
@@ -149,160 +163,69 @@ class KPlus extends React.Component {
   };
 
   _calculateDiscountAmount = () => {
-    const { moneyAmount, index, srvTelcos } = this.state;
-    const { discount } = srvTelcos[index] || 0;
-    let newAmount = [];
-    moneyAmount?.map((item, index) => {
-      const discountAmount = item.amount * discount / 100 || 0;
-      const newItem = Object.assign(item, { discountAmount, discount });
-      newAmount.push(newItem);
+    const {months} = this.state;
+    let newMonths = [];
+    months?.map((item, index) => {
+      const discount = item?.discount;
+      const discountAmount = item.price * discount / 100 || 0;
+      const newItem = Object.assign(item, {discountAmount, discount});
+      newMonths.push(newItem);
     });
-    this.setState({ moneyAmount: newAmount });
+    this.setState({months: newMonths});
   };
 
-  _selectNetwork = telco => {
-    this.setState({ isVisibleChooseNetwork: false });
-    console.log('telco selected = ', telco);
-    const { srvTelcos } = this.state;
-    const index = srvTelcos.findIndex(item => item.telco === telco);
-    this.setState({ index });
-    const moneyAmount = this._addSelectedPropsToMoney(srvTelcos[index]?.amounts);
-    console.log('money amount after select = ', moneyAmount);
-    this.setState({ moneyAmount });
-    this._calculateDiscountAmount();
+  _checkActive = () => {
+    const {contractId, contractError, totalAmount} = this.state;
+    return (!contractError && contractId !== '' && totalAmount !== 0);
   };
 
-  _checkValidPhoneNumber = () => {
-    const { phoneNumber } = this.state;
-    if (phoneNumber !== '' && !isPhoneNumber(phoneNumber) && this.props.route?.service !== 'FTTH') {
+  _onTypingPhoneNumber = contractId => {
+    this.setState({contractId});
+    if (contractId === '') {
       this.setState({
-        phoneNumberError: true,
-        phoneNumberErrorContent: getString('PHONE_NUMBER_IS_INCORRECT_TYPE'),
+        contractError: true,
+        contractErrorContent: 'Bạn phải có mã hợp đồng',
+      });
+    } else {
+      this.setState({
+        contractError: false,
+        contractErrorContent: null,
       });
     }
   };
 
-  _checkHavePhoneNumber = async () => {
-    const { phoneNumber } = this.state;
-    if (phoneNumber === '') {
-      await this.setState({
-        phoneNumberError: true,
-        phoneNumberErrorContent: getString('YOU_NEED_TO_ENTER_PHONE_NUMBER'),
-      });
-    } else if (phoneNumber !== '') {
-      await this.setState({
-        phoneNumberError: false,
-        phoneNumberErrorContent: null,
-      });
-    }
-  };
-
-  _onTypingPhoneNumber = async phoneNumber => {
-    await this.setState({ phoneNumber });
-    await this._checkHavePhoneNumber();
-  };
-
-  _onKeyboardDismiss = async () => {
+  _onKeyboardDismiss = () => {
     Keyboard.dismiss();
-    await this._checkHavePhoneNumber();
-    await this._checkValidPhoneNumber();
   };
 
   _onPressDeposit = async () => {
-    await this._onKeyboardDismiss();
-    const { phoneNumberError, error } = this.state;
-    if (!phoneNumberError) {
-      let phoneNumber = this.state.phoneNumber;
-      // if (phoneNumber.startsWith('0')) {
-      //   phoneNumber = phoneNumber.slice(1, phoneNumber.length)
-      // }
-      const service = this.props.route?.service;
-      const network = this.state.srvTelcos[this.state.index]?.telco;
-      const indexSelectedAmount = this.state.moneyAmount?.findIndex(item => item.isSelected === true);
-      const amount = this.state.moneyAmount[indexSelectedAmount]?.amount;
-      this.props.route?.navigation.navigate(CONFIRM_BILL_CREATE,
-        {
-          dataBillCreate: {
-            phoneNumber: phoneNumber,
-            service: service,
-            network: network,
-            amount: amount,
-          },
-        },
-      );
-    }
-    if (this.props.route?.service === 'EPIN') {
-      const network = this.state.srvTelcos[this.state.index]?.telco;
-      const number = this.state.cardNumber;
-      const indexSelectedAmount = this.state.moneyAmount?.findIndex(item => item.isSelected === true);
-      const amount = this.state.moneyAmount[indexSelectedAmount]?.amount;
-      console.log(amount);
-      console.log(network);
-      console.log(number);
-      if (number === 0) {
-        Toast.show('Vui lòng chọn số lượng.');
-      } else {
-        this.props.route?.navigation.navigate(CONFIRM_BILL_CREATE,
-          {
-            dataBillCreate: {
-              phoneNumber: 'Tài khoản của tôi',
-              service: 'EPIN',
-              network: network,
-              amount: amount,
-              number: number,
-            },
-          },
-        );
-      }
+    this._onKeyboardDismiss();
+    const {contractId, error} = this.state;
+    if (this._checkActive()) {
+      // viết logic thanh toán ở đây
     }
   };
 
-  _increaseCardNumber = () => {
-    if (this.state.cardNumber < 10) {
-      this.setState({
-        cardNumber: ++this.state.cardNumber,
-      });
+  _calculateTotalAmount = async () => {
+    const {months, data, additionCard} = this.state;
+    const itemKPlusSelected = await months?.filter(item => item.isSelected === true);
+    const itemAdditionPriceSelected = await additionCard?.filter(item => item.isSelected === true);
+    const additionPrice = data.addition_price;
+    const totalAmount = await Number(itemKPlusSelected[0]?.price) - Number(itemKPlusSelected[0]?.discountAmount)
+      + Number(itemAdditionPriceSelected[0]?.value) * Number(additionPrice);
+    if (!isNaN(totalAmount)){
+      this.setState({totalAmount});
     }
-  };
-
-  _decreaseCardNumber = () => {
-    if (this.state.cardNumber > 0) {
-      this.setState({
-        cardNumber: --this.state.cardNumber,
-      });
-    }
-  };
-
-  _renderChooseCardNumber = () => {
-    return (
-      <View style={styles.chooseCardNumberArea}>
-        <Text style={[texts.l_h4, { fontWeight: 'bold' }]}>
-          {getString('AMOUNT')}
-        </Text>
-        <View style={{ flexDirection: 'row', flex: 1, justifyContent: 'flex-end', alignItems: 'center' }}>
-          <TouchableOpacity style={styles.buttonAddMinus} onPress={() => this._decreaseCardNumber()}>
-            <Text style={styles.whiteBoldText}>-</Text>
-          </TouchableOpacity>
-          <View style={styles.inputNumber}>
-            <Text style={texts.normal}>{this.state.cardNumber}</Text>
-          </View>
-          <TouchableOpacity style={styles.buttonAddMinus} onPress={() => this._increaseCardNumber()}>
-            <Text style={styles.whiteBoldText}>+</Text>
-          </TouchableOpacity>
-        </View>
-      </View>
-    );
   };
 
   render() {
-    const { isLoading, error, data, moneyAmount, srvTelcos, index } = this.state;
-    const { contractId, contractError } = this.state;
-    const { service } = this.props.route;
+    const {isLoading, error, data, contractIndex, months, additionCard} = this.state;
+    const {contractId, contractError, contractErrorContent} = this.state;
     const isEPIN = this.props.route?.service === 'EPIN';
     if (isLoading) {
       return (
-        <View style={[styles.container, { alignItems: 'center', justifyContent: 'center' }]}>
-          <LoadingDialog />
+        <View style={[styles.container, {alignItems: 'center', justifyContent: 'center'}]}>
+          <LoadingDialog/>
         </View>
       );
     }
@@ -312,85 +235,88 @@ class KPlus extends React.Component {
         {/*  contentContainerStyle={{flex: 1, alignItems: 'center', backgroundColor: COLOR.BACKGROUND_COLOR}}*/}
         {/*  behavior={'padding'}>*/}
         <View
-          style={{ alignItems: 'center' }}>
-            <Header back={true} navigation={this.props.navigation} title={'Gia hạn K+'}/>
-          {
-            this.props.route?.service !== 'EPIN' ? <ChooseServiceAndPhone
-              kPlusService={true}
-              error={contractId}
-              errorContent={contractError}
-              onTypingPhoneNumber={phoneNumber => this._onTypingPhoneNumber(phoneNumber)}
-              checkValidPhoneNumber={phoneNumber => this._checkValidPhoneNumber(phoneNumber)}
-              phoneNumber={this.state.phoneNumber}
-              navigation={this.props.route?.navigation}
-              note={data?.note}
-              openChooseNetwork={() => this.setState({ isVisibleChooseNetwork: true })}
-              networkCode={srvTelcos[index]?.telco}
-              service={this.props.route?.service}
-            /> : <ChooseEPINService
-                networkCode={srvTelcos[index]?.telco}
-                selectNetwork={telco => this._selectNetwork(telco)}
-                srvTelcos={this.state.srvTelcos}
-              />
-          }
-          <View style={{ width, paddingHorizontal: scaleModerate(15) }}>
-            <Text style={[texts.l_h4, { fontWeight: 'bold' }]}>{getString('AMOUNT_TO_DEPOSIT')}</Text>
+          style={{alignItems: 'center'}}>
+          <Header back={true} navigation={this.props.navigation} title={'Gia hạn K+'}/>
+          <ChooseServiceAndPhone
+            kPlusService={true}
+            error={contractError}
+            errorContent={contractErrorContent}
+            onTypingPhoneNumber={phoneNumber => this._onTypingPhoneNumber(phoneNumber)}
+            checkValidPhoneNumber={phoneNumber => this._checkValidPhoneNumber(phoneNumber)}
+            phoneNumber={contractId}
+            navigation={this.props.navigation}
+            note={data?.note}
+            service={this.props.route?.service}
+          />
+          <View style={{width, paddingHorizontal: scaleModerate(15)}}>
+            <Text style={[texts.l_h4, {fontWeight: 'bold'}]}>{'Số tháng'}</Text>
           </View>
           <FlatList
-            style={{ marginTop: scaleVertical(5) }}
+            style={{marginTop: scaleVertical(5)}}
             numColumns={3}
-            data={moneyAmount}
+            data={months}
             nestedScrollEnabled={true}
             extraData={this.state}
             keyExtractor={(item, index) => index}
-            renderItem={({ item, index }) => <ItemRechargeList
+            renderItem={({item, index}) => <ItemKPlus
               data={item}
-              onPress={() => this._selectItem(item, index)} />}
+              onPress={() => this._selectItemKPlus(item, index)}/>}
           />
-          {isLoading && <LoadingDialog />}
+
+          <View style={{width, paddingHorizontal: scaleModerate(15)}}>
+            <Text style={[texts.l_h4, {fontWeight: 'bold'}]}>{'Số thẻ phụ'}</Text>
+          </View>
+          <FlatList
+            style={{marginTop: scaleVertical(5)}}
+            numColumns={3}
+            data={additionCard}
+            nestedScrollEnabled={true}
+            extraData={this.state}
+            keyExtractor={(item, index) => index}
+            renderItem={({item, index}) => <ItemAdditionPrice
+              data={item}
+              onPress={() => this._selectItemAdditionCard(item, index)}/>}
+          />
+          <View style={{width, paddingHorizontal: scaleModerate(15)}}>
+            <Text style={[texts.l_h4, {fontWeight: 'bold'}]}>
+              {'Tổng: ' + formatMoney(this.state.totalAmount) + ' đ'}
+            </Text>
+          </View>
+
+          <View style={{width, paddingHorizontal: scaleModerate(15), marginTop: scaleVertical(20)}}>
+            <Text style={[texts.l_sm]}>{this.state.data?.description}</Text>
+          </View>
+          {isLoading && <LoadingDialog/>}
           {
             error !== null && <MessageDialog
               message={error.message}
-              close={() => this.setState({ error: null })}
+              close={() => this.setState({error: null})}
             />
           }
-          {
-            this.state.isVisibleChooseNetwork && <ChooseNetwork
-              selectNetwork={telco => this._selectNetwork(telco)}
-              srvTelcos={this.state.srvTelcos}
-              indexSelected={this.state.index}
-              visible={true}
-              close={() => this.setState({ isVisibleChooseNetwork: false })}
-            />
-          }
-          {
-            isEPIN && this._renderChooseCardNumber()
-          }
-
         </View>
         {/*</KeyboardAvoidingView>*/}
         <View style={[styles.buttonArea]}>
           <TouchableOpacity
             // style={styles.button}
-            style={{ width: '100%', height: scaleVertical(50) }}
-            onPress={() => this._onPressDeposit()}>
+            style={{width: '100%', height: scaleVertical(50)}}
+            onPress={this._onPressDeposit}>
             <LinearGradient
-              start={{ x: 0, y: 0.75 }} end={{ x: 1, y: 0.25 }}
+              start={{x: 0, y: 0.75}} end={{x: 1, y: 0.25}}
               colors={['#ff547c', '#c944f7']}
               style={styles.button}>
-              <Text style={texts.white_bold}>{getString('DEPOSIT_NOW').toUpperCase()}</Text>
+              <Text style={texts.white_bold}>{'THANH TOÁN'}</Text>
             </LinearGradient>
           </TouchableOpacity>
         </View>
       </View>
-      );
+    );
   }
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: COLOR.BACKGROUND_COLOR
+    backgroundColor: COLOR.BACKGROUND_COLOR,
   },
   center: {
     width,
