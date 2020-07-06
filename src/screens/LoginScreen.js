@@ -46,6 +46,7 @@ class LoginScreen extends React.Component {
     } else {
       this._loginSuccess(response);
     }
+    console.log('EEEEEEERRRRORRRR:'+JSON.stringify(this.state.responseError))
   }
 
   async _loginSuccess(response) {
@@ -199,7 +200,7 @@ class LoginScreen extends React.Component {
           }
           {
             this.state.responseError !== null ? <MessageDialog
-              message={this.state.responseError.data?.descripiton ? this.state.responseError.data?.descripiton : this.state.responseError.data.message}
+              message={this.state.responseError.data.descripiton ? this.state.responseError.data.descripiton : this.state.responseError.data.message}
               close={() => {
                 this.setState({ responseError: null });
               }}

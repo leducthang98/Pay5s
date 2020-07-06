@@ -20,10 +20,10 @@ class MessageDialog extends PureComponent {
   render() {
     const { title, message, textButton } = this.props;
     return (
-      <Modal
-        animationType={'fade'}
-        visible={this.props.visible}
-        transparent={true}>
+      // <Modal
+      //   animationType={'fade'}
+      //   visible={this.props.visible}
+      //   transparent={true}>
         <View style={styles.container}>
           <View style={[styles.messageArea, { paddingVertical: scaleVertical(20), paddingHorizontal: scaleModerate(15) }]}>
             <Text style={texts.h3}>{title || getString('NOTIFICATION')}</Text>
@@ -46,7 +46,7 @@ class MessageDialog extends PureComponent {
             </TouchableOpacity>
           </View>
         </View>
-      </Modal>
+      // </Modal>
     )
   }
 }
