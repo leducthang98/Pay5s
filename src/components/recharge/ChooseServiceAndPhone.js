@@ -84,7 +84,7 @@ export default class ChooseServiceAndPhone extends Component {
               <Image
                 style={{width: '100%', height: '100%', borderRadius: scaleModerate(8)}}
                 resizeMode={'contain'}
-                source={NETWORK_SQUARE[networkCode || 'VINA']}/>
+                source={require('../../res/images/recharge/logok.png')}/>
             </View> :
             <TouchableOpacity
               onPress={() => this.props.openChooseNetwork()}

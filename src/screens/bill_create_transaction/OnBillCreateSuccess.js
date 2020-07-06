@@ -32,12 +32,18 @@ class OnBillCreateSuccess extends React.Component {
                     <View style={{ width: '100%', height: '30%', justifyContent: 'center', alignItems: 'center' }}>
                         <Icon name={'check-circle'} size={scaleModerate(60)} color={PRIMARY_COLOR} />
                     </View>
-                    <View style={{ width: '100%', justifyContent: 'center', alignItems: 'center', paddingLeft: scale(20), paddingRight: scale(10) }}>
-                        <Text style={{ fontSize: scale(14) }}>Quý khách đã giao dịch thành công {<Text style={{ fontWeight: 'bold', fontSize: scale(14), color: PRIMARY_COLOR }}> {formatMoney(data.amount)} VNĐ</Text>} cho tài khoản {<Text style={{ fontWeight: 'bold', fontSize: scale(14), color: PRIMARY_COLOR }}>{data.mobile}</Text>}.</Text>
-                    </View>
+                    {
+                        data?.type !== 'KPLUS' ? <View style={{ width: '100%', justifyContent: 'center', alignItems: 'center', paddingLeft: scale(20), paddingRight: scale(10) }}>
+                            <Text style={{ fontSize: scale(14) }}>Quý khách đã giao dịch thành công {<Text style={{ fontWeight: 'bold', fontSize: scale(14), color: PRIMARY_COLOR }}> {formatMoney(data.amount)} VNĐ</Text>} cho tài khoản {<Text style={{ fontWeight: 'bold', fontSize: scale(14), color: PRIMARY_COLOR }}>{data.mobile}</Text>}.</Text>
+                        </View>
+                            :
+                            <View style={{ width: '100%', justifyContent: 'center', alignItems: 'center', paddingLeft: scale(20), paddingRight: scale(10) }}>
+                                <Text style={{ fontSize: scale(14) }}>Gia hạn K+ thành công cho tài khoản{<Text style={{ fontWeight: 'bold', fontSize: scale(14), color: PRIMARY_COLOR }}> {formatMoney(data.username)}</Text>}, số tháng:{<Text style={{ fontWeight: 'bold', fontSize: scale(14), color: PRIMARY_COLOR }}> {formatMoney(data.month_cnt)}</Text>}, số thẻ phụ:{<Text style={{ fontWeight: 'bold', fontSize: scale(14), color: PRIMARY_COLOR }}> {formatMoney(data.addition)}</Text>}. </Text>
+                            </View>
+                    }
                     <TouchableOpacity
                         onPress={() => this.backHome()}
-                        style={{marginTop:scale(50),  borderRadius: scaleModerate(30)}}
+                        style={{ marginTop: scale(50), borderRadius: scaleModerate(30) }}
                     >
                         <LinearGradient
                             start={{ x: 0, y: 0.75 }} end={{ x: 1, y: 0.25 }}

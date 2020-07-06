@@ -1,5 +1,5 @@
 import { callApiWithoutHeader, callApiWithRawBody, callPostApiWithoutHeader, callPostApiWthRawBody, callApiWithToken, callApiWithTokenAndRawBody } from './CommonApi';
-import { LOGIN_URL, OTP_GET, REGIST_URL, LOGOUT_URL, ACCOUNT_UPDATE, FORGET_PASSWORD, CREATE_TRANS_PASSWORD, REQUEST_OTP_TRANS, RESET_TRANS_KEY, TRANSFER, BILL_CREATE, EPIN_CREATE } from '../api/Api';
+import { LOGIN_URL, OTP_GET, REGIST_URL, LOGOUT_URL, ACCOUNT_UPDATE, FORGET_PASSWORD, CREATE_TRANS_PASSWORD, REQUEST_OTP_TRANS, RESET_TRANS_KEY, TRANSFER, BILL_CREATE, EPIN_CREATE, KPLUS_CREATE } from '../api/Api';
 
 export const login = async (username, password) => {
   const data = {
@@ -90,4 +90,14 @@ export const createEpin = async (telco, amount, number, signature, token, time) 
     time: time
   }
   return await callApiWithTokenAndRawBody('post', EPIN_CREATE, token, data);
+};
+export const createKplus = async (username, month_cnt, addition, signature, token, time) => {
+  const data = {
+    username: username,
+    month: month_cnt,
+    addition: addition,
+    time: time,
+    signature: signature,
+  }
+  return await callApiWithTokenAndRawBody('post', KPLUS_CREATE, token, data);
 };

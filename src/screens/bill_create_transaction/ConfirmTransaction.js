@@ -7,7 +7,7 @@ import { formatMoney } from '../../constant/CommonFormat';
 import { TRANS_PASSWORD_SCREEN, COMMIT_TRANSFER, LOGIN, ON_TRANSFER_SUCCESS, ON_BILL_CREATE_SUCCESS, EPIN_SUCCESS, } from '../../navigators/RouteName';
 import AsyncStorage from '@react-native-community/async-storage';
 import { getCurrentTime, md5Signature } from '../../constant/Secure'
-import { transfer, createBill, createEpin } from '../../fetchAPIs/AuthApi';
+import { transfer, createBill, createEpin, createKplus } from '../../fetchAPIs/AuthApi';
 import LoadingDialog from '../../components/common/LoadingDialog';
 import MessageDialog from '../../components/common/MessageDialog';
 import Toast from 'react-native-simple-toast';
@@ -110,12 +110,49 @@ class CommitTransferTransaction extends React.Component {
             })
         );
     }
+    async onPressKPlus() {
+        this.setState({ isLoading: true });
+        let token_user = await AsyncStorage.getItem('access_token');
+        let data = this.props.route.params.dataBillCreate;
+        let username = data.phoneNumber;
+        let month_cnt = data.month;
+        let addition = data.number;
+        let time = getCurrentTime();
+        let dataSign = username + '*' + month_cnt + '*' + addition + '*' + time + '*' + this.state.transPassword
+        let signature = md5Signature(dataSign);
+        console.log(dataSign)
+        const response = await createKplus(username, month_cnt, addition, signature, token_user, time)
+        console.log(response)
+        this.setState({ isLoading: false });
+        if (!response) {
+            this.setState({ responseError: { message: getString('UNKNOWN_ERROR') } });
+        } else if (response.errorCode !== 200) {
+            if (response.message === 'InvalidToken') {
+                this.setState({
+                    isTokenExpired: true,
+                })
+            } else {
+                this.setState({
+                    responseError: response
+                })
+            }
+        } else {
+            this.props.navigation.navigate(ON_BILL_CREATE_SUCCESS, {
+                dataCreateBillSuccess: {
+                    type:'KPLUS',
+                    username: username,
+                    month_cnt: month_cnt,
+                    addition: addition,
+                }
+            });
+        }
+    }
 
     render() {
         if (!this.state.isTokenExpired) {
             let data = this.props.route.params.dataBillCreate;
             let type = data.service;
-            let renderServiceType = 'null';
+            let renderServiceType = 'Gia hạn K+';
             if (type === 'TKC') {
                 renderServiceType = 'Bắn TK trả trước'
             } else if (type === 'TT') {
@@ -125,11 +162,11 @@ class CommitTransferTransaction extends React.Component {
             } else if (type === 'FTTH') {
                 renderServiceType = 'Internet'
             }
-            else {
+            else if (type === 'EPIN') {
                 renderServiceType = 'Mua mã thẻ'
             }
             let network = data.network
-            let renderNetwork = 'null'
+            let renderNetwork = ''
             if (network === 'VTT') {
                 renderNetwork = 'Viettel'
             } else if (network === 'VINA') {
@@ -155,6 +192,8 @@ class CommitTransferTransaction extends React.Component {
 
                             <Text style={styles.textStyle}>Dịch vụ:</Text>
                             <Text style={styles.dataStyle}>{renderServiceType} {renderNetwork}</Text>
+
+
                             <Text style={styles.textStyle}>Số tiền:</Text>
                             <Text style={styles.dataStyle}>{formatMoney(data.amount)}</Text>
                             {
@@ -175,26 +214,48 @@ class CommitTransferTransaction extends React.Component {
                                 style={styles.inputStyle}></TextInput>
                         </View>
 
-                        <View style={{ flexDirection: 'row', width: '100%', height: '10%', marginTop: scale(10), justifyContent: 'center', alignItems: 'center' }}>
-                            <TouchableOpacity
-                                disabled={(this.state.transPassword) ? false : true}
-                                onPress={() => (type === 'EPIN' ? this._onPressEpinCommit() : this._onPressCommit())}
-                                style={{ borderRadius: scaleModerate(30), }}>
-                                <LinearGradient
-                                    start={{ x: 0, y: 0.75 }} end={{ x: 1, y: 0.25 }}
 
-                                    colors={['#ff547c', '#c944f7']}
-                                    style={{
-                                        width: containerW * 0.6,
-                                        height: scale(40),
-                                        borderRadius: scaleModerate(30),
-                                        alignItems: 'center',
-                                        justifyContent: 'center',
-                                    }}>
-                                    <Text style={{ fontSize: scale(15), color: (this.state.transPassword) ? 'white' : '#C0C0C0' }}>Xác nhận</Text>
-                                </LinearGradient>
-                            </TouchableOpacity>
-                        </View>
+                        {
+                            data.service === 'KPLUS' ? <View style={{ flexDirection: 'row', width: '100%', height: '10%', marginTop: scale(10), justifyContent: 'center', alignItems: 'center' }}>
+                                <TouchableOpacity
+                                    disabled={(this.state.transPassword) ? false : true}
+                                    onPress={() => this.onPressKPlus()}
+                                    style={{ borderRadius: scaleModerate(30), }}>
+                                    <LinearGradient
+                                        start={{ x: 0, y: 0.75 }} end={{ x: 1, y: 0.25 }}
+
+                                        colors={['#ff547c', '#c944f7']}
+                                        style={{
+                                            width: containerW * 0.6,
+                                            height: scale(40),
+                                            borderRadius: scaleModerate(30),
+                                            alignItems: 'center',
+                                            justifyContent: 'center',
+                                        }}>
+                                        <Text style={{ fontSize: scale(15), color: (this.state.transPassword) ? 'white' : '#C0C0C0' }}>Xác nhận</Text>
+                                    </LinearGradient>
+                                </TouchableOpacity>
+                            </View> : <View style={{ flexDirection: 'row', width: '100%', height: '10%', marginTop: scale(10), justifyContent: 'center', alignItems: 'center' }}>
+                                    <TouchableOpacity
+                                        disabled={(this.state.transPassword) ? false : true}
+                                        onPress={() => (type === 'EPIN' ? this._onPressEpinCommit() : this._onPressCommit())}
+                                        style={{ borderRadius: scaleModerate(30), }}>
+                                        <LinearGradient
+                                            start={{ x: 0, y: 0.75 }} end={{ x: 1, y: 0.25 }}
+
+                                            colors={['#ff547c', '#c944f7']}
+                                            style={{
+                                                width: containerW * 0.6,
+                                                height: scale(40),
+                                                borderRadius: scaleModerate(30),
+                                                alignItems: 'center',
+                                                justifyContent: 'center',
+                                            }}>
+                                            <Text style={{ fontSize: scale(15), color: (this.state.transPassword) ? 'white' : '#C0C0C0' }}>Xác nhận</Text>
+                                        </LinearGradient>
+                                    </TouchableOpacity>
+                                </View>
+                        }
                         <TouchableOpacity
                             onPress={() => this.props.navigation.navigate(TRANS_PASSWORD_SCREEN)}>
                             <Text style={{ fontSize: scale(15), marginTop: scaleVertical(20), textDecorationLine: 'underline', fontWeight: 'bold', color: COLOR.PRIMARY_COLOR }}>Quản lý mật khẩu giao dịch</Text>

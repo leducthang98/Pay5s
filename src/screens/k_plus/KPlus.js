@@ -207,10 +207,22 @@ class KPlus extends React.Component {
       const itemAdditionPriceSelected = await additionCard?.filter(item => item.isSelected === true);
       let dataKPlus = {
         contract: contractId,
-        month: itemKPlusSelected[0]?.price,
+        month: itemKPlusSelected[0]?.month,
         addition: itemAdditionPriceSelected[0]?.value
       }
       console.log(dataKPlus)
+      this.props.navigation.navigate(CONFIRM_BILL_CREATE,
+        {
+          dataBillCreate: {
+            phoneNumber: contractId,
+            service: 'KPLUS',
+            network: 'K+',
+            amount: this.state.totalAmount,
+            number: dataKPlus.addition,
+            month:dataKPlus.month
+          },
+        },
+      );
     }
   };
 

@@ -128,6 +128,8 @@ class BillScreen extends React.Component {
                       service = 'Mua mã thẻ'
                     } else if (item.service == 'FTTH') {
                       service = 'Internet'
+                    } else {
+                      service = 'Gia hạn K+'
                     }
 
                     if (item.status == 0) {
@@ -149,6 +151,9 @@ class BillScreen extends React.Component {
                         telco = 'Mobiphone'
                         networkIcon = NETWORK.VMS
                         break;
+                      default:
+                        telco = ''
+                        networkIcon=NETWORK.KPLUS
                     }
                     let mobile = item.mobile
                     let amount = formatMoney(item.amount) + 'đ'
