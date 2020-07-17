@@ -18,6 +18,7 @@ import {refreshStore} from '../../actions/ActionRefresh';
 import {connect} from 'react-redux';
 import {setPhoneNumberForRecharge} from '../../actions/ActionBillScreen';
 import LoadingDialog from '../../components/common/LoadingDialog';
+import {ActivityIndicator} from 'react-native-paper';
 
 class ContactList extends Component {
   constructor(props) {
@@ -34,12 +35,16 @@ class ContactList extends Component {
     if (Platform.OS === 'android') {
       await this._getPermissionAndroid();
     }
-    this.setState({isLoading: true});
     await this._getAllContact();
-    this.setState({isLoading: false});
   }
 
   _getAllContact = async () => {
+    this.setState({isLoading: true});
+    await this._loadAll();
+    this.setState({isLoading: false});
+  };
+
+  _loadAll = async () => {
     Contacts.getAll((error, contacts) => {
       if (error === 'denied') {
         console.error('error when get contact = ', error);
@@ -74,12 +79,18 @@ class ContactList extends Component {
     if (searchValue === '' || searchValue === null) {
       await this._getAllContact();
     } else if (phoneNumberRegex.test(searchValue)) {
-      Contacts.getContactsByPhoneNumber(searchValue, (err, searchResult) => {
+      Contacts.getContactsByPhoneNumber(searchValue, (error, searchResult) => {
         this.setState({searchResult});
+        if (error){
+          console.log('error getContactsByPhoneNumber = ', error)
+        }
       });
     } else {
-      Contacts.getContactsMatchingString(searchValue, (err, searchResult) => {
+      Contacts.getContactsMatchingString(searchValue, (error, searchResult) => {
         this.setState({searchResult});
+        if (error){
+          console.log('error getContactsMatchingString = ', error)
+        }
       });
     }
   };
@@ -95,21 +106,30 @@ class ContactList extends Component {
       <View style={styles.container}>
         <Header back={true} title={'Danh sách liên lạc'} navigation={this.props.navigation}/>
         <SearchBox value={searchValue} onChangeText={this._onSearch} clearSearch={this._clearSearch}/>
-        <FlatList
-          style={styles.list}
-          data={searchResult}
-          keyExtractor={item => item?.rawContactId}
-          renderItem={({item, index}) =>
-            <ContactItem
-              fullName={item?.displayName}
-              familyName={item?.familyName}
-              givenName={item?.givenName}
-              phoneNumber={item?.phoneNumbers[0]?.number}
-              chooseContact={phoneNumber => this._chooseContact(phoneNumber)}
+        {
+          isLoading ?
+            <View style={styles.loadingView}>
+              <ActivityIndicator
+                size={'large'}
+                color={COLOR.PRIMARY_COLOR}
+              />
+            </View>
+            :
+            <FlatList
+              style={styles.list}
+              data={searchResult}
+              keyExtractor={item => item?.rawContactId}
+              renderItem={({item, index}) =>
+                <ContactItem
+                  fullName={item?.displayName}
+                  familyName={item?.familyName}
+                  givenName={item?.givenName}
+                  phoneNumber={item?.phoneNumbers[0]?.number}
+                  chooseContact={phoneNumber => this._chooseContact(phoneNumber)}
+                />
+              }
             />
-          }
-        />
-        {isLoading && <LoadingDialog visible={true} message={'GETTING_CONTACT'}/>}
+        }
       </View>
     );
   }
@@ -125,6 +145,11 @@ const styles = StyleSheet.create({
   list: {
     width: '100%',
   },
+  loadingView:{
+    flex:1,
+    alignItems: 'center',
+    justifyContent:'center'
+  }
 });
 const mapStateToProps = (store) => {
   return {};
