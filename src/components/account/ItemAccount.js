@@ -30,7 +30,7 @@ export default class ItemAccount extends Component {
           color={iconLeftColor || 'gray'} /> */}
         <Image
         resizeMode={'contain'}
-          style={styles.icon,size.smd}
+          style={[styles.icon,size.smd]}
           source={iconLeftName}
         />
         <View style={styles.textArea}>

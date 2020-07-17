@@ -21,17 +21,23 @@ export default class SearchBox extends Component {
   }
 
   render() {
+    const {value, onChangeText, placeholder, clearSearch} = this.props;
     return (
       <View style={styles.container}>
         <Icon name={'search'} size={scaleModerate(20)} color={COLOR.PLACEHOLDER_TEXT}/>
         <TextInput
+          value={value}
+          onChangeText={onChangeText}
           style={[styles.input, texts.l_normal]}
-          placeholder={this.props.placeholder || 'Nhập thông tin'}
+          placeholder={placeholder || 'Nhập thông tin'}
           placeholderColor={COLOR.PLACEHOLDER_TEXT}
         />
-        <TouchableOpacity>
-          <Icon name={'close'} size={scaleModerate(15)} color={COLOR.TEXT_LABEL}/>
-        </TouchableOpacity>
+        {
+          value !== '' && <TouchableOpacity onPress={clearSearch}>
+            <Icon name={'close'} size={scaleModerate(15)} color={COLOR.TEXT_LABEL}/>
+          </TouchableOpacity>
+        }
+
       </View>
     );
   }

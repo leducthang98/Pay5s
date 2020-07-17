@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import {
   View,
   FlatList,
@@ -10,21 +10,22 @@ import Contacts from 'react-native-contacts';
 import * as COLOR from '../../constant/Colors';
 import Header from '../../components/common/Header';
 import SearchBox from '../../components/recharge/SearchBox';
-import { scaleModerate } from '../../constant/Scale';
+import {scaleModerate} from '../../constant/Scale';
 import ContactItem from '../../components/recharge/ContactItem';
 import AsyncStorage from '@react-native-community/async-storage';
-import { getTransfer } from '../../actions/ActionHomeScreen';
-import { refreshStore } from '../../actions/ActionRefresh';
-import { connect } from 'react-redux';
-import { setPhoneNumberForRecharge } from '../../actions/ActionBillScreen';
+import {getTransfer} from '../../actions/ActionHomeScreen';
+import {refreshStore} from '../../actions/ActionRefresh';
+import {connect} from 'react-redux';
+import {setPhoneNumberForRecharge} from '../../actions/ActionBillScreen';
 
 class ContactList extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      contacts: [],
-      searchResult: []
+      searchResult: [],
+      searchValue: '',
     };
+    this.contacts = [];
   }
 
   async componentDidMount() {
@@ -41,7 +42,8 @@ class ContactList extends Component {
       } else {
         console.log('contact = ', contacts);
 
-        this.setState({ contacts });
+        this.setState({searchResult: contacts});
+        this.contacts = contacts;
       }
     });
   };
@@ -62,32 +64,38 @@ class ContactList extends Component {
     this.props.navigation.pop();
   };
 
-  // _search = (list, searchValue) => {
-  //   if (searchValue === '') {
-  //     this.setState({ searchResult: [] });
-  //     return;
-  //   }
-  //   const availableItems = [];
-  //   list.map((item, index) => {
-  //     if (item.includes(searchValue)) {
-  //       availableItems.push(item)
-  //     }
-  //   })
-  //   this.setState({ searchResult: availableItems })
-  // }
+  _onSearch = async (searchValue) => {
+    this.setState({searchValue})
+    const phoneNumberRegex = /\b[\+]?[(]?[0-9]{2,6}[)]?[-\s\.]?[-\s\/\.0-9]{3,15}\b/m;
+    if (searchValue === '' || searchValue === null) {
+      await this._getAllContact();
+    } else if (phoneNumberRegex.test(searchValue)) {
+      Contacts.getContactsByPhoneNumber(searchValue, (err, searchResult) => {
+        this.setState({searchResult});
+      });
+    } else {
+      Contacts.getContactsMatchingString(searchValue, (err, searchResult) => {
+        this.setState({searchResult});
+      });
+    }
+  };
+
+  _clearSearch = async () => {
+    this.setState({searchValue: ''});
+    await this._onSearch('');
+  };
 
   render() {
-    const { contacts, searchResult } = this.state;
-    console.log('contact list = ', contacts);
+    const {searchResult, searchValue} = this.state;
     return (
       <View style={styles.container}>
-        <Header back={true} title={'Danh sách liên lạc'} navigation={this.props.navigation} />
-        {/* <SearchBox /> */}
+        <Header back={true} title={'Danh sách liên lạc'} navigation={this.props.navigation}/>
+        <SearchBox value={searchValue} onChangeText={this._onSearch} clearSearch={this._clearSearch}/>
         <FlatList
           style={styles.list}
-          data={contacts}
+          data={searchResult}
           keyExtractor={item => item?.rawContactId}
-          renderItem={({ item, index }) =>
+          renderItem={({item, index}) =>
             <ContactItem
               fullName={item?.displayName}
               familyName={item?.familyName}
@@ -114,14 +122,12 @@ const styles = StyleSheet.create({
   },
 });
 const mapStateToProps = (store) => {
-  return {
-
-  };
+  return {};
 };
 const mapDispatchToProps = (dispatch) => {
   return {
     setPhoneNumber: (phoneNumber) => {
-      dispatch(setPhoneNumberForRecharge(phoneNumber))
+      dispatch(setPhoneNumberForRecharge(phoneNumber));
     },
   };
 };
