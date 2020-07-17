@@ -40,6 +40,9 @@ const vn = {
   BUY_CARD: 'Mua mã thẻ',
   INTERNET_VIETTEL: 'Internet Viettel',
 
+  //contact
+  GETTING_CONTACT: 'Đang lấy danh bạ...',
+
 };
 export const getString = (code) => {
   return vn[code];

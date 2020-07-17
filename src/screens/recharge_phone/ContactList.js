@@ -17,6 +17,7 @@ import {getTransfer} from '../../actions/ActionHomeScreen';
 import {refreshStore} from '../../actions/ActionRefresh';
 import {connect} from 'react-redux';
 import {setPhoneNumberForRecharge} from '../../actions/ActionBillScreen';
+import LoadingDialog from '../../components/common/LoadingDialog';
 
 class ContactList extends Component {
   constructor(props) {
@@ -24,6 +25,7 @@ class ContactList extends Component {
     this.state = {
       searchResult: [],
       searchValue: '',
+      isLoading: false,
     };
     this.contacts = [];
   }
@@ -32,7 +34,9 @@ class ContactList extends Component {
     if (Platform.OS === 'android') {
       await this._getPermissionAndroid();
     }
+    this.setState({isLoading: true});
     await this._getAllContact();
+    this.setState({isLoading: false});
   }
 
   _getAllContact = async () => {
@@ -65,7 +69,7 @@ class ContactList extends Component {
   };
 
   _onSearch = async (searchValue) => {
-    this.setState({searchValue})
+    this.setState({searchValue});
     const phoneNumberRegex = /\b[\+]?[(]?[0-9]{2,6}[)]?[-\s\.]?[-\s\/\.0-9]{3,15}\b/m;
     if (searchValue === '' || searchValue === null) {
       await this._getAllContact();
@@ -86,7 +90,7 @@ class ContactList extends Component {
   };
 
   render() {
-    const {searchResult, searchValue} = this.state;
+    const {searchResult, searchValue, isLoading} = this.state;
     return (
       <View style={styles.container}>
         <Header back={true} title={'Danh sách liên lạc'} navigation={this.props.navigation}/>
@@ -105,6 +109,7 @@ class ContactList extends Component {
             />
           }
         />
+        {isLoading && <LoadingDialog visible={true} message={'GETTING_CONTACT'}/>}
       </View>
     );
   }

@@ -70,7 +70,7 @@ const Stack = createStackNavigator();
 function RootNavigator() {
     return (
         <NavigationContainer >
-            <Stack.Navigator initialRouteName={CONTACT_LIST} headerMode={'none'} >
+            <Stack.Navigator initialRouteName={BEGIN} headerMode={'none'} >
                 <Stack.Screen name={BEGIN} component={SplashScreen} />
                 <Stack.Screen name={LOGIN} component={LoginScreen} />
                 <Stack.Screen name={BOTTOM_TAB} component={BottomTabNavigator} />
